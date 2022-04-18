@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Board_Member</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>Board_Member_Compact_Layout</compactLayoutAssignment>
+    <label>Board Member</label>
+    <picklistValues>
+        <picklist>Board_Committee1__c</picklist>
+        <values>
+            <fullName>Board Engagement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disaster Services %28TDS%29 Advisory Council</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Executive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facilities %26 Equipment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Legal Counsel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing and PR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outreach</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Replication and Sustainability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resource Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology and Data</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Training Center</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Board_Committee2__c</picklist>
+        <values>
+            <fullName>Board Engagement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disaster Services %28TDS%29 Advisory Council</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Executive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facilities %26 Equipment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Legal Counsel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing and PR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outreach</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Replication and Sustainability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resource Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology and Data</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Training Center</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Board_Committee3__c</picklist>
+        <values>
+            <fullName>Board Engagement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disaster Services %28TDS%29 Advisory Council</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Executive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facilities %26 Equipment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Legal Counsel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing and PR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outreach</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Replication and Sustainability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resource Development</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology and Data</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Training Center</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Board_Committee__c</picklist>
+        <values>
+            <fullName>Committee Chair</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disaster Services %28TDS%29 Advisory Council</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Executive Committee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Committee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Legal Counsel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Committee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Replication and Sustainability Committee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resource Development Committee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STAFF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology and Data Committee</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Board_Title__c</picklist>
+        <values>
+            <fullName>Board Director</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Board Director-Affiliate Representative</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CEO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Executive Director-Affiliate Representative</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Counsel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Past Presiding President</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>President</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Secretary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Treasurer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vice President</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Calendar_Year__c</picklist>
+        <values>
+            <fullName>2010</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2011</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2012</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2013</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2014</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2015</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2016</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2017</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2018</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2019</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2020</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2021</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2022</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2023</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

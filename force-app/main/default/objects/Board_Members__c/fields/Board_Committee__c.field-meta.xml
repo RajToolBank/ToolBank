@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Board_Committee__c</fullName>
+    <externalId>false</externalId>
+    <label>Board Committee</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Executive Committee</fullName>
+                <default>false</default>
+                <label>Executive Committee</label>
+            </value>
+            <value>
+                <fullName>Financial Committee</fullName>
+                <default>false</default>
+                <label>Financial Committee</label>
+            </value>
+            <value>
+                <fullName>Committee Chair</fullName>
+                <default>false</default>
+                <label>Committee Chair</label>
+            </value>
+            <value>
+                <fullName>Marketing Committee</fullName>
+                <default>false</default>
+                <label>Marketing and PR Committee</label>
+            </value>
+            <value>
+                <fullName>Resource Development Committee</fullName>
+                <default>false</default>
+                <label>Resource Development Committee</label>
+            </value>
+            <value>
+                <fullName>Replication and Sustainability Committee</fullName>
+                <default>false</default>
+                <label>Replication and Sustainability Committee</label>
+            </value>
+            <value>
+                <fullName>Disaster Services (TDS) Advisory Council</fullName>
+                <default>false</default>
+                <label>Disaster Services (TDS) Advisory Council</label>
+            </value>
+            <value>
+                <fullName>Technology and Data Committee</fullName>
+                <default>false</default>
+                <label>Technology and Data Committee</label>
+            </value>
+            <value>
+                <fullName>STAFF</fullName>
+                <default>false</default>
+                <label>STAFF</label>
+            </value>
+            <value>
+                <fullName>Legal Counsel</fullName>
+                <default>false</default>
+                <label>Legal Counsel</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>3</visibleLines>
+</CustomField>

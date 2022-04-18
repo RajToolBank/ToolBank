@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Critical_Must_Be_Assigned</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF(TEXT( Priority__c )=&quot;Critical&quot; &amp;&amp; ISBLANK( Assigned_To__c ), TRUE, FALSE)</errorConditionFormula>
+    <errorMessage>For &quot;Critical&quot; Requests, please enter an &quot;Assigned to&quot; User.
+You may assign the request to an internal user, or to your Redpath Consultant.
+The Assigned User may be changed/updated as needed</errorMessage>
+</ValidationRule>

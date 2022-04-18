@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category_Detail__c</fullName>
+    <description>Pick the detail(s) of category for this contact. You can choose multiple details.</description>
+    <externalId>false</externalId>
+    <label>Category Detail</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Category__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Member Agency-Rockport, TX</fullName>
+                <default>false</default>
+                <label>Member Agency-Rockport, TX</label>
+            </value>
+            <value>
+                <fullName>Member Agency-Beaumont, TX</fullName>
+                <default>false</default>
+                <label>Member Agency-Beaumont, TX</label>
+            </value>
+            <value>
+                <fullName>Member Agency-Houston, TX</fullName>
+                <default>false</default>
+                <label>Member Agency-Houston, TX</label>
+            </value>
+            <value>
+                <fullName>Board Member</fullName>
+                <default>false</default>
+                <label>Board Member</label>
+            </value>
+            <value>
+                <fullName>Board Prospect</fullName>
+                <default>false</default>
+                <label>Board Prospect</label>
+            </value>
+            <value>
+                <fullName>Community Partner</fullName>
+                <default>false</default>
+                <label>Community Partner</label>
+            </value>
+            <value>
+                <fullName>Community Service</fullName>
+                <default>false</default>
+                <label>Community Service</label>
+            </value>
+            <value>
+                <fullName>Corporate</fullName>
+                <default>false</default>
+                <label>Corporate</label>
+            </value>
+            <value>
+                <fullName>Disaster Services Partner</fullName>
+                <default>false</default>
+                <label>Disaster Services Partner</label>
+            </value>
+            <value>
+                <fullName>Executive Director</fullName>
+                <default>false</default>
+                <label>Executive Director</label>
+            </value>
+            <value>
+                <fullName>Former Board Member</fullName>
+                <default>false</default>
+                <label>Former Board Member</label>
+            </value>
+            <value>
+                <fullName>Former Staff</fullName>
+                <default>false</default>
+                <label>Former Staff</label>
+            </value>
+            <value>
+                <fullName>Foundation</fullName>
+                <default>false</default>
+                <label>Foundation</label>
+            </value>
+            <value>
+                <fullName>Government</fullName>
+                <default>false</default>
+                <label>Government</label>
+            </value>
+            <value>
+                <fullName>Grantor</fullName>
+                <default>false</default>
+                <label>Grantor</label>
+            </value>
+            <value>
+                <fullName>Individual</fullName>
+                <default>false</default>
+                <label>Individual</label>
+            </value>
+            <value>
+                <fullName>Membership Association</fullName>
+                <default>false</default>
+                <label>Membership Association</label>
+            </value>
+            <value>
+                <fullName>Misc. Vendor</fullName>
+                <default>false</default>
+                <label>Misc. Vendor</label>
+            </value>
+            <value>
+                <fullName>Public Official</fullName>
+                <default>false</default>
+                <label>Public Official</label>
+            </value>
+            <value>
+                <fullName>Special Event</fullName>
+                <default>false</default>
+                <label>Special Event</label>
+            </value>
+            <value>
+                <fullName>ToolBank Member Agency</fullName>
+                <default>false</default>
+                <label>ToolBank Member Agency</label>
+            </value>
+            <value>
+                <fullName>Utility Vendor (etc.)</fullName>
+                <default>false</default>
+                <label>Utility Vendor (etc.)</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Community Relationship</controllingFieldValue>
+            <valueName>Community Partner</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community Relationship</controllingFieldValue>
+            <valueName>Membership Association</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Donor</controllingFieldValue>
+            <controllingFieldValue>Prospect</controllingFieldValue>
+            <controllingFieldValue>Volunteer</controllingFieldValue>
+            <valueName>Corporate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Donor</controllingFieldValue>
+            <valueName>Foundation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Donor</controllingFieldValue>
+            <valueName>Government</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Donor</controllingFieldValue>
+            <valueName>Grantor</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Donor</controllingFieldValue>
+            <controllingFieldValue>Prospect</controllingFieldValue>
+            <controllingFieldValue>Volunteer</controllingFieldValue>
+            <controllingFieldValue>Volunteer-Youth</controllingFieldValue>
+            <valueName>Individual</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Prospect</controllingFieldValue>
+            <controllingFieldValue>ToolBank Affiliate</controllingFieldValue>
+            <valueName>Board Prospect</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ToolBank Affiliate</controllingFieldValue>
+            <controllingFieldValue>Volunteer</controllingFieldValue>
+            <valueName>Board Member</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ToolBank Affiliate</controllingFieldValue>
+            <controllingFieldValue>Volunteer</controllingFieldValue>
+            <valueName>Disaster Services Partner</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ToolBank Affiliate</controllingFieldValue>
+            <controllingFieldValue>ToolBank Member Agency</controllingFieldValue>
+            <valueName>ToolBank Member Agency</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ToolBank Member Agency</controllingFieldValue>
+            <valueName>Member Agency-Rockport, TX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ToolBank Member Agency</controllingFieldValue>
+            <valueName>Member Agency-Beaumont, TX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>ToolBank Member Agency</controllingFieldValue>
+            <valueName>Member Agency-Houston, TX</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Vendor</controllingFieldValue>
+            <valueName>Misc. Vendor</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Vendor</controllingFieldValue>
+            <valueName>Utility Vendor (etc.)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Volunteer</controllingFieldValue>
+            <valueName>Community Service</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

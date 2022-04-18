@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Same_Fiscal_Year__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Fiscal Year must be the same as TB USA</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Fiscal Year must be the same as TB USA (Calendar Year)</inlineHelpText>
+    <label>Same Fiscal Year</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

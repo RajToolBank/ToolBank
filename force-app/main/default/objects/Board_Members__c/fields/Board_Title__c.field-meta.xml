@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Board_Title__c</fullName>
+    <externalId>false</externalId>
+    <label>Board Title</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Calendar_Year__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>President</fullName>
+                <default>false</default>
+                <label>President</label>
+            </value>
+            <value>
+                <fullName>Vice President</fullName>
+                <default>false</default>
+                <label>Vice President</label>
+            </value>
+            <value>
+                <fullName>Treasurer</fullName>
+                <default>false</default>
+                <label>Treasurer</label>
+            </value>
+            <value>
+                <fullName>Secretary</fullName>
+                <default>false</default>
+                <label>Secretary</label>
+            </value>
+            <value>
+                <fullName>Board Director</fullName>
+                <default>false</default>
+                <label>Board Director</label>
+            </value>
+            <value>
+                <fullName>Board Director-Affiliate Representative</fullName>
+                <default>false</default>
+                <label>Board Director-Affiliate Representative</label>
+            </value>
+            <value>
+                <fullName>Executive Director-Affiliate Representative</fullName>
+                <default>false</default>
+                <label>Executive Director-Affiliate Representative</label>
+            </value>
+            <value>
+                <fullName>CEO</fullName>
+                <default>false</default>
+                <label>CEO</label>
+            </value>
+            <value>
+                <fullName>Past Presiding President</fullName>
+                <default>false</default>
+                <label>Past Presiding President</label>
+            </value>
+            <value>
+                <fullName>General Counsel</fullName>
+                <default>false</default>
+                <label>General Counsel</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>2017</controllingFieldValue>
+            <controllingFieldValue>2023</controllingFieldValue>
+            <controllingFieldValue>2022</controllingFieldValue>
+            <controllingFieldValue>2021</controllingFieldValue>
+            <controllingFieldValue>2018</controllingFieldValue>
+            <controllingFieldValue>2019</controllingFieldValue>
+            <controllingFieldValue>2020</controllingFieldValue>
+            <controllingFieldValue>2010</controllingFieldValue>
+            <controllingFieldValue>2011</controllingFieldValue>
+            <controllingFieldValue>2012</controllingFieldValue>
+            <controllingFieldValue>2013</controllingFieldValue>
+            <controllingFieldValue>2014</controllingFieldValue>
+            <controllingFieldValue>2015</controllingFieldValue>
+            <controllingFieldValue>2016</controllingFieldValue>
+            <valueName>President</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2017</controllingFieldValue>
+            <controllingFieldValue>2023</controllingFieldValue>
+            <controllingFieldValue>2022</controllingFieldValue>
+            <controllingFieldValue>2021</controllingFieldValue>
+            <controllingFieldValue>2018</controllingFieldValue>
+            <controllingFieldValue>2019</controllingFieldValue>
+            <controllingFieldValue>2020</controllingFieldValue>
+            <controllingFieldValue>2010</controllingFieldValue>
+            <controllingFieldValue>2011</controllingFieldValue>
+            <controllingFieldValue>2012</controllingFieldValue>
+            <controllingFieldValue>2013</controllingFieldValue>
+            <controllingFieldValue>2014</controllingFieldValue>
+            <controllingFieldValue>2015</controllingFieldValue>
+            <controllingFieldValue>2016</controllingFieldValue>
+            <valueName>Vice President</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2017</controllingFieldValue>
+            <controllingFieldValue>2023</controllingFieldValue>
+            <controllingFieldValue>2022</controllingFieldValue>
+            <controllingFieldValue>2021</controllingFieldValue>
+            <controllingFieldValue>2018</controllingFieldValue>
+            <controllingFieldValue>2019</controllingFieldValue>
+            <controllingFieldValue>2020</controllingFieldValue>
+            <controllingFieldValue>2010</controllingFieldValue>
+            <controllingFieldValue>2011</controllingFieldValue>
+            <controllingFieldValue>2012</controllingFieldValue>
+            <controllingFieldValue>2013</controllingFieldValue>
+            <controllingFieldValue>2014</controllingFieldValue>
+            <controllingFieldValue>2015</controllingFieldValue>
+            <controllingFieldValue>2016</controllingFieldValue>
+            <valueName>Treasurer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2017</controllingFieldValue>
+            <controllingFieldValue>2023</controllingFieldValue>
+            <controllingFieldValue>2022</controllingFieldValue>
+            <controllingFieldValue>2021</controllingFieldValue>
+            <controllingFieldValue>2018</controllingFieldValue>
+            <controllingFieldValue>2019</controllingFieldValue>
+            <controllingFieldValue>2020</controllingFieldValue>
+            <controllingFieldValue>2010</controllingFieldValue>
+            <controllingFieldValue>2011</controllingFieldValue>
+            <controllingFieldValue>2012</controllingFieldValue>
+            <controllingFieldValue>2013</controllingFieldValue>
+            <controllingFieldValue>2014</controllingFieldValue>
+            <controllingFieldValue>2015</controllingFieldValue>
+            <controllingFieldValue>2016</controllingFieldValue>
+            <valueName>Secretary</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2017</controllingFieldValue>
+            <controllingFieldValue>2023</controllingFieldValue>
+            <controllingFieldValue>2022</controllingFieldValue>
+            <controllingFieldValue>2021</controllingFieldValue>
+            <controllingFieldValue>2018</controllingFieldValue>
+            <controllingFieldValue>2019</controllingFieldValue>
+            <controllingFieldValue>2020</controllingFieldValue>
+            <controllingFieldValue>2010</controllingFieldValue>
+            <controllingFieldValue>2011</controllingFieldValue>
+            <controllingFieldValue>2012</controllingFieldValue>
+            <controllingFieldValue>2013</controllingFieldValue>
+            <controllingFieldValue>2014</controllingFieldValue>
+            <controllingFieldValue>2015</controllingFieldValue>
+            <controllingFieldValue>2016</controllingFieldValue>
+            <valueName>Board Director</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2023</controllingFieldValue>
+            <controllingFieldValue>2022</controllingFieldValue>
+            <controllingFieldValue>2021</controllingFieldValue>
+            <controllingFieldValue>2019</controllingFieldValue>
+            <controllingFieldValue>2020</controllingFieldValue>
+            <valueName>Board Director-Affiliate Representative</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2023</controllingFieldValue>
+            <controllingFieldValue>2022</controllingFieldValue>
+            <controllingFieldValue>2021</controllingFieldValue>
+            <controllingFieldValue>2019</controllingFieldValue>
+            <controllingFieldValue>2020</controllingFieldValue>
+            <valueName>Executive Director-Affiliate Representative</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2023</controllingFieldValue>
+            <controllingFieldValue>2022</controllingFieldValue>
+            <controllingFieldValue>2021</controllingFieldValue>
+            <controllingFieldValue>2019</controllingFieldValue>
+            <controllingFieldValue>2020</controllingFieldValue>
+            <valueName>CEO</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2023</controllingFieldValue>
+            <controllingFieldValue>2022</controllingFieldValue>
+            <controllingFieldValue>2021</controllingFieldValue>
+            <controllingFieldValue>2019</controllingFieldValue>
+            <controllingFieldValue>2020</controllingFieldValue>
+            <valueName>Past Presiding President</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>2023</controllingFieldValue>
+            <controllingFieldValue>2022</controllingFieldValue>
+            <controllingFieldValue>2021</controllingFieldValue>
+            <controllingFieldValue>2019</controllingFieldValue>
+            <controllingFieldValue>2020</controllingFieldValue>
+            <valueName>General Counsel</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

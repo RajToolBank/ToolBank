@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tool_Market_Compact_ToolBucks_Credit</fullName>
+    <fields>Name</fields>
+    <fields>RecordTypeId</fields>
+    <fields>OwnerId</fields>
+    <fields>Quantity_Left_Available__c</fields>
+    <fields>Market_Value__c</fields>
+    <label>Tool Market Compact - ToolBucks Credit</label>
+</CompactLayout>

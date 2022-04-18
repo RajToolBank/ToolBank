@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tool_Exchange_Cash</fullName>
+    <fields>Name</fields>
+    <fields>RecordTypeId</fields>
+    <fields>Tool_Exchanged__c</fields>
+    <fields>Quantity_Requested__c</fields>
+    <fields>Total_Cash_Value__c</fields>
+    <fields>Approval_Status__c</fields>
+    <fields>Not_Shipped__c</fields>
+    <label>Tool Exchange - Cash</label>
+</CompactLayout>

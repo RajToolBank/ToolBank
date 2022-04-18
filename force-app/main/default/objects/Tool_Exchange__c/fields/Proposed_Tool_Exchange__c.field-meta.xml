@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Proposed_Tool_Exchange__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Proposed Tool Exchange</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Tool_Market__c.OwnerId</field>
+            <operation>equals</operation>
+            <valueField>$User.Id</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Tool_Market__c</referenceTo>
+    <relationshipLabel>Tool Exchanges (Proposed Tool Exchange)</relationshipLabel>
+    <relationshipName>Tool_Exchanges1</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

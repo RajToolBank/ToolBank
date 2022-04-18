@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Value_Greater_Than_AVAIL_ToolBucks</fullName>
+    <active>false</active>
+    <description>This ensures that users can&apos;t create TE records if the Total ToolBucks Value is greater than their available ToolBucks.</description>
+    <errorConditionFormula>Total_ToolBucks_Value__c  &gt;  $User.00N4R00000G3Xpc</errorConditionFormula>
+    <errorMessage>The value of this exchange is greater than what you have available to spend.  Try reducing the quantity requested.</errorMessage>
+</ValidationRule>

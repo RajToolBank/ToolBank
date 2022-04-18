@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X2020_Board_Members</fullName>
+    <columns>Calendar_Year__c</columns>
+    <columns>Contact__c</columns>
+    <columns>NAME</columns>
+    <columns>Board_Start_Date__c</columns>
+    <columns>Board_End_Date__c</columns>
+    <columns>Annual_Board_Conflict_Document_On_File__c</columns>
+    <columns>Annual_Board_Pledge_Document_On_File__c</columns>
+    <columns>Board_Pledge_This_Year__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Calendar_Year__c</field>
+        <operation>equals</operation>
+        <value>2020</value>
+    </filters>
+    <label>2020 Board Members</label>
+</ListView>

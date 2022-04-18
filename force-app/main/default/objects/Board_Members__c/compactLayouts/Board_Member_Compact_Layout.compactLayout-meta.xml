@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Board_Member_Compact_Layout</fullName>
+    <fields>Calendar_Year__c</fields>
+    <fields>Contact__c</fields>
+    <fields>Board_Start_Date__c</fields>
+    <fields>Board_End_Date__c</fields>
+    <fields>Annual_Board_Conflict_Document_On_File__c</fields>
+    <fields>Annual_Board_Pledge_Document_On_File__c</fields>
+    <fields>Name</fields>
+    <label>Board Member Compact Layout</label>
+</CompactLayout>

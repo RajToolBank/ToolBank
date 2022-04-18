@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Who_s_Covering_Shipping__c</fullName>
+    <externalId>false</externalId>
+    <label>Who&apos;s Covering Shipping?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Shipping_Covered__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Original Affiliate Owner</fullName>
+                <default>false</default>
+                <label>Original Affiliate Owner</label>
+            </value>
+            <value>
+                <fullName>ToolBank USA</fullName>
+                <default>false</default>
+                <label>ToolBank USA</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>checked</controllingFieldValue>
+            <valueName>Original Affiliate Owner</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>checked</controllingFieldValue>
+            <valueName>ToolBank USA</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

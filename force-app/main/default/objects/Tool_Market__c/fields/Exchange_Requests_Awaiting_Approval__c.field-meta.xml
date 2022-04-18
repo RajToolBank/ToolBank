@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Exchange_Requests_Awaiting_Approval__c</fullName>
+    <externalId>false</externalId>
+    <label>Exchange Requests Awaiting Approval</label>
+    <summaryFilterItems>
+        <field>Tool_Exchange__c.Approval_Status__c</field>
+        <operation>equals</operation>
+        <value>Awaiting Approval, In Review</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Tool_Exchange__c.Tool_Exchanged__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

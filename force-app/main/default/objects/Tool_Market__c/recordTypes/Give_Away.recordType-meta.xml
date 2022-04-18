@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Give_Away</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>Tool_Market_Compact_Givey_Away</compactLayoutAssignment>
+    <description>You are willing to give away these tools for nothing in exchange.</description>
+    <label>Give Away</label>
+</RecordType>

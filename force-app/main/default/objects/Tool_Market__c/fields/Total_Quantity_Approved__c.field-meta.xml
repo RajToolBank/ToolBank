@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Quantity_Approved__c</fullName>
+    <externalId>false</externalId>
+    <label>Total Quantity Approved</label>
+    <summarizedField>Tool_Exchange__c.Quantity_Requested__c</summarizedField>
+    <summaryFilterItems>
+        <field>Tool_Exchange__c.Approval_Status__c</field>
+        <operation>equals</operation>
+        <value>Approved</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Tool_Exchange__c.Tool_Exchanged__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

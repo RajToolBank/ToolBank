@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tool_Market_Give_Away</fullName>
+    <columns>NAME</columns>
+    <columns>ToolBank_Owner__c</columns>
+    <columns>Quantity__c</columns>
+    <columns>Quantity_Left_Available__c</columns>
+    <columns>Market_Value__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Tool_Market__c.Give_Away</value>
+    </filters>
+    <label>Tool Market: Give Away</label>
+</ListView>

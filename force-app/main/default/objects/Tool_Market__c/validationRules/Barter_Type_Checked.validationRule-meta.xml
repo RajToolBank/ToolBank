@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Barter_Type_Checked</fullName>
+    <active>true</active>
+    <description>Ensures that if Barter record type is selected, that at least one of the checkboxes is selected.</description>
+    <errorConditionFormula>IF(  RecordType.Name = &quot;Barter&quot; ,  AND( Cash__c   = FALSE, Tools__c = FALSE) , OR(Cash__c   = TRUE, Tools__c = True) )</errorConditionFormula>
+    <errorMessage>You must indicate if you are willing to barter for cash, tools, or both.</errorMessage>
+</ValidationRule>

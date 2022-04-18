@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Board_Pledge_Paid__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check this box if the board member has fully paid their annual board pledge.</description>
+    <externalId>false</externalId>
+    <label>Board Pledge Paid</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

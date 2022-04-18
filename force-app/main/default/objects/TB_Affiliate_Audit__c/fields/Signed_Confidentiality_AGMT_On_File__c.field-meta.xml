@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Signed_Confidentiality_AGMT_On_File__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Confidentiality Agreements signed by all staff and board</description>
+    <externalId>false</externalId>
+    <inlineHelpText>TBUSA does not keep the signed confidentiality agreements.</inlineHelpText>
+    <label>Signed Confidentiality AGMT On Fil</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

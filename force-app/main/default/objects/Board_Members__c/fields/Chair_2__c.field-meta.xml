@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Chair_2__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Checked if member is committee Chair</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Is this member the Chair of Committee2?</inlineHelpText>
+    <label>Chair 2</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

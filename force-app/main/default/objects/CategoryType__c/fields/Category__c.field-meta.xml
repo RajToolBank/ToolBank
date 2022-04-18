@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category__c</fullName>
+    <description>Pick one for contact.</description>
+    <externalId>false</externalId>
+    <label>Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Community Relationship</fullName>
+                <default>false</default>
+                <label>Community Relationship</label>
+            </value>
+            <value>
+                <fullName>Donor</fullName>
+                <default>false</default>
+                <label>Donor</label>
+            </value>
+            <value>
+                <fullName>Prospect</fullName>
+                <default>false</default>
+                <label>Prospect</label>
+            </value>
+            <value>
+                <fullName>ToolBank Affiliate</fullName>
+                <default>false</default>
+                <label>ToolBank Affiliate</label>
+            </value>
+            <value>
+                <fullName>ToolBank Member Agency</fullName>
+                <default>false</default>
+                <label>ToolBank Member Agency</label>
+            </value>
+            <value>
+                <fullName>Vendor</fullName>
+                <default>false</default>
+                <label>Vendor</label>
+            </value>
+            <value>
+                <fullName>Volunteer</fullName>
+                <default>false</default>
+                <label>Volunteer</label>
+            </value>
+            <value>
+                <fullName>Volunteer-Youth</fullName>
+                <default>false</default>
+                <label>Volunteer-Youth</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
