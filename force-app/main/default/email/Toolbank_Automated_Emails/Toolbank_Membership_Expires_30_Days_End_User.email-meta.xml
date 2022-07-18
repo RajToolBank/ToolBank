@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Sent to end-users when membership is 30 days from expiration</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Toolbank_USA_No_Location</letterhead>
+    <name>4) Membership Expires 30 Days (End-User)</name>
+    <style>freeForm</style>
+    <subject>Your ToolBank membership expires in 30 days</subject>
+    <textOnly>Agency: {!Account.Name}
+
+Membership expires on: {!Account.Membership_Expiration_Date__c}
+
+ToolBank Member Agency since:{!Account.Membership_Start_Date__c}
+
+Phone: {!Account.Phone}
+
+
+Your organization’s membership at the {!Account.ToolBank_Location__c} ToolBank will expire on {!Account.Membership_Expiration_Date__c}.
+
+
+Did you know that the {!Account.ToolBank_Location__c} ToolBank has provided your agency {!Account.Order_Retail_Value_Last_12_Months__c} worth of tools in the past 12 months? That’s right - your organization served {!Account.Order_Individuals_Served_Last_12_Months__c} individuals with ToolBank equipment since {!Account.Membership_Start_Date__c}. Please renew your membership today to ensure uninterrupted access to the vast inventory of the ToolBank, and the technical expertise of our staff.
+
+
+
+Renewing your ToolBank membership is as simple as updating your agency’s contact information.
+
+
+Log in to renew your membership online.
+
+
+If you have any questions about your membership, please call the {!Account.ToolBank_Location__c}ToolBank at {!Account.Affiliate_Phone_Number__c}.
+
+
+We look forward to serving you without interruption. See you at the ToolBank!</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

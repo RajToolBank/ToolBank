@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_in_Cannot_be_negative</fullName>
+    <active>true</active>
+    <errorConditionFormula>Check_In_Quantity__c &lt;0</errorConditionFormula>
+    <errorDisplayField>Check_In_Quantity__c</errorDisplayField>
+    <errorMessage>Check In Quantity cannot be negative.</errorMessage>
+</ValidationRule>

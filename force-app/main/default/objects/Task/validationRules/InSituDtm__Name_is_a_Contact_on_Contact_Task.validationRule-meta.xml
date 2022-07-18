@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InSituDtm__Name_is_a_Contact_on_Contact_Task</fullName>
+    <active>true</active>
+    <description>The value specified in the Name field of a Contact Task must be a Contact.</description>
+    <errorConditionFormula>InSituDtm__InSitu_Contact_Task__c  == true &amp;&amp;
+NOT ISBLANK( WhoId ) &amp;&amp;
+LEFT( WhoId ,3) != &quot;003&quot;</errorConditionFormula>
+    <errorDisplayField>WhoId</errorDisplayField>
+    <errorMessage>Name must be a Contact on a Contact Task.</errorMessage>
+</ValidationRule>

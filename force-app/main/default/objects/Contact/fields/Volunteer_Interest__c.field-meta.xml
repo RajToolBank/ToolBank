@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Volunteer_Interest__c</fullName>
+    <externalId>false</externalId>
+    <label>Volunteer Interest</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Committee Work</fullName>
+                <default>false</default>
+                <label>Committee Work</label>
+            </value>
+            <value>
+                <fullName>Community Tool Drives</fullName>
+                <default>false</default>
+                <label>Community Tool Drives</label>
+            </value>
+            <value>
+                <fullName>Fundraising Events</fullName>
+                <default>false</default>
+                <label>Fundraising Events</label>
+            </value>
+            <value>
+                <fullName>General Office/Administrative</fullName>
+                <default>false</default>
+                <label>General Office/Administrative</label>
+            </value>
+            <value>
+                <fullName>Tool Repair</fullName>
+                <default>false</default>
+                <label>Tool Repair</label>
+            </value>
+            <value>
+                <fullName>Warehouse Operations</fullName>
+                <default>false</default>
+                <label>Warehouse Operations</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Receiving_ToolBank_Organization__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This is a lookup field to indicate which ToolBank Affiliate will be receiving a pass thru donation.</description>
+    <externalId>false</externalId>
+    <label>Receiving ToolBank / Organization</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Donations (Receiving ToolBank)</relationshipLabel>
+    <relationshipName>Donations</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

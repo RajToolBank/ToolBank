@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Stock_Historical__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>This field denotes the number of tools added to the inventory over a period of time. It will only be incremented.</inlineHelpText>
+    <label>Total Stock (Historical)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>true</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Address_Compare</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>npe01__One2OneContact__c</columns>
+    <columns>ACCOUNT.ADDRESS1_STREET</columns>
+    <columns>ACCOUNT.ADDRESS1_CITY</columns>
+    <columns>ACCOUNT.ADDRESS1_STATE</columns>
+    <columns>ACCOUNT.ADDRESS1_ZIP</columns>
+    <columns>ACCOUNT.PHONE1</columns>
+    <columns>Address_Compare__c</columns>
+    <columns>Misconfigured_Accounts__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Misconfigured_Accounts__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>Address_Compare__c</field>
+        <operation>notEqual</operation>
+        <value>Same Info,No Phone,No Address</value>
+    </filters>
+    <filters>
+        <field>OK_to_Delete__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>Address Compare</label>
+    <sharedTo>
+        <group>NPSP_Conversion_Group</group>
+    </sharedTo>
+</ListView>

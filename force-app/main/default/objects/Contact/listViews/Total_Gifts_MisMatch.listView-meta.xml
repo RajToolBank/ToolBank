@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Gifts_MisMatch</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>npo02__TotalOppAmount__c</columns>
+    <columns>Account.npo02__TotalOppAmount__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Total_Gifts_Match__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>Account.npe01__SYSTEM_AccountType__c</field>
+        <operation>equals</operation>
+        <value>One-to-One Individual</value>
+    </filters>
+    <label>Total Gifts MisMatch</label>
+    <sharedTo>
+        <group>NPSP_Conversion_Group</group>
+    </sharedTo>
+</ListView>

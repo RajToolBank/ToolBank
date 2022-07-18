@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InSituDtm__InSitu_Assigned_to_Group_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Date the Task was assigned to its current Task Group</description>
+    <externalId>false</externalId>
+    <label>Assigned to Group Date</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

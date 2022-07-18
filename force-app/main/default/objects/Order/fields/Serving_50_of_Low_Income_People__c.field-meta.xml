@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Serving_50_of_Low_Income_People__c</fullName>
+    <externalId>false</externalId>
+    <label>Serving &lt; 50% of Low Income People</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>All Project(s) are being completed in an area considered to be low-income.</fullName>
+                <default>false</default>
+                <label>All Project(s) are being completed in an area considered to be low-income.</label>
+            </value>
+            <value>
+                <fullName>All Project(s) are being completed in an area(s) considered to be low-income to moderate-income.</fullName>
+                <default>false</default>
+                <label>All Project(s) are being completed in an area(s) considered to be low-income to moderate-income.</label>
+            </value>
+            <value>
+                <fullName>None of the above.</fullName>
+                <default>false</default>
+                <label>None of the above.</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

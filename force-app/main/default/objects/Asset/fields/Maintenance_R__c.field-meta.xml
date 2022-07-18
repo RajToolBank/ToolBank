@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Maintenance_R__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>This field denotes the number of tools that are in maintenance condition</inlineHelpText>
+    <label>Maintenance</label>
+    <summarizedField>Transaction__c.Quantity__c</summarizedField>
+    <summaryFilterItems>
+        <field>Transaction__c.Sub_Type__c</field>
+        <operation>equals</operation>
+        <value>Maintenance</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Transaction__c.Inventory__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

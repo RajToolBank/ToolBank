@@ -1,0 +1,18 @@
+<apex:page  sidebar="false" showHeader="false" title="NavBar" lightningstylesheets="true" >
+    <apex:includeLightning />
+
+    <div id="lightningvf" />
+
+    <script>
+        
+        $Lightning.use("c:CreateOrderAuraApp", function() {
+        $Lightning.createComponent("c:createOrder",
+          { 
+          },
+          "lightningvf",
+          function(cmp) {
+             console.log('LWC Componenet added in VF page');
+          });
+    });
+    </script>
+</apex:page>

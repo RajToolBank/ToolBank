@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>sf4twitter__Follow_Status__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Click on link to change following status</description>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(
+&apos;javascript:window.location=&quot;/apex/sf4twitter__TwitterFollow?cid=&apos; + Id + &apos;&quot; + ( ( (new RegExp(&quot;[\\?&amp;]isdtp=([^&amp;#]*)&quot;)).exec(window.location.href) == null )?&quot;&quot;: &quot;&amp;isdtp=vw&quot;) &apos;, 
+IF(sf4twitter__followed__c == true,&apos;Yes&apos;, &apos;No&apos; ), 
+&apos;_self&apos;  )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Click on link to change following status</inlineHelpText>
+    <label>Following On Twitter</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email</fullName>
+    <inlineHelpText>The Nonprofit Starter Pack fills this field from the other email fields on Contact. You shouldn&apos;t edit this field directly if you have the Preferred Email workflow rules enabled.</inlineHelpText>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+</CustomField>

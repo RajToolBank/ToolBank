@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Annual_Board_Pledge_Document_On_File__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check this box if Board Member has submitted their annual board pledge.</description>
+    <externalId>false</externalId>
+    <label>Annual Board Pledge Document On File</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

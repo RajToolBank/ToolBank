@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Internal: Alert all (nationwide) staff that new tool type has been added</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Tool_Bank_Original</letterhead>
+    <name>17) New Tool Type Added</name>
+    <style>freeForm</style>
+    <subject>New tool type added</subject>
+    <textOnly>A new tool type has been added to the Global Inventory.
+
+Tool Name: {!Product2.Name}
+Description: {!Product2.Description}
+Retail value: ${!Product2.Retail_Price__c}
+Category: {!Product2.Category__c}
+Subcategory: {!Product2.Sub_Category__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

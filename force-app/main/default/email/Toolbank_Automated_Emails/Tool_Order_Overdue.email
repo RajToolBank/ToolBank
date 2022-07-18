@@ -1,0 +1,55 @@
+<messaging:emailTemplate subject="Your Tool is Over Due" recipientType="Contact" relatedToType="order">
+ <messaging:htmlEmailBody >
+ <center>
+ <apex:image id="Logo" value="https://toolbankusa--pro--c.documentforce.com/servlet/servlet.ImageServer?id=015K0000002LXgo&oid=00DK000000XGz8s&lastMod=1643746859000" /><br/><br/>
+</center>
+<strong>Agency:</strong> {!relatedTo.Account.name}<br/>
+<strong>Tool Order:</strong> {!relatedTo.Name}<br/>
+<strong>Order ID:</strong> {!relatedTo.OrderNumber}<br/>
+<strong>Contact:</strong> {!relatedTo.BillToContact.name}<br/>
+
+<p> The following tools are overdue:</p><br/>
+<center>
+<table border = "2" cellspacing = "5" ><thead>
+        <tr>
+            <th>Tool Name</th>
+            <th>Quantity</th>                
+        </tr>
+       </thead>
+<apex:repeat var="ox" value="{!relatedTo.OrderItems}">
+<tr>
+
+<td>{!ox.pricebookentry.product2.name}</td>
+<td style="text-align:center;">
+<apex:outputText id="Connections" value="{0, number, integer}">
+    <apex:param value="{!ox.Quantity}" />
+</apex:outputText>
+ </td>
+
+</tr>
+</apex:repeat>      
+    </table>
+    </center>
+    
+<p> Late fees on unreturned tools accure at 6% of their retail value per week until one of the following takes place: 
+<ul>
+  <li>The tool is returned </li>
+  <li>A ToolBank approved replacement tool is returned to the ToolBank</li>
+  <li>The replacement cost on the tool is paid </li>
+</ul>
+</p>
+<p> Avoid additional late fees! Please call !relatedTo.Affiliate_Phone_Number__c to schedule an appointment to return these 
+tools at your earliest convenience. </p>
+<p> <b>Please Note: </b> </p>
+<P>
+<ul>
+<li> Your agency's borrowing privileges are suspended untill all tools are returned and the outstanding balance
+is brought to zero.</li>
+<li> If a tool is broken during use, return all of its parts to the ToolBank to avoid replacements fees.</li>
+<li> All ToolBank visitation is appointment only. Call !relatedTo.Affiliate_Phone_Number__c to schedule an appointment.</li>
+</ul>
+</p>
+
+<p> Thank You! </p>
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

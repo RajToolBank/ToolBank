@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>households__Log_A_Call</fullName>
+    <availability>online</availability>
+    <description>Log A Call</description>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Log A Call</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>/households/householdAction.apexp?id={!households__Household__c.Id}&amp;action=Log_A_Call&amp;retURL={!$Request.retURL}</url>
+</WebLink>

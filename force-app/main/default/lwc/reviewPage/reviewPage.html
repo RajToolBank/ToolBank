@@ -1,0 +1,206 @@
+<template>
+    <template if:false={review}>
+    <template if:true={loaded}>
+        <div class="backgroundInverse">
+            <lightning-spinner alternative-text="Loading" variant="inverse"></lightning-spinner>
+        </div>
+    </template>
+    <div class="slds-path">
+        <div class="slds-grid slds-path__track">
+            <div class="slds-grid slds-path__scroller-container">
+                <div class="slds-path__scroller">
+                    <div class="slds-path__scroller_inner">
+                        <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+                            <li data-id="infoLi" class="slds-path__item slds-is-incomplete " role="presentation">
+                                <a aria-selected="true"  class="slds-path__link"  id="path-1" role="option"
+                                    tabindex="0">
+                                    <span class="slds-path__stage">
+                                        <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="slds-path__title">Order Information</span>
+                                </a>
+                            </li>
+                            <li data-id="selectLi" class="slds-path__item slds-is-incomplete" role="presentation">
+                                <a aria-selected="false" class="slds-path__link"  id="path-2" role="option"
+                                    tabindex="-1">
+                                    <span class="slds-path__stage">
+                                        <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="slds-path__title">Select Tools</span>
+                                </a>
+                            </li>
+                            <li data-id="reviewLi" class="slds-path__item slds-is-current slds-is-active" role="presentation">
+                                <a aria-selected="false" class="slds-path__link"  id="path-3" role="option"
+                                    tabindex="-1">
+                                    <span class="slds-path__stage">
+                                        <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="slds-path__title">Review Page</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 1%;margin-left: 1%;margin-right: 1%;" >
+        <button type="button" class="slds-button slds-button_brand" style="background: #1589ee;" onclick={handlePrevious} >Previous</button>
+    </div>
+    <article class="slds-card" style="margin-top: 1%;margin-left: 1%;margin-right: 2%;">
+        <div class="slds-size_1-of-1"  style="margin-top: 1%;margin-left: 25%;">
+            <template if:true={orderDetails}>
+                <b>Desired Order Pickup Date :</b>&nbsp; {orderDetails.pickdate} &nbsp;&nbsp;&nbsp;&nbsp;
+                <b>Desired Order Pickup Time :</b>&nbsp;{orderDetails.pickTime}&nbsp;&nbsp; &nbsp;&nbsp;
+                <b>Desired Order Return Date :</b>&nbsp;{orderDetails.retDate}
+            </template>
+        </div>
+        <div class="slds-card__body slds-card__body_inner" style="margin-top: 1%;">
+
+            <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+
+                <div class="slds-size_1-of-1">
+                <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered"
+                    aria-label="Example default base table of Opportunities">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Category">Category</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Sub-Category">Sub-Category</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Tool Name">Tool Name</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Tool Note">Tool Note</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Retail Value">Retail Value</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Handlin Fees">Handling Fees</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Quantity">Quantity</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Picture">Picture</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template if:true={orderTools} for:each={orderTools} for:item="record" for:index="index">
+
+                            <tr class="slds-hint-parent" key={record.product2Id}  >
+                                <td class="slds-cell-wrap" data-label="category" scope="row">
+                                    <div class="slds-truncate"  >{record.category}</div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="Sub category">
+                                    <div class="slds-truncate" >{record.subCategory}</div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="name">
+                                    <div class="slds-truncate" >{record.toolName}</div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="Note">
+                                    <div class="slds-truncate" >
+                                        <lightning-helptext content={record.toolNote}></lightning-helptext>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="Amount">
+                                    <div class="slds-truncate" >$
+                                        <lightning-formatted-number value={record.retailPrice} minimum-fraction-digits="2"></lightning-formatted-number>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="Amount">
+                                    <div class="slds-truncate" >$
+                                        <lightning-formatted-number value={record.hanlingFee} minimum-fraction-digits="2"></lightning-formatted-number>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="Quantity">
+                                    <div class="slds-truncate" title="Quantity">
+                                        {record.quantity}
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="link">
+                                    <div class="slds-truncate" title="picture">
+                                        
+                                        <lightning-helptext icon-name="utility:photo" content="test image"></lightning-helptext>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+                <br/>
+               
+                    <article class="slds-card" style="margin-top: 1%;margin-left: 1%;margin-right: 2%;">
+                        
+                        <div class="slds-card__body slds-card__body_inner" style="margin-top: 1%;">
+                
+                            <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                                <div class="slds-size_1-of-3"><b>Loan Duration:&nbsp; <template if:true={orderDetails}>
+                                    {orderDetails.duration}
+                                </template></b>
+                            </div>
+                            <div class="slds-size_1-of-3">
+                                <b>Total Tool Handling Fees:&nbsp;
+                                    $<lightning-formatted-number value={totalToolHandlingFees} ></lightning-formatted-number></b>
+                            </div>
+                            <div class="slds-size_1-of-3"><b>Total Retail Cost Order:&nbsp; 
+                                $<lightning-formatted-number value={totalRetailCostOrder} ></lightning-formatted-number></b></div>
+                            </div>
+                            </div>
+                    </article>            
+                </div>
+</div>
+
+            </div>
+        </div>
+    </article><br/><br/>
+    <div class="slds-text-align_center" style="margin-left: 1%;margin-right: 1%;" >
+        <button type="button" class="slds-button slds-button_brand" style="background: #1589ee;" onclick={createOrder} >Place Order</button> <br/>
+    </div>
+    </template>
+    <template if:true={success}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+              
+              <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                    <img src="https://toolbankusa--pro--c.visualforce.com/resource/1614275436000/Toolbank_Atlanta" style="padding-top:10px;width:30%;height:10%;"></h1>
+              </div>
+              <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style="font-size: 200%;">
+                <p>Your order has been placed. The ToolBank will contact you within 2 days to let you know your order is confirmed. &nbsp;
+                    <a style="color: blue;" href={orderId} >Click here</a> for more details to know about your order Information.</p><br/><br/>&nbsp;
+              </div>
+            </div>
+          </section>
+          <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+
+    <template if:true={error}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+              
+              <div class="slds-modal__header">
+                <h1 id="modal-heading-02" class="slds-modal__title slds-hyphenate">
+                    <img src="https://toolbankusa--pro--c.visualforce.com/resource/1614275436000/Toolbank_Atlanta" style="padding-top:10px;width:30%;height:10%;"></h1>
+              </div>
+              <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2" style="font-size: 200%;">
+                <p> No order has been placed, please try few minutes later.</p><br/><br/>&nbsp;
+              </div>
+            </div>
+          </section>
+          <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+
+</template>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sub_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Sub-Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>Worn - Out</fullName>
+                <default>false</default>
+                <label>Worn - Out</label>
+            </value>
+            <value>
+                <fullName>No Longer Carry</fullName>
+                <default>false</default>
+                <label>No Longer Carry</label>
+            </value>
+            <value>
+                <fullName>Sold</fullName>
+                <default>false</default>
+                <label>Sold</label>
+            </value>
+            <value>
+                <fullName>Gift Card</fullName>
+                <default>false</default>
+                <label>Gift Card</label>
+            </value>
+            <value>
+                <fullName>Restricted Funds</fullName>
+                <default>false</default>
+                <label>Restricted Funds</label>
+            </value>
+            <value>
+                <fullName>General Funds</fullName>
+                <default>false</default>
+                <label>General Funds</label>
+            </value>
+            <value>
+                <fullName>Corporate Donation</fullName>
+                <default>false</default>
+                <label>Corporate Donation</label>
+            </value>
+            <value>
+                <fullName>Individual Donation</fullName>
+                <default>false</default>
+                <label>Individual Donation</label>
+            </value>
+            <value>
+                <fullName>Member Agency Donation</fullName>
+                <default>false</default>
+                <label>Member Agency Donation</label>
+            </value>
+            <value>
+                <fullName>Maintenance</fullName>
+                <default>false</default>
+                <label>Maintenance</label>
+            </value>
+            <value>
+                <fullName>Rebranding</fullName>
+                <default>false</default>
+                <label>Rebranding</label>
+            </value>
+            <value>
+                <fullName>Damaged</fullName>
+                <default>false</default>
+                <label>Damaged</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Destroyed</fullName>
+                <default>false</default>
+                <label>Destroyed</label>
+            </value>
+            <value>
+                <fullName>Increase</fullName>
+                <default>false</default>
+                <label>Increase</label>
+            </value>
+            <value>
+                <fullName>Decrease</fullName>
+                <default>false</default>
+                <label>Decrease</label>
+            </value>
+            <value>
+                <fullName>Allocated</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Allocated</label>
+            </value>
+            <value>
+                <fullName>Donated</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Donated</label>
+            </value>
+            <value>
+                <fullName>Donation</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Donation</label>
+            </value>
+            <value>
+                <fullName>Lost</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Lost</label>
+            </value>
+            <value>
+                <fullName>Purchased</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Purchased</label>
+            </value>
+            <value>
+                <fullName>Return</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Return</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

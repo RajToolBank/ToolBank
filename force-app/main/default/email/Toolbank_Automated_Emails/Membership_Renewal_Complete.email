@@ -1,0 +1,6 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<b style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">Agency:</b><font face="arial"><span style="font-size: 12pt;">&nbsp;{!Account.Name}</span></font><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b>ToolBank Member Agency since:&nbsp;</b>{!Account.Membership_Start_Date__c}</div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><br></div><div style=""><font face="arial">Your ToolBank Membership has been renewed!</font></div><div style=""><font face="arial"><br></font></div><div style=""><font face="arial">New membership expiration Date:&nbsp;</font><span style="font-family: arial; font-size: 16px;">{!Account.Membership_Expiration_Date__c}</span></div><div style=""><span style="font-family: arial; font-size: 16px;"><br></span></div><div style=""><font face="arial">We look forward to working with you on your next project. See you at the ToolBank!</font></div>]]></td>
+</tr>
+</table>

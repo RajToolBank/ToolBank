@@ -1,0 +1,21 @@
+<apex:page standardController="OrderItem" showHeader="false" sidebar="false">
+    <apex:includeLightning />    
+    <div id="LightningComponentid" />   
+<!-- the Id of div tag which will be used to render your LWC component  -->
+    <script>
+        $Lightning.use("c:transactionApp", function() {
+            $Lightning.createComponent("c:newTransactioncmp",
+            { 
+                message   : 'Simple Message From VF Page', // You can pass the value to @api attributes if you have inside JavaScript Class.
+                recordId : '{!$CurrentPage.parameters.id}',
+                recordName : '{!OrderItem.OrderItemNumber}',
+                inventoryid : '{!OrderItem.Inventory_Tool__c}',
+                inventoryName : '{!OrderItem.Inventory_Tool__r.name}'
+            },
+            "LightningComponentid", // the Id of div tag where your component will be rendered
+            function(cmp) {
+                console.log('Calling the LWC Component');
+            });
+        });
+    </script>
+</apex:page>

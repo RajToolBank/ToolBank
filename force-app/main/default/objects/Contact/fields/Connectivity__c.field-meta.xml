@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Connectivity__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Select cities where the contact has connections that might be useful in creating new affiliates.</inlineHelpText>
+    <label>Connectivity</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Akron OH (99)</fullName>
+                <default>false</default>
+                <label>Akron OH (99)</label>
+            </value>
+            <value>
+                <fullName>Albuquerque NM (34)</fullName>
+                <default>false</default>
+                <label>Albuquerque NM (34)</label>
+            </value>
+            <value>
+                <fullName>Amarillo TX (122)</fullName>
+                <default>false</default>
+                <label>Amarillo TX (122)</label>
+            </value>
+            <value>
+                <fullName>Anaheim CA (56)</fullName>
+                <default>false</default>
+                <label>Anaheim CA (56)</label>
+            </value>
+            <value>
+                <fullName>Anchorage AK (66)</fullName>
+                <default>false</default>
+                <label>Anchorage AK (66)</label>
+            </value>
+            <value>
+                <fullName>Arlington TX (49)</fullName>
+                <default>false</default>
+                <label>Arlington TX (49)</label>
+            </value>
+            <value>
+                <fullName>Arlington VA (96)</fullName>
+                <default>false</default>
+                <label>Arlington VA (96)</label>
+            </value>
+            <value>
+                <fullName>Aurora CO (59)</fullName>
+                <default>false</default>
+                <label>Aurora CO (59)</label>
+            </value>
+            <value>
+                <fullName>Aurora 	IL (134)</fullName>
+                <default>false</default>
+                <label>Aurora 	IL (134)</label>
+            </value>
+            <value>
+                <fullName>Austin TX (15)</fullName>
+                <default>false</default>
+                <label>Austin TX (15)</label>
+            </value>
+            <value>
+                <fullName>Bakersfield CA (58)</fullName>
+                <default>false</default>
+                <label>Bakersfield CA (58)</label>
+            </value>
+            <value>
+                <fullName>Baltimore MD (21)</fullName>
+                <default>false</default>
+                <label>Baltimore MD (21)</label>
+            </value>
+            <value>
+                <fullName>Baton Rouge LA (88)</fullName>
+                <default>false</default>
+                <label>Baton Rouge LA (88)</label>
+            </value>
+            <value>
+                <fullName>Birmingham AL (83)</fullName>
+                <default>false</default>
+                <label>Birmingham AL (83)</label>
+            </value>
+            <value>
+                <fullName>Boise IA (100)</fullName>
+                <default>false</default>
+                <label>Boise IA (100)</label>
+            </value>
+            <value>
+                <fullName>Boston MA (20)</fullName>
+                <default>false</default>
+                <label>Boston MA (20)</label>
+            </value>
+            <value>
+                <fullName>Brownsville TX (131)</fullName>
+                <default>false</default>
+                <label>Brownsville TX (131)</label>
+            </value>
+            <value>
+                <fullName>Buffalo NY (70)</fullName>
+                <default>false</default>
+                <label>Buffalo NY (70)</label>
+            </value>
+            <value>
+                <fullName>Chandler AZ (76)</fullName>
+                <default>false</default>
+                <label>Chandler AZ (76)</label>
+            </value>
+            <value>
+                <fullName>Charlotte NC (18)</fullName>
+                <default>false</default>
+                <label>Charlotte NC (18)</label>
+            </value>
+            <value>
+                <fullName>Chattanooga TN (140)</fullName>
+                <default>false</default>
+                <label>Chattanooga TN (140)</label>
+            </value>
+            <value>
+                <fullName>Chesapeake VA (91)</fullName>
+                <default>false</default>
+                <label>Chesapeake VA (91)</label>
+            </value>
+            <value>
+                <fullName>Chicago IL (3)</fullName>
+                <default>false</default>
+                <label>Chicago IL (3)</label>
+            </value>
+            <value>
+                <fullName>Chula Vista CA (90)</fullName>
+                <default>false</default>
+                <label>Chula Vista CA (90)</label>
+            </value>
+            <value>
+                <fullName>Cincinnati OH (57)</fullName>
+                <default>false</default>
+                <label>Cincinnati OH (57)</label>
+            </value>
+            <value>
+                <fullName>Cleveland OH (43)</fullName>
+                <default>false</default>
+                <label>Cleveland OH (43)</label>
+            </value>
+            <value>
+                <fullName>Colorado Springs CO (46)</fullName>
+                <default>false</default>
+                <label>Colorado Springs CO (46)</label>
+            </value>
+            <value>
+                <fullName>Columbus GA (121)</fullName>
+                <default>false</default>
+                <label>Columbus GA (121)</label>
+            </value>
+            <value>
+                <fullName>Columbus OH (16)</fullName>
+                <default>false</default>
+                <label>Columbus OH (16)</label>
+            </value>
+            <value>
+                <fullName>Corpus Christi TX (65)</fullName>
+                <default>false</default>
+                <label>Corpus Christi TX (65)</label>
+            </value>
+            <value>
+                <fullName>Dallas TX (9)</fullName>
+                <default>false</default>
+                <label>Dallas TX (9)</label>
+            </value>
+            <value>
+                <fullName>Denver 	CO (24)</fullName>
+                <default>false</default>
+                <label>Denver 	CO (24)</label>
+            </value>
+            <value>
+                <fullName>Des Moines IA (108)</fullName>
+                <default>false</default>
+                <label>Des Moines IA (108)</label>
+            </value>
+            <value>
+                <fullName>Durham NC (85)</fullName>
+                <default>false</default>
+                <label>Durham NC (85)</label>
+            </value>
+            <value>
+                <fullName>El Paso TX (22)</fullName>
+                <default>false</default>
+                <label>El Paso TX (22)</label>
+            </value>
+            <value>
+                <fullName>Fayetteville NC (112)</fullName>
+                <default>false</default>
+                <label>Fayetteville NC (112)</label>
+            </value>
+            <value>
+                <fullName>Fontana CA (123)</fullName>
+                <default>false</default>
+                <label>Fontana CA (123)</label>
+            </value>
+            <value>
+                <fullName>Fort Lauderdale FL (126)</fullName>
+                <default>false</default>
+                <label>Fort Lauderdale FL (126)</label>
+            </value>
+            <value>
+                <fullName>Fort Wayne IN (72)</fullName>
+                <default>false</default>
+                <label>Fort Wayne IN (72)</label>
+            </value>
+            <value>
+                <fullName>Fort Worth TX (17)</fullName>
+                <default>false</default>
+                <label>Fort Worth TX (17)</label>
+            </value>
+            <value>
+                <fullName>Fremont CA (102)</fullName>
+                <default>false</default>
+                <label>Fremont CA (102)</label>
+            </value>
+            <value>
+                <fullName>Fresno	CA (36)</fullName>
+                <default>false</default>
+                <label>Fresno	CA (36)</label>
+            </value>
+            <value>
+                <fullName>Garden Grove CA (142)</fullName>
+                <default>false</default>
+                <label>Garden Grove CA (142)</label>
+            </value>
+            <value>
+                <fullName>Garland TX (93)</fullName>
+                <default>false</default>
+                <label>Garland TX (93)</label>
+            </value>
+            <value>
+                <fullName>Gilbert	AZ (92)</fullName>
+                <default>false</default>
+                <label>Gilbert	AZ (92)</label>
+            </value>
+            <value>
+                <fullName>Glendale AZ (75)</fullName>
+                <default>false</default>
+                <label>Glendale AZ (75)</label>
+            </value>
+            <value>
+                <fullName>Glendale CA (113)</fullName>
+                <default>false</default>
+                <label>Glendale CA (113)</label>
+            </value>
+            <value>
+                <fullName>Grand Prairie TX (144)</fullName>
+                <default>false</default>
+                <label>Grand Prairie TX (144)</label>
+            </value>
+            <value>
+                <fullName>Grand Rapids MI (115)</fullName>
+                <default>false</default>
+                <label>Grand Rapids MI (115)</label>
+            </value>
+            <value>
+                <fullName>Greensboro NC (73)</fullName>
+                <default>false</default>
+                <label>Greensboro NC (73)</label>
+            </value>
+            <value>
+                <fullName>Henderson NV (71)</fullName>
+                <default>false</default>
+                <label>Henderson NV (71)</label>
+            </value>
+            <value>
+                <fullName>Honolulu HI (50)</fullName>
+                <default>false</default>
+                <label>Honolulu HI (50)</label>
+            </value>
+            <value>
+                <fullName>Huntington Beach CA (116)</fullName>
+                <default>false</default>
+                <label>Huntington Beach CA (116)</label>
+            </value>
+            <value>
+                <fullName>Huntsville AL (129)</fullName>
+                <default>false</default>
+                <label>Huntsville AL (129)</label>
+            </value>
+            <value>
+                <fullName>Indianapolis IN (14)</fullName>
+                <default>false</default>
+                <label>Indianapolis IN (14)</label>
+            </value>
+            <value>
+                <fullName>Irvine 	CA (97)</fullName>
+                <default>false</default>
+                <label>Irvine 	CA (97)</label>
+            </value>
+            <value>
+                <fullName>Irving TX (101)</fullName>
+                <default>false</default>
+                <label>Irving TX (101)</label>
+            </value>
+            <value>
+                <fullName>Jackson MS (132)</fullName>
+                <default>false</default>
+                <label>Jackson MS (132)</label>
+            </value>
+            <value>
+                <fullName>Jacksonville FL (13)</fullName>
+                <default>false</default>
+                <label>Jacksonville FL (13)</label>
+            </value>
+            <value>
+                <fullName>Jersey City NJ (78)</fullName>
+                <default>false</default>
+                <label>Jersey City NJ (78)</label>
+            </value>
+            <value>
+                <fullName>Kansas City MO (35)</fullName>
+                <default>false</default>
+                <label>Kansas City MO (35)</label>
+            </value>
+            <value>
+                <fullName>Knoxville TN (125)</fullName>
+                <default>false</default>
+                <label>Knoxville TN (125)</label>
+            </value>
+            <value>
+                <fullName>Laredo TX (86)</fullName>
+                <default>false</default>
+                <label>Laredo TX (86)</label>
+            </value>
+            <value>
+                <fullName>Las Vegas NV (28)</fullName>
+                <default>false</default>
+                <label>Las Vegas NV (28)</label>
+            </value>
+            <value>
+                <fullName>Lexington KY (63)</fullName>
+                <default>false</default>
+                <label>Lexington KY (63)</label>
+            </value>
+            <value>
+                <fullName>Lincoln NE (74)</fullName>
+                <default>false</default>
+                <label>Lincoln NE (74)</label>
+            </value>
+            <value>
+                <fullName>Little Rock AR (119)</fullName>
+                <default>false</default>
+                <label>Little Rock AR (119)</label>
+            </value>
+            <value>
+                <fullName>Long Beach CA (39)</fullName>
+                <default>false</default>
+                <label>Long Beach CA (39)</label>
+            </value>
+            <value>
+                <fullName>Los Angeles CA (2)</fullName>
+                <default>false</default>
+                <label>Los Angeles CA (2)</label>
+            </value>
+            <value>
+                <fullName>Louisville KY (29)</fullName>
+                <default>false</default>
+                <label>Louisville KY (29)</label>
+            </value>
+            <value>
+                <fullName>Lubbock TX (87)</fullName>
+                <default>false</default>
+                <label>Lubbock TX (87)</label>
+            </value>
+            <value>
+                <fullName>Madison WI (81)</fullName>
+                <default>false</default>
+                <label>Madison WI (81)</label>
+            </value>
+            <value>
+                <fullName>Memphis TN (19)</fullName>
+                <default>false</default>
+                <label>Memphis TN (19)</label>
+            </value>
+            <value>
+                <fullName>Mesa AZ	(37)</fullName>
+                <default>false</default>
+                <label>Mesa AZ	(37)</label>
+            </value>
+            <value>
+                <fullName>Miami 	FL (42)</fullName>
+                <default>false</default>
+                <label>Miami 	FL (42)</label>
+            </value>
+            <value>
+                <fullName>Milwaukee WI (26)</fullName>
+                <default>false</default>
+                <label>Milwaukee WI (26)</label>
+            </value>
+            <value>
+                <fullName>Minneapolis MN (48)</fullName>
+                <default>false</default>
+                <label>Minneapolis MN (48)</label>
+            </value>
+            <value>
+                <fullName>Mobile	AL (117)</fullName>
+                <default>false</default>
+                <label>Mobile	AL (117)</label>
+            </value>
+            <value>
+                <fullName>Modesto CA (105)</fullName>
+                <default>false</default>
+                <label>Modesto CA (105)</label>
+            </value>
+            <value>
+                <fullName>Montgomery AL (106)</fullName>
+                <default>false</default>
+                <label>Montgomery AL (106)</label>
+            </value>
+            <value>
+                <fullName>Moreno Valley CA (120)</fullName>
+                <default>false</default>
+                <label>Moreno Valley CA (120)</label>
+            </value>
+            <value>
+                <fullName>Nashville TN (25)</fullName>
+                <default>false</default>
+                <label>Nashville TN (25)</label>
+            </value>
+            <value>
+                <fullName>Newark NJ (68)</fullName>
+                <default>false</default>
+                <label>Newark NJ (68)</label>
+            </value>
+            <value>
+                <fullName>New Orleans LA (53)</fullName>
+                <default>false</default>
+                <label>New Orleans LA (53)</label>
+            </value>
+            <value>
+                <fullName>Newport News VA (118)</fullName>
+                <default>false</default>
+                <label>Newport News VA (118)</label>
+            </value>
+            <value>
+                <fullName>New York NY (1)</fullName>
+                <default>false</default>
+                <label>New York NY (1)</label>
+            </value>
+            <value>
+                <fullName>Norfolk VA (82)</fullName>
+                <default>false</default>
+                <label>Norfolk VA (82)</label>
+            </value>
+            <value>
+                <fullName>North Las Vegas NV (89)</fullName>
+                <default>false</default>
+                <label>North Las Vegas NV (89)</label>
+            </value>
+            <value>
+                <fullName>Oakland CA (44)</fullName>
+                <default>false</default>
+                <label>Oakland CA (44)</label>
+            </value>
+            <value>
+                <fullName>Oceanside CA (135)</fullName>
+                <default>false</default>
+                <label>Oceanside CA (135)</label>
+            </value>
+            <value>
+                <fullName>Oklahoma City OK (31)</fullName>
+                <default>false</default>
+                <label>Oklahoma City OK (31)</label>
+            </value>
+            <value>
+                <fullName>Omaha NE (40)</fullName>
+                <default>false</default>
+                <label>Omaha NE (40)</label>
+            </value>
+            <value>
+                <fullName>Ontario CA (139)</fullName>
+                <default>false</default>
+                <label>Ontario CA (139)</label>
+            </value>
+            <value>
+                <fullName>Orlando FL (80)</fullName>
+                <default>false</default>
+                <label>Orlando FL (80)</label>
+            </value>
+            <value>
+                <fullName>Overland Park KS (133)</fullName>
+                <default>false</default>
+                <label>Overland Park KS (133)</label>
+            </value>
+            <value>
+                <fullName>Oxnard CA (124)</fullName>
+                <default>false</default>
+                <label>Oxnard CA (124)</label>
+            </value>
+            <value>
+                <fullName>Peoria AZ (145)</fullName>
+                <default>false</default>
+                <label>Peoria AZ (145)</label>
+            </value>
+            <value>
+                <fullName>Philadelphia PA (6)</fullName>
+                <default>false</default>
+                <label>Philadelphia PA (6)</label>
+            </value>
+            <value>
+                <fullName>Pittsburgh PA (61)</fullName>
+                <default>false</default>
+                <label>Pittsburgh PA (61)</label>
+            </value>
+            <value>
+                <fullName>Plano TX (69)</fullName>
+                <default>false</default>
+                <label>Plano TX (69)</label>
+            </value>
+            <value>
+                <fullName>Providence RI (137)</fullName>
+                <default>false</default>
+                <label>Providence RI (137)</label>
+            </value>
+            <value>
+                <fullName>Raleigh NC (45)</fullName>
+                <default>false</default>
+                <label>Raleigh NC (45)</label>
+            </value>
+            <value>
+                <fullName>Rancho Cucamonga CA (138)</fullName>
+                <default>false</default>
+                <label>Rancho Cucamonga CA (138)</label>
+            </value>
+            <value>
+                <fullName>Reno NV	(94)</fullName>
+                <default>false</default>
+                <label>Reno NV	(94)</label>
+            </value>
+            <value>
+                <fullName>Riverside CA (62)</fullName>
+                <default>false</default>
+                <label>Riverside CA (62)</label>
+            </value>
+            <value>
+                <fullName>Rochester NY (98)</fullName>
+                <default>false</default>
+                <label>Rochester NY (98)</label>
+            </value>
+            <value>
+                <fullName>Rockford IL (149)</fullName>
+                <default>false</default>
+                <label>Rockford IL (149)</label>
+            </value>
+            <value>
+                <fullName>Sacramento CA (38)</fullName>
+                <default>false</default>
+                <label>Sacramento CA (38)</label>
+            </value>
+            <value>
+                <fullName>Salt Lake City UT (127)</fullName>
+                <default>false</default>
+                <label>Salt Lake City UT (127)</label>
+            </value>
+            <value>
+                <fullName>San Bernardino CA (111)</fullName>
+                <default>false</default>
+                <label>San Bernardino CA (111)</label>
+            </value>
+            <value>
+                <fullName>San Diego CA (8)</fullName>
+                <default>false</default>
+                <label>San Diego CA (8)</label>
+            </value>
+            <value>
+                <fullName>San Francisco CA (12)</fullName>
+                <default>false</default>
+                <label>San Francisco CA (12)</label>
+            </value>
+            <value>
+                <fullName>San Jose CA (10)</fullName>
+                <default>false</default>
+                <label>San Jose CA (10)</label>
+            </value>
+            <value>
+                <fullName>Santa Ana CA (55)</fullName>
+                <default>false</default>
+                <label>Santa Ana CA (55)</label>
+            </value>
+            <value>
+                <fullName>Santa Clarita CA (141)</fullName>
+                <default>false</default>
+                <label>Santa Clarita CA (141)</label>
+            </value>
+            <value>
+                <fullName>Santa Rosa CA (148)</fullName>
+                <default>false</default>
+                <label>Santa Rosa CA (148)</label>
+            </value>
+            <value>
+                <fullName>Scottsdale AZ (79)</fullName>
+                <default>false</default>
+                <label>Scottsdale AZ (79)</label>
+            </value>
+            <value>
+                <fullName>Seattle WA (23)</fullName>
+                <default>false</default>
+                <label>Seattle WA (23)</label>
+            </value>
+            <value>
+                <fullName>Shreveport LA (110)</fullName>
+                <default>false</default>
+                <label>Shreveport LA (110)</label>
+            </value>
+            <value>
+                <fullName>Sioux Falls SD (146)</fullName>
+                <default>false</default>
+                <label>Sioux Falls SD (146)</label>
+            </value>
+            <value>
+                <fullName>Spokane WA (104)</fullName>
+                <default>false</default>
+                <label>Spokane WA (104)</label>
+            </value>
+            <value>
+                <fullName>Springfield MA (150)</fullName>
+                <default>false</default>
+                <label>Springfield MA (150)</label>
+            </value>
+            <value>
+                <fullName>Springfield MO (147)</fullName>
+                <default>false</default>
+                <label>Springfield MO (147)</label>
+            </value>
+            <value>
+                <fullName>St. Louis MO (52)</fullName>
+                <default>false</default>
+                <label>St. Louis MO (52)</label>
+            </value>
+            <value>
+                <fullName>St. Paul MN (67)</fullName>
+                <default>false</default>
+                <label>St. Paul MN (67)</label>
+            </value>
+            <value>
+                <fullName>St. Petersburg FL (77)</fullName>
+                <default>false</default>
+                <label>St. Petersburg FL (77)</label>
+            </value>
+            <value>
+                <fullName>Stockton CA (64)</fullName>
+                <default>false</default>
+                <label>Stockton CA (64)</label>
+            </value>
+            <value>
+                <fullName>Tacoma WA (109)</fullName>
+                <default>false</default>
+                <label>Tacoma WA (109)</label>
+            </value>
+            <value>
+                <fullName>Tallahassee FL (36)</fullName>
+                <default>false</default>
+                <label>Tallahassee FL (36)</label>
+            </value>
+            <value>
+                <fullName>Tampa 	FL (54)</fullName>
+                <default>false</default>
+                <label>Tampa 	FL (54)</label>
+            </value>
+            <value>
+                <fullName>Tempe AZ (130)</fullName>
+                <default>false</default>
+                <label>Tempe AZ (130)</label>
+            </value>
+            <value>
+                <fullName>Toledo OH (60)</fullName>
+                <default>false</default>
+                <label>Toledo OH (60)</label>
+            </value>
+            <value>
+                <fullName>Tucson AZ (32)</fullName>
+                <default>false</default>
+                <label>Tucson AZ (32)</label>
+            </value>
+            <value>
+                <fullName>Tulsa OK (47)</fullName>
+                <default>false</default>
+                <label>Tulsa OK (47)</label>
+            </value>
+            <value>
+                <fullName>Vancouver WA (143)</fullName>
+                <default>false</default>
+                <label>Vancouver WA (143)</label>
+            </value>
+            <value>
+                <fullName>Virginia Beach VA (41)</fullName>
+                <default>false</default>
+                <label>Virginia Beach VA (41)</label>
+            </value>
+            <value>
+                <fullName>Washington DC (27)</fullName>
+                <default>false</default>
+                <label>Washington DC (27)</label>
+            </value>
+            <value>
+                <fullName>Wichita KS (51)</fullName>
+                <default>false</default>
+                <label>Wichita KS (51)</label>
+            </value>
+            <value>
+                <fullName>Winston-Salem NC(84)</fullName>
+                <default>false</default>
+                <label>Winston-Salem NC(84)</label>
+            </value>
+            <value>
+                <fullName>Yonkers NY (107)</fullName>
+                <default>false</default>
+                <label>Yonkers NY (107)</label>
+            </value>
+            <value>
+                <fullName>Atlanta GA (40)</fullName>
+                <default>false</default>
+                <label>Atlanta GA (40)</label>
+            </value>
+            <value>
+                <fullName>Detroit MI (18)</fullName>
+                <default>false</default>
+                <label>Detroit MI (18)</label>
+            </value>
+            <value>
+                <fullName>Houston TX (4)</fullName>
+                <default>false</default>
+                <label>Houston TX (4)</label>
+            </value>
+            <value>
+                <fullName>Minneapolis-St Paul MN (55)</fullName>
+                <default>false</default>
+                <label>Minneapolis-St Paul MN (55)</label>
+            </value>
+            <value>
+                <fullName>Portland OR (29)</fullName>
+                <default>false</default>
+                <label>Portland OR (29)</label>
+            </value>
+            <value>
+                <fullName>Phoenix AZ (6)</fullName>
+                <default>false</default>
+                <label>Phoenix AZ (6)</label>
+            </value>
+            <value>
+                <fullName>Richmond VA (105)</fullName>
+                <default>false</default>
+                <label>Richmond VA (105)</label>
+            </value>
+            <value>
+                <fullName>San Antonio TX (7)</fullName>
+                <default>false</default>
+                <label>San Antonio TX (7)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>10</visibleLines>
+</CustomField>

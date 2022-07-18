@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Anonymous__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check this box to scrub the user&apos;s name from QlikView</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check this box to scrub the user&apos;s name from QlikView</inlineHelpText>
+    <label>Anonymous</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

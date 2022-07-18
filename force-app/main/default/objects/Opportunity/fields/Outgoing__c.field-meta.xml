@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Outgoing__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>A donation made from ToolBankUSA to another organization</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Is this donation from ToolBank to an outside organization?</inlineHelpText>
+    <label>Outgoing</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

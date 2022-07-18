@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Standard</fullName>
+    <active>true</active>
+    <label>Standard</label>
+    <picklistValues>
+        <picklist>Areas_Of_Impact__c</picklist>
+        <values>
+            <fullName>Animal Welfare</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Arts%2C Culture%2C Humanities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Community Revitalization</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disaster Relief and Recovery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Education</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Environment and Greenspace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Faith Based</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Health</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Housing and Homelessness</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Human Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Societal Benefit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Veteran Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Youth and Children</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Desired_Pickup_Time__c</picklist>
+        <values>
+            <fullName>1%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%3A30 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10%3A00 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10%3A30 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11%3A00 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11%3A30 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12%3A30 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%3A30 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3%3A30 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4%3A30 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5%3A30 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6%3A30 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9%3A00 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9%3A30 AM</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Project_Type__c</picklist>
+        <values>
+            <fullName>Community %2F Neighborhood Cleanup</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Demolition%2FClearing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disaster Recovery%2FResponse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Environment Conservation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Landscaping%2FBeautification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Planting%2FGroundskeeping</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Repairs%2FMaintenance%2FRenovation%2FAdditions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Special Events%2FFundraisers</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Project_Venue__c</picklist>
+        <values>
+            <fullName>Agency Facility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Space or Venue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Residence or Home</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Requested_Borrowing_Period__c</picklist>
+        <values>
+            <fullName>1 week</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10 weeks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11 weeks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12 weeks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13 weeks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14 weeks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15 weeks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16 weeks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 weeks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3 weeks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4 weeks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5 weeks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6 weeks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7 weeks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8 weeks</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9 weeks</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Serving_50_of_Low_Income_People__c</picklist>
+        <values>
+            <fullName>All Project%28s%29 are being completed in an area considered to be low-income%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>All Project%28s%29 are being completed in an area%28s%29 considered to be low-income to moderate-income%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None of the above%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirmed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fulfilled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partially Confirmed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partially Returned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Returned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unconfirmed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Volunteer_Source__c</picklist>
+        <values>
+            <fullName>Agency Staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corporate Volunteers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Faith-based Volunteers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Community Volunteers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Veteran Volunteers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Youth%2FStudent Volunteers</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,6 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<div style=""><font face="arial">Hi {!Receiving_User.FirstName},</font></div><div style=""><font face="arial"><br></font></div><div style=""><font face="arial">Sent from: The {!User.Location__c} ToolBank</font></div><div style=""><font face="arial"><br></font></div><div style=""><font face="arial">You have been invited to use the ToolBank on behalf of {!User.CompanyName}.</font></div><div style=""><font face="arial"><br></font></div><div style=""><span style="font-family: arial;">Click here {!Community_Url} to create a password and sign in to your account.&nbsp;</span><span style="font-family: arial;">Your username is {!Receiving_User.Username}</span></div><div style=""><font face="arial"><br></font></div><div style=""><font face="arial">We look forward to serving you!</font></div>]]></td>
+</tr>
+</table>

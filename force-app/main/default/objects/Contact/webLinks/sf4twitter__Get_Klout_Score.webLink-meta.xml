@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>sf4twitter__Get_Klout_Score</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Get Klout Score</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>if ({!IF(ISPICKVAL(Contact.sf4twitter__Origin__c,&apos;Facebook&apos;),&apos;true&apos;,&apos;false&apos;)}) { 
+alert(&apos;{!$Label.sf4twitter__FUNCTION_ONLY_FOR_TWITTER_CONVERSATION}&apos;); 
+} else{ 
+window.location = &apos;/apex/sf4twitter__SocialKlout?cList={!Contact.Id}&amp;retURL=&apos; + encodeURIComponent(window.location); 
+}</url>
+</WebLink>

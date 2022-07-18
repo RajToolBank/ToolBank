@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Misconfigured_Accounts</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>npe01__One2OneContact__c</columns>
+    <columns>ACCOUNT.RECORDTYPE</columns>
+    <columns>Misconfigured_Accounts__c</columns>
+    <columns>npe01__SYSTEM_AccountType__c</columns>
+    <columns>npe01__SYSTEMIsIndividual__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Misconfigured_Accounts__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>OK_to_Delete__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>Misconfigured Accounts</label>
+    <sharedTo>
+        <group>NPSP_Conversion_Group</group>
+    </sharedTo>
+</ListView>

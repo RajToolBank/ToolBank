@@ -1,0 +1,433 @@
+<template>
+    <template if:true={fieldsInfo}>
+    <div class="slds-path">
+        <div class="slds-grid slds-path__track">
+            <div class="slds-grid slds-path__scroller-container">
+                <div class="slds-path__scroller">
+                    <div class="slds-path__scroller_inner">
+                        <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+                            <li data-id="infoLi" class="slds-path__item slds-is-current slds-is-active" role="presentation">
+                                <a aria-selected="true"  class="slds-path__link"  id="path-1" role="option"
+                                    tabindex="0">
+                                    <span class="slds-path__stage">
+                                        <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="slds-path__title">Order Information</span>
+                                </a>
+                            </li>
+                            <li data-id="selectLi" class="slds-path__item slds-is-incomplete" role="presentation">
+                                <a aria-selected="false" class="slds-path__link"  id="path-2" role="option"
+                                    tabindex="-1">
+                                    <span class="slds-path__stage">
+                                        <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="slds-path__title">Select Tools</span>
+                                </a>
+                            </li>
+                            <li data-id="reviewLi" class="slds-path__item slds-is-incomplete" role="presentation">
+                                <a aria-selected="false" class="slds-path__link"  id="path-3" role="option"
+                                    tabindex="-1">
+                                    <span class="slds-path__stage">
+                                        <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="slds-path__title">Review Page</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slds-text-align_right" style="margin-left: 1%;margin-right: 1%;" >
+        <button type="button" class="slds-button slds-button_brand" style="background: #1589ee;" onclick={handleContinue}  >Continue</button> <br/>
+    </div>
+    <div class="demo-only demo-only--sizing slds-grid slds-wrap" style="margin-left: 1%;margin-right: 1%;">
+        <article class="slds-card slds-size_1-of-2" style="width: 45%;margin-top: 1%;">
+            <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                <h2 class="slds-card__header-title">
+                    <!--a href="#" class="slds-card__header-link slds-truncate" title="Accounts"-->
+                    <span>1. Agency Information	</span>
+                    <!--/a-->
+                </h2>
+                </div>
+            </header>
+            </div>
+            <div class="slds-card__body slds-card__body_inner">
+                <div class="slds-grid slds-wrap">
+                    <div  class="slds-col slds-size_1-of-2">
+                        <span>Member Agency:</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                         <Span><c-search-component
+                            margin-top = "-5%"
+                            onlookup={handleLookupAcc}
+                            fields-to-create={fieldsToCreate}
+                            create-record=false
+                            parent-a-p-i-name="ParentId"
+                            obj-name="Account"
+                            display-fields="Name, AccountNumber"
+                            fields = {fields}
+                            show-label=false
+                            data-index={index}
+                            index={index}>
+                            </c-search-component></Span><span style="color: red;font-style: italic;" data-id="accerror"></span>
+                    </div><br/><br/>
+                </div>
+                <div class="slds-grid slds-wrap">
+                    <div  class="slds-col slds-size_1-of-2">
+                        <span>Contact Name:</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                         <Span>
+                            <c-search-component
+                            onlookup={handleLookup}
+                            create-record=false
+                            parent-a-p-i-name="Accountid"
+                            obj-name="Contact"
+                            display-fields="Name, Email"
+                            fields = {fields}
+                            show-label=true
+                            data-index={index}
+                            index={index}>
+                            </c-search-component></Span><span style="color: red;font-style: italic;" data-id="conerror"></span>
+                    </div><br/><br/><br/>
+                </div>
+                <div class="slds-grid slds-wrap">
+                    <div  class="slds-col slds-size_1-of-2">
+                        <span>Email:</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                         <Span><input readonly  class="slds-input slds-combobox__input slds-border_left slds-border_right slds-border_top slds-border_bottom" type="text" data-id="email"  /></Span>
+                    </div><br/><br/>
+                </div>
+            </div>
+        </article>
+    
+        <article class="slds-card slds-size_1-of-2" style="margin-left: 4%;margin-top: 1%;">
+            <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                <h2 class="slds-card__header-title">
+                    <span>2. Project Duration 	</span>
+                </h2><b>How long would you like to borrow our tools ?</b>
+                </div>
+            </header>(All the fields are required)
+            </div>
+            <div class="slds-card__body slds-card__body_inner">
+                
+                <div class="slds-grid slds-wrap">
+                    <div  class="slds-col slds-size_1-of-2">
+                        <span>Desired Pickup Date:</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                         <Span><lightning-input onchange={handleWeekChange}  data-id="pickupDate" style="margin-top: -5%;" type="date" ></lightning-input></Span>
+                         <span style="color: red;font-style: italic;" data-id="pickDateerror"></span>
+                    </div><br/><br/>
+                </div>
+                
+                <div class="slds-grid slds-wrap">
+                    <div  class="slds-col slds-size_1-of-2">
+                        <span>Desired Pickup Time:</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <Span><lightning-combobox data-id="pickupTime"
+                                
+                                style="margin-top: -5%;"
+                                value={PickupTime}
+                                options={desiredPickupTime}
+                            ></lightning-combobox >
+                        </Span>
+                        <span style="color: red;font-style: italic;" data-id="pickTimeerror"></span>
+                    </div><br/><br/>
+                </div>
+                <div class="slds-grid slds-wrap">
+                    <div  class="slds-col slds-size_1-of-2">
+                        <span>Requested Borrowing Period:</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                         <Span> <lightning-combobox 
+                            data-id="Week"
+                            style="margin-top: -5%;"
+                            value={borrowing}
+                            options={borrowingPeriod}
+                            onchange={handleWeekChange}
+                            ></lightning-combobox ></Span><span style="color: red;font-style: italic;" data-id="weekerror"></span>
+                    </div><br/><br/>
+                </div>
+                <div class="slds-grid slds-wrap">
+                    <div  class="slds-col slds-size_1-of-2">
+                        <span>Desired Return Date:</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                         <Span> <lightning-input value={returndate} data-id="returnDate" style="margin-top: -5%;" type="date" onchange={handleWeekChange}></lightning-input></Span>
+                         <span style="color: red;font-style: italic;" data-id="returnerror"></span>
+                    </div><br/><br/>
+                </div>
+                
+            </div>
+        </article>
+    </div>
+
+    <article class="slds-card" style="margin-top: 3%;margin-left: 1%;margin-right: 2%;" >
+        <div class="slds-card__header slds-grid">
+          <header class="slds-media slds-media_center slds-has-flexi-truncate">
+            <div class="slds-media__body">
+              <h2 class="slds-card__header-title">
+                  <span>3. Project Information</span>
+              </h2>
+            </div>
+          </header>(All the fields are required)
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            
+            <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                <div class="slds-size_1-of-2">
+                  <div class="slds-box slds-box_x-small slds-text-align_left slds-m-around_x-small">
+                    <div class="slds-grid slds-wrap">
+                        <div  class="slds-col slds-size_1-of-2">
+                            <span>Order Name:</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                             <Span><input class="slds-input" data-id="orderName"  type="text" ></input></Span>
+                             <span style="color: red;font-style: italic;" data-id="nameerror"></span>
+                        </div><br/><br/>
+                    </div>
+                    <div class="slds-grid slds-wrap">
+                        <div  class="slds-col slds-size_1-of-2">
+                            <span>People Directly Served:<lightning-helptext class="customIcon" content={fieldsInfo.People_Directly_Served__c.inlineHelpText}></lightning-helptext></span>
+                            
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                             <Span><input class="slds-input" data-id="peopledirectlyserved"  type="number" ></input></Span>
+                             <span style="color: red;font-style: italic;" data-id="servederror"></span>
+                        </div><br/><br/>
+                    </div>
+                    <div class="slds-grid slds-wrap">
+                        <div  class="slds-col slds-size_1-of-2">
+                            <span>Number of Projects:<lightning-helptext class="customIcon" content={fieldsInfo.Number_Of_Projects__c.inlineHelpText}></lightning-helptext></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                             <Span><input class="slds-input" data-id="numberProject"  type="number" ></input></Span>
+                             <span style="color: red;font-style: italic;" data-id="projecterror"></span>
+                        </div><br/><br/>
+                    </div>
+                    <div class="slds-grid slds-wrap">
+                        <div  class="slds-col slds-size_1-of-2">
+                            <span>Volunteer Source:<lightning-helptext class="customIcon" content={fieldsInfo.Volunteer_Source__c.inlineHelpText}></lightning-helptext></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                             <Span><lightning-combobox 
+                                style="margin-top: -5%;"
+                                data-id="volunteersource"
+                                options={volunteerSource}
+                                onchange={handleVolSrcChange}
+                                ></lightning-combobox > </Span>
+                                <span style="color: red;font-style: italic;" data-id="sourceerror"></span>
+                        </div><br/><br/>
+                    </div>
+                    <template if:true={corp}>
+                    <div class="slds-grid slds-wrap">
+                        <div  class="slds-col slds-size_1-of-2">
+                            <span>Corporation Name:<lightning-helptext class="customIcon" content={fieldsInfo.Corporation_Name__c.inlineHelpText}></lightning-helptext></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                             <Span><input class="slds-input"  data-id="corpname" type="text" ></input></Span>
+                             <span style="color: red;font-style: italic;" data-id="corperror"></span>
+                        </div><br/><br/>
+                    </div></template>
+                    <div class="slds-grid slds-wrap">
+                        <div  class="slds-col slds-size_1-of-2">
+                            <span>Number of hours average volunteer is on site:<lightning-helptext class="customIcon" content={fieldsInfo.Hours_Average_Volunteer_is_on_Site__c.inlineHelpText}></lightning-helptext></span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                             <Span><input class="slds-input"  data-id="onsitehours" type="number" ></input></Span>
+                             <span style="color: red;font-style: italic;" data-id="onSiteerror"></span>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="slds-size_1-of-2">
+                    <div class="slds-box slds-box_x-small slds-text-align_left slds-m-around_x-small">
+                        <div class="slds-grid slds-wrap">
+                            <div  class="slds-col slds-size_1-of-2">
+                                <span>Number of Volunteers:<lightning-helptext class="customIcon" content={fieldsInfo.Number_of_Volunteers__c.inlineHelpText}></lightning-helptext></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                 <Span><input class="slds-input" data-id="volunteersnumber"  type="number" ></input></Span>
+                                 <span style="color: red;font-style: italic;" data-id="volerror"></span>
+                            </div><br/><br/>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div  class="slds-col slds-size_1-of-2">
+                                <span>People Indirectly Impacted:<lightning-helptext class="customIcon" content={fieldsInfo.People_Indirectly_Impacted__c.inlineHelpText}></lightning-helptext></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                 <Span><input class="slds-input" data-id="peopleImImpacted"  type="number" ></input></Span>
+                                 <span style="color: red;font-style: italic;" data-id="impacterror"></span>
+                            </div><br/><br/>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div  class="slds-col slds-size_1-of-2">
+                                <span>Staff on this Project:<lightning-helptext class="customIcon" content={fieldsInfo.Staff_on_this_Project__c.inlineHelpText}></lightning-helptext></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                 <Span><input class="slds-input" data-id="staff"  type="number" ></input></Span>
+                                 <span style="color: red;font-style: italic;" data-id="stafferror"></span>
+                            </div><br/><br/>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div  class="slds-col slds-size_1-of-2">
+                                <span>Zip Code(s) (Project's Location):<lightning-helptext class="customIcon" content="Please list all ZIP codes where projects will occur, separated by commas."></lightning-helptext></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                 <Span><input class="slds-input" data-id="zipcode"  type="text" ></input></Span>
+                                 <span style="color: red;font-style: italic;" data-id="ziperror"></span>
+                            </div><br/><br/>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div  class="slds-col slds-size_1-of-2">
+                                <span>Total Project Volunteer Hours:<lightning-helptext class="customIcon" content={fieldsInfo.Total_Project_Volunteer_Hours__c.inlineHelpText}></lightning-helptext></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                 <Span><input class="slds-input"  data-id="projectVolunteerHr" type="number" ></input></Span>
+                                 <span style="color: red;font-style: italic;" data-id="hourerror"></span>
+                            </div><br/><br/>
+                        </div>
+                    </div>
+                </div>
+               
+              </div>
+        </div>
+      </article>
+      <div class="demo-only demo-only--sizing slds-grid slds-wrap" style="margin-top: 3%;margin-left: 1%;margin-right: 2%;">
+        <article class="slds-card slds-size_1-of-3" style="width: 31%;margin-top: 1%;">
+            <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                <h2 class="slds-card__header-title">
+                    <span>4. Project Type</span>
+                </h2> <span style="color: red;font-style: italic;" data-id="projectTyeperror"></span>
+                </div>
+            </header>(Check all that apply)
+           
+            </div>
+            <div class="slds-card__body slds-card__body_inner slds-text-align_left">
+                <!--fieldset class="slds-form-element"-->
+                <template if:true={projectType} for:each={projectType} for:item="record" for:index="index">
+                    
+                    <div  class="slds-checkbox slds-size--1-of-1" key={record.value}>
+                        <input type="checkbox" name="options" onchange={handleProjectType} id={record.label} value={record.label}  />&nbsp;&nbsp;
+                            <label class="slds-checkbox__label" for={record.label}>
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label" style="margin-left: 2%;">{record.label}</span>
+                            </label><br/><br/>
+                    </div> 
+                        
+                </template>
+            <!--/fieldset-->
+            <!--c-multi-select-picklist  <br/>
+                if:true={projectType} 
+                options={projectType}
+                onvaluechange={handleMultiPickChange} >
+            </c-multi-select-picklist -->
+            </div>
+        </article>
+        <article class="slds-card slds-size_1-of-3" style="width: 30%;margin-top: 1%;margin-left: 4%;">
+            <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                <h2 class="slds-card__header-title">
+                    <span>5. Areas of Impact 	</span>
+                </h2><span style="color: red;font-style: italic;"  data-id="areaserror"></span>
+                </div>
+            </header>(Check all that apply)<br/>
+            
+            </div>
+            <div class="slds-card__body slds-card__body_inner slds-text-align_left">
+                <fieldset class="slds-form-element">
+                    <template if:true={areasImpacted} for:each={areasImpacted} for:item="record" for:index="index">
+                        <div class="slds-checkbox slds-size--1-of-1" key={record.value}>
+                            <input type="checkbox" name="options" onchange={handleAreaImpact} id={record.label}
+                                value={record.label} />&nbsp;&nbsp;
+                            <label class="slds-checkbox__label" for={record.label}>
+                                <span class="slds-checkbox_faux"></span>
+                                <span class="slds-form-element__label" style="margin-left: 2%;">{record.label}</span>
+                            </label><br /><br />
+                        </div>
+                    </template>
+                </fieldset>
+            </div>
+        </article>
+        <article class="slds-card slds-size_1-of-3" style="width: 31%;margin-top: 1%;margin-left: 4%;">
+            
+            <div class="slds-card__body slds-card__body_inner">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span>6. Project Venue 	</span>
+                        </h2><span style="color: red;font-style: italic;" data-id="venueerror"></span>
+                        </div>
+                    </header>(Check all that apply) <br/>
+                    
+                    </div>
+                    <fieldset class="slds-form-element">
+                        <template if:true={projectVenue} for:each={projectVenue} for:item="record" for:index="index">
+                            <div class="slds-checkbox slds-size--1-of-1" key={record.value}>
+                                <input type="checkbox" name="options" onchange={handleProjectVanue} id={record.label}
+                                    value={record.value} />&nbsp;&nbsp;
+                                <label class="slds-checkbox__label" for={record.label}>
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label" style="margin-left: 2%;">{record.label}</span>
+                                </label><br /><br />
+                            </div>
+                        </template>
+                    </fieldset>
+                    <template if:true={home}>
+                        <div  class="slds-col slds-size_1-of-2">
+                            <span>If yes, how many homes?</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                             <Span><input class="slds-input" onchange={handleQuantity} data-id="home"  type="number" ></input></Span>
+                             <span style="color: red;font-style: italic;" data-id="homeerror"></span>
+                        </div><br/>
+                    </template>
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span>7. Serving &lt; 50% of low income people	</span>
+                        </h2><span style="color: red;font-style: italic;" data-id="radioerror"></span>
+                        </div>
+                    </header><br/>
+                    </div>
+                    <fieldset class="slds-form-element">
+                        <template if:true={serving} for:each={serving} for:item="record" for:index="index">
+                            
+                            <div class="slds-form-element__control" key={record.value}>
+                                <span class="slds-checkbox">
+                                    <input type="radio" name="options"  value={record.label} onchange={handleserv}  />
+                                    <label class="slds-radio__label" for="checkbox-unique-id-84">
+                                        <span class="slds-radio_faux"></span>
+                                    <span class="slds-form-element__label" style="margin-left: 3%;width: 93%;">{record.label}</span>
+                                  </label>
+                                </span><br/>
+                            </div>
+                        </template>
+                    </fieldset>
+            </div>
+        </article>
+
+
+      </div>
+    </template>
+</template>

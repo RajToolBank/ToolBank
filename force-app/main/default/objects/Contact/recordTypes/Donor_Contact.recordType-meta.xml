@@ -1,0 +1,1176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Donor_Contact</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>Compact_Layout1</compactLayoutAssignment>
+    <description>Any individual donor, potential donor, or volunteer</description>
+    <label>Donor Contact</label>
+    <picklistValues>
+        <picklist>Affiliate__c</picklist>
+        <values>
+            <fullName>ATL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BLT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CHI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CIN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CLT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DEN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DET</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HFD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HOU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MSP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NWK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PDX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PHX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RVA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USA</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>WDC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WNS</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Board_Committee__c</picklist>
+        <values>
+            <fullName>Disaster Services %28TDS%29 Advisory Council</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Executive Committee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finance Committee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Legal Counsel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Committee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Replication and Sustainability Committee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resource Development Committee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STAFF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology and Data Committee</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Community_Relationship__c</picklist>
+        <values>
+            <fullName>Neighbor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Public Official</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Connectivity__c</picklist>
+        <values>
+            <fullName>Akron OH %2899%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Albuquerque NM %2834%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Amarillo TX %28122%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Anaheim CA %2856%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Anchorage AK %2866%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Arlington TX %2849%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Arlington VA %2896%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Atlanta GA %2840%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aurora %09IL %28134%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aurora CO %2859%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Austin TX %2815%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bakersfield CA %2858%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Baltimore MD %2821%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Baton Rouge LA %2888%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Birmingham AL %2883%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Boise IA %28100%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Boston MA %2820%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Brownsville TX %28131%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Buffalo NY %2870%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chandler AZ %2876%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Charlotte NC %2818%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chattanooga TN %28140%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chesapeake VA %2891%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chicago IL %283%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chula Vista CA %2890%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cincinnati OH %2857%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cleveland OH %2843%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Colorado Springs CO %2846%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Columbus GA %28121%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Columbus OH %2816%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corpus Christi TX %2865%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dallas TX %289%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denver %09CO %2824%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Des Moines IA %28108%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Detroit MI %2818%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Durham NC %2885%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>El Paso TX %2822%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fayetteville NC %28112%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fontana CA %28123%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fort Lauderdale FL %28126%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fort Wayne IN %2872%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fort Worth TX %2817%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fremont CA %28102%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fresno%09CA %2836%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Garden Grove CA %28142%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Garland TX %2893%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gilbert%09AZ %2892%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Glendale AZ %2875%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Glendale CA %28113%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grand Prairie TX %28144%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grand Rapids MI %28115%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Greensboro NC %2873%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Henderson NV %2871%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Honolulu HI %2850%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Houston TX %284%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Huntington Beach CA %28116%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Huntsville AL %28129%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Indianapolis IN %2814%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Irvine %09CA %2897%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Irving TX %28101%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jackson MS %28132%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jacksonville FL %2813%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jersey City NJ %2878%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kansas City MO %2835%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Knoxville TN %28125%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Laredo TX %2886%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Las Vegas NV %2828%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lexington KY %2863%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lincoln NE %2874%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Little Rock AR %28119%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Long Beach CA %2839%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Los Angeles CA %282%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Louisville KY %2829%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lubbock TX %2887%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Madison WI %2881%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Memphis TN %2819%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mesa AZ%09%2837%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Miami %09FL %2842%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Milwaukee WI %2826%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Minneapolis MN %2848%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Minneapolis-St Paul MN %2855%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile%09AL %28117%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Modesto CA %28105%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Montgomery AL %28106%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moreno Valley CA %28120%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nashville TN %2825%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Orleans LA %2853%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New York NY %281%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Newark NJ %2868%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Newport News VA %28118%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Norfolk VA %2882%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>North Las Vegas NV %2889%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oakland CA %2844%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oceanside CA %28135%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oklahoma City OK %2831%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Omaha NE %2840%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ontario CA %28139%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Orlando FL %2880%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Overland Park KS %28133%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oxnard CA %28124%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Peoria AZ %28145%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Philadelphia PA %286%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phoenix AZ %286%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pittsburgh PA %2861%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Plano TX %2869%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Portland OR %2829%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Providence RI %28137%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Raleigh NC %2845%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rancho Cucamonga CA %28138%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reno NV%09%2894%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Richmond VA %28105%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Riverside CA %2862%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rochester NY %2898%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rockford IL %28149%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sacramento CA %2838%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salt Lake City UT %28127%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>San Antonio TX %287%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>San Bernardino CA %28111%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>San Diego CA %288%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>San Francisco CA %2812%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>San Jose CA %2810%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Santa Ana CA %2855%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Santa Clarita CA %28141%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Santa Rosa CA %28148%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scottsdale AZ %2879%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seattle WA %2823%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shreveport LA %28110%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sioux Falls SD %28146%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spokane WA %28104%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Springfield MA %28150%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Springfield MO %28147%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>St%2E Louis MO %2852%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>St%2E Paul MN %2867%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>St%2E Petersburg FL %2877%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stockton CA %2864%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tacoma WA %28109%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tallahassee FL %2836%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tampa %09FL %2854%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tempe AZ %28130%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Toledo OH %2860%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tucson AZ %2832%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tulsa OK %2847%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vancouver WA %28143%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Virginia Beach VA %2841%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Washington DC %2827%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wichita KS %2851%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Winston-Salem NC%2884%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yonkers NY %28107%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>GW_Volunteers__Volunteer_Availability__c</picklist>
+        <values>
+            <fullName>Afternoon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Morning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Weekdays</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Weekends</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Weekly</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>GW_Volunteers__Volunteer_Skills__c</picklist>
+        <values>
+            <fullName>Data_Entry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Event Planning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fundraising</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Graphic Design</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manual labor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Organization</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Photography</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Engine Repair</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tool Sharpening</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>GW_Volunteers__Volunteer_Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Sign Up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prospective</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LeadSource</picklist>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partner Referral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone Inquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchased List</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Name</picklist>
+        <values>
+            <fullName>Dr%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mr%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mrs%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ms%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prof%2E</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Org_Type__c</picklist>
+        <values>
+            <fullName>COMMUNITY FDN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CORP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CORP FDN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FAM FDN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PRIVATE FDN</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Personal_Gender_Pronouns__c</picklist>
+        <values>
+            <fullName>He%2FHim%2FHis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>She%2FHer%2FHers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sie%2FHir%2FHirs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>They%2FThem%2FTheirs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zie%2FZir%2FZirs</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>T_Shirt_Size__c</picklist>
+        <values>
+            <fullName>Large</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>X-Large</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>XX-Large</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Vendor_Categories__c</picklist>
+        <values>
+            <fullName>Misc%2E %2F Other Vendor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Utility Vendor</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Volunteer_Frequency__c</picklist>
+        <values>
+            <fullName>Monthly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Occasional Saturday</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>One-Time</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Special Events</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Weekly</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Volunteer_Interest__c</picklist>
+        <values>
+            <fullName>Committee Work</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Community Tool Drives</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fundraising Events</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Office%2FAdministrative</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tool Repair</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warehouse Operations</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>npe01__PreferredPhone__c</picklist>
+        <values>
+            <fullName>Household</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Work</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>npe01__Preferred_Email__c</picklist>
+        <values>
+            <fullName>Alternate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Work</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>npe01__Primary_Address_Type__c</picklist>
+        <values>
+            <fullName>Home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacation Home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Work</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>npe01__Secondary_Address_Type__c</picklist>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Work</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>npe01__SystemAccountProcessor__c</picklist>
+        <values>
+            <fullName>Individual</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>One-to-One</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>npo02__Level__c</picklist>
+        <values>
+            <fullName>Primary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Secondary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tertiary</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>npo02__Naming_Exclusions__c</picklist>
+        <values>
+            <fullName>Household%5F%5Fc%2EFormal_Greeting%5F%5Fc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Household%5F%5Fc%2EInformal_Greeting%5F%5Fc</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Household%5F%5Fc%2EName</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>npo02__SystemHouseholdProcessor__c</picklist>
+        <values>
+            <fullName>All Individual Contacts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>All New or Edited Contacts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Contacts</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>npsp__Sustainer__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Former</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lapsed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>sf4twitter__Influencer_Type__c</picklist>
+        <values>
+            <fullName>None</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reporter</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>sf4twitter__Influencer__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>sf4twitter__Level__c</picklist>
+        <values>
+            <fullName>Primary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Secondary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tertiary</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>sf4twitter__Origin__c</picklist>
+        <values>
+            <fullName>Facebook</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Twitter</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

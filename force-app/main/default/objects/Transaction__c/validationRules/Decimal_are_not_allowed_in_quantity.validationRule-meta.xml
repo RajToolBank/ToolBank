@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Decimal_are_not_allowed_in_quantity</fullName>
+    <active>true</active>
+    <errorConditionFormula>CONTAINS(TEXT(Quantity__c), &quot;.&quot;)</errorConditionFormula>
+    <errorMessage>Decimals are not allowed in quantity</errorMessage>
+</ValidationRule>

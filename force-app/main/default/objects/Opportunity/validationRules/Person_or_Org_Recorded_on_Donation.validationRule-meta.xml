@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Person_or_Org_Recorded_on_Donation</fullName>
+    <active>true</active>
+    <description>Ensures either a person or organization is recorded on the record</description>
+    <errorConditionFormula>AND(ISBLANK(AccountId) ,ISBLANK(npsp__Primary_Contact__c ), Anonymous__c  = FALSE)</errorConditionFormula>
+    <errorMessage>You must connect this donation to either an organization or a primary contact.</errorMessage>
+</ValidationRule>

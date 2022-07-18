@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>households__New_Task</fullName>
+    <availability>online</availability>
+    <description>New Task</description>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>New Task</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>/households/householdAction.apexp?id={!households__Household__c.Id}&amp;action=New_Task&amp;retURL={!$Request.retURL}</url>
+</WebLink>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>For_waiver_comments_are_mandate</fullName>
+    <active>true</active>
+    <errorConditionFormula>(ISPICKVAL( Payment_Method__c , &quot;Waiver - External Sponsor&quot;)|| 
+ISPICKVAL(Payment_Method__c , &quot;Waiver - Internal Promotion&quot;)||
+ISPICKVAL(Payment_Method__c , &quot;Waiver - Forgiven&quot;)) &amp;&amp;   ISBLANK( Comment__c )</errorConditionFormula>
+    <errorDisplayField>Comment__c</errorDisplayField>
+    <errorMessage>Comments are mandate</errorMessage>
+</ValidationRule>

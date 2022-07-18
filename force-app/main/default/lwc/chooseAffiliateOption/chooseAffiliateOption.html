@@ -1,0 +1,11 @@
+<template>
+    <template if:true={affiliates}>
+        <Span><lightning-combobox 
+            data-id="affiliatelist"
+            options={affiliates}
+            onchange={handleAffiliateSelect}
+            ></lightning-combobox > 
+        </Span>
+    </template>
+
+</template>

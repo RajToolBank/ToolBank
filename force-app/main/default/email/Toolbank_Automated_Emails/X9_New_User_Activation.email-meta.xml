@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>External: To new contact/user when created sharing community details</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Tool_Bank_Original</letterhead>
+    <name>9) New User Activation</name>
+    <style>freeForm</style>
+    <subject>Please Activate Your Toolbank User Account</subject>
+    <textOnly>Hi {!Receiving_User.FirstName},
+
+Sent from: The {!User.Location__c} ToolBank
+
+You have been invited to use the ToolBank on behalf of {!User.CompanyName}.
+
+Click here {!Community_Url} to create a password and sign in to your account. Your username is {!Receiving_User.Username}
+
+We look forward to serving you!</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

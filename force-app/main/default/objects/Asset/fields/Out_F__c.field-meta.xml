@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Out_F__c</fullName>
+    <externalId>false</externalId>
+    <formula>Out_R__c - Returned_R__c</formula>
+    <inlineHelpText>This field indicates the number of tools loaned out to an agency.</inlineHelpText>
+    <label>Out</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

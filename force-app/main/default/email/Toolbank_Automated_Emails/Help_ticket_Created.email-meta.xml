@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Internal: Notify staff about new tickets</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Tool_Bank_Original</letterhead>
+    <name>18) Help Ticket Created</name>
+    <style>freeForm</style>
+    <subject>New Help Ticket - #{!Case.CaseNumber}</subject>
+    <textOnly>Subject line: Ticket Number
+Affiliate: (location)
+From: (username)
+CC: (anyone cc&apos;ed on the ticket by the user)
+Member Agency: (organization selected by affiliate user)
+Tool Order: (order containing the problem, selected by affiliate user)
+Order ID: (ID of order containing the problem, selected by affiliate user)
+Description: (text entered by affiliate user)</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

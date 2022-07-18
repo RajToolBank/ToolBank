@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vendor_Categories__c</fullName>
+    <externalId>false</externalId>
+    <label>Vendor Categories</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Utility Vendor</fullName>
+                <default>false</default>
+                <label>Utility Vendor</label>
+            </value>
+            <value>
+                <fullName>Misc. / Other Vendor</fullName>
+                <default>false</default>
+                <label>Misc. / Other Vendor</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

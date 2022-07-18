@@ -1,0 +1,199 @@
+<template>
+    <div class="slds-path">
+        <div class="slds-grid slds-path__track">
+            <div class="slds-grid slds-path__scroller-container">
+                <div class="slds-path__scroller">
+                    <div class="slds-path__scroller_inner">
+                        <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+                            <li data-id="infoLi" class="slds-path__item slds-is-incomplete " role="presentation">
+                                <a aria-selected="true"  class="slds-path__link"  id="path-1" role="option"
+                                    tabindex="0">
+                                    <span class="slds-path__stage">
+                                        <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="slds-path__title">Order Information</span>
+                                </a>
+                            </li>
+                            <li data-id="selectLi" class="slds-path__item slds-is-current slds-is-active" role="presentation">
+                                <a aria-selected="false" class="slds-path__link"  id="path-2" role="option"
+                                    tabindex="-1">
+                                    <span class="slds-path__stage">
+                                        <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="slds-path__title">Select Tools</span>
+                                </a>
+                            </li>
+                            <li data-id="reviewLi" class="slds-path__item slds-is-incomplete" role="presentation">
+                                <a aria-selected="false" class="slds-path__link"  id="path-3" role="option"
+                                    tabindex="-1">
+                                    <span class="slds-path__stage">
+                                        <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="slds-path__title">Review Page</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 1%;margin-left: 1%;margin-right: 1%;" >
+        <button type="button" class="slds-button slds-button_brand" style="background: #1589ee;" onclick={hundleSelectToolPrev} >Previous</button>
+        <button type="button" class="slds-button slds-button_brand" style="background: #1589ee;margin-left: 87.5%;" onclick={handleContinue}  >Continue</button> <br/>
+    </div>
+    <div class="slds-text-align_right slds-size_1-of-2" style="margin-left: 1%;margin-right: 1%;" >
+        <span style="color: red;font-style: italic;" data-id="qtyerror"></span>
+    </div>
+    <article class="slds-card" style="margin-top: 1%;margin-left: 1%;margin-right: 2%;" >
+       
+        <div class="slds-card__body slds-card__body_inner">
+            
+            <div class="demo-only demo-only--sizing  slds-grid slds-wrap slds-scrollable">
+                <div class="slds-size_4-of-5">
+                    <div class="slds-box_x-small slds-m-around_x-small slds-scrollable">
+                        <b>Search:</b>&nbsp; 
+                        <input type="text" onkeyup={handleSearch}/><br/><br/>
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable" >
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th  scope="col">
+                                        <div class="slds-truncate" title="Category">Category</div>
+                                    </th>
+                                    <th  scope="col">
+                                        <div class="slds-truncate" title="Sub-Category">Sub-Category</div>
+                                    </th>
+                                    <th  scope="col">
+                                        <div class="slds-truncate" title="Tool Name">Tool Name</div>
+                                    </th>
+                                    <th  scope="col">
+                                        <div class="slds-truncate" title="Tool Note">Tool Note</div>
+                                    </th>
+                                    <th  scope="col">
+                                        <div class="slds-truncate" title="Retail Value">Retail Value</div>
+                                    </th>
+                                    <th  scope="col">
+                                        <div class="slds-truncate" title="Handling Fees">Handling Fees</div>
+                                    </th>
+                                    <th  scope="col">
+                                        <div class="slds-truncate" title="Quantity">Quantity</div>
+                                    </th>
+                                    <th  scope="col">
+                                        <div class="slds-truncate" title="Picture">Picture</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template if:true={assets} for:each={assets} for:item="record" for:index="index">
+                                    <tr class="slds-hint-parent" key={record.asset.Id} data-id={record.asset.Id} data-label={record.asset.Product2.Highlights__c} title={record.asset.Product2.Job_Type__c} >
+                                        <td class="slds-cell-wrap" data-label="category" scope="row">
+                                            <div class="slds-truncate" title={record.asset.Product2.Family} >{record.asset.Product2.Family}</div>
+                                        </td>
+                                        <td class="slds-cell-wrap" data-label="Sub category">
+                                            <div class="slds-truncate" title={record.asset.Product2.Sub_Category__c}>{record.asset.Product2.Sub_Category__c}</div>
+                                        </td>
+                                        <td class="slds-cell-wrap" data-label="name">
+                                            <div class="slds-truncate" title={record.asset.Product2.Spanish_Name__c}>{record.asset.Product2.Name}</div>
+                                        </td>
+                                        <td class="slds-cell-wrap" data-label="Note">
+                                            <div class="slds-truncate" title={record.asset.Product2.Tool_Note__c}>
+                                               
+                                                <lightning-helptext content={record.asset.Product2.Tool_Note__c}></lightning-helptext>
+                                            </div>
+                                        </td>
+                                        <td class="slds-cell-wrap" data-label="Amount">
+                                            <div class="slds-truncate" title={record.pbe.UnitPrice}>$
+                                                <lightning-formatted-number value={record.pbe.UnitPrice} minimum-fraction-digits="2"></lightning-formatted-number></div>
+                                        </td>
+                                        <td class="slds-cell-wrap" data-label="Amount">
+                                            <div class="slds-truncate" title={record.hanlingFee}>$
+                                                <lightning-formatted-number value={record.hanlingFee} minimum-fraction-digits="2"></lightning-formatted-number></div>
+                                        </td>
+                                        <td class="slds-cell-wrap" data-label="Quantity">
+                                            <div class="slds-truncate" title="Quantity">
+                                                <input type="number" 
+                                                data-price={record.pbe.UnitPrice}  
+                                                data-id={record.asset.Product2.Id} 
+                                                data-pbe={record.pbe.Id}
+                                                data-assetid ={record.asset.Id}
+                                                data-toolnote={record.asset.Product2.Tool_Note__c}
+                                                data-toolname={record.asset.Product2.Name}
+                                                data-category={record.asset.Product2.Family}
+                                                data-subcategory={record.asset.Product2.Sub_Category__c}
+                                                data-hanlingfee={record.hanlingFee}
+                                                data-affilatefee ={record.asset.Affiliate_Handling_Fee__c}
+                                                data-picture={record.asset.Product2.Product_Image__c}
+                                                onkeydown={handleQuantity} onkeyup={handleQuantity}/>
+                                            </div>
+                                        </td>
+                                        <td class="slds-cell-wrap" data-label="link">
+                                            <div class="slds-truncate" title="picture">
+                                                
+                                                <lightning-helptext icon-name="utility:photo" content={record.asset.Product2.Product_Image__c}></lightning-helptext>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="slds-size_1-of-5">
+                    <div class="slds-box slds-box_x-small slds-text-align_left slds-m-around_x-small">
+                        <b> <u>Highlights</u></b><br/><br/>
+                        <fieldset class="slds-form-element">
+                            <template if:true={highlights} for:each={highlights} for:item="record" for:index="index">                            
+                                  <div class="slds-checkbox slds-size--1-of-1" key={record.value}>
+                                    <input type="checkbox" name={record.value} onchange={handleHighlight} id={record.label} />&nbsp;&nbsp;
+                                    <label class="slds-checkbox__label" for={record.label}>
+                                        <span class="slds-checkbox_faux"></span>
+                                        <span class="slds-form-element__label" style="margin-left: 2%;">{record.label}</span>
+                                    </label><br />
+                                </div>
+                            </template>
+                        </fieldset> 
+                        <br/>
+                        <b><u>Job Type</u></b><br/><br/>
+                        <fieldset class="slds-form-element">
+                            <template if:true={jobtypes} for:each={jobtypes} for:item="record" for:index="index">                               
+                                    <div class="slds-checkbox slds-size--1-of-1" key={record.value}>
+                                        <input type="checkbox" name={record.value} onchange={handleJobType} id={record.label} />&nbsp;&nbsp;
+                                        <label class="slds-checkbox__label" for={record.label}>
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label" style="margin-left: 2%;">{record.label}</span>
+                                        </label><br />
+                                    </div>
+                            </template>
+                        </fieldset>  
+                        <br/>
+                        <b><u>Filters</u></b><br/><br/>
+                        
+                      <div class="slds-checkbox slds-size--1-of-1">
+                        <input type="checkbox" name="CommonTool" onchange={handleSelectedCommon} id="CommonTool" />&nbsp;&nbsp;
+                        <label class="slds-checkbox__label" for="CommonTool">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label" style="margin-left: 2%;">Common Tool</span>
+                        </label><br />
+                    </div>
+                       
+                      <div class="slds-checkbox slds-size--1-of-1">
+                        <input type="checkbox" name="SelectedTool" onchange={handleSelected} id="SelectedTool" />&nbsp;&nbsp;
+                        <label class="slds-checkbox__label" for="SelectedTool">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label" style="margin-left: 2%;">Selected Tool</span>
+                        </label><br />
+                    </div>
+                    </div>
+                </div>
+               
+              </div>
+        </div>
+      </article>
+</template>

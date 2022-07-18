@@ -1,0 +1,3 @@
+<apex:page standardController="Transaction__c">
+You do not have permission for this Action.
+</apex:page>

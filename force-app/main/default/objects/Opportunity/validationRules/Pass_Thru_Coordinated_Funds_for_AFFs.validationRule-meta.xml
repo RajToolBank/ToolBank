@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pass_Thru_Coordinated_Funds_for_AFFs</fullName>
+    <active>true</active>
+    <description>This validation rule checks to see if the donation has been designated as a &quot;Pass Thru&quot; or &quot;TBUSA Coordinated Funding&quot; that a TB Affiliated org record has been designated in the &quot;Receiving ToolBank&quot; lookup field.</description>
+    <errorConditionFormula>(ISPICKVAL( Type , &quot;Pass Thru Funding&quot;)  &amp;&amp;  ISBLANK( Receiving_ToolBank_Organization__c )) 
+
+ || 
+
+(ISPICKVAL( Type , &quot;TB USA Coordinated Funding&quot;)  &amp;&amp;  ISBLANK( Receiving_ToolBank_Organization__c ))</errorConditionFormula>
+    <errorMessage>This donation has been designated as going to a ToolBank Affiliate.  Please indicate which ToolBank will be receiving this donation in the &quot;Receiving ToolBank / Organization&quot; field in the Outgoing Information section.</errorMessage>
+</ValidationRule>

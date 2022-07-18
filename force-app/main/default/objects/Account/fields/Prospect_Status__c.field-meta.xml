@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prospect_Status__c</fullName>
+    <description>Unapproached: no contact made.
+Cultivating: Contact made, engagement has begun.
+Proposal Pending: a request has been submitted.
+Poor fit: poor fit!</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Unapproached: no contact made.
+Cultivating: Contact made, engagement has begun.
+Proposal Pending: a request has been submitted.
+Poor fit: poor fit!</inlineHelpText>
+    <label>Prospect_Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Unresearched</fullName>
+                <color>#999999</color>
+                <default>true</default>
+                <label>Unresearched</label>
+            </value>
+            <value>
+                <fullName>Long Term</fullName>
+                <color>#33FFFF</color>
+                <default>false</default>
+                <label>Long Term</label>
+            </value>
+            <value>
+                <fullName>Mid Term</fullName>
+                <color>#FF9900</color>
+                <default>false</default>
+                <label>Mid Term</label>
+            </value>
+            <value>
+                <fullName>Short Term</fullName>
+                <color>#FF0000</color>
+                <default>false</default>
+                <label>Short Term</label>
+            </value>
+            <value>
+                <fullName>Current Donor</fullName>
+                <color>#33CC00</color>
+                <default>false</default>
+                <label>Current Donor</label>
+            </value>
+            <value>
+                <fullName>Poor Fit</fullName>
+                <color>#330099</color>
+                <default>false</default>
+                <label>Poor Fit</label>
+            </value>
+            <value>
+                <fullName>Not Applicable</fullName>
+                <color>#000000</color>
+                <default>false</default>
+                <label>Not Applicable</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

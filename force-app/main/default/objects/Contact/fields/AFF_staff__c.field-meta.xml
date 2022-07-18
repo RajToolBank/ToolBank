@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AFF_staff__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Is this contact on payroll at the ToolBank?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Is this contact on payroll at the ToolBank?  Includes FT and PT; dones not include interns or AmeriCorps.</inlineHelpText>
+    <label>AFF staff?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

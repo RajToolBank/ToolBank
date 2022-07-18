@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>npe01__Last_Donation_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field is only used with the one-to-one Organization to Contact model.</description>
+    <externalId>false</externalId>
+    <formula>if( Account.npe01__One2OneContact__c = Id ,
+Account.npe01__LastDonationDate__c,
+null
+)</formula>
+    <label>Last Transaction Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Date</type>
+</CustomField>

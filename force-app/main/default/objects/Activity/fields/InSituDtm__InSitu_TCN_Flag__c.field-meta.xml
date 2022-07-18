@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InSituDtm__InSitu_TCN_Flag__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>Check this box if you wish to have the task&apos;s creator notified by e-mail when this task is completed, deleted, re-opened, or its Due Date or Assigned To is changed before it is completed.</inlineHelpText>
+    <label>Notify when Complete</label>
+    <type>Checkbox</type>
+</CustomField>

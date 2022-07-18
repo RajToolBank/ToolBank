@@ -1,0 +1,44 @@
+<template>
+    
+    <template if:false={affiliateId}>
+        <div data-id="selectaffiliate" >
+            <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                  <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse">
+                    <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                      <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                    </svg>
+                    <span class="slds-assistive-text">Cancel and close</span>
+                  </button>
+                  <div class="slds-modal__header">
+                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Select Affiliate</h1>
+                  </div>
+                  <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style="height: 43%;overflow: initial;">
+                    <c-choose-affiliate-option onselectaffilate={handleAffiliateSelect}></c-choose-affiliate-option>
+                  </div>
+                </div>
+              </section>
+              <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+            
+        </div>
+    </template>
+
+    <template if:true={affiliateId}>
+        <div data-id="orderinfo" >
+            <c-order-information affiliate-id={affiliateId}
+            onorderinformation={handleOrderInfo}
+            ></c-order-information>
+        </div>
+
+        <div data-id="orderselect" style="display: none;">
+            <c-select-tool order-details={orderInfo} affiliate-id={affiliateId} onselecttool={handleSelectedTool} onselecttoolprev ={selectToolPreEvent}></c-select-tool>
+        </div>
+
+        <div data-id="reviewPage" style="display: none;">
+            <c-review-page order-details={orderInfo} order-tools={orderTools}
+            total-retail-cost-order ={totalRetailCostOrder}
+            total-tool-handling-fees ={totalToolHandlingFees}
+            onprereviewpage={reviewPagePreEvent}></c-review-page>
+        </div>
+    </template>
+</template>

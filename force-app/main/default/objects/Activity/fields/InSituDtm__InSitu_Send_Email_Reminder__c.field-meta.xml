@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InSituDtm__InSitu_Send_Email_Reminder__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Place only on the Task page layouts</description>
+    <externalId>false</externalId>
+    <label>Send Email Reminder</label>
+    <type>Checkbox</type>
+</CustomField>

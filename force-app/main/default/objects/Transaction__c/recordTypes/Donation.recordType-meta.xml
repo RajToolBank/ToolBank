@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Donation</fullName>
+    <active>true</active>
+    <label>Donation</label>
+    <picklistValues>
+        <picklist>Sub_Type__c</picklist>
+        <values>
+            <fullName>Corporate Donation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Individual Donation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Member Agency Donation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>sf4twitter__Get_Klout_Score_Massive</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Get Klout Score</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>var records = {!GETRECORDIDS( $ObjectType.Contact )}; 
+if (records.length == 0) { 
+alert(&quot;{!$Label.sf4twitter__TWITTER_SELECT_A_RECORD}&quot;) ; 
+} 
+else if(records.length &gt; 5){ 
+alert(&quot;{!SUBSTITUTE($Label.sf4twitter__TWITTER_SELECT_LESS_RECORD, &apos;{0}&apos;, &apos;5&apos;)}&quot;); 
+} 
+else { 
+	if(document.getElementsByName(&apos;fcf&apos;)[0] == null){ 
+	elementName = &apos;is:islv:inlineSchedulerListView:enhancedList:fcf&apos;; 
+	}else{ 
+		elementName =&apos;fcf&apos;; 
+	} 
+	var listViewFilters = document.getElementsByName(elementName)[0];
+
+var filterId = listViewFilters.options[listViewFilters.selectedIndex].value; 
+var url = new String(window.location); 
+if (url.search(/fcf=[^&amp;]+/) &gt;= 0) { 
+url = url.replace(/fcf=[^&amp;]+/, &apos;fcf=&apos; + filterId); 
+} else { 
+if (url.indexOf(&apos;?&apos;) == -1) { 
+url += &apos;?&apos; 
+} 
+url += &apos;&amp;fcf=&apos; + filterId; 
+} 
+window.location = &apos;/apex/sf4twitter__SocialKlout?cList=&apos; + records + &apos;&amp;retURL=&apos; + encodeURIComponent(url); 
+}</url>
+</WebLink>

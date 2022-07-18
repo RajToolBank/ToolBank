@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TBUSA_Affiliate__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check if this is an official TBUSA affiliate.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check this box ONLY if this is an official TBUSA affiliate.</inlineHelpText>
+    <label>TBUSA Affiliate?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

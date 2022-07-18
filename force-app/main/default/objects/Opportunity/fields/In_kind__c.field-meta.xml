@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>In_kind__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Check this box if the gift is a donation of goods or services.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check this box if the gift is a donation of goods or services.</inlineHelpText>
+    <label>In-kind</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

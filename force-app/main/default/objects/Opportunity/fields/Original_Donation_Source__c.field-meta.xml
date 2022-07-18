@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Original_Donation_Source__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This is a lookup field that should be used to link an outgoing TBUSA pass thru/coordinated funding donation to the original donation record.</description>
+    <externalId>false</externalId>
+    <label>Original Donation Source</label>
+    <referenceTo>Opportunity</referenceTo>
+    <relationshipLabel>Donations (Original Donation Source)</relationshipLabel>
+    <relationshipName>Donations</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

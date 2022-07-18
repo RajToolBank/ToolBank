@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Board_Members</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>Board_Title__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Board_Pledge_This_Year__c</columns>
+    <columns>CONTACT.EMAIL</columns>
+    <columns>npe01__WorkPhone__c</columns>
+    <columns>Ann_Rpt__c</columns>
+    <columns>Annual_Board_Conflict_Document_On_File__c</columns>
+    <columns>Annual_Board_Pledge_Document_On_File__c</columns>
+    <columns>Board_Committee__c</columns>
+    <columns>Board_Start_Date__c</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Board_Start_Date__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>1/1/1999</value>
+    </filters>
+    <filters>
+        <field>Board_End_Date__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>Board Members - Current (no end date)</label>
+    <sharedTo>
+        <role>Salesforce_Administrator</role>
+    </sharedTo>
+</ListView>

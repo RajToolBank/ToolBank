@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>sf4twitter__Get_Twitter_Username</fullName>
+    <availability>online</availability>
+    <description>Allow a CRM users to search twitter to find the Contact&apos;s
+twitter user name.</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Get Twitter Username</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>window.location = &apos;/apex/sf4twitter__TwitterGetUsername?paid={!Account.Id}&amp;retURL=&apos; + encodeURIComponent(window.location);</url>
+</WebLink>

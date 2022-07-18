@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Funding_Focus__c</fullName>
+    <externalId>false</externalId>
+    <label>Funding Focus</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Type</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Capital Campaigns</fullName>
+                <default>false</default>
+                <label>Capital Campaigns</label>
+            </value>
+            <value>
+                <fullName>Disaster Relief</fullName>
+                <default>false</default>
+                <label>Disaster Relief</label>
+            </value>
+            <value>
+                <fullName>Environment</fullName>
+                <default>false</default>
+                <label>Environment</label>
+            </value>
+            <value>
+                <fullName>General Operations</fullName>
+                <default>false</default>
+                <label>General Operations</label>
+            </value>
+            <value>
+                <fullName>Poverty</fullName>
+                <default>false</default>
+                <label>Poverty</label>
+            </value>
+            <value>
+                <fullName>Veterans</fullName>
+                <default>false</default>
+                <label>Veterans</label>
+            </value>
+            <value>
+                <fullName>Youth</fullName>
+                <default>false</default>
+                <label>Youth</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Foundation</controllingFieldValue>
+            <controllingFieldValue>Family or Private Foundation</controllingFieldValue>
+            <valueName>Capital Campaigns</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Foundation</controllingFieldValue>
+            <controllingFieldValue>Family or Private Foundation</controllingFieldValue>
+            <valueName>Disaster Relief</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Foundation</controllingFieldValue>
+            <controllingFieldValue>Family or Private Foundation</controllingFieldValue>
+            <valueName>Environment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Foundation</controllingFieldValue>
+            <controllingFieldValue>Family or Private Foundation</controllingFieldValue>
+            <valueName>General Operations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Foundation</controllingFieldValue>
+            <controllingFieldValue>Family or Private Foundation</controllingFieldValue>
+            <valueName>Poverty</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Foundation</controllingFieldValue>
+            <controllingFieldValue>Family or Private Foundation</controllingFieldValue>
+            <valueName>Veterans</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Foundation</controllingFieldValue>
+            <controllingFieldValue>Family or Private Foundation</controllingFieldValue>
+            <valueName>Youth</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>7</visibleLines>
+</CustomField>

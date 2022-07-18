@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Misconfigured_Accounts__c</fullName>
+    <externalId>false</externalId>
+    <formula>If(npe01__SYSTEM_AccountType__c
+= &apos;One-to-One Individual&apos;,
+IF(ISBLANK(npe01__One2OneContact__c),
+&apos;Missing Primary Contact&apos;,
+IF(npe01__One2OneContact__r.AccountId
+&lt;&gt; Id,
+&apos;Primary Contact Account Mismatch&apos;,
+&apos;&apos;)), &apos;&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Misconfigured Accounts</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

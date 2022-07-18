@@ -1,0 +1,16 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal"><span lang="EN"><b>Agency:</b> {!Account.Name} <o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN"><b>Project: </b>{!Order.Name}<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN"><b>Desired Pickup:</b> {!Order.EffectiveDate} at&nbsp;{!Order.Desired_Pickup_Time__c}<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN"><b>Contact:</b> {!Order.BillToContact}<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN"><b>Phone:</b> {!Order.Contact_Phone__c}<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="EN"><b>Email:</b> {!Order.Contact_Email__c}<o:p></o:p></span></p><p class="MsoNormal"><span lang="EN"><br></span></p><p class="MsoNormal"><span lang="EN"><b>Go to Tool Order:</b> <a href="{!Order.Link}">{!Order.Link}</a></span></p>]]></td>
+</tr>
+</table>

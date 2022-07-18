@@ -1,0 +1,37 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Agency:</b> {!Order.Organization_Name__c}</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Tool Order: </b>{!Order.Name}</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Order ID:</b> {!Order.OrderNumber}</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Requested date and time of pickup appointment:</b> {!Order.Desired_Pickup_Date__c}&nbsp; {!Order.Desired_Pickup_Time__c}</span></p>
+
+<p class="MsoNormal" style=""><span lang="EN" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b>Expected Tool Handling Fees:</b>&nbsp;</span><font face="arial">{!Order.Amount__c}</font></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Requested return date:</b> {!Order.EndDate} </span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Contact:</b> {!Order.ContactCustom__c}</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN">We have received your tool request! ToolBank
+staff will review your order within two business days, and you will receive a
+confirmation by phone or by email. Your order is not guaranteed until it has
+been confirmed.<a name="_GoBack"></a></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b style="mso-bidi-font-weight:normal"><span lang="EN">Call us
+with any questions. </span></b><span lang="EN">Need to change your appointment?
+Add some more tools? Reach out at&nbsp;<b>{!Order.Affiliate_Phone_Number__c}</b></span><span style="background-color: rgb(255, 255, 255); font-family: &quot;Trebuchet MS&quot;, sans-serif; font-size: 12pt;">.</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN">Thank you so much for choosing the ToolBank to
+empower your project! We look forward to working with you to strengthen and
+celebrate our shared community.</span></p>]]></td>
+</tr>
+</table>

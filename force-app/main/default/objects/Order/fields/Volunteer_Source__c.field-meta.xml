@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Volunteer_Source__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Source of Volunteers</inlineHelpText>
+    <label>Volunteer Source</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>General Community Volunteers</fullName>
+                <default>false</default>
+                <label>General Community Volunteers</label>
+            </value>
+            <value>
+                <fullName>Corporate Volunteers</fullName>
+                <default>false</default>
+                <label>Corporate Volunteers</label>
+            </value>
+            <value>
+                <fullName>Faith-based Volunteers</fullName>
+                <default>false</default>
+                <label>Faith-based Volunteers</label>
+            </value>
+            <value>
+                <fullName>Youth/Student Volunteers</fullName>
+                <default>false</default>
+                <label>Youth/Student Volunteers</label>
+            </value>
+            <value>
+                <fullName>Veteran Volunteers</fullName>
+                <default>false</default>
+                <label>Veteran Volunteers</label>
+            </value>
+            <value>
+                <fullName>Agency Staff</fullName>
+                <default>false</default>
+                <label>Agency Staff</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

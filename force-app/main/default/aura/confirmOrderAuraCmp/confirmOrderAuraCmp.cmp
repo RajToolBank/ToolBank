@@ -1,0 +1,18 @@
+<aura:component implements="force:lightningQuickAction,force:hasRecordId">
+    <aura:attribute name="recordId" type="String" />
+    <c:confirmOrderPage recordId="{!v.recordId}"></c:confirmOrderPage>
+
+    <aura:html tag="style">
+        .slds-modal__container{
+        height : auto;
+        max-width: 100% !important;
+        width: 95% !important;
+        }
+
+        .modal-body{
+            height :550px !important;
+            max-height :550px !important;
+        }
+
+    </aura:html>
+</aura:component>	

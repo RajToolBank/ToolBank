@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bad_One_to_One_Accounts</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>npe01__SYSTEM_AccountType__c</columns>
+    <columns>npe01__SYSTEMIsIndividual__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>npe01__SYSTEM_AccountType__c</field>
+        <operation>equals</operation>
+        <value>One-to-One Individual</value>
+    </filters>
+    <filters>
+        <field>npe01__SYSTEMIsIndividual__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <label>Bad One-to-One Accounts</label>
+    <sharedTo>
+        <group>NPSP_Conversion_Group</group>
+    </sharedTo>
+</ListView>

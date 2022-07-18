@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disaster__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Contact is related to TBUSA Disaster Services</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Contact is related to TBUSA Disaster Services</inlineHelpText>
+    <label>Disaster?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

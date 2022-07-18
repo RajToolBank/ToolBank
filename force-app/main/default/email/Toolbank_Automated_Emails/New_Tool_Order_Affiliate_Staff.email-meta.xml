@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Internal: Share new order details with affiliate staff</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Tool_Bank_Original</letterhead>
+    <name>11) New Tool Order (Affiliate Staff)</name>
+    <style>freeForm</style>
+    <subject>New Tool Order for {!Order.Location__c}</subject>
+    <textOnly>Agency: {!Account.Name}
+
+Project: {!Order.Name}
+
+Desired Pickup: {!Order.EffectiveDate} at {!Order.Desired_Pickup_Time__c}
+
+Contact: {!Order.BillToContact}
+
+Phone: {!Order.Contact_Phone__c}
+
+Email: {!Order.Contact_Email__c}
+
+
+
+Go to Tool Order: {!Order.Link}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

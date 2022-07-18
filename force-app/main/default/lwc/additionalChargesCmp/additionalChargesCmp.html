@@ -1,0 +1,48 @@
+<template>
+    <div class="slds-var-m-top_medium" style="text-align: center;">
+        <lightning-button variant="brand" type="submit" onclick={handleAddProducts}  label="Add product">
+        </lightning-button>
+    </div>&nbsp;&nbsp;
+    <br/><br/>
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable" >
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                    <div class="slds-truncate" style="white-space: pre-wrap;" title="CONFIRM ALL">SELECT ALL<br/>
+                        <input type="checkbox" onchange={handleSelectAll} />
+                    </div>
+                </th>
+               
+                <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
+                    <div class="slds-truncate" style="white-space: pre-wrap;" title="TOOL NAME">NAME
+                        <lightning-helptext content="Hover over the tool name for Tool Note"></lightning-helptext>
+                    </div>
+                </th>
+                <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                    <div class="slds-truncate" style="white-space: pre-wrap;" title="RETAIL PRICE"> PRICE</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <template if:true={products} for:each={products} for:item="record" for:index="index">
+                <tr class="slds-hint-parent" key={record.Id}   data-label="lable" title="title" >
+                    <td class="slds-cell-wrap" data-label="SELECT" scope="row" style="width: 9%;text-align: center;">
+                        <div class="slds-truncate" title="SELECT">
+                            <input type="checkbox" class="filtered" data-check="checkbox" data-recid={record.Id} />
+                        </div>
+                    </td>
+    
+                    <td class="slds-cell-wrap" data-label="TOOL NAME" scope="row" style="width: 9%;text-align: left;">
+                        <div class="slds-truncate" title={record.Product2.Tool_Note__c} data-type={record.Product2.Type__c} data-category={record.Product2.Family} data-id="dataid" data-unitprice={record.UnitPrice} data-prod2id={record.Product2Id} data-pbeid={record.Id} >{record.Product2.Name}</div>
+                    </td>
+                    <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: center;">
+                        <div class="slds-truncate" title="PRICE">
+                            ${record.UnitPrice}
+                        </div>
+                    </td>
+
+                </tr>
+            </template>
+            </tbody>
+        </table>
+</template>

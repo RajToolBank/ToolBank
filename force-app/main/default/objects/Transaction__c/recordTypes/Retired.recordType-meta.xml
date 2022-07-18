@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Retired</fullName>
+    <active>true</active>
+    <label>Retired</label>
+    <picklistValues>
+        <picklist>Sub_Type__c</picklist>
+        <values>
+            <fullName>Destroyed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Longer Carry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Worn - Out</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

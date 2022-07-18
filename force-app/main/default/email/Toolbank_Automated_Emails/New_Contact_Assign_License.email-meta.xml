@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Internal: Notifies TB staff that a contact has been created and they need to assign a license.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Tool_Bank_Original</letterhead>
+    <name>8) New Contact-Assign License</name>
+    <style>freeForm</style>
+    <subject>New User Created - Assign Customer License</subject>
+    <textOnly>Hi,
+A new customer contact has been added to an agency and is waiting for access permission.
+
+Click the link to assign a customer license: {!Contact.Contact_url__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

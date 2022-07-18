@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InSituDtm__InSitu_Due_Date__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A mirror of the standard ActivityDate field that was initially added so the due date could be used in validation rules and workflows.  Starting with Summer 14&apos; the standard ActivityDate field is  available for use in validation rules, formulas, and workflows so this field should no longer be used.</description>
+    <externalId>false</externalId>
+    <label>Due Date (obsolete)</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

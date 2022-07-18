@@ -1,0 +1,113 @@
+<apex:page standardController="Order" renderAs="pdf" title="Print Tools">
+    <apex:includeLightning />   
+    <apex:form >
+    <center>   <apex:image value="{!$Resource.Toolbank_USA}"  style="padding-top:10px;height:50%;width:30%;"/></center>
+    <center>  <h1 style="margin-top:10px; padding-top:10px;margin-bottom:5px; padding-bottom:5px;">Pick Sheet</h1></center>
+  
+    <div class="row" style="display: table; width:100%; padding-bottom:10px; margin-bottom:10px; border:2px solid #000">
+             
+			 
+			     <table width="100%" class="table table-bordered" style="border: 1px solid #000; border-collapse: collapse;padding: 10px; font-size:15px;">
+				 	<tr>
+						<td style="font-size:15px;" colspan="2">{!Order.Account.Name}</td>
+						<td  style="font-size:15px;" colspan="2"> <b>Order name : </b><apex:outputText value="{!Order.Name}"/> (<apex:outputText value="{!Order.ordernumber}"/>)</td>
+						
+                     </tr>
+                     <tr>
+                     </tr>
+                      <tr>
+                     </tr>
+                     	
+                    
+					<tr>
+						<td  style="font-size:15px;" colspan="2"> <b>Scheduled Pickup Date : </b> <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" > <apex:param value="{!Order.EffectiveDate}" /> </apex:outputText></td>
+						
+                        <td  style="font-size:15px;" colspan="2"><b>  Order Contact Name : </b><apex:outputText value="{!Order.BillToContact.Name}"/></td>
+						</tr>
+                     
+                     <tr>
+                         
+                     <td  style="font-size:15px;" colspan="2"><b>Time : </b><apex:outputText value="{!Order.Scheduled_Pickup_Time__c}"/></td>
+                         <td  style="font-size:15px;" colspan="2"><b>Order Contact Phone : </b><apex:outputText value="{!Order.BillToContact.phone}"/></td>
+					    
+                     </tr>	
+                     
+				 </table>
+      
+		
+		  			
+				
+       
+        
+       
+    </div>
+      
+      <div style="min-height:430px; display:block;">
+  
+   
+       <table width="100%" class="table table-bordered" style="border: 1px solid #000; border-collapse: collapse;padding: 10px; text-align:center;">
+          
+  <thead>
+    <tr style="border: 1px solid #000;">
+         <th scope="col" style="border: 1px solid #000;padding: 5px; text-align:center;">Tool Status</th>
+      <th scope="col" style="border: 1px solid #000;padding: 5px; text-align:center;width:250px;">Tool Name</th>
+      <!-- th scope="col" style="border: 1px solid #000;padding: 10px;">Total Stock</th -->
+      <th scope="col" style="border: 1px solid #000;padding: 5px; text-align:center;">Req Qty</th>
+      <th scope="col" style="border: 1px solid #000;padding: 5px; text-align:center;">Cnf Qty</th>
+       <!-- th scope="col" style="border: 1px solid #000;padding: 10px;">Loan Date</th>
+      <th scope="col" style="border: 1px solid #000;padding: 10px;">Return Date</th -->
+      <th scope="col" style="border: 1px solid #000;padding: 5px; text-align:center;">Picked Qty</th>
+      <th scope="col" style="border: 1px solid #000;padding: 5px; text-align:center;">Addtl Qty</th>
+       
+        <th scope="col" style="border: 1px solid #000;padding: 5px; text-align:center;width:200px;">Notes / Changes</th>
+      
+    </tr>
+  </thead>
+    
+  <tbody>
+        <apex:repeat value="{!Order.orderItems}" var="tl">
+    <tr style="border: 1px solid #000;padding: 10px;">   
+    <td style="border: 1px solid #000;padding: 5px; text-align:center;">{!tl.status__c}</td>
+      <td style="border: 1px solid #000;padding: 5px; text-align:left;width:250px;">{!tl.product2.name}</td>
+        <td style="border: 1px solid #000;padding: 5px; text-align:center;">{!Text(tl.Quantity)}</td>
+         <td style="border: 1px solid #000;padding: 5px; text-align:center;">{!tl.Check_out_Quantity__c}</td>
+          <!--td style="border: 1px solid #000;padding: 10px;">{!tl.Loan_Date__c}</td>
+          <td style="border: 1px solid #000;padding: 10px;">{!tl.Loan_Date__c}</td>
+          <td style="border: 1px solid #000;padding: 10px;">{!tl.Return_Date__c}</td -->
+         <td style="border: 1px solid #000;padding: 5px; text-align:center;"></td>
+         <td style="border: 1px solid #000;padding: 5px; text-align:center;"></td>
+         
+           <td style="border: 1px solid #000;padding: 5px; text-align:center;width:200px;"></td>
+        
+      
+    </tr>
+     </apex:repeat> 
+   
+
+  </tbody>
+ 
+</table>
+
+</div>
+          
+    <div class="row" style="display: table; width:100%;">
+        
+          <div style="width:17%; float:left;">
+          <p style="padding-bottom:0px;padding-top:0px;"> <b>Signature: </b></p>
+          </div>
+           <div style="width:60%; float:left">
+          <p style="padding-bottom:0px;padding-top:0px;">____________________________</p> 
+          </div>
+            </div> 
+     <div class="row" style="display: table; width:100%;">
+           <div style="width:17%; float:left;">
+          <p style="padding-bottom:0px;padding-top:0px;"> <b>Date: </b></p>
+          </div>
+           <div style="width:60%; float:left">
+          <p style="padding-bottom:0px;padding-top:0px;">____________________________</p> 
+          </div>
+        
+    </div>      
+     
+    </apex:form>
+</apex:page>

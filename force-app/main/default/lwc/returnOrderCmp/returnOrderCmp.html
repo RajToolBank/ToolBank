@@ -1,0 +1,447 @@
+<template>
+    <template if:true={loaded}>
+        <div class="backgroundInverse">
+            <lightning-spinner alternative-text="Loading" variant="inverse"></lightning-spinner>
+        </div>
+    </template>
+    <template if:true={order}>
+        
+        <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+
+        <lightning-record-edit-form
+            object-api-name="Order"
+            record-id={recordId}
+            style="width: 100%;">
+            
+        <template if:true={order}>
+            <div class="slds-grid slds-wrap slds-p-around--medium">
+                <div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+                    <label class="slds-size_6-of-12" for="createdDate" >Agency</label>
+                    
+                    <span style="margin-left:26.2%"> {order.Account.Name}</span><br/>
+                </div>
+                <div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+                    <label class="slds-size_6-of-12" for="createdDate" >Desired Pickup Date</label>
+                    <span style="margin-left:23.2%"> 
+                        <lightning-formatted-date-time value={order.Desired_Pickup_Date__c}  year="numeric" month="numeric" day="numeric"
+                        ></lightning-formatted-date-time>,&nbsp;{order.Desired_Pickup_Time__c}
+                    </span><br/>
+                </div>
+                <div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+                    <label class="slds-size_6-of-12" for="createdDate" >Order Name</label>
+                    
+                    <span style="margin-left:21.2%"> {order.Name}&nbsp;({order.OrderNumber})</span><br/>
+                </div>
+                <div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+                    <label class="slds-size_6-of-12" for="createdDate" >Order Date</label>
+                    <span style="margin-left:32.2%"> 
+                        <lightning-formatted-date-time value={order.CreatedDate}  year="numeric" month="numeric" day="numeric" hour="numeric"
+                        minute="2-digit" hour12="true" ></lightning-formatted-date-time>
+                    </span><br/>
+                   
+                </div>
+                <div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+                    <lightning-input-field field-name={toolPickedField}> </lightning-input-field><br/>
+                </div>
+                <div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+                    <label class="slds-size_6-of-12" for="createdDate" >Schedule Pickup Date </label>
+                    <span style="margin-left:21.2%"> 
+                        <lightning-formatted-date-time data-sch="schdate" value={order.EffectiveDate}  year="numeric" month="numeric" day="numeric"
+                        ></lightning-formatted-date-time>,&nbsp;<span data-sch="schtime">{order.Scheduled_Pickup_Time__c}</span>
+                    </span>
+                </div>
+            </div></template>
+        </lightning-record-edit-form>
+        <div class="slds-align_absolute-center slds-size_12-of-12">
+        <div class="slds-var-m-top_medium">
+            <lightning-button variant="brand" type="submit" onclick={handleSave}  label="Save">
+            </lightning-button>
+        </div>&nbsp;&nbsp;
+        <div class="slds-var-m-top_medium">
+            <lightning-button variant="brand" type="submit" onclick={openModal} label="Mass Change Dates">
+            </lightning-button>
+        </div>&nbsp;&nbsp;
+        <div class="slds-var-m-top_medium">
+            <lightning-button variant="brand" type="submit" onclick={handleCancel} label="Cancel">
+            </lightning-button>
+        </div>
+        </div>
+        <br/><br/><br/>
+            <div class="slds-align_absolute-left " >
+
+<br/><br/>
+        <b style="font-size: 16px;">Selected Tooltypes:</b>&nbsp;&nbsp;
+            <lightning-input onkeydown={handleSearchFilter} onkeyup={handleSearchFilter} placeholder="search using tool name, alternate name, note" data-id="search" type="text" ></lightning-input>
+        
+
+            <div class="slds-col slds-size_6-of-12">
+                <span >Filters:</span></div> 
+            <div class="slds-col slds-size_6-of-12" >
+                <Span><lightning-combobox 
+                        style="width: 100%;"
+                        value="All"
+                        data-id="StatusFilter"
+                        options={filters}
+                        onchange={handlefilter}>
+                    </lightning-combobox > 
+                </Span>
+                </div>
+        </div>
+        <div class="slds-var-m-top_medium" style="margin-top: 10.2%;margin-left: -5%;">
+            <lightning-button variant="brand" data-title="Return"  type="submit" onclick={handleReturnButton}  label="Return">
+            </lightning-button>
+        </div>
+       
+        <br/><br/>
+        <br/>
+        <div class="demo-only demo-only--sizing  slds-grid slds-wrap slds-scrollable">
+
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable" >
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" title="CONFIRM ALL">SELECT ALL<br/>
+                            <input type="checkbox" onchange={handleSelectAll} />
+                        </div>
+                    </th>
+                   
+                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" title="TOOL NAME">TOOL NAME
+                            <lightning-helptext content="Hover over the tool name for Tool Note"></lightning-helptext>
+                        </div>
+                    </th>
+                    <th  scope="col" class="slds-is-resizable" style="width: 15%;text-align: center;">
+                        <div class="slds-truncate slds-align_absolute-center" style="white-space: pre-wrap;" title="BORROWED">BORROWED</div>
+                    </th>
+                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" title="RETURN">RETURN</div>
+                    </th>
+                    <th  scope="col" class="slds-is-resizable" style="width: 11%;text-align: center;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" title="LOST">LOST</div>
+                    </th>
+                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" title="DAMAGED">DAMAGED</div>
+                    </th>
+                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" title="STILL OUT">STILL OUT</div>
+                    </th>
+                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" title="SCHEDULED RETURN DATE">SCHEDULED RETURN DATE</div>
+                    </th>
+                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" title="STATUS">STATUS</div>
+                    </th>
+                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" title="RETAIL PRICE">RETAIL PRICE</div>
+                    </th>
+                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" title="HANDLING FEE PER TOOL">HANDLING FEE PER TOOL</div>
+                    </th>
+                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" title="TOOL HANDLING FEE">BASE FEE</div>
+                    </th>
+                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" title="TOOL HANDLING FEE">LOST FEE</div>
+                    </th>
+                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" title="TOOL HANDLING FEE">LATE FEE</div>
+                    </th>
+                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" title="TOOL HANDLING FEE">TOTAL</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template if:true={orderItems} for:each={orderItems} for:item="record" for:index="index">
+                    <tr class="slds-hint-parent" key={record.orderItem.Id} data-orderid={order.Id} data-status={record.orderItem.Status__c} data-rowid={record.orderItem.Id} data-id="dataid" data-label="lable" title="title" >
+                        <td class="slds-cell-wrap" data-label="SELECT" scope="row" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="SELECT">
+                                <input type="checkbox" data-check="checkbox" data-prod2id={record.orderItem.Product2Id} onchange={handleSelectCheck} data-recid={record.orderItem.Id}/>
+                            </div>
+                        </td>
+        
+                        <td class="slds-cell-wrap" data-label="TOOL NAME" scope="row" style="width: 9%;text-align: left;">
+                            <div class="slds-truncate" title={record.orderItem.Product2.Tool_Note__c}>{record.orderItem.Product2.Name}</div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="BORROWED" style="width: 15%;text-align: center;">
+                            <div class="slds-truncate" title="BORROWED"><span data-borrowed={record.orderItem.Id}>{record.orderItem.Check_Out_Quantity__c}</span></div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="RETURN" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="RETURN">
+
+                                    <input type="number" data-qtyid={record.orderItem.Id} data-returnqty={record.orderItem.Id} class="slds-input" onkeyup={handleLineReturned} value={record.orderItem.Check_In_Quantity__c}/>
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="LOST" style="text-align: center;">
+                            <div class="slds-truncate" title="LOST">
+                             
+
+                                    <input type="number"  data-already={record.fixed}  data-qtyid={record.orderItem.Id} data-lostqty={record.orderItem.Id} class="slds-input" onkeyup={handleLineReturned}  value={record.orderItem.Lost__c} />  
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="DAMAGED" style="width: 15%;text-align: center;">
+                            <div class="slds-truncate" title="DAMAGED">
+                              
+                                    <input type="number" data-qtyid={record.orderItem.Id} data-damagedqty={record.orderItem.Id} class="slds-input" onkeyup={handleLineReturned} value={record.orderItem.Damaged__c} />
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="STILL OUT" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="STILL OUT">
+                                <span data-stillout={record.orderItem.Id}>
+                                    {record.stillOut}
+                                </span>
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="RETURN DATE" style="width: 15%;text-align: center;">
+                            <div class="slds-truncate" title="RETURN DATE" data-state={record.orderItem.Id}>
+                                
+
+                                    <lightning-input  data-id={record.orderItem.Id} 
+                                    data-assetid={record.orderItem.Inventory_Tool__c} 
+                                    data-unitprice={record.orderItem.UnitPrice} 
+                                    data-product2id={record.orderItem.Product2Id} 
+                                    data-pbeid={record.orderItem.PricebookEntryId} 
+                                    onchange={handleLineReturned} 
+                                    data-affiliatefee={record.orderItem.Affiliate_Handling_Fee__c}
+                                    data-return={record.orderItem.Id}
+                                    data-schretdate={record.orderItem.Schedule_Return_Date__c}
+                                    data-week={record.orderItem.Requested_Borrowing_Period__c} 
+                                    type="date" 
+                                    value={record.orderItem.Schedule_Return_Date__c}></lightning-input>
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="STATUS" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="STATUS" data-sts={record.orderItem.Id}>
+                                {record.orderItem.Status__c}
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="RETAIL PRICE" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="RETAIL PRICE">
+                                ${record.orderItem.UnitPrice}
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="HANDLING FEE PER TOOL" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="HANDLING FEE PER TOOL">
+                                <span data-toolfee={record.orderItem.Id}>
+                                    ${record.orderItem.Tool_Handling_Fee_Per_Item__c}
+                                </span>
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="BASE FEE" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="BASE FEE">
+                                <span data-basefee={record.orderItem.Id}>
+                                    $ {record.orderItem.Tool_Handling_Fee_Per_Item__c}
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="slds-cell-wrap" data-label="LOST FEE" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="LOSTFEE">
+                                <span data-lostfee={record.orderItem.Id}>
+                                    $ {record.lost}
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="slds-cell-wrap" data-label="LATE FEE" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="LATE FEE">
+                                <span data-latefee={record.orderItem.Id}>
+                                    $ {record.late}
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="slds-cell-wrap" data-label="TOTAl FEE" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="TOTAl FEE">
+                                <span data-totalfee={record.orderItem.Id}>
+                                    $ {record.total}
+                                </span>
+                            </div>
+                        </td>
+
+                    </tr>
+                </template>
+                <template if:true={returnOrderItems}>
+<tr>
+    <td colspan="15" style="text-align: center; background-color:gray">
+        Tool Return History
+    </td>
+</tr>
+                </template>
+                <template if:true={returnOrderItems} for:each={returnOrderItems} for:item="record" for:index="index">
+                    <tr class="slds-hint-parent" key={record.orderItem.Id} data-orderid={order.Id} data-status={record.orderItem.Status__c} data-rowid={record.orderItem.Id}  data-label="lable" title="title" >
+                        <td class="slds-cell-wrap" data-label="SELECT" scope="row" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="SELECT">
+                                <input type="checkbox" disabled data-check="checkbox"/>
+                            </div>
+                        </td>
+        
+                        <td class="slds-cell-wrap" data-label="TOOL NAME" scope="row" style="width: 9%;text-align: left;">
+                            <div class="slds-truncate" title={record.orderItem.Product2.Tool_Note__c}>{record.orderItem.Product2.Name}</div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="BORROWED" style="width: 15%;text-align: center;">
+                            <div class="slds-truncate" title="BORROWED"><span >{record.orderItem.Check_Out_Quantity__c}</span></div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="RETURN" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="RETURN">
+                                <template if:true={record.isReturned}>
+                                    <input type="number" readonly  class="slds-input"  value={record.orderItem.Check_In_Quantity__c}/>
+                                </template>
+
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="LOST" style="text-align: center;">
+                            <div class="slds-truncate" title="LOST">
+                                <template if:true={record.isReturned}>
+                                    <input type="number" readonly data-already={record.fixed}   class="slds-input" onkeyup={handleLineReturned}  value={record.orderItem.Lost__c} />  
+                                </template>
+
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="DAMAGED" style="width: 15%;text-align: center;">
+                            <div class="slds-truncate" title="DAMAGED">
+                                <template if:true={record.isReturned}>
+                                    <input type="number" readonly  class="slds-input"  value={record.orderItem.Damaged__c} />
+                                </template>
+
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="STILL OUT" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="STILL OUT">
+                                <span >
+                                    {record.stillOut}
+                                </span>
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="RETURN DATE" style="width: 15%;text-align: center;">
+                            <div class="slds-truncate" title="RETURN DATE" data-state={record.orderItem.Id}>
+                                <template if:true={record.isReturned}>
+                                    <lightning-input readonly 
+                                    type="date" 
+                                    value={record.orderItem.Schedule_Return_Date__c}></lightning-input>
+                                </template>
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="STATUS" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="STATUS">
+                                {record.orderItem.Status__c}
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="RETAIL PRICE" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="RETAIL PRICE">
+                                ${record.orderItem.UnitPrice}
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="HANDLING FEE PER TOOL" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="HANDLING FEE PER TOOL">
+                                <span >
+                                    ${record.orderItem.Tool_Handling_Fee_Per_Item__c}
+                                </span>
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="BASE FEE" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="BASE FEE">
+                                <span >
+                                    $ {record.orderItem.Tool_Handling_Fee_Per_Item__c}
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="slds-cell-wrap" data-label="LOST FEE" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="LOSTFEE">
+                                <span >
+                                    $ {record.lost}
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="slds-cell-wrap" data-label="LATE FEE" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="LATE FEE">
+                                <span >
+                                    $ {record.late}
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="slds-cell-wrap" data-label="TOTAl FEE" style="width: 9%;text-align: center;">
+                            <div class="slds-truncate" title="TOTAl FEE">
+                                <span >
+                                    $ {record.total}
+                                </span>
+                            </div>
+                        </td>
+
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        </div>
+
+        </div>
+        <br/><br/>
+        <template if:true={setReturnDate}>
+            <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open" style="
+            width: 65%;
+            margin-left: 18%;">
+                <div class="slds-modal__container">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={closeOpenModal}>
+                    <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                    </svg>
+                    <span class="slds-assistive-text">Cancel and close</span>
+                </button>
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Mass Update Scheduled Return Date</h1>
+                    
+                </div>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    
+                                       <br/><br/> 
+                    <b>
+                        Note:  Schedule Return date will be updated only for selected rows.
+                    </b><br/><br/>
+                    <p class="slds-m-top_x-small" style="text-align: center;">The Scheduled Return Date for each row may no longer be correct.</p>
+                    <br/><br/>
+                        What do you want to do to the Scheduled Return Date for each row?
+                    <br/>
+                    <fieldset class="slds-form-element">
+                        <div class="slds-form-element__control">
+                    
+                        <span class="slds-radio">
+                            <input type="radio" id="radio-62" data-id="radio-62" value="radio-62" name="default" onclick={handleModalRadio} checked=""/>
+                            <label class="slds-radio__label" for="radio-62">
+                            <span class="slds-radio_faux"></span>
+                            <span class="slds-form-element__label">Extend row's date based on new scheduled pick up date; borrowing period remains the same</span>
+                            </label>
+                        </span><br/>
+                        <span class="slds-radio">
+                            <input type="radio" id="radio-63" data-id="radio-63" value="radio-63" name="default" onclick={handleModalRadio}/>
+                            <label class="slds-radio__label" for="radio-63">
+                            <span class="slds-radio_faux"></span>
+                            <span class="slds-form-element__label">Extend a row's date by&nbsp;<input data-id="radio63" style="width: 6%;" type="number"/>&nbsp;days</span>
+                            </label>
+                        </span><br/>
+                        <span class="slds-radio">
+                            <input type="radio" id="radio-64" data-id="radio-64" value="radio-64" name="default" onclick={handleModalRadio}/>
+                            <label class="slds-radio__label" for="radio-64">
+                            <span class="slds-radio_faux"></span>
+                            <span class="slds-form-element__label">Extend a row's date by&nbsp;<input data-id="radio64" style="width: 6%;" type="number"/>&nbsp;
+                                days if the Scheduled Return Dates matches this date &nbsp;
+                                <input type="date" data-id="matchingDate"/>
+                            </span>
+                            </label>
+                        </span>
+                        </div>
+                    </fieldset>
+        <br/><br/>
+                </div>
+                <div class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={closeOpenModal}>Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={handleModalOk}>Ok</button>
+                </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+        </template>
+    </template>
+</template>

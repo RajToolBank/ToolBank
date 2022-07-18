@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>sf4twitter__Klout_Score__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF( ABS( sf4twitter__Klout_Number__c )  &gt; 0, TEXT( sf4twitter__Klout_Number__c ) + &apos;  &apos; + IMAGE($Setup.sf4twitter__Twitter_Public_Configuration__c.sf4twitter__Klout_Score_logo__c,&apos;Klout&apos;,17,90), &apos;&apos; )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Klout Score</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
