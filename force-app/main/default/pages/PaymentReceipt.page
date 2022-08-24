@@ -161,7 +161,7 @@
   </tr>
     <tr>
   <th style="right: 50%;"><span style="position: relative; left: 130%;">Total additional fees:</span></th> <!--if(membershipFees==null,0.00,ROUND(membershipFees,2)) + if(deliveryFees==null,0.00,ROUND(deliveryFees,2)) +-->
-  <th>$ {!if(Order.Cleaning_R__c==null,0.00,ROUND(Order.Cleaning_R__c,2)) + if(Order.Delivery_R_Fee__c==null,0.00,ROUND(Order.Delivery_R_Fee__c,2)) + if(Order.Membership_R_Fee__c==null,0.00,ROUND(Order.Membership_R_Fee__c,2)) +  if(Order.Deposit_R__c==null, 0.00,ROUND(Order.Deposit_R__c,2)) + if(Order.Other_R__c==null,0.00,ROUND(Order.Other_R__c,2))}</th>
+  <th>$ {!if(Order.Cleaning_R__c==null,0.00,ROUND(Order.Cleaning_R__c,2)) +  if(Order.Deposit_R__c==null, 0.00,ROUND(Order.Deposit_R__c,2)) + if(Order.Other_R__c==null,0.00,ROUND(Order.Other_R__c,2))}</th>
   </tr>
 </table>
 </div> 
