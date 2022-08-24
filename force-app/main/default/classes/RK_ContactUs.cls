@@ -1,4 +1,4 @@
-public class RK_ContactUs {
+public without sharing class RK_ContactUs {
     
     public list<BusinessHours> businessHours{set;get;}
     public List<Toolbank_Help_Page__mdt> getData {get;set;}

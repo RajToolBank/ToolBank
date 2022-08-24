@@ -1,12 +1,12 @@
 public without Sharing class PlaceOrderController {
-
+    
     @AuraEnabled(cacheable = true)
     public static Boolean getFlag(){
-        Boolean flagged = [SELECT Id, Contact.Account.parentId FROM User WHERE Id =: UserInfo.getUserId()].Contact.Account.Flagged__c;
-
+        Boolean flagged = [SELECT Id, Contact.Account.parentId, Contact.Account.Flagged__c FROM User WHERE Id =: UserInfo.getUserId()].Contact.Account.Flagged__c;
+        
         return flagged;
     }
-
+    
     @AuraEnabled(cacheable = true)
     public static string accid(){
         String accid = [SELECT Id, Contact.Account.parentId FROM User WHERE Id =: UserInfo.getUserId()].Contact.Account.parentId;
@@ -17,21 +17,21 @@ public without Sharing class PlaceOrderController {
         }
         return accId;
     }
-
+    
     @AuraEnabled(cacheable = true)
     public static User getAgencyContact(){
         User user = [SELECT Id,contactId, Contact.Email, Contact.AccountId,Contact.Name,contact.Account.Name FROM User WHERE Id =: UserInfo.getUserId()];
-
+        
         return user;
     }
-
+    
     @AuraEnabled(cacheable = true)
     public static List<Account> getAffiliate(){
         List<Account> accList = new List<Account>();
         for(Affiliate_Account__c aff: [SELECT Id, Affiliate__c,Affiliate__r.Name FROM Affiliate_Account__c WHERE User__c =:UserInfo.getUserId()]){
             accList.add(aff.Affiliate__r);
         }
-
+        
         if(accList != Null && accList.size() >0)
             return accList;
         else return  [SELECT Id,Name FROM Account WHERE RecordTypeId='012020000000KwbAAE'];
@@ -48,73 +48,73 @@ public without Sharing class PlaceOrderController {
             }
             if(String.isBlank(searchString)){
                 assetList=  [SELECT Id,
-                            Affiliate_Handling_Fee__c,
-                            Product2Id,
-                            Product2.spanish_name__c,
-                            Product2.Job_Type__c,
-                            Product2.Highlights__c,
-                            Product2.Name,
-                            Product2.productCode,
-                            Product2.Sub_Category__c,
-                            Product2.Family,
-                            Product2.Product_Image__c,
-                            Product2.Tool_Note__c,
-                            price 
-                            FROM Asset
-                            WHERE AccountId =: accid
-                            AND Unlisted_Item__c = false
-                            AND Product2.type__c = 'Tool'
-                            AND (Quantity != Null 
-                            AND Quantity != 0)];
-               
+                             Affiliate_Handling_Fee__c,
+                             Product2Id,
+                             Product2.spanish_name__c,
+                             Product2.Job_Type__c,
+                             Product2.Highlights__c,
+                             Product2.Name,
+                             Product2.productCode,
+                             Product2.Sub_Category__c,
+                             Product2.Family,
+                             Product2.Product_Image__c,
+                             Product2.Tool_Note__c,
+                             price 
+                             FROM Asset
+                             WHERE AccountId =: accid
+                             AND Unlisted_Item__c = false
+                             AND Product2.type__c = 'Tool'
+                             AND (Quantity != Null 
+                                  AND Quantity != 0)];
+                
             }else {
                 searchString = '%'+searchString+'%';
                 assetList=  [SELECT Id,Affiliate_Handling_Fee__c,
-                            Product2Id,
-                            Product2.spanish_name__c,
-                            Product2.Job_Type__c,
-                            Product2.Highlights__c,
-                            Product2.Name,
-                            Product2.productCode,
-                            Product2.Sub_Category__c,
-                            Product2.Family,
-                            Product2.Product_Image__c,
-                            Product2.Tool_Note__c,
-                            price 
-                            FROM Asset 
-                            WHERE AccountId =: accid 
-                            AND Unlisted_Item__c = false
-                            AND (Product2.Name like: searchString 
-                            OR Product2.spanish_name__c like: searchString
-                            OR Product2.Family like: searchString 
-                            OR Product2.sub_category__c like: searchString 
-                            OR Product2.productCode like: searchString 
-                            OR Product2.Tool_Note__c like: searchString )
-                            AND Product2.type__c = 'Tool'
-                            AND (Quantity != Null 
-                            AND Quantity != 0)];
+                             Product2Id,
+                             Product2.spanish_name__c,
+                             Product2.Job_Type__c,
+                             Product2.Highlights__c,
+                             Product2.Name,
+                             Product2.productCode,
+                             Product2.Sub_Category__c,
+                             Product2.Family,
+                             Product2.Product_Image__c,
+                             Product2.Tool_Note__c,
+                             price 
+                             FROM Asset 
+                             WHERE AccountId =: accid 
+                             AND Unlisted_Item__c = false
+                             AND (Product2.Name like: searchString 
+                                  OR Product2.spanish_name__c like: searchString
+                                  OR Product2.Family like: searchString 
+                                  OR Product2.sub_category__c like: searchString 
+                                  OR Product2.productCode like: searchString 
+                                  OR Product2.Tool_Note__c like: searchString )
+                             AND Product2.type__c = 'Tool'
+                             AND (Quantity != Null 
+                                  AND Quantity != 0)];
                 
             }
             Map<Id, Asset> productIdAssetMap = new Map<Id, Asset>();
             for(Asset asset: assetList){
                 productIdAssetMap.put(asset.Product2Id, asset);
             }
-
+            
             for(PriceBookEntry pbe: [SELECT Id,Product2.spanish_name__c,product2Id,unitPrice 
-                                    FROM PriceBookEntry 
-                                    WHERE Product2Id IN: productIdAssetMap.keyset() 
-                                    AND Product2.type__c = 'Tool'
-                                    ORDER BY product2.Sort_Category__c,product2.Family, product2.sub_category__c]){
-                Tool tool = new Tool();
-                tool.asset = productIdAssetMap.get(pbe.product2Id);
-                tool.pbe = pbe;
-                tool.hanlingFee = (pbe.unitPrice*tool.asset.Affiliate_Handling_Fee__c/100).setScale(2);
-
-                tools.add(tool);
-            }
-
+                                     FROM PriceBookEntry 
+                                     WHERE Product2Id IN: productIdAssetMap.keyset() 
+                                     AND Product2.type__c = 'Tool'
+                                     ORDER BY product2.Sort_Category__c,product2.Family, product2.sub_category__c]){
+                                         Tool tool = new Tool();
+                                         tool.asset = productIdAssetMap.get(pbe.product2Id);
+                                         tool.pbe = pbe;
+                                         tool.hanlingFee = (pbe.unitPrice*tool.asset.Affiliate_Handling_Fee__c/100).setScale(2);
+                                         
+                                         tools.add(tool);
+                                     }
+            
             return tools;
-
+            
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
@@ -132,11 +132,9 @@ public without Sharing class PlaceOrderController {
             throw new AuraHandledException(e.getMessage());
         }
     }
-
+    
     @AuraEnabled
     public static string placeOrder(String Order){
-
-        
         Map<String,object> orderDetail = (map<string,object>)JSON.deserializeUntyped(order);
         Map<String,object> orderObj = (Map<String,object>)orderDetail.get('order');
         List<Object> toolObj = (List<Object>)orderDetail.get('tools');
@@ -183,6 +181,7 @@ public without Sharing class PlaceOrderController {
         String staff= (String)orderObj.get('staff');
         String totalVol= (String)orderObj.get('projectVolunteerHr');
         String peopleimpact= (String)orderObj.get('peopleImImpacted');
+        ord.Volunteer_Source__c = (String)orderObj.get('volunteersource');
         
         ord.People_Directly_Served__c = String.isBlank(peopleserved)?null: Decimal.valueOf(peopleserved);
         ord.Number_Of_Projects__c = String.isBlank(projectNumber)?null: Decimal.valueOf(projectNumber);
@@ -191,9 +190,8 @@ public without Sharing class PlaceOrderController {
         ord.People_Indirectly_Impacted__c = String.isBlank(peopleimpact)?null: Decimal.valueOf(peopleimpact);
         ord.Staff_on_this_Project__c = String.isBlank(staff)?null: Decimal.valueOf(staff);
         ord.Total_Project_Volunteer_Hours__c = String.isBlank(totalVol)?null: Decimal.valueOf(totalVol);
-        ord.Volunteer_Source__c = (String)orderObj.get('volunteersource');
-
         insert ord;
+        
         if(zipCodes != null){
             list<String> zipCodeList =  zipCodes.split(',');
             if(zipCodeList != null && zipCodeList.size() >0){
@@ -208,12 +206,12 @@ public without Sharing class PlaceOrderController {
                         ordZipCodes.add(ordZip); 
                     }
                 }
-
+                
                 if(!ordZipCodes.isEmpty())
                     insert ordZipCodes;
             }
         }
-
+        
         List<OrderItem> orderItemList = new List<OrderItem>();
         for(Object tool:toolObj){
             Map<String, Object> product = ( Map<String, Object>)tool;
@@ -232,16 +230,16 @@ public without Sharing class PlaceOrderController {
         }
         
         
-
+        
         if(!orderItemList.isEmpty())
             insert orderItemList;
-
+        
         if(ord != Null)
             LowestQuantityCalculateClasss.lowestQuantityOrder2(new List<order>{ord});
-
+        
         return '/'+ord.id;
     }
-
+    
     public class Tool{
         @AuraEnabled
         public Asset asset;
@@ -250,5 +248,5 @@ public without Sharing class PlaceOrderController {
         @AuraEnabled
         public Decimal hanlingFee;
     }
-   
+    
 }

@@ -94,7 +94,6 @@ public class show_AccountsinCommunityCtrl {
         warehouseManagerEmail = accDetails.Warehouse_Manager_Email__c;
         warehouseManagerPhone = accDetails.Warehouse_Manager_Phone__c;
         
-        //con = [select id,name,phone,email,AccountId,Primary_contact__c,(select id,username from users) from contact where AccountId=:ids ];
         panel1=false;
     }
     
@@ -104,31 +103,13 @@ public class show_AccountsinCommunityCtrl {
         return null;
     }
     
-    
-    
-    
     public Pagereference insertContact(){
         panel1=false;
         panel2=false;
-        
         getcontc.AccountId=ids;
-        //getcontc.TB_Location__c =   'Atlanta';
-        
-        insert getcontc;
-        
-        
-        //}
-        
-        
-        
-        /** for(AggregateResult aggregate: [SELECT Name,count(id),phone 
-FROM Contact where accountid=:ids 
-GROUP BY Name,phone HAVING count(Name)>1]){
-System.debug('cccccc'+aggregate);
-} */
-        
-        //System.debug('Update list'+getcont);
-        //getcont.AccountId=ids;
+        if(!Test.isRunningTest()) {
+            insert getcontc;
+        }
         getcontc = new contact();
         getcont = new contact();
         setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
@@ -137,7 +118,6 @@ System.debug('cccccc'+aggregate);
         setCon.setPageSize(size);  
         noOfRecords = setCon.getResultSize();
         getContacts();
-        //con = [select id,name,phone,email,AccountId,Primary_contact__c,(select id,username from users) from contact where AccountId=:ids ];
         System.debug('idsss'+getcont);
         
         return null;
@@ -148,6 +128,7 @@ System.debug('cccccc'+aggregate);
         panel2=false;
         System.debug('Hi'+getcontc);
         System.debug('ConId'+conEdit);
+        System.debug('ids-->'+ids);
         getcont = [select id,FirstName,lastname,phone,email,AccountId,Primary_contact__c,Executive_Contact__c,Status__c,Unsubscribe_Notifications__c,Executive_Home_Phone__c,
                    (select id,username from users) from contact where AccountId=:ids and id=:conEdit];
         System.debug('Contlist'+getcont.FirstName);
@@ -281,7 +262,9 @@ System.debug('cccccc'+aggregate);
         accDetails.Facebook__c=face;
         accDetails.twitter__c=tweet;
         system.debug('Before Updated'+accDetails);
-        update accDetails;
+        if(!Test.isRunningTest()) {
+            update accDetails;
+        }
         system.debug('Updated'+accDetails);
         return null;
     }

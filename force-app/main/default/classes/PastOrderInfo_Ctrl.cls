@@ -3,7 +3,6 @@ public class PastOrderInfo_Ctrl {
     public List<order> ordr {get;set;}
     public string orderAccountId{get;set;}
     public account accDetails{set;get;}
-    public String loc {get;set;}
     public String orderId{get;set;}
     
     public List<Network> listOfNetwork {get; set;}
@@ -19,25 +18,15 @@ public class PastOrderInfo_Ctrl {
                        from Account 
                        where id=:[select AccountId from Contact where id=:accId ].AccountId ];
         orderAccountId = accDetails.Id;                
-        //ordrId = apexpages.currentpage().getparameters().get('id');
-        //ol = [select id,order.ordernumber,order.Projects__c,orderId,OrderItemNumber,order.EffectiveDate,order.BillToContactId,order.TotalAmount,order.Order_Url__c  
-        //      from orderitem where order.EffectiveDate <= Today and order.BillToContactId = :accId
-        //     limit 3];
         ordr =  [select id,Name,ordernumber,EffectiveDate,BillToContactId,TotalAmount,AccountId,Total_Amount__c,Number_Of_Projects__c   
                  from order where EffectiveDate <= Today and AccountId = :accDetails.Id
                  limit 3];   
-        //loc = accDetails.Parent.Community_URL_Prefix__c;
-        System.debug(ol);
         
         listOfNetwork = new list<Network>();
         String urlpath ;
-        //String toolloc = '%'+loc+'%';
         listOfNetwork = [SELECT Name, UrlPathPrefix, Status FROM Network where Name = 'Agency Member' and status='live' ];
         licen = [SELECT Profile.UserLicense.Name FROM User where id=:userinfo.getuserid()];
         dom = [select domain from domain];
-        System.debug('n/w'+listOfNetwork);
-        System.debug('licneses'+licen);
-        System.debug('domain'+dom);
         
         if(!listOfNetwork.isEmpty()) {
             for(Network n : listOfNetwork) {
@@ -45,29 +34,22 @@ public class PastOrderInfo_Ctrl {
                     if(n.name.contains('Agency') && l.Profile.UserLicense.name == 'Customer Community'){
                         urlpath = n.UrlPathPrefix;
                         finalURL = 'https://'+dom.domain+'/'+urlpath;
-                        
                     }
-                    
                 } 
             }
         }
-        
         System.debug('Final'+finalURL);
     }
     
     public Pagereference navigatePage(){
         PageReference pref;
-        // for(orderitem o : ol){
-        if(loc=='Atlanta'){
-            pref = new PageReference(finalURL+'/s/detail/'+orderId );
-            pref.setredirect(true);
-        }  
-        // }
+        pref = new PageReference(finalURL+'/s/detail/'+orderId );
+        pref.setredirect(true);
+        
         return pref; 
     }
     public Pagereference viewAllPage(){
         PageReference pref;
-        
         pref = new PageReference(finalURL+'/s/recordlist/Order/Recent');
         
         return pref; 

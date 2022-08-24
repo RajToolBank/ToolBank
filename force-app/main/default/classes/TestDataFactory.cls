@@ -1,13 +1,12 @@
 public class TestDataFactory {
     
-
     public static Account createAccount(String name, String recordTypeid){
-         Account acc = new Account(Name=name,recordTypeid=recordTypeid);
-         insert acc;
-
-         return acc;
+        Account acc = new Account(Name=name,recordTypeid=recordTypeid);
+        insert acc;
+        
+        return acc;
     }
-
+    
     public static contact createContact(String accId){
         contact con = new Contact();
         con.firstName = 'test';
@@ -15,10 +14,10 @@ public class TestDataFactory {
         con.email = 'test@test.com';
         con.accountId = accId;
         insert con;
-
+        
         return con;
     }
-
+    
     public static Product2 createProduct(String Type){
         Product2 prod = new Product2();
         prod.name='test';
@@ -26,24 +25,24 @@ public class TestDataFactory {
         prod.Type__c = Type;
         
         insert prod;
-
+        
         return prod;
-   }
-
-
-
-   public static PricebookEntry createPricebookEntry(String prodId){
+    }
+    
+    
+    
+    public static PricebookEntry createPricebookEntry(String prodId){
         
         PricebookEntry pbe = new PricebookEntry();
         pbe.product2Id = prodId;
         pbe.pricebook2Id = Test.getstandardPricebookId();
         pbe.unitPrice = 10;
-
+        
         insert pbe;
-
+        
         return pbe;
     }
-
+    
     public static Order createOrder(String accId, String conId, string affiliate){
         Order ord = new Order();
         ord.accountId = accId;
@@ -58,10 +57,10 @@ public class TestDataFactory {
         ord.EndDate = Date.today().addDays(7);
         ord.Requested_Borrowing_Period__c = '1 week';
         insert ord;
-
+        
         return ord;
     }
-
+    
     public static OrderItem createOrderItem(String orderId, String pbeId,String assetid){
         OrderItem ordItem = new OrderItem();
         ordItem.orderId = orderId;
@@ -76,7 +75,7 @@ public class TestDataFactory {
         LowestQuantityCalculateClasss.lowestQuantityOrder2(new List<order>{new order(Id=orderId)});
         return ordItem;
     }
-
+    
     public static Credit__c createCredit(String accId, Date ExpiredDate){
         Credit__c credit = new Credit__c();
         credit.Expiration_Date__c = ExpiredDate;
@@ -84,10 +83,10 @@ public class TestDataFactory {
         credit.Amount__c = 100;
         credit.isActive__c = true;
         insert credit;
-
+        
         return credit;
     }
-
+    
     public static Payments_TB__c createpayment(Order ord){
         Payments_TB__c payment = new Payments_TB__c();
         payment.order__c = ord.id;
@@ -95,5 +94,34 @@ public class TestDataFactory {
         payment.Amount__c = 10;
         insert payment;
         return payment;
+    }
+    
+    public static User createCustomerUser(Contact con, Profile prof) {
+        User user1 = new User(
+            Username = 'test12345@test.com',
+            ContactId = con.Id,
+            ProfileId = prof.Id,
+            Alias = 'test123',
+            Email = 'test12345@test.com',
+            EmailEncodingKey = 'UTF-8',
+            LastName = 'McTesty',
+            CommunityNickname = 'test12345',
+            TimeZoneSidKey = 'America/Los_Angeles',
+            LocaleSidKey = 'en_US',
+            LanguageLocaleKey = 'en_US'
+        );
+        insert user1;
+        return user1;
+    }
+    
+    public static Affiliate_Account__c createAffiliateAccount(Id accId) {
+        Affiliate_Account__c affAcc = new Affiliate_Account__c(Affiliate__c = accId);
+        insert affAcc;
+        return affAcc;
+    }
+    public static Zip_Code__c createZipCode(String zip) {
+        Zip_Code__c zipCode = new Zip_Code__c(Name = zip, Zip_Code__c = zip);
+        insert zipCode;
+        return zipCode;
     }
 }
