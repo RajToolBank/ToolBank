@@ -28,6 +28,28 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Agency_Impact__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Agency_Membership_Fees__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Agency_Mission__c</picklist>
         <values>
             <fullName>Arts%2C Culture%2C Humanities</fullName>
@@ -70,6 +92,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Public%2Fsocial benefits</fullName>
             <default>false</default>
         </values>
@@ -78,7 +104,42 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Veterans services</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Youth development</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Annual_Budget__c</picklist>
+        <values>
+            <fullName>%240 - %24100%2C000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>%24100%2C001 - %24250%2C000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>%24250%2C001 - %24500%2C000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>%24500%2C001 - %24750%2C000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>%24750%2C001 - and above</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>*All Government Agencies</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>*Public School System</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -268,6 +329,33 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Membership_Status__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Approval</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Ownership</picklist>
         <values>
             <fullName>Other</fullName>
@@ -283,6 +371,57 @@
         </values>
         <values>
             <fullName>Subsidiary</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Project_Types__c</picklist>
+        <values>
+            <fullName>Community%2Fneighborhood cleanup days</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Education%2Ftrades training</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Environment conservation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facility maintenance%2Fimprovements</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Groundskeeping</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home rebuilding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home repairs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Landscaping%2Fbeautification%2Fplanting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Refreshing Veterans Memorial Park</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Senior assistance%2Fretrofitting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Special events%2Ffundrasiers</fullName>
             <default>false</default>
         </values>
     </picklistValues>

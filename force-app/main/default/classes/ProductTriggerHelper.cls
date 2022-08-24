@@ -5,13 +5,17 @@ public with sharing class ProductTriggerHelper {
 
 
         List<Asset> assestList=new List<Asset>();
-        for(Account acc: [SELECT id FROM Account WHERE recordTypeId = '012020000000KwbAAE' OR recordTypeId = '012020000000MHfAAM']){
+        List<String> recordTypeIds = label.Affiliate_Record_Type_Ids.split(';');
+        for(Account acc: [SELECT id FROM Account WHERE recordTypeId IN:recordTypeIds]){
             for(Product2 prod: prodList){
-                Asset asset = new Asset();
-                asset.accountId = acc.id;
-                asset.product2Id = prod.id;
-                asset.name = prod.name;
-                assestList.add(asset);
+                if( prod.Type__c !='Additional Charges'){
+                    Asset asset = new Asset();
+                    asset.accountId = acc.id;
+                    asset.product2Id = prod.id;
+                    asset.Description = prod.Description;
+                    asset.name = prod.name;
+                    assestList.add(asset);
+                }
             }
         }
 

@@ -1,22 +1,40 @@
-public with sharing class PlaceOrderController {
+public without Sharing class PlaceOrderController {
+
+    @AuraEnabled(cacheable = true)
+    public static Boolean getFlag(){
+        Boolean flagged = [SELECT Id, Contact.Account.parentId FROM User WHERE Id =: UserInfo.getUserId()].Contact.Account.Flagged__c;
+
+        return flagged;
+    }
 
     @AuraEnabled(cacheable = true)
     public static string accid(){
         String accid = [SELECT Id, Contact.Account.parentId FROM User WHERE Id =: UserInfo.getUserId()].Contact.Account.parentId;
-
+        if(String.isBlank(accId)){
+            List<Affiliate_Account__c> aff = [SELECT Id, Affiliate__c,Affiliate__r.Name FROM Affiliate_Account__c WHERE User__c =:UserInfo.getUserId()];
+            if(aff != null && aff.size() >0 && aff.size() == 1)
+                accid = aff[0].Affiliate__c;
+        }
         return accId;
     }
 
     @AuraEnabled(cacheable = true)
     public static User getAgencyContact(){
-        User user = [SELECT Id,contactId, Contact.AccountId,Contact.Name,contact.Account.Name FROM User WHERE Id =: UserInfo.getUserId()];
+        User user = [SELECT Id,contactId, Contact.Email, Contact.AccountId,Contact.Name,contact.Account.Name FROM User WHERE Id =: UserInfo.getUserId()];
 
         return user;
     }
 
     @AuraEnabled(cacheable = true)
     public static List<Account> getAffiliate(){
-        return  [SELECT Id,Name FROM Account WHERE RecordTypeId='012020000000KwbAAE'];
+        List<Account> accList = new List<Account>();
+        for(Affiliate_Account__c aff: [SELECT Id, Affiliate__c,Affiliate__r.Name FROM Affiliate_Account__c WHERE User__c =:UserInfo.getUserId()]){
+            accList.add(aff.Affiliate__r);
+        }
+
+        if(accList != Null && accList.size() >0)
+            return accList;
+        else return  [SELECT Id,Name FROM Account WHERE RecordTypeId='012020000000KwbAAE'];
     }
     
     @AuraEnabled(cacheable = true)
@@ -29,7 +47,8 @@ public with sharing class PlaceOrderController {
                 accId = affiliateId;
             }
             if(String.isBlank(searchString)){
-                assetList=  [SELECT Id,Affiliate_Handling_Fee__c,
+                assetList=  [SELECT Id,
+                            Affiliate_Handling_Fee__c,
                             Product2Id,
                             Product2.spanish_name__c,
                             Product2.Job_Type__c,
@@ -41,12 +60,12 @@ public with sharing class PlaceOrderController {
                             Product2.Product_Image__c,
                             Product2.Tool_Note__c,
                             price 
-                            FROM Asset 
+                            FROM Asset
                             WHERE AccountId =: accid
                             AND Unlisted_Item__c = false
                             AND Product2.type__c = 'Tool'
                             AND (Quantity != Null 
-                            OR Quantity != 0)];
+                            AND Quantity != 0)];
                
             }else {
                 searchString = '%'+searchString+'%';
@@ -73,7 +92,7 @@ public with sharing class PlaceOrderController {
                             OR Product2.Tool_Note__c like: searchString )
                             AND Product2.type__c = 'Tool'
                             AND (Quantity != Null 
-                            OR Quantity != 0)];
+                            AND Quantity != 0)];
                 
             }
             Map<Id, Asset> productIdAssetMap = new Map<Id, Asset>();
@@ -93,7 +112,6 @@ public with sharing class PlaceOrderController {
 
                 tools.add(tool);
             }
-
 
             return tools;
 

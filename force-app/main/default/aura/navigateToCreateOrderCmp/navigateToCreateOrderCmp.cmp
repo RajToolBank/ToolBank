@@ -3,4 +3,4 @@
     <div class="slds-card">
         <c:createOrder />
     </div>
-</aura:component>	
+</aura:component>

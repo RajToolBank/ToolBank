@@ -67,19 +67,43 @@
                         <span>Member Agency:</span>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                         <Span><c-search-component
-                            margin-top = "-5%"
-                            onlookup={handleLookupAcc}
-                            fields-to-create={fieldsToCreate}
-                            create-record=false
-                            parent-a-p-i-name="ParentId"
-                            obj-name="Account"
-                            display-fields="Name, AccountNumber"
-                            fields = {fields}
-                            show-label=false
-                            data-index={index}
-                            index={index}>
-                            </c-search-component></Span><span style="color: red;font-style: italic;" data-id="accerror"></span>
+                         <Span>
+                            <template if:true={accountName}>
+                                <c-search-component
+                                margin-top = "-5%"
+                                onlookup={handleLookupAcc}
+                                fields-to-create={fieldsToCreate}
+                                create-record=false
+                                parent-a-p-i-name="ParentId"
+                                obj-name="Account"
+                                display-fields="Name, AccountNumber"
+                                fields = {fields}
+                                value-id={accountId}
+                                value-name={accountName}
+                                show-label=false
+                                data-index={index}
+                                index={index}>
+                                </c-search-component>
+                            </template>
+                            <template if:false={accountName}>
+                                <c-search-component
+                                margin-top = "-5%"
+                                onlookup={handleLookupAcc}
+                                fields-to-create={fieldsToCreate}
+                                create-record=false
+                                parent-a-p-i-name="ParentId"
+                                obj-name="Account"
+                                display-fields="Name, AccountNumber"
+                                fields = {fields}
+                                value-id={accountId}
+                                value-name={accountName}
+                                show-label=false
+                                data-index={index}
+                                index={index}>
+                                </c-search-component>
+                            </template>
+                        </Span>
+                            <span style="color: red;font-style: italic;" data-id="accerror"></span>
                     </div><br/><br/>
                 </div>
                 <div class="slds-grid slds-wrap">
@@ -88,6 +112,7 @@
                     </div>
                     <div class="slds-col slds-size_1-of-2">
                          <Span>
+                            <template if:true={contactName}>
                             <c-search-component
                             onlookup={handleLookup}
                             create-record=false
@@ -95,10 +120,29 @@
                             obj-name="Contact"
                             display-fields="Name, Email"
                             fields = {fields}
+                            value-id={contactId}
+                            value-name={contactName}
                             show-label=true
                             data-index={index}
                             index={index}>
-                            </c-search-component></Span><span style="color: red;font-style: italic;" data-id="conerror"></span>
+                            </c-search-component>
+                        </template>
+                        <template if:false={contactName}>
+                            <c-search-component
+                            onlookup={handleLookup}
+                            create-record=false
+                            parent-a-p-i-name="Accountid"
+                            obj-name="Contact"
+                            display-fields="Name, Email"
+                            fields = {fields}
+                            value-id={contactId}
+                            value-name={contactName}
+                            show-label=true
+                            data-index={index}
+                            index={index}>
+                            </c-search-component>
+                        </template>
+                    </Span><span style="color: red;font-style: italic;" data-id="conerror"></span>
                     </div><br/><br/><br/>
                 </div>
                 <div class="slds-grid slds-wrap">
@@ -106,7 +150,14 @@
                         <span>Email:</span>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                         <Span><input readonly  class="slds-input slds-combobox__input slds-border_left slds-border_right slds-border_top slds-border_bottom" type="text" data-id="email"  /></Span>
+                         <Span>
+                            <template if:true={email}>
+                                <input readonly value={email}  class="slds-input slds-combobox__input slds-border_left slds-border_right slds-border_top slds-border_bottom" type="text" data-id="email"  />
+                            </template>
+                            <template if:false={email}>
+                                <input readonly  class="slds-input slds-combobox__input slds-border_left slds-border_right slds-border_top slds-border_bottom" type="text" data-id="email"  />
+                            </template>
+                        </Span>
                     </div><br/><br/>
                 </div>
             </div>
@@ -286,7 +337,9 @@
                         </div>
                         <div class="slds-grid slds-wrap">
                             <div  class="slds-col slds-size_1-of-2">
-                                <span>Zip Code(s) (Project's Location):<lightning-helptext class="customIcon" content="Please list all ZIP codes where projects will occur, separated by commas."></lightning-helptext></span>
+                                <span>Zip Code(s) (Project's Location):
+                                    <lightning-helptext class="customIcon" content="Please list all ZIP codes where projects will occur, separated by commas."></lightning-helptext>
+                                </span>
                             </div>
                             <div class="slds-col slds-size_1-of-2">
                                  <Span><input class="slds-input" data-id="zipcode"  type="text" ></input></Span>
@@ -429,5 +482,8 @@
 
 
       </div>
+      <div class="slds-text-align_right" style="margin-left: 1%;margin-right: 1%;" >
+        <button type="button" class="slds-button slds-button_brand" style="background: #1589ee;" onclick={handleContinue}  >Continue</button> <br/>
+    </div>
     </template>
 </template>

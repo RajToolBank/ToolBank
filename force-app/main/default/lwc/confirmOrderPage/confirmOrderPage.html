@@ -14,19 +14,19 @@
             style="width: 100%;">
             <div class="slds-align_absolute-center slds-size_12-of-12">
             <div class="slds-var-m-top_medium">
-                <lightning-button variant="brand" type="submit" label="Save and Close" onclick={onSaveHandle}>
+                <lightning-button variant="brand" disabled={readonlyFlag} type="submit" label="Save and Close" onclick={onSaveHandle}>
                 </lightning-button>
             </div>&nbsp;&nbsp;
             <div class="slds-var-m-top_medium">
-                <lightning-button variant="brand" type="submit" label="Quick Save" onclick={onQuickSaveHandle}>
+                <lightning-button variant="brand" disabled={readonlyFlag} type="submit" label="Quick Save" onclick={onQuickSaveHandle}>
                 </lightning-button>
             </div>&nbsp;&nbsp;
             <div class="slds-var-m-top_medium">
-                <lightning-button variant="brand" type="submit" label="Undo" onclick={handleUndo}>
+                <lightning-button variant="brand" disabled={readonlyFlag} type="submit" label="Undo" onclick={handleUndo}>
                 </lightning-button>
             </div>&nbsp;&nbsp;
             <div class="slds-var-m-top_medium">
-                <lightning-button variant="brand" type="submit" label="Cancel" onclick={handleCancel}>
+                <lightning-button variant="brand" disabled={readonlyFlag} type="submit" label="Cancel" onclick={handleCancel}>
                 </lightning-button>
             </div>&nbsp;&nbsp;
             <div class="slds-var-m-top_medium">
@@ -87,9 +87,9 @@
             </lightning-button-->
         </div>&nbsp;&nbsp;
         <div class="slds-var-m-top_medium">
-            <lightning-button variant="brand" type="submit" onclick={handleFulfil} label="Fulfil">
+            <lightning-button variant="brand" disabled={readonlyFlag} type="submit" onclick={handleFulfil} label="Fulfil">
             </lightning-button>&nbsp;
-            <lightning-button variant="brand" type="submit" onclick={OpenModal} label="Mass Change Dates">
+            <lightning-button variant="brand" disabled={readonlyFlag} type="submit" onclick={OpenModal} label="Mass Change Dates">
             </lightning-button>
         </div>
         </div>
@@ -115,10 +115,10 @@
                 </div>
         </div>
         <div class="slds-var-m-top_medium" style="margin-top: 10.2%;margin-left: -12%;">
-            <lightning-button variant="brand" style="display: none;" onclick={handleConfirmButton} data-title="updateStatus" type="submit"  label="Confirm">
+            <lightning-button variant="brand" disabled={readonlyFlag} style="display: none;" onclick={handleConfirmButton} data-title="updateStatus" type="submit"  label="Confirm">
             </lightning-button>
 
-            <lightning-button variant="brand" data-title="deleterow" onclick={handleDelete} type="submit"  label="Delete">
+            <lightning-button variant="brand" disabled={readonlyFlag} data-title="deleterow" onclick={handleDelete} type="submit"  label="Delete">
             </lightning-button>
         </div>
         <br/><br/>
@@ -130,7 +130,7 @@
                 <tr class="slds-line-height_reset">
                     <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
                         <div class="slds-truncate" style="white-space: pre-wrap;" title="CONFIRM ALL">SELECT ALL<br/>
-                            <input type="checkbox" onchange={handleSelectAll} />
+                            <input type="checkbox" disabled={readonlyFlag} onchange={handleSelectAll} />
                         </div>
                     </th>
                     <!--
@@ -179,7 +179,7 @@
                     <tr class="slds-hint-parent" key={record.Id} data-status={record.Status__c} data-rowid={record.Id} data-id="dataid" data-label="lable" title="title" >
                         <td class="slds-cell-wrap" data-label="SELECT" scope="row" style="width: 9%;text-align: center;">
                             <div class="slds-truncate" title="SELECT">
-                                <input type="checkbox" data-check="checkbox" data-prod2id={record.Product2Id} onchange={handleSelectCheck} data-recid={record.Id}/>
+                                <input type="checkbox" disabled={readonlyFlag} data-check="checkbox" data-prod2id={record.Product2Id} onchange={handleSelectCheck} data-recid={record.Id}/>
                             </div>
                         </td>
         <!--
@@ -204,13 +204,13 @@
                         </td>
                         <td class="slds-cell-wrap" data-label="CONFIRMED QUANTITY" style="text-align: center;">
                             <div class="slds-truncate" title="CONFIRMED QUANTITY">
-                                <input type="number" class="slds-input" data-confirm={record.Id} data-id="CONFIRMEDQUANTITY" onkeyup={handleConfirmQty} onkeydown={handleConfirmQty}  value={record.Reserved_Quantity__c} />
+                                <input type="number" disabled={readonlyFlag} class="slds-input" data-confirm={record.Id} data-id="CONFIRMEDQUANTITY" onkeyup={handleConfirmQty} onkeydown={handleConfirmQty}  value={record.Reserved_Quantity__c} />
                                 
                             </div>
                         </td>
                         <td class="slds-cell-wrap" data-label="SCHEDULED RETURN DATE" style="width: 15%;text-align: center;">
                             <div class="slds-truncate" title="SCHEDULED RETURN DATE">
-                                <lightning-input data-id={record.Id} 
+                                <lightning-input data-id={record.Id} disabled={readonlyFlag}
                                 data-assetid={record.Inventory_Tool__c} 
                                 data-unitprice={record.UnitPrice} 
                                 data-product2id={record.Product2Id} 
@@ -327,8 +327,8 @@
         <br/><br/>
                 </div>
                 <div class="slds-modal__footer">
-                    <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={OpenModal}>Cancel</button>
-                    <button class="slds-button slds-button_brand" onclick={handleModalOk}>Ok</button>
+                    <button disabled={readonlyFlag} class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={OpenModal}>Cancel</button>
+                    <button disabled={readonlyFlag} class="slds-button slds-button_brand" onclick={handleModalOk}>Ok</button>
                 </div>
                 </div>
             </section>

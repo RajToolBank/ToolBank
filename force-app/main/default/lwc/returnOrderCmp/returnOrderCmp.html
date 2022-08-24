@@ -53,6 +53,10 @@
             </div></template>
         </lightning-record-edit-form>
         <div class="slds-align_absolute-center slds-size_12-of-12">
+            <div class="slds-var-m-top_medium">
+                <lightning-button variant="brand" type="submit" onclick={handleSave}  label="Return and Save">
+                </lightning-button>
+            </div>&nbsp;&nbsp;
         <div class="slds-var-m-top_medium">
             <lightning-button variant="brand" type="submit" onclick={handleSave}  label="Save">
             </lightning-button>
@@ -169,20 +173,20 @@
                         <td class="slds-cell-wrap" data-label="RETURN" style="width: 9%;text-align: center;">
                             <div class="slds-truncate" title="RETURN">
 
-                                    <input type="number" data-qtyid={record.orderItem.Id} data-returnqty={record.orderItem.Id} class="slds-input" onkeyup={handleLineReturned} value={record.orderItem.Check_In_Quantity__c}/>
+                                    <input type="number" data-qtyid={record.orderItem.Id} data-returnqty={record.orderItem.Id} class="slds-input" onchange={handleLineReturned} value={record.orderItem.Check_In_Quantity__c}/>
                             </div>
                         </td>
                         <td class="slds-cell-wrap" data-label="LOST" style="text-align: center;">
                             <div class="slds-truncate" title="LOST">
                              
 
-                                    <input type="number"  data-already={record.fixed}  data-qtyid={record.orderItem.Id} data-lostqty={record.orderItem.Id} class="slds-input" onkeyup={handleLineReturned}  value={record.orderItem.Lost__c} />  
+                                    <input type="number"  data-already={record.fixed}  data-qtyid={record.orderItem.Id} data-lostqty={record.orderItem.Id} class="slds-input" onchange={handleLineReturned}  value={record.orderItem.Lost__c} />  
                             </div>
                         </td>
                         <td class="slds-cell-wrap" data-label="DAMAGED" style="width: 15%;text-align: center;">
                             <div class="slds-truncate" title="DAMAGED">
                               
-                                    <input type="number" data-qtyid={record.orderItem.Id} data-damagedqty={record.orderItem.Id} class="slds-input" onkeyup={handleLineReturned} value={record.orderItem.Damaged__c} />
+                                    <input type="number" data-qtyid={record.orderItem.Id} data-damagedqty={record.orderItem.Id} class="slds-input" onchange={handleLineReturned} value={record.orderItem.Damaged__c} />
                             </div>
                         </td>
                         <td class="slds-cell-wrap" data-label="STILL OUT" style="width: 9%;text-align: center;">

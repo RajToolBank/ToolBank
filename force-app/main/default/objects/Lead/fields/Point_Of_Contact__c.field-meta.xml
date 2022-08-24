@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Point_Of_Contact__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
+    <defaultValue>false</defaultValue>
+    <description>Field is checked whenever the executive email is filled - we can just look at that field and know that it&apos;s filled. This checkbox isn&apos;t referenced elsewhere.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>It is  Point of Contact(For Eg - Billing contact, Executive).</inlineHelpText>
+    <label>Primary contact</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

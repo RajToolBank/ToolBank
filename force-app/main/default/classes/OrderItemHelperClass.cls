@@ -1,4 +1,5 @@
 public with sharing class OrderItemHelperClass {
+    public static Boolean recursion = false;
     static final String  LOST='012020000000L9kAAE',RE_TURN='012020000000L9uAAE',OUT='012020000000LJuAAM';
 
     public static void createTransaction(List<OrderItem> itemList, Map<Id, OrderItem> oldMap){
@@ -11,8 +12,8 @@ public with sharing class OrderItemHelperClass {
             oldStatus = oldItem.status__c;  
             Boolean isCheckInSame = (item.Check_In_Quantity__c == oldItem.Check_In_Quantity__c);
             Boolean isCheckOutSame = (item.Check_Out_Quantity__c ==  oldItem.Check_Out_Quantity__c);
-            Boolean isLostSame = (item.Check_Out_Quantity__c == oldItem.Check_Out_Quantity__c);
-            Boolean isDamangeSame = (item.Check_Out_Quantity__c == oldItem.Check_Out_Quantity__c);
+            Boolean isLostSame = (item.Lost__c == oldItem.Lost__c);
+            Boolean isDamangeSame = (item.Damaged__c == oldItem.Damaged__c);
             Boolean isFullfilled = 'Fulfilled'.equalsIgnoreCase(newStatus);
             Boolean isReturned = 'Returned'.equalsIgnoreCase(newStatus);
             Boolean isDamaged = 'Damaged'.equalsIgnoreCase(newStatus);
@@ -34,7 +35,9 @@ public with sharing class OrderItemHelperClass {
                     Transaction__c trans = returnTrans(item,OUT,null,diff);
                     transactionList.add(trans);
                 }
-            }else if((!isCheckInSame || !isLostSame || !isDamangeSame) ){ //&& (isReturned || isPartiallyReturned || isDamaged || isLost)
+            }
+            
+            if((!isCheckInSame || !isLostSame || !isDamangeSame) ){ //&& (isReturned || isPartiallyReturned || isDamaged || isLost)
 
                 Decimal diff = checkInNew - checkInOld;
                 if(diff != 0){
@@ -77,7 +80,7 @@ public with sharing class OrderItemHelperClass {
 
 
     public static void handleStatus(List<OrderItem> itemList){
-
+        recursion = true;
         set<Id> orderIdSet = new set<Id>();
         for(orderitem item: itemList){
             orderIdSet.add(item.orderid);

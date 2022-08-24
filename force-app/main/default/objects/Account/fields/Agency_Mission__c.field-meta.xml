@@ -76,6 +76,16 @@
                 <default>false</default>
                 <label>Youth development</label>
             </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Veterans services</fullName>
+                <default>false</default>
+                <label>Veterans services</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

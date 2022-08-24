@@ -33,6 +33,8 @@ export default class OrderInformation extends LightningElement {
     corp = false;
     home = false;
     zipCodeList;
+    @api
+    email ="";
 
 
     desiredPickupTime;
@@ -45,16 +47,18 @@ export default class OrderInformation extends LightningElement {
     fieldsInfo;
     orderMetadata;
 
+    
+    /*
+*/
     @wire(accid) getaccid({data,error}){
         if(data){
             
             this.affiliateId = data;
         }
     };
-
-    @wire(getAgencyContact) getAgencyContact({data,error}){
+   @wire(getAgencyContact) getAgencyContact({data,error}){
         if(data){
-            console.log(data);
+            
             if(data.Contact){
                 this.accountId = data.Contact.AccountId;
                 this.contactId = data.ContactId;
@@ -62,6 +66,8 @@ export default class OrderInformation extends LightningElement {
                     this.accountName = data.Contact.Account.Name;
                 }
                 this.contactName = data.Contact.Name;
+                this.email = data.Contact.Email;
+                
             }
         }
     };
@@ -190,12 +196,27 @@ export default class OrderInformation extends LightningElement {
             let borrow = this.borrowing.replace("weeks", "");
             borrow = this.borrowing.replace("week", "");
             let week = parseInt(borrow)
-            week = (week*7)+1;
+            week = (week*7);
             pickupdate.setDate(pickupdate.getDate() + week);
             let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(pickupdate);
-            let mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(pickupdate);
+            let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(pickupdate);
             let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(pickupdate);
-            returnDate.value = `${ye}-${mo}-${da}`;
+            const tagId = event.target.dataset.id;
+            if(tagId !== "returnDate"){
+                returnDate.value = `${ye}-${mo}-${da}`;
+                returnerror.innerHTML = "";
+            }else {
+                let retvalue = `${ye}-${mo}-${da}`;
+                let selectedValue = event.target.value;
+               
+                console.log(retvalue);
+                console.log(selectedValue);
+                if(retvalue !== selectedValue){
+                    returnerror.innerHTML = "Return date is not aligned with Pickup date and borrowing week, please fix the dates";
+                }else{
+                    returnerror.innerHTML = "";
+                }
+            }
         }
         
     }
@@ -211,9 +232,10 @@ export default class OrderInformation extends LightningElement {
     handleLookup = (event) => {
         let data = event.detail.data;
         let orderinfo = this.template.querySelector(`[data-id="email"]`);
+        
+       
         if(data && data.record){
-            
-            
+            console.log(JSON.parse(JSON.stringify(data)));
                 orderinfo.value=data.record.Email;
                 this.contactId = data.record.Id;
             

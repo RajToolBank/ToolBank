@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Desired Pickup Time</label>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

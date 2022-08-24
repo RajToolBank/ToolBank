@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>I_am_an_executive_of_this_organization__c</fullName>
+    <businessStatus>DeprecateCandidate</businessStatus>
+    <defaultValue>true</defaultValue>
+    <description>Field is checked whenever the executive email is filled - we can just look at that field and know that it&apos;s filled. This checkbox isn&apos;t referenced elsewhere.</description>
+    <externalId>false</externalId>
+    <label>Executive Contact</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

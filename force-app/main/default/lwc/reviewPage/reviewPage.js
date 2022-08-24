@@ -33,12 +33,18 @@ export default class ReviewPage extends LightningElement {
             order:this.orderDetails,
             tools:this.orderTools
         }
-
+        let currentURL  = window.location.href;
+        currentURL = currentURL.replace("/s", "");
+        currentURL = currentURL.replace("/CreateOrderVfPage", "");
+      
         
         placeOrder({Order: JSON.stringify(order)}).then(res =>{
             this.loaded = false;
             this.success = true;
-            this.orderId = res;
+
+            
+    
+            this.orderId = currentURL+res;
             this.review = true;
         }).catch(error =>{
             console.log(error);

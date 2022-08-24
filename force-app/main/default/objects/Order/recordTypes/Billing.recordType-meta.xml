@@ -2,6 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Billing</fullName>
     <active>true</active>
+    <compactLayoutAssignment>Compact_Order_Layout</compactLayoutAssignment>
     <label>Billing</label>
     <picklistValues>
         <picklist>Areas_Of_Impact__c</picklist>
@@ -142,6 +143,28 @@
         </values>
         <values>
             <fullName>9%3A30 AM</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Order_Paid__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Pickup_Approved__c</picklist>
+        <values>
+            <fullName>Not Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -313,6 +336,125 @@
         </values>
         <values>
             <fullName>Unconfirmed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unpaid</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Time_Slot__c</picklist>
+        <values>
+            <fullName>1%3A00 PM - 1%3A30 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1%3A30 PM - 2%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10%3A00 AM - 10%3A30 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10%3A30 AM - 11%3A00 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11%3A00 AM - 11%3A30 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11%3A30 AM - 12%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12%3A00 PM - 12%3A30 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12%3A30 PM - 1%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%3A00</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%3A00 PM - 2%3A30 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2%3A30 PM - 3%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3%3A00 PM - 3%3A30 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3%3A30 PM - 4%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4%3A00 PM - 4%3A30 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4%3A30 PM - 5%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5%3A00 PM - 5%3A30 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5%3A30 PM - 6%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6%3A00 PM - 6%3A30 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6%3A30 PM - 7%3A00 PM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7%3A00 AM - 7%3A30 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7%3A30 AM - 8%3A00 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8%3A00 AM - 8%3A30 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8%3A30 AM - 9%3A00 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8%3A45 AM - 9%3A00 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9%3A00 AM - 9%3A30 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9%3A15 AM - 9%3A30 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9%3A30 AM - 10%3A00 AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Time Slot</fullName>
             <default>false</default>
         </values>
     </picklistValues>

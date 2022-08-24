@@ -1,0 +1,4 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader">
+    <aura:attribute name="recordId" type="String" />
+    <c:enableContactasCustomerUser recordId="{!v.recordId}"></c:enableContactasCustomerUser>
+</aura:component>

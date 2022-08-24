@@ -3,6 +3,7 @@ import getOrderItems from '@salesforce/apex/ReturnOrderController.getOrderItems'
 import saveOrder from '@salesforce/apex/ReturnOrderController.saveOrder';
 import TOOL_PICKED_FIELD from '@salesforce/schema/Order.Tools_Picked_Up_By__c';
 import { NavigationMixin } from "lightning/navigation";
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
 
@@ -225,9 +226,11 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
     handleReturnButton(event){
         let template = this;
         let allselectrows = template.template.querySelectorAll(`[data-check="checkbox"]`);
+        let isSelected = false;
         allselectrows.forEach(function(ele){
 
             if(ele.checked){
+                isSelected = true;
                 const recid = ele.dataset.recid;
                 let status = template.template.querySelector(`[data-sts="`+recid+`"]`);
                 let stillOutqty = template.template.querySelector(`[data-stillout="`+recid+`"]`);
@@ -255,12 +258,16 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 
             }
         });
+
+        if(!isSelected){
+            alert('Nothing is selected please select a row to return');
+        }
     }
 
     handleCancel(event){
 
         //this.dispatchEvent(new CloseActionScreenEvent());
-        let template = this;
+        /*let template = this;
             const config = {
                 type: 'standard__recordPage',
                 attributes: {
@@ -269,7 +276,8 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                     actionName: 'view'
                 }
             };
-            this[NavigationMixin.Navigate](config);
+            this[NavigationMixin.Navigate](config);*/
+            location.reload();
           
     }
 
@@ -482,9 +490,210 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
 
         saveOrder({itemsList:JSON.stringify(itemList) }).then(res=>{
             console.log(res);
-            alert("record saved successfully");
+            //alert("record saved successfully");
+            const evt = new ShowToastEvent({
+                title: "Return Tools",
+                message: "record saved successfully",
+                variant: "success",
+            });
+            this.dispatchEvent(evt);
+            location.reload();
         }).catch(error=>{
             console.log(error);
+            const evt = new ShowToastEvent({
+                title: "Return Tools",
+                message: error,
+                variant: "error",
+            });
+            this.dispatchEvent(evt);
         });
+    }
+
+
+    handleReturnAndSave(event){
+        let template = this;
+        let allselectrows = template.template.querySelectorAll(`[data-check="checkbox"]`);
+        let isSelected = false;
+        allselectrows.forEach(function(ele){
+
+            if(ele.checked){
+                isSelected = true;
+                const recid = ele.dataset.recid;
+                let status = template.template.querySelector(`[data-sts="`+recid+`"]`);
+                let stillOutqty = template.template.querySelector(`[data-stillout="`+recid+`"]`);
+                let borrowed = template.template.querySelector(`[data-borrowed="`+recid+`"]`);
+
+                let returnqty = template.template.querySelector(`[data-returnqty="`+recid+`"]`);
+                let lostqty = template.template.querySelector(`[data-lostqty="`+recid+`"]`);
+                let damagedqty = template.template.querySelector(`[data-damagedqty="`+recid+`"]`);
+
+                if(parseInt(stillOutqty.innerHTML) === 0){
+                    status.innerHTML = "Returned";
+                    returnqty.disabled= true;
+                    lostqty.disabled= true;
+                    damagedqty.disabled= true;
+                }
+                else if(parseInt(stillOutqty.innerHTML) > 0 && parseInt(stillOutqty.innerHTML) < parseInt(borrowed.innerHTML))
+                    status.innerHTML = "Partially Returned";
+                else if(parseInt(stillOutqty.innerHTML) < 0){
+                    alert("Total return can not be greater than total borrowed");
+                   
+                    returnqty.style.borderColor = "red";
+                    lostqty.style.borderColor = "red";
+                    damagedqty.style.borderColor = "red";
+                }
+                
+            }
+        });
+
+        if(!isSelected){
+            alert('Nothing is selected please select a row to return');
+        }else{
+
+        let state = this.template;
+        let getAllTools = state.querySelectorAll(`[data-id="dataid"]`);
+        let itemList = [];
+        const EffectiveDate = this.order.EffectiveDate; 
+        getAllTools.forEach(function(ele){
+            const recid = ele.dataset.rowid;
+            console.log(recid);
+            const orderid = ele.dataset.orderid;
+            let lost = state.querySelector(`[data-lostqty="`+recid+`"]`);
+            let damaged = state.querySelector(`[data-damagedqty="`+recid+`"]`);
+            let retur = state.querySelector(`[data-returnqty="`+recid+`"]`);
+            let retDate = state.querySelector(`[data-return="`+recid+`"]`);
+            let status = state.querySelector(`[data-sts="`+recid+`"]`);
+            let base = state.querySelector(`[data-basefee="`+recid+`"]`);
+            let borrowed = state.querySelector(`[data-borrowed="`+recid+`"]`);
+
+            const lostqty = lost.value !== "NaN" && lost.value? parseInt(lost.value):0;
+            const damagedqty = damaged.value !== "NaN" && damaged.value ? parseInt(damaged.value):0;
+            const returnqty = retur.value !== "NaN" && retur.value? parseInt(retur.value):0;
+            const returnDate = retDate.value;
+            const newStatus =status.innerHTML;
+            const basefee = !isNaN(base.innerHTML)? parseInt(base.innerHTML):0;
+            const oldStatus = lost.dataset.already;
+            const borrowedqty = borrowed.innerHTML !== "NaN" && borrowed.innerHTML?parseInt(borrowed.innerHTML):0;
+            const assetid = retDate.dataset.assetid;
+            const unitPrice = retDate.dataset.unitprice;
+            const product2id = retDate.dataset.product2id;                    
+            const pbeid= retDate.dataset.pbeid;                        
+            const affiliatefee= retDate.dataset.affiliatefee;  
+            const borrowedPeriod = retDate.dataset.week;       
+                         
+            console.log(oldStatus);
+            console.log(newStatus);
+
+           
+
+
+            if(oldStatus !== "Returned" && (newStatus === "Partially Returned" || newStatus === "Returned")){
+                console.log(borrowedqty);
+                console.log(lostqty);
+                console.log(returnqty);
+                console.log(damagedqty);
+                const pendingQty = borrowedqty - (lostqty+damagedqty+returnqty);
+                console.log(pendingQty);
+
+                if(pendingQty === 0){
+                    let item ={
+                        Id:recid,
+                        returnDate:returnDate,
+                        borrowedPeriod:borrowedPeriod,
+                        lost:lostqty,
+                        damaged:damagedqty,
+                        returnqty:returnqty,
+                        EffectiveDate:EffectiveDate,
+                        //basefee:basefee,
+                        status:newStatus
+                    }
+                    itemList.push(item);
+                }else if(pendingQty === borrowedqty){
+                    let item ={
+                        Id:recid,
+                        returnDate:returnDate,
+                        borrowedPeriod:borrowedPeriod,
+                        EffectiveDate:EffectiveDate,
+                        lost:0,
+                        damaged:0,
+                        returnqty:0,
+                        //basefee:basefee,
+                        status:oldStatus
+                    }
+                    itemList.push(item);
+                }else{
+                    let item1 ={
+                        Id:recid,
+                        returnDate:returnDate,
+                        borrowedPeriod:borrowedPeriod,
+                        EffectiveDate:EffectiveDate,
+                        lost:lostqty,
+                        damaged:damagedqty,
+                        returnqty:returnqty,
+                        status:"Returned",
+                        //basefee:basefee,
+                        borrowed:(lostqty+damagedqty+returnqty)
+                    }
+                    let item2 ={
+                        Id:"2",
+                        returnDate:returnDate,
+                        lost:0,
+                        orderid:orderid,
+                        borrowedPeriod:borrowedPeriod,
+                        EffectiveDate:EffectiveDate,
+                        damaged:0,
+                        returnqty:0,
+                        status:"Partially Returned",
+                        //basefee:basefee,
+                        borrowed:pendingQty,
+                        assetid:assetid,
+                        unitPrice:unitPrice,
+                        product2id:product2id,
+                        pbeid:pbeid,
+                        affiliatefee:affiliatefee
+                    }
+                    itemList.push(item1);
+                    itemList.push(item2);
+                }
+            } else{
+                let item ={
+                    Id:recid,
+                    returnDate:returnDate,
+                    borrowedPeriod:borrowedPeriod,
+                    EffectiveDate:EffectiveDate,
+                    lost:0,
+                    damaged:0,
+                    returnqty:0,
+                    //basefee:basefee,
+                    status:oldStatus
+                }
+                itemList.push(item);
+            }
+            
+        });
+
+        console.log(itemList);
+
+        saveOrder({itemsList:JSON.stringify(itemList) }).then(res=>{
+            console.log(res);
+            //alert("record saved successfully");
+            const evt = new ShowToastEvent({
+                title: "Return Tools",
+                message: "record saved successfully",
+                variant: "success",
+            });
+            this.dispatchEvent(evt);
+            location.reload();
+        }).catch(error=>{
+            console.log(error);
+            const evt = new ShowToastEvent({
+                title: "Return Tools",
+                message: error,
+                variant: "error",
+            });
+            this.dispatchEvent(evt);
+        });
+    }
+
     }
 }

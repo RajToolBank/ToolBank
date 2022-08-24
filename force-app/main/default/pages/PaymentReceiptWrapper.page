@@ -1,0 +1,3 @@
+<apex:page standardcontroller="order" extensions="PaymentReceipt_Ctrl" action="{!updateOrder}"  showHeader="false" sidebar="false" standardStylesheets="false" renderAs="pdf" applyHtmlTag="false" applyBodyTag="false">
+    <apex:include pageName="PaymentReceipt"/>
+</apex:page>

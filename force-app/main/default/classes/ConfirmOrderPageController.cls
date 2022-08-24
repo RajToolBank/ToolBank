@@ -10,9 +10,14 @@ public class ConfirmOrderPageController {
     @AuraEnabled
     public static OrderDetails getOrderDetailsDirect(String recordId){
 
-        List<Order> order = [SELECT Id,Account.name,Affiliate__c,Status,Requested_Borrowing_Period__c,createdDate,name,Schedule_Return_Date__c, OrderNumber,Desired_Pickup_Date__c,Desired_Pickup_Time__c,EffectiveDate,Scheduled_Pickup_Time__c FROM Order WHERE Id =: recordId];
+        List<Order> order = [SELECT Id,Account.name,Affiliate__c,Status,Order_Fulfill_Date__c, Requested_Borrowing_Period__c,createdDate,name,Schedule_Return_Date__c, OrderNumber,Desired_Pickup_Date__c,Desired_Pickup_Time__c,EffectiveDate,Scheduled_Pickup_Time__c FROM Order WHERE Id =: recordId];
         OrderDetails OrderDetails = new OrderDetails();
         OrderDetails.order = order[0];
+        Long milliseconds = system.now().getTime() - order[0].Order_Fulfill_Date__c.getTime();
+        Long seconds = milliseconds / 1000;
+        Long minutes = seconds / 60;
+        Long hours = minutes / 60;
+        OrderDetails.readOnly = (hours) >=2; 
         List<OrderItem> OrderItemList =LowestQuantityCalculateClasss.lowestQuantityOrder3(order);
         if(OrderItemList != Null && OrderItemList.size()>0){
             
@@ -51,9 +56,6 @@ public class ConfirmOrderPageController {
         //String accid = [SELECT Id, Contact.Account.parentId FROM User WHERE Id =: UserInfo.getUserId()].Contact.Account.parentId;
         system.debug(accId);
 
-        if(accId == Null){
-            accId = '0010200000Gdf2yAAB';
-        }
 
         List<Asset> assetList;
         if(String.isBlank(searchString) && String.isBlank(category)){
@@ -281,13 +283,17 @@ public class ConfirmOrderPageController {
                 delete toolsToDelete;
         }
 
-        update new order(
+        Order updateOrder =  new order(
             id= (Id)order.get('Id'),
             EffectiveDate = Date.valueOf((String)order.get('EffectiveDate')),
             name =  (String)order.get('Name'),
             status = (String)order.get('Status'),
-            pricebook2Id = '01sA0000000PfKSIA0'
+            pricebook2Id = label.pricebookid
         );
+        if((String)order.get('Status') == 'Fulfilled')
+        updateOrder.Order_Fulfill_Date__c = system.now();
+
+        update updateOrder;
         
         list<OrderItem> orderitems = new List<OrderItem>();
         for(object obj: (List<Object>)orderAndItemDetails.get('orderItems')){
@@ -324,6 +330,8 @@ public class ConfirmOrderPageController {
     public class OrderDetails{
         @AuraEnabled
         public Order order;
+        @AuraEnabled
+        public Boolean readOnly;
         @AuraEnabled
         public List<OrderItem> orderItemList;
     }

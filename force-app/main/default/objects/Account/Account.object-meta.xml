@@ -232,7 +232,7 @@
     <compactLayoutAssignment>Org_Compact_Layout</compactLayoutAssignment>
     <enableFeeds>true</enableFeeds>
     <enableHistory>true</enableHistory>
-    <externalSharingModel>ReadWrite</externalSharingModel>
+    <externalSharingModel>Private</externalSharingModel>
     <profileSearchLayouts>
         <fields>ACCOUNT.NAME</fields>
         <fields>ACCOUNT.PHONE1</fields>
@@ -278,5 +278,5 @@
         <searchResultsAdditionalFields>ACCOUNT.TYPE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
     </searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
 </CustomObject>

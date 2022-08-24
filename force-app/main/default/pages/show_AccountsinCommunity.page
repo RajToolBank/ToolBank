@@ -1,0 +1,392 @@
+<apex:page controller="show_AccountsinCommunityCtrl" lightningStylesheets="true">
+  <script src="http://code.jquery.com/jquery-latest.min.js" />
+  <style>
+    .slds-scope .slds-table th,
+    .slds-scope .slds-table td {
+      font-size: 10px !important;
+      text-align: left !important;
+    }
+
+    .bPageBlock .detailList tr td.dataCol:first-child {
+      width: 120px;
+    }
+
+    .bPageBlock .detailList .dataCol {
+      width: auto;
+    }
+
+    .slds-scope .slds-button {
+      display: inline-block;
+    }
+
+    .slds-scope .slds-table_cell-buffer tr>td.dataCell.custdd:first-child {
+      padding-left: 0px;
+    }
+
+    span.custd {
+      /*width: 108px;
+float: left;*/
+      width: 75px;
+      float: left;
+      padding-right: 5px;
+    }
+
+    .slds-scope .slds-table th,
+    .slds-scope .slds-table td {
+      white-space: normal;
+      word-wrap: break-word;
+    }
+
+    body .apexp .pbBody .dataCell table.list {
+      border: 0px solid #e0e3e5;
+    }
+
+    .slds-scope .slds-table_cell-buffer tr>td:last-child,
+    .slds-scope .slds-table--cell-buffer tr>th:last-child,
+    .slds-scope .slds-table--cell-buffer tr>td:last-child {
+      padding-right: 0;
+    }
+
+    body .pbBody table.list tr.dataRow td table th {
+      background-color: #fff;
+      border: 0px;
+    }
+
+    .bPageBlock {
+      background: white !important;
+    }
+
+    .slds-media_center {
+      height: 45px !important;
+    }
+
+    html .brandQuaternaryBgr {
+      background: #ffffff !important;
+    }
+
+    .slds-table td {
+      padding: -0.5rem !important;
+    }
+
+    .slds-icon-action-new-group {
+      margin-left: 4px !important;
+    }
+
+    .slds-icon-action-new-account {
+      margin-left: 4px !important;
+    }
+
+    .slds-icon-action-record {
+      margin-left: 4px;
+       !important;
+    }
+
+    .slds-icon {
+      margin-left: -1px !important;
+    }
+
+    .slds-media__body {
+      margin-left: 5px;
+    }
+
+    .slds-icon-action-join-group {
+      padding: 7px;
+      background-color: #05d00c !important;
+      margin-right: 17px;
+    }
+
+    @media only screen and (min-width: 48em) {
+      .slds-grid .slds-medium-size_8-of-12 {
+        width: 100%;
+      }
+    }
+  </style>
+  <apex:slds />
+  <div class="slds-scope ">
+    <apex:form >
+      <article class="slds-card">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate" style="float:left;">
+          <span class="slds-icon_container slds-icon-action-new-account">
+            <svg aria-hidden="true" class="slds-icon  slds-icon--x-small">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/apexpages/slds/latest/assets/icons/action-sprite/svg/symbols.svg#new_account">
+              </use>
+            </svg>
+            <span class="slds-assistive-text">Priority</span>
+          </span>
+          <div class="slds-media__body">
+            <h2 class="slds-card__header-title">
+              <span>Account Information</span>
+            </h2>
+          </div>
+        </header>
+        <!--apex:commandButton action="{!editAccount}" style="float: right;    margin-top: 5px;    margin-right: 7px;" Value="Edit" rendered="{!OR(primaryId,ExecutivecontactId)}" styleclass="slds-button slds-button_brand" /-->
+        <apex:pageBlock >
+          <apex:outputpanel rendered="{!showAccount}">
+            <apex:pageBlockSection columns="4"> Agency Name : 
+            <apex:outputText value="{!name }"></apex:outputText> Agency Phone :
+              <apex:outputText value="{!Phone}" /> Agency Street :
+              <apex:outputText value="{!BillingStreet}" /> Agency City :
+              <apex:outputText value="{!BillingCity}" /> Agency State :
+              <apex:outputText value="{!BillingState}" /> Agency Country :
+              <apex:outputText value="{!BillingCountry}" /> Agency Zip :
+              <apex:outputText value="{!BillingPostalCode}" /> Website :
+              <apex:outputText value="{!website}" /> Annual Budget :
+              <apex:outputText value="{!annualbudget}" /> <!--Agency Impact :
+              <apex:outputText value="{!agencyImpact}" /--> Agency Mission :
+              <apex:outputText value="{!agencyMission}" /> Instagram :
+              <apex:outputText value="{!insta}" /> PT :
+              <apex:outputText value="{!staffPT}" /> Facebook :
+              <apex:outputText value="{!face}" /> FT :
+              <apex:outputText value="{!staffFT}" /> Twitter :
+              <apex:outputText value="{!tweet}" />
+              <!--
+              Affiliate Contact :<apex:outputText value="{!affiliateContact}" />
+              WareHouse Manager :<apex:outputText value="{!warehouseManager}" />
+              Affiliate Email :<apex:outputText value="{!affiliateEmail}" />
+              WareHouse Manager Email :<apex:outputText value="{!warehouseManagerEmail}" />
+              Affiliate Phone :<apex:outputText value="{!affiliatePhone}" />            
+              WareHouse Manager Phone :<apex:outputText value="{!warehouseManagerPhone}" /-->
+            </apex:pageBlocksection>
+          </apex:outputpanel>
+          <apex:outputpanel rendered="{!hideAccount}">
+            <apex:pageBlockSection columns="4"> Agency Name : <apex:outputText value="{!name }" styleClass="slds-input form-col-left" style="width: 75%; margin-left: -95px; position: relative; right: -49px;"></apex:outputText> Agency Phone : <apex:outputText value="{!Phone}" styleClass="slds-input pho form-col-right" style="width: 179%; margin-left: -123px; position: relative; right: -49px;">
+                <!--  <span class="error2" style="display:none; color:red">Please Enter at least 10 digits.</span> -->
+              </apex:outputText> Agency Street :
+              <apex:outputText value="{!BillingStreet}" styleClass="slds-input form-col-left" style="width: 75%; margin-left: -95px; position: relative; right: -49px;" /> Agency City :
+              <apex:outputText value="{!BillingCity}" styleClass="slds-input form-col-left" style="width: 179%; margin-left: -123px; position: relative; right: -49px;" /> Agency State :
+              <apex:outputText value="{!BillingState}" styleClass="slds-input form-col-right" style="width: 75%; margin-left: -95px; position: relative; right: -49px;" /> Agency Country :
+              <apex:outputText value="{!BillingCountry}" styleClass="slds-input form-col-left" style="width: 179%; margin-left: -123px; position: relative; right: -49px;" /> Agency Zip :
+              <apex:outputText value="{!BillingPostalCode}" styleClass="slds-input sips form-col-right" style="width: 75%; margin-left: -95px; position: relative; right: -49px;" /> Website :
+              <apex:inputText value="{!website}" styleClass="slds-input form-col-right" style="width: 179%; margin-left: -123px; position: relative; right: -49px;" /> Annual Budget : <apex:selectList value="{!annualbudget}" multiselect="false" size="1" styleClass="slds-input form-col-left" style="width: 75%; margin-left: -95px; position: relative; right: -49px;">
+                <apex:selectOption itemValue="$0 - $100,000" itemLabel="$0 - $100,000" />
+                <apex:selectOption itemValue="$100,001 - $250,000" itemLabel="$100,001 - $250,000" />
+                <apex:selectOption itemValue="$250,001 - $500,000" itemLabel="$250,001 - $500,000" />
+                <apex:selectOption itemValue="$500,001 - $750,000" itemLabel="$500,001 - $750,000" />
+                <apex:selectOption itemValue="$750,001 - and above" itemLabel="$750,001 - and above" />
+                <apex:selectOption itemValue="*Public School System" itemLabel="*Public School System" />
+                <apex:selectOption itemValue="*All Government Agencies" itemLabel="$750,001 - and above" />
+              </apex:selectList> Agency Impact : <apex:selectList value="{!agencyImpact}" multiselect="false" size="1" styleClass="slds-input" style="width: 180%; margin-left: -123px; position: relative;
+                                                                                                                                                                                    right: -49px;">
+                <apex:selectOption itemValue="Yes" itemLabel="Yes" />
+                <apex:selectOption itemValue="No" itemLabel="No" />
+              </apex:selectList> Agency Mission : <apex:selectList value="{!agencyMission}" multiselect="false" size="1" styleClass="slds-input" style="width: 75%; position: relative; right: -49px; margin-left: -95px">
+                <apex:selectOption itemValue="Arts, Culture, Humanities" itemLabel="Arts, Culture, Humanities" />
+                <apex:selectOption itemValue="Community improvement" itemLabel="Community improvement" />
+                <apex:selectOption itemValue="Educational institution" itemLabel="Educational institution" />
+                <apex:selectOption itemValue="Environmental quality/protection" itemLabel="Environmental quality/protection" />
+                <apex:selectOption itemValue="Faith-based institution" itemLabel="Faith-based institution" />
+                <apex:selectOption itemValue="Housing" itemLabel="Housing" />
+                <apex:selectOption itemValue="Human & Community Services" itemLabel="Human & Community Services" />
+                <apex:selectOption itemValue="International/foreign affairs" itemLabel="International/foreign affairs" />
+                <apex:selectOption itemValue="Low income housing provider" itemLabel="Low income housing provider" />
+                <apex:selectOption itemValue="Non-profit improvement" itemLabel="Non-profit improvement" />
+                <apex:selectOption itemValue="Public/social benefits" itemLabel="Public/social benefits" />
+                <apex:selectOption itemValue="Social services" itemLabel="Social services" />
+                <apex:selectOption itemValue="Youth development" itemLabel="Youth development" />
+              </apex:selectList> Instagram :
+              <apex:inputText value="{!insta}" styleClass="slds-input" style="width: 180%;margin-left: -123px;position: relative;
+                                                                                                                                                                                                                                            left: 49px;" /> PT :
+              <apex:inputText value="{!staffPT}" styleClass="slds-input pts" style="width: 75%; position: relative; right: -49px; margin-left: -95px;" /> Facebook :
+              <apex:inputText value="{!face}" styleClass="slds-input" style="width: 180%; margin-left: -123px; position: relative; right: -49px" /> FT :
+              <apex:inputText value="{!staffFT}" styleClass="slds-input" style="width: 75%; position: relative; right: -49px; margin-left: -95px;" /> Twitter :
+              <apex:inputText value="{!tweet}" styleClass="slds-input" style="width: 180%; margin-left: -123px; position: relative; right: -49px" />
+              <!-- Annual Budget : <apex:outputText value="{!annualbudget}" styleClass="slds-input" style="width: 86%; margin-left: -95px; position: relative; right: -49px;"/> -->
+            </apex:pageBlocksection>
+            <apex:commandButton value="Cancel" action="{!cancelAccount}" styleclass="slds-button slds-button_neutral" style="margin-left: 321px;" />
+            <apex:commandButton value="Save" action="{!saveAccount}" styleclass="slds-button slds-button_brand" />
+          </apex:outputpanel>
+        </apex:pageBlock>
+      </article>
+      <apex:pagemessages />
+      <article class="slds-card">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+          <span class="slds-icon_container slds-icon-action-new-group">
+            <svg aria-hidden="true" class="slds-icon  slds-icon--x-small">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/apexpages/slds/latest/assets/icons/action-sprite/svg/symbols.svg#new_group">
+              </use>
+            </svg>
+            <span class="slds-assistive-text">Priority</span>
+          </span>
+          <div class="slds-media__body">
+            <h2 class="slds-card__header-title">
+              <span>Contacts Information</span>
+            </h2>
+          </div>
+          <div class="slds-no-flex">
+            <apex:commandLink action="{!showSec}" Value="" rendered="{!OR(primaryId,ExecutivecontactId)}">
+              <span class="slds-icon_container slds-icon-action-join-group">
+                <svg aria-hidden="true" class="slds-icon  slds-icon--x-small">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/apexpages/slds/latest/assets/icons/action-sprite/svg/symbols.svg#join_group">
+                  </use>
+                </svg>
+              </span>
+            </apex:commandLink>
+            <!-- apex:commandButton value="New" styleclass="slds-button slds-button_neutral" style="margin-right: 34px;"  action="{!showSec}"/ -->
+          </div>
+        </header>
+        <apex:outputPanel rendered="{!panel1}">
+          <apex:pageBlock >
+            <apex:pageBlockSection columns="2" title="Edit">
+              <apex:outputField value="{!getcont.Firstname}" />
+              <apex:outputField value="{!getcont.Lastname}" />
+              <apex:inputField value="{!getcont.Executive_Home_Phone__c}" onblur="formatPhone(this);" styleClass="pho">
+                <span class="error2" style="display:none; color:red">Please Enter at least 10 digits.</span>
+              </apex:inputField>
+              <apex:outputField value="{!getcont.Email}" />
+              <apex:inputField value="{!getcont.Primary_Contact__c}" />
+              <apex:inputField value="{!getcont.Executive_Contact__c}" />
+              <apex:inputField value="{!getcont.Unsubscribe_Notifications__c}" />
+            </apex:pageBlockSection>
+            <apex:actionRegion >
+              <apex:commandButton value="Save" action="{!updateContact}" styleclass="slds-button slds-button_brand" style="margin-left: 321px;" status="searchStatus" />&nbsp;
+              <apex:commandButton value="Cancel" immediate="true" html-formnovalidate="true" action="{!cancelContact}" styleclass="slds-button slds-button_neutral" status="searchStatus" />
+            </apex:actionRegion>
+          </apex:pageBlock>
+        </apex:outputPanel>
+        <apex:outputPanel id="op" rendered="{!panel2}">
+          <apex:pageBlock id="pgBlckId">
+            <apex:pageBlockSection columns="2">
+              <apex:inputField value="{!getcontc.Firstname}" required="true" />
+              <apex:inputField value="{!getcontc.Lastname}" />
+              <apex:inputField value="{!getcontc.Executive_Home_Phone__c}" onblur="formatPhone(this);" styleClass="pho1" required="true">
+                <span id="error2" style="display:none; color:red">Please Enter at least 10 digits.</span>
+              </apex:inputField>
+              <apex:inputField value="{!getcontc.Email}" onblur="checkEmail(this.value)" required="true">
+                <span id="error3" style="display:none; color:red">Please Enter valid Email .</span>
+              </apex:inputField>
+              <apex:inputField value="{!getcontc.Primary_Contact__c}" />
+              <apex:inputField value="{!getcontc.Executive_Contact__c}" />
+              <apex:inputField value="{!getcontc.Unsubscribe_Notifications__c}" />
+              <apex:inputHidden value="{!getcontc.AccountId}" />
+            </apex:pageBlockSection>
+            <apex:actionRegion >
+              <br />
+              <h2>
+                <span style="color:red">** Note : It will take one to two business days for the new user to become active</span>
+              </h2>
+              <br />
+              <script>
+                function disableOnSubmit(input) {
+                  setTimeout('disableAfterTimeout(\'' + input.id + '\');', 50);
+                }
+
+                function disableAfterTimeout(id) {
+                  var toDisable = document.getElementById(id);
+                  toDisable.disabled = 'disabled';
+                  // Use the Salesforce CSS style to make the button appear disabled
+                  toDisable.className = 'btnDisabled';
+                  toDisable.value = "Saving..."
+                }
+              </script>
+              <apex:commandButton id="save" value="Save" action="{!insertContact}" onclick="disableOnSubmit(this);" styleclass="slds-button slds-button_brand" style="margin-left: 321px;" />&nbsp;
+              <apex:commandButton value="Cancel" immediate="true" action="{!cancelContact}" styleclass="slds-button slds-button_neutral" />
+            </apex:actionRegion>
+          </apex:pageBlock>
+        </apex:outputPanel>
+        <apex:pageBlock id="pbId">
+          <div class="slds-card__header slds-grid">
+            <apex:pageBlockTable value="{!contacts}" var="c" styleclass="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered slds-table_fixed-layout">
+              <apex:column headerValue="Action">
+                <apex:commandLink value="" action="{!editContact}" rendered="{!OR(primaryId,ExecutivecontactId)}">
+                  <apex:param name="conEdit" value="{!c.Id}" assignTo="{!conEdit}" />
+                  <apex:image url="{!urlfor($Resource.Edit_Icon)}" style="width:29px; height:auto" />
+                  <!-- img  src="https://doubledribble.in/wp-content/uploads/2019/03/pencil.png"/ -->
+                </apex:commandLink>
+              </apex:column>
+              <apex:column styleclass="slds-truncate" value="{!c.Status__c}" />
+              <apex:column styleclass="slds-truncate" value="{!c.Name}" />
+              <apex:column styleclass="slds-truncate" value="{!c.Executive_Home_Phone__c}" />
+              <apex:column styleclass="slds-truncate" value="{!c.email}" />
+              <apex:column styleclass="slds-truncate" value="{!c.Primary_Contact__c}" />
+              <apex:column styleclass="slds-truncate" value="{!c.Executive_Contact__c}" />
+              <apex:column styleclass="slds-truncate" value="{!c.Unsubscribe_Notifications__c}" />
+              <apex:column styleclass="slds-truncate" headerValue="Login Name">
+                <apex:pageBlockTable value="{!c.users}" var="us" rendered="{!If(c.users.size>0,true,false)}">
+                  <apex:column styleclass="custdd">
+                    <apex:outputText value="{!us.username}" styleclass="custd"></apex:outputText>
+                  </apex:column>
+                </apex:pageBlockTable>
+              </apex:column>
+            </apex:pageBlockTable>
+          </div>
+          <apex:commandLink value="Back" action="{!goBack}" rendered="{!panel3}" />
+          <apex:commandButton styleclass="slds-button slds-button_brand" style="margin-left: 300px;" reRender="pbId" value="Previous" action="{!setCon.previous}" disabled="{!!setCon.hasPrevious}" title="Previous Page" />
+          <apex:commandButton styleclass="slds-button slds-button_brand" reRender="pbId" value="Next" action="{!setCon.next}" disabled="{!!setCon.hasNext}" title="Next Page" /> &nbsp;&nbsp;
+          <apex:commandLink value="View All" action="{!viewAllContacts}" />
+        </apex:pageblock>
+      </article>
+      <article class="slds-card">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+          <span class="slds-icon_container slds-icon-action-record">
+            <svg aria-hidden="true" class="slds-icon  slds-icon--x-small">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/apexpages/slds/latest/assets/icons/action-sprite/svg/symbols.svg#record">
+              </use>
+            </svg>
+            <span class="slds-assistive-text">Priority</span>
+          </span>
+          <div class="slds-media__body">
+            <h2 class="slds-card__header-title">
+              <span>Membership Details</span>
+            </h2>
+          </div>
+        </header>
+        <apex:pageblock > Membership Start Date <apex:outputText value="{!memberstartDate}" styleClass="slds-input" style=" width: 195px;margin-left: 62px;"></apex:outputText>
+          <br />
+          <br /> Membership Expiration Date <apex:outputText value="{!memberexpDate}" styleClass="slds-input" style=" width: 195px;margin-left: 27px;"></apex:outputText>
+          <br />
+          <br /> Membership Status <apex:outputText value="{!memberStatus}" styleClass="slds-input" style=" width: 195px;margin-left: 83px;"></apex:outputText>
+        </apex:pageblock>
+      </article>
+    </apex:form>
+  </div>
+  <script>
+    $(function() {
+      $("input.sips, input.fts, input.pts").on('input', function(e) {
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+      });
+    });
+
+    function formatPhone(obj) {
+      var numbers = obj.value.replace(/\D/g, ''),
+        char = {
+          0: '(',
+          3: ') ',
+          6: ' - '
+        };
+      obj.value = '';
+      for (var i = 0; i < numbers.length; i++) {
+        obj.value += (char[i] || '') + numbers[i];
+      }
+      var textbox = document.getElementById("j_id0:j_id4:j_id50:j_id51:j_id54").value;
+      //var textbox = document.getElementsByClassName("pho");
+      var textbox1 = document.getElementsByClassName("pho1");
+      //var textbox1 = document.getElementById("j_id0:j_id4:j_id37:j_id38:j_id41"); 
+      if ((textbox.length > 14)) {
+        document.getElementById("error2").style.display = "none";
+      } else {
+        //document.getElementById("error2").style.display = "block";
+        document.getElementById("error2").style.display = "block";
+      }
+    }
+
+    function checkEmail(str) {
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (!re.test(str)) {
+        //alert("Please enter a valid email address");
+        document.getElementById("error3").style.display = "block";
+      } else {
+        document.getElementById("error3").style.display = "none";
+      }
+    }
+    $(".slds-button_brand").click(function() {
+      //alert("coming here"); 
+      if (!$('#j_id0:j_id4:pgBlckId:j_id153:j_id154').val()) {
+        //alert('Enter your name!');
+      }
+    });
+
+    function myFunction() {
+      alert('hi');
+    }
+  </script>
+</apex:page>

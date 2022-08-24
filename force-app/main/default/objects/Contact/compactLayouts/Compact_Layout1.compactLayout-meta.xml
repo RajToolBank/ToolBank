@@ -3,8 +3,6 @@
     <fullName>Compact_Layout1</fullName>
     <fields>RecordTypeId</fields>
     <fields>Name</fields>
-    <fields>AccountId</fields>
-    <fields>Title</fields>
     <fields>Phone</fields>
     <fields>MobilePhone</fields>
     <fields>Email</fields>

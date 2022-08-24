@@ -1,4 +1,4 @@
-<apex:page standardcontroller="order" extensions="paymentReceipt_Ctrl" action="{!updateOrder}" showHeader="false" sidebar="false" standardStylesheets="false" renderAs="pdf" applyHtmlTag="false" applyBodyTag="false">  
+<apex:page standardcontroller="order" extensions="PaymentReceipt_Ctrl" showHeader="false" sidebar="false" standardStylesheets="false" renderAs="pdf" applyHtmlTag="false" applyBodyTag="false">  
     <html>
 
     <head>
@@ -126,7 +126,7 @@
     <tr>
    <!-- <th><span style="position: relative; left: 210px;">Total tool order fees:</span></th>
   <th>${!pay.Order_ID__r.Amount__c}</th>-->
-        <th style="right: 50%;"><span style="position: relative; left: 145%;">Total tool order fees:</span></th>
+        <th style="right: 50%;"><span style="position: relative; left: 95%;">Total tool order fees:</span></th>
   <th>$ {!ROUND(Order.Total_Amount__c,2)}</th>
   </tr>
 </table>
@@ -145,11 +145,11 @@
   </tr>
       <tr>
     <td>Membership fees:</td>
-    <td><!--${!if(membershipFees==null,0.00,ROUND(membershipFees,2))}-->(missing)</td>
+    <td>${!if(Order.Membership_R_Fee__c==null,0.00,ROUND(Order.Membership_R_Fee__c,2))}</td>
   </tr>
   <tr>
     <td>Delivery fees:</td>
-    <td><!--${!if(deliveryFees==null,0.00,ROUND(deliveryFees,2))} -->(missing)</td>
+    <td>${!if(Order.Delivery_R_Fee__c==null,0.00,ROUND(Order.Delivery_R_Fee__c,2))}</td>
   </tr>
   <tr>
   <td>Deposit fees:</td>
@@ -160,8 +160,8 @@
   <td>${!if(Order.Other_R__c==null,0.00,ROUND(Order.Other_R__c,2))}</td>
   </tr>
     <tr>
-  <th style="right: 50%;"><span style="position: relative; left: 145%;">Total additional fees:</span></th> <!--if(membershipFees==null,0.00,ROUND(membershipFees,2)) + if(deliveryFees==null,0.00,ROUND(deliveryFees,2)) +-->
-  <th>$ {!if(Order.Cleaning_R__c==null,0.00,ROUND(Order.Cleaning_R__c,2)) +  if(Order.Deposit_R__c==null, 0.00,ROUND(Order.Deposit_R__c,2)) + if(Order.Other_R__c==null,0.00,ROUND(Order.Other_R__c,2))}</th>
+  <th style="right: 50%;"><span style="position: relative; left: 130%;">Total additional fees:</span></th> <!--if(membershipFees==null,0.00,ROUND(membershipFees,2)) + if(deliveryFees==null,0.00,ROUND(deliveryFees,2)) +-->
+  <th>$ {!if(Order.Cleaning_R__c==null,0.00,ROUND(Order.Cleaning_R__c,2)) + if(Order.Delivery_R_Fee__c==null,0.00,ROUND(Order.Delivery_R_Fee__c,2)) + if(Order.Membership_R_Fee__c==null,0.00,ROUND(Order.Membership_R_Fee__c,2)) +  if(Order.Deposit_R__c==null, 0.00,ROUND(Order.Deposit_R__c,2)) + if(Order.Other_R__c==null,0.00,ROUND(Order.Other_R__c,2))}</th>
   </tr>
 </table>
 </div> 
@@ -197,7 +197,7 @@
    <td style="font-family: 'Roboto', sans-serif; font-size: 8px;"></td>
    <td style="font-family: 'Roboto', sans-serif; font-size: 8px; "></td>
    <td style="font-family: 'Roboto', sans-serif; font-size: 10px; font-weight: bolder;text-align:right;">Total Payments:&nbsp;&nbsp;</td>
-   <td style="font-family: 'Roboto', sans-serif; font-size: 10px; font-weight: bolder;">${!ROUND((5),2)}</td>
+   <td style="font-family: 'Roboto', sans-serif; font-size: 10px; font-weight: bolder;">${!ROUND((totalpaid),2)}</td>
 
    </tr>
 </table>
@@ -212,22 +212,22 @@
   </tr>
   <tr>
     <td>Waived:</td>
-    <td><!--$ {!if(waiverprior==null,0.00,ROUND(waiverprior,2))}--></td>
+    <td>$ {!waiver}<!--$ {!if(waiverprior==null,0.00,ROUND(waiverprior,2))}--></td>
   </tr> 
   <tr>
     <td>Organizational Credit:</td>
-    <td><!--$ {!if(orgCreditprior==null,0.00,ROUND(orgCreditprior,2))}--></td>
+    <td>$ {!orgCredit}<!--$ {!if(orgCreditprior==null,0.00,ROUND(orgCreditprior,2))}--></td>
   </tr>
    <tr>
     <td>Checks, Cash, Credit Card:</td>
-    <td><!--$ {!if(checkccprior==null,0.00,ROUND(checkccprior,2))}--></td>
+    <td>$ {!creditCard}<!--$ {!if(checkccprior==null,0.00,ROUND(checkccprior,2))}--></td>
   </tr>
    <tr>
        <td><span style="position: absolute; left: 70%; bottom: 1%;">Total:</span></td>
-    <td>$ <!--{!if(totalpayprior==null,0.00,ROUND(totalpayprior,2))}--></td>
+    <td>$ {!totalpaid}<!--{!if(totalpayprior==null,0.00,ROUND(totalpayprior,2))}--></td>
   </tr>
 </table>
-<table style="font-family: 'Roboto', sans-serif; font-size: 10px;float:left;width:47%; border-collapse:collapse; margin-top: 20px;margin-right: 15px;" border='1'>
+<!--table style="font-family: 'Roboto', sans-serif; font-size: 10px;float:left;width:47%; border-collapse:collapse; margin-top: 20px;margin-right: 15px;" border='1'>
   <tr>
     <th colspan="2">Total Payments for this Transaction</th>
   </tr>
@@ -237,28 +237,28 @@
   </tr>
   <tr>
     <td>Waived:</td>
-    <td><!--$ {!if(waiver==null,0.00,ROUND(waiver,2))}--></td>
+    <td><$ {!if(waiver==null,0.00,ROUND(waiver,2))}></td>
   </tr>
   <tr>
     <td>Organizational Credit:</td>
-    <td><!--$ {!if(orgCredit==null,0.00,ROUND(orgCredit,2))}--></td>
+    <td><$ {!if(orgCredit==null,0.00,ROUND(orgCredit,2))}></td>
   </tr>
    <tr>
     <td>Checks, Cash, Credit Card:</td>
-    <td><!--$ {!if(checkcc==null,0.00,ROUND(checkcc,2))}--></td>
+    <td><$ {!if(checkcc==null,0.00,ROUND(checkcc,2))}></td>
   </tr>
    <tr>
        <td style="text-align:right;">Total:&nbsp;&nbsp;</td>
-    <td><!--$ {!if(totalpay==null,0.00,ROUND(totalpay,2))}--></td>
+    <td><$ {!if(totalpay==null,0.00,ROUND(totalpay,2))}></td>
   </tr>
-</table>
+</table-->
 </div> 
 
  <div class="row">
   <div class="column" style="font-family: 'Roboto', sans-serif; box-sizing: border-box; float: left; width: 45%;padding: 10px; height: 50px; ">
-    <h6 style="font-family: 'Roboto', sans-serif; position: relative; right: -55%;">TOTAL FEES OWED: $ {!ROUND(order.Total_Amount__c,2)} </h6>    
- </div> 
-  <div class="column" style="box-sizing: border-box; float: left; width: 45%;padding: 10px; height: 50px; ">
+    <h6 style="font-family: 'Roboto', sans-serif; position: relative; right: -30%;">TOTAL FEES OWED: $ {!ROUND(order.Total_Amount__c,2)} </h6>    
+ <!--/div> 
+  <div class="column" style="box-sizing: border-box; float: left; width: 45%;padding: 10px; height: 50px; "-->
  <h6 style="font-family: 'Roboto', sans-serif; position: relative; right: -30%;">BALANCE REMAINING: $ {!ROUND(order.Amount_Owed__c,2)}</h6>      
  </div>    
     </div>  
@@ -379,10 +379,10 @@ Borrower.</p>
 
 
          <tr>
-<td><span style="font-size: 10px;">{!Text(tl.Check_out_Quantity__c)}</span></td>
+<td><span style="font-size: 10px;">{!Text(tl.Check_Out_Quantity__c)}</span></td>
 <td><span style="font-size: 10px;">{!tl.product2.name}</span></td>
 <td><span style="font-size: 10px;">${!ROUND(tl.UnitPrice,2)}</span></td>
-<td><span style="font-size: 10px;">{!tl.Check_in_Quantity__c}</span></td>
+<td><span style="font-size: 10px;">{!tl.Check_In_Quantity__c}</span></td>
 <td><span style="font-size: 10px;">{!tl.Lost__c}</span></td>
 <td><span style="font-size: 10px;"> <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" > 
         <!--<apex:param value="{!map}"/>-->
@@ -392,16 +392,16 @@ Borrower.</p>
 <!--td><span>&nbsp;</span></td-->
 <td><span style="font-size: 10px;">{!tl.Late_Weeks__c}</span></td>
 <td><span style="font-size: 10px;">${!ROUND(tl.Tool_Handling_Fee_Per_Item__c,2)}</span></td>
-<td><span style="font-size: 10px;"><!--${!ROUND(tl.Base_Fee__c,2)}-->missing</span></td>
+<td><span style="font-size: 10px;">${!ROUND(tl.Tool_Handling_Fee_Per_Item__c,2)}</span></td>
 <td><span style="font-size: 10px;">${!ROUND(tl.Late_Fee__c,2)}</span></td>
-<td><span style="font-size: 10px;"><!--${!ROUND(tl.Lost_Fee__c,2)}--> missing</span></td>
-<td><span style="font-size: 10px;">${!ROUND(tl.Total_Handling_Fee__c,2)}</span></td>
+<td><span style="font-size: 10px;">${!ROUND(tl.Lost_Fee__c,2)}</span></td>
+<td><span style="font-size: 10px;">${!ROUND((IF(tl.Lost_Fee__c = null, 0, tl.Lost_Fee__c) + IF(tl.Late_Fee__c = null, 0, tl.Late_Fee__c) + IF(tl.Total_Handling_Fee__c = null, 0, tl.Total_Handling_Fee__c)),2)}</span></td>
  
 </tr>
          <!--apex:variable var="totalBaseFee" value="{!totalBaseFee + IF(tl.Base_Fee__c = null, 0, tl.Base_Fee__c)}"/-->
          <apex:variable var="totalLateFee" value="{!totalLateFee + IF(tl.Late_Fee__c = null, 0, tl.Late_Fee__c)}"/>
-         <!--apex:variable var="totalLostFee" value="{!totalLostFee + IF(tl.Lost_Fee__c = null, 0, tl.Lost_Fee__c)}"/-->
-         <apex:variable var="totalTotalFee" value="{!totalTotalFee + IF(tl.Total_Handling_Fee__c = null, 0, tl.Total_Handling_Fee__c)}"/>
+         <apex:variable var="totalLostFee" value="{!totalLostFee + IF(tl.Lost_Fee__c = null, 0, tl.Lost_Fee__c)}"/>
+         <apex:variable var="totalTotalFee" value="{!totalTotalFee + IF(tl.Lost_Fee__c = null, 0, tl.Lost_Fee__c) + IF(tl.Late_Fee__c = null, 0, tl.Late_Fee__c) + IF(tl.Total_Handling_Fee__c = null, 0, tl.Total_Handling_Fee__c) }"/>
   </apex:repeat>
 
   <!--</apex:repeat>-->

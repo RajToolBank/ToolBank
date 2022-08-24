@@ -17,9 +17,15 @@ export default class SelectTool extends LightningElement {
     @api affiliateId;
 
     @wire(assetList,{searchString: '',affiliateId:'$affiliateId'}) assetsList({data,error}){
+        
         if(data){
-            
+            //console.log("data");
+            //console.log(data);
             this.assets = data;
+        }
+        if(error){
+            console.log("error");
+            console.log(error);
         }
     };
 

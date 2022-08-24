@@ -32,6 +32,7 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
     schPickTimeField = SCH_PICKED_DATE_FIELD;
 
     loaded = true;
+    readonlyFlag = false;
     lable;
     order;
     orderItems;
@@ -51,6 +52,7 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         if(data){
             this.loaded = false;
             this.order = data.order;
+            this.readonlyFlag = data.readOnly;
             this.orderItems = data.orderItemList;
             this.allOrderItems = data.orderItemList;
             for(let i in this.orderItems ){
@@ -491,7 +493,7 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
             console.log(orderDetailsCmp);
             saveOrder({orderNitemsDetails:JSON.stringify(orderDetailsCmp), orderItemToDelete:JSON.stringify(orderItemToDelete) }).then(res=>{
                 this.loaded = false;
-                const config = {
+                /*const config = {
                     type: 'standard__recordPage',
                     attributes: {
                         recordId: template.order.Id,
@@ -499,7 +501,8 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                         actionName: 'view'
                     }
                 };
-                this[NavigationMixin.Navigate](config);
+                this[NavigationMixin.Navigate](config);*/
+                location.reload();
             }).catch(error=>{
 
             });
@@ -601,7 +604,7 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
     handleCancel(event){
 
         //this.dispatchEvent(new CloseActionScreenEvent());
-        let template = this;
+       /* let template = this;
             const config = {
                 type: 'standard__recordPage',
                 attributes: {
@@ -610,7 +613,9 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                     actionName: 'view'
                 }
             };
-            this[NavigationMixin.Navigate](config);
+
+            this[NavigationMixin.Navigate](config);*/
+            location.reload();
           
     }
 
@@ -720,7 +725,7 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
             saveOrder({orderNitemsDetails:JSON.stringify(orderDetailsCmp)}).then(res=>{
                 console.log(res);
                 this.loaded = false;
-                const config = {
+                /*const config = {
                     type: 'standard__recordPage',
                     attributes: {
                         recordId: template.order.Id,
@@ -728,7 +733,8 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                         actionName: 'view'
                     }
                 };
-                this[NavigationMixin.Navigate](config);
+                this[NavigationMixin.Navigate](config);*/
+                location.reload();
             }).catch(error=>{
 
             });

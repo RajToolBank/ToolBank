@@ -1,0 +1,7 @@
+<apex:page sidebar="false" showHeader="false" title="NavBar" lightningstylesheets="true">
+    <apex:slds />
+<apex:form style="background-color:white;">
+    
+    <a href="" onclick="window.open('/NewAtlanta/s/if-you-need-help-please-contact-us','_blank');"><b style="font-size:150%;">If you need help, Please contact us</b></a>
+    </apex:form>    
+</apex:page>

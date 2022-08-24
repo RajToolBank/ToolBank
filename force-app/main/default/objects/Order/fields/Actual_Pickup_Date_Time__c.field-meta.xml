@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Actual Pickup Date/Time</label>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>DateTime</type>
 </CustomField>

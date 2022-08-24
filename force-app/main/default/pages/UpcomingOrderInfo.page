@@ -1,0 +1,103 @@
+<apex:page controller="UpcomingOrderInfo_Ctrl" lightningStylesheets="true">
+    <apex:slds />
+    
+    
+    <style>
+        body .pbBody table.list tr.headerRow td, body .pbBody table.list tr.headerRow th:last-child{
+        width: 81px;
+        word-wrap: break-word;
+        white-space: break-spaces;
+        text-align: center;
+        }
+        body .pbBody table.list tr.headerRow td, body .pbBody table.list tr.headerRow th:first-child{
+        width: 88px;
+        word-wrap: break-word;
+        white-space: break-spaces;
+        text-align: center;
+        }
+        html .brandQuaternaryBgr  { background:none !important; }
+        .hasMotif homeTab  sfdcBody brandQuaternaryBgr slds-scope
+        {
+        background-color:#ffffff !important;
+        }
+        .slds-scope h3 {font-weight:bold;font-size:25px; }
+        
+        @media only screen and (max-width: 1024px) {
+        body {
+        background-color: lightblue;
+        }
+        .slds-scope h3 {font-weight:bold;font-size:11px; }
+        }
+        @media only screen and (max-width: 600px) {
+        body {
+        background-color: lightblue;
+        }
+        .slds-scope h3 {font-weight:bold;font-size:15px; }
+        }
+    </style>
+    <div class="slds-scope " style="background-color:#ffffff !important;">
+        <center><h3>Upcoming Order Details</h3></center><br/>
+        <apex:form >
+            <apex:pageBlock >
+                
+                <apex:pageBlockTable value="{!ordr}" var="o" rendered="{!ordr.size>0}">
+                    <apex:column headerValue="Order Number">
+                        <apex:commandLink action="{!navigatePage}"  value="{!o.ordernumber}">
+                            <apex:param name="abc" value="{!o.Id}" assignTo="{!ordrId}"/>
+                        </apex:commandLink>
+                        <!--apex:outputlink onclick="window.open('/toolbankcincinnati/{!o.OrderId}','_blank');">{!o.order.ordernumber}</apex:outputlink -->
+                    </apex:column>
+                    <apex:column value="{!o.Name }"  />
+                    <apex:column value="{!o.Total_Amount__c }"/>
+                    <apex:column value="{!o.effectivedate}"/>
+                    
+                    
+                </apex:pageBlockTable>
+                <center><apex:commandLink action="{!viewAllPage}" value="View All" rendered="{!ordr.size>1}"></apex:commandLink></center>
+                <apex:outputText value="No Orders are there to Display" rendered="{!ordr.size=0}"></apex:outputText>  
+                
+            </apex:pageBlock>
+        </apex:form>
+        <!-- apex:pageBlock >
+<table class="list" columns="2" columnsWidth="50%;">
+<thead class="rich-table-thead">
+<tr class="headerRow">
+<th class="headerRow" scope="col" colspan="1">
+<div>Order Number </div>
+</th>
+<th class="headerRow" scope="col" colspan="2">
+<div>Project Name</div>
+</th>
+<th class="headerRow" scope="col" colspan="3">
+<div>Order Date</div>
+</th>
+</tr>
+</thead>
+<tr class="dataRow odd">
+<td class="dataCell" colspan="1">
+<span>OT-1001</span>
+</td>
+
+<td class="dataCell" colspan="2">
+<span>Community School Cleanup</span>
+</td>
+<td class="dataCell" colspan="3">
+<span>04/27/2019</span>
+</td>
+</tr>
+<tr class="dataRow odd">
+<td class="dataCell" colspan="1">
+<span>OT-0777</span>
+</td>
+
+<td class="dataCell" colspan="2">
+<span>Festival</span>
+</td>
+<td class="dataCell" colspan="3">
+<span>05/10/2019</span>
+</td>
+</tr>
+</table>    
+</apex:pageBlock -->
+    </div>
+</apex:page>

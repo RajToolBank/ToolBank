@@ -2,7 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Amount_can_not_be_more_than_credits</fullName>
     <active>true</active>
-    <errorConditionFormula>Amount__c &gt; Order__r.Available_Credits__c</errorConditionFormula>
+    <errorConditionFormula>(Amount__c &gt; Order__r.Available_Credits__c) &amp;&amp; (ISPICKVAL(Payment_Method__c, &quot;Organizational Credit&quot;))</errorConditionFormula>
     <errorDisplayField>Amount__c</errorDisplayField>
     <errorMessage>Amount can not be greater than the available credits</errorMessage>
 </ValidationRule>

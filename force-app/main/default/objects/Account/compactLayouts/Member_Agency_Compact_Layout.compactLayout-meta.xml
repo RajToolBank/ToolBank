@@ -3,12 +3,8 @@
     <fullName>Member_Agency_Compact_Layout</fullName>
     <fields>RecordTypeId</fields>
     <fields>Name</fields>
-    <fields>Type</fields>
     <fields>Phone</fields>
-    <fields>Website</fields>
-    <fields>BillingAddress</fields>
-    <fields>Agency_Mission__c</fields>
-    <fields>ParentId</fields>
-    <fields>OwnerId</fields>
+    <fields>npsp__Membership_Status__c</fields>
+    <fields>Flagged__c</fields>
     <label>Member Agency Compact Layout</label>
 </CompactLayout>

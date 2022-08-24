@@ -3,6 +3,7 @@ import getProducts from '@salesforce/apex/AdditionalChargesController.getProduct
 import addProducts from '@salesforce/apex/AdditionalChargesController.addProducts';
 import getAdditionProducts from '@salesforce/apex/AdditionalChargesController.getAdditionProducts';
 import deleteItems from '@salesforce/apex/AdditionalChargesController.deleteItems';
+import { getRecordNotifyChange } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class AdditinalChargesRelatedListCmp extends LightningElement {
@@ -250,6 +251,7 @@ export default class AdditinalChargesRelatedListCmp extends LightningElement {
             this.products = itemlist;  
             this.num = res.length;
            // alert("Charges Added successfully");
+           getRecordNotifyChange([{ recordId: this.recordId }]);
             const evt = new ShowToastEvent({
                 title: "Add Additional Charges",
                 message: "Charges Added Successfully",

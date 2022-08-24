@@ -7,6 +7,11 @@ export default class CreateOrder extends LightningElement {
     totalRetailCostOrder;
     totalToolHandlingFees;
     affiliateId;
+    loaded = true;
+    
+    connectedCallback(){
+        this.loaded = false;          
+    }
 
     @wire(accid) getaccid({data,error}){
         if(data){

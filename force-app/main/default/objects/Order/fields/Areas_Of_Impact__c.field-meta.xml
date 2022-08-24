@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <label>Areas Of Impact</label>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>MultiselectPicklist</type>
     <valueSet>

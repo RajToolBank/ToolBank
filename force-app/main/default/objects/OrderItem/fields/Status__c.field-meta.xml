@@ -43,8 +43,17 @@
             <value>
                 <fullName>Cancelled</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
                 <label>Cancelled</label>
+            </value>
+            <value>
+                <fullName>Unpaid</fullName>
+                <default>false</default>
+                <label>Unpaid</label>
+            </value>
+            <value>
+                <fullName>Closed</fullName>
+                <default>false</default>
+                <label>Closed</label>
             </value>
             <value>
                 <fullName>Damaged</fullName>
