@@ -1,0 +1,23 @@
+.pictureContainer{
+    position: relative;
+}
+.slds-popover{
+    display: none;
+    position: absolute;
+    top: -129px;
+    left: -90px;
+}
+.slds-popover_tooltip{
+    background-color: #fff;
+    width: 120px;
+}
+.slds-popover__body{
+    padding: 4px;
+}
+
+.photoIcon{
+    width: 15px;
+}
+.photoIcon:hover + .slds-popover{
+    display: block;
+}

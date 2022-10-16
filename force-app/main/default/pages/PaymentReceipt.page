@@ -52,13 +52,15 @@
   <tr>
     <th>Actual Pickup Date:</th>
     <td>
+      
         <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" > 
-                            <apex:param value="{!Order.Actual_Pickup_Date_Time__c}" /> </apex:outputText>
+                            <apex:param value="{!Order.Actual_Pickup_Date_Time__c + offset}" /> </apex:outputText>
         </td>
   </tr>
   <tr>
     <th>Actual Pickup Time:</th>
-    <td>{!Order.Actual_Pickup_Date_Time__c}</td>
+    <td><apex:outputText value="{0,date,hh:mm}" > 
+      <apex:param value="{!Order.Actual_Pickup_Date_Time__c + offset}" /> </apex:outputText></td>
   </tr>
     <tr>
    <!-- <th>Last Return Date for Tools:</th>-->
@@ -117,19 +119,21 @@
   </tr>
   <tr>
   <td>Late fees to date:</td>
-  <td>${!ROUND(Order.Total_Late_Fee__c,2)}</td>
+  <td><apex:outputField value="{!Order.Total_Late_Fee__c}" /></td>
   </tr>
     <tr>
   <td>Tool replacement fees:</td>
-  <td>${!ROUND(Order.Total_Late_Fee__c,2)}(need to create)</td>
+  <td><apex:outputField value="{!Order.Lost_R_Fee__c}" /></td>
   </tr>
     <tr>
    <!-- <th><span style="position: relative; left: 210px;">Total tool order fees:</span></th>
   <th>${!pay.Order_ID__r.Amount__c}</th>-->
         <th style="right: 50%;"><span style="position: relative; left: 95%;">Total tool order fees:</span></th>
-  <th>$ {!ROUND(Order.Total_Amount__c,2)}</th>
+  <th><apex:outputText value="{!totalOrderFees}" /></th>
   </tr>
 </table>
+<apex:variable value="{!0.00}" var="totalAdditionalFee"/> 
+<apex:variable var="totalAdditionalFee" value="{!totalAdditionalFee + if(Order.Cleaning_R__c==null,0.00,ROUND(Order.Cleaning_R__c,2)) + ROUND(Order.Delivery_R_Fee__c,2) + ROUND(Order.Membership_R_Fee__c,2)+ if(Order.Deposit_R__c==null, 0.00,ROUND(Order.Deposit_R__c,2)) + if(Order.Other_R__c==null,0.00,ROUND(Order.Other_R__c,2))}" /> 
 <table class="total-order" style="font-family: 'Roboto', sans-serif; font-size: 10px;float:left;width:47%;border-collapse:collapse; margin-right: 15px;" border='1' >
        <tr>
     <th>Additional Fees</th>
@@ -141,27 +145,27 @@
   </tr>
     <tr>
     <td>Cleaning fees:</td>
-    <td>${!if(Order.Cleaning_R__c==null,0.00,ROUND(Order.Cleaning_R__c,2))} </td>
+    <td><apex:outputField value="{!Order.Cleaning_R__c}" /></td>
   </tr>
       <tr>
     <td>Membership fees:</td>
-    <td>${!if(Order.Membership_R_Fee__c==null,0.00,ROUND(Order.Membership_R_Fee__c,2))}</td>
+    <td><apex:outputField value="{!Order.Membership_R_Fee__c}" /></td>
   </tr>
   <tr>
     <td>Delivery fees:</td>
-    <td>${!if(Order.Delivery_R_Fee__c==null,0.00,ROUND(Order.Delivery_R_Fee__c,2))}</td>
+    <td><apex:outputField value="{!Order.Delivery_R_Fee__c}" /></td>
   </tr>
   <tr>
   <td>Deposit fees:</td>
-  <td>${!if(Order.Deposit_R__c==null, 0.00,ROUND(Order.Deposit_R__c,2))}</td>
+  <td><apex:outputField value="{!Order.Deposit_R__c}" /></td>
   </tr>
     <tr>
   <td>Other fees:</td>
-  <td>${!if(Order.Other_R__c==null,0.00,ROUND(Order.Other_R__c,2))}</td>
+  <td><apex:outputField value="{!Order.Other_R__c}" /></td>
   </tr>
     <tr>
   <th style="right: 50%;"><span style="position: relative; left: 130%;">Total additional fees:</span></th> <!--if(membershipFees==null,0.00,ROUND(membershipFees,2)) + if(deliveryFees==null,0.00,ROUND(deliveryFees,2)) +-->
-  <th>$ {!if(Order.Cleaning_R__c==null,0.00,ROUND(Order.Cleaning_R__c,2)) +  if(Order.Deposit_R__c==null, 0.00,ROUND(Order.Deposit_R__c,2)) + if(Order.Other_R__c==null,0.00,ROUND(Order.Other_R__c,2))}</th>
+  <th>${!totalAdditionalFee} </th>
   </tr>
 </table>
 </div> 
@@ -186,7 +190,7 @@
 </span></td>
 <td><span style="font-size: 10px;">{!if(tp.Comment__c ==null, 'Tool Handling Fees', tp.Comment__c)}</span></td>
 <td><span style="font-size: 10px;">{!tp.Payment_Method__c}</span></td>
-<td><span style="font-size: 10px;">${!if(tp.Amount__c==null,0.00,ROUND(tp.Amount__c,2))}</span></td>
+<td><span style="font-size: 10px;"><apex:outputField value="{!tp.Amount__c}"/></span></td>
 
  
 </tr>
@@ -223,7 +227,7 @@
     <td>$ {!creditCard}<!--$ {!if(checkccprior==null,0.00,ROUND(checkccprior,2))}--></td>
   </tr>
    <tr>
-       <td><span style="position: absolute; left: 70%; bottom: 1%;">Total:</span></td>
+       <td><span style="position: absolute; left: 60%;font-weight: bolder; bottom: 1%;">Total:</span></td>
     <td>$ {!totalpaid}<!--{!if(totalpayprior==null,0.00,ROUND(totalpayprior,2))}--></td>
   </tr>
 </table>
@@ -351,10 +355,10 @@ Borrower.</p>
            </div>
 
   
-    <apex:variable value="{!0}" var="totalBaseFee"/> 
-    <apex:variable value="{!0}" var="totalLateFee"/> 
-    <apex:variable value="{!0}" var="totalLostFee"/> 
-    <apex:variable value="{!0}" var="totalTotalFee"/> 
+    <apex:variable value="{!0.00}" var="totalBaseFee"/> 
+    <apex:variable value="{!0.00}" var="totalLateFee"/> 
+    <apex:variable value="{!0.00}" var="totalLostFee"/> 
+    <apex:variable value="{!0.00}" var="totalTotalFee"/> 
 
 <table style="font-family: 'Roboto', sans-serif; font-size: 6px;margin-top: 15px; border-color: black; float:left;width:99%; border-collapse:collapse; margin-right: 20px; height: 150%;" border='1'>
 <tr>
@@ -381,21 +385,21 @@ Borrower.</p>
          <tr>
 <td><span style="font-size: 10px;">{!Text(tl.Check_Out_Quantity__c)}</span></td>
 <td><span style="font-size: 10px;">{!tl.product2.name}</span></td>
-<td><span style="font-size: 10px;">${!ROUND(tl.UnitPrice,2)}</span></td>
-<td><span style="font-size: 10px;">{!tl.Check_In_Quantity__c}</span></td>
-<td><span style="font-size: 10px;">{!tl.Lost__c}</span></td>
+<td><span style="font-size: 10px;"><apex:outputField value="{!tl.UnitPrice}"/></span></td>
+<td><span style="font-size: 10px;">{!Text(tl.Check_In_Quantity__c)}</span></td>
+<td><span style="font-size: 10px;">{!Text(tl.Lost__c)}</span></td>
 <td><span style="font-size: 10px;"> <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" > 
         <!--<apex:param value="{!map}"/>-->
     <apex:param value="{!tl.Actual_Return_Date__c}"/>
     </apex:outputText></span></td>
 <td><span style="font-size: 10px;">{!tl.Requested_Borrowing_Period__c}</span></td>
 <!--td><span>&nbsp;</span></td-->
-<td><span style="font-size: 10px;">{!tl.Late_Weeks__c}</span></td>
-<td><span style="font-size: 10px;">${!ROUND(tl.Tool_Handling_Fee_Per_Item__c,2)}</span></td>
-<td><span style="font-size: 10px;">${!ROUND(tl.Tool_Handling_Fee_Per_Item__c,2)}</span></td>
-<td><span style="font-size: 10px;">${!ROUND(tl.Late_Fee__c,2)}</span></td>
-<td><span style="font-size: 10px;">${!ROUND(tl.Lost_Fee__c,2)}</span></td>
-<td><span style="font-size: 10px;">${!ROUND((IF(tl.Lost_Fee__c = null, 0, tl.Lost_Fee__c) + IF(tl.Late_Fee__c = null, 0, tl.Late_Fee__c) + IF(tl.Total_Handling_Fee__c = null, 0, tl.Total_Handling_Fee__c)),2)}</span></td>
+<td><span style="font-size: 10px;">{!Text(tl.Late_Weeks__c)}</span></td>
+<td><span style="font-size: 10px;"><apex:outputField value="{!tl.Tool_Handling_Fee_Per_Item__c}"/></span></td>
+<td><span style="font-size: 10px;"><apex:outputField value="{!tl.Total_Handling_Fee__c}"/></span></td>
+<td><span style="font-size: 10px;"><apex:outputField value="{!tl.Late_Fee__c}"/></span></td>
+<td><span style="font-size: 10px;"><apex:outputField value="{!tl.Lost_Fee__c}"/></span></td>
+<td><span style="font-size: 10px;"><apex:outputField value="{!tl.Total_Fees__c}"/></span></td>
  
 </tr>
          <!--apex:variable var="totalBaseFee" value="{!totalBaseFee + IF(tl.Base_Fee__c = null, 0, tl.Base_Fee__c)}"/-->

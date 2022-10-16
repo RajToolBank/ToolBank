@@ -5,7 +5,7 @@ global class RK_AccountExpirationEmailAlertBatch implements Database.Batchable<s
     public Date targetDate = currentDate2.addDays(30);
     global Database.QueryLocator start(Database.BatchableContext BC) {
         system.debug(targetDate);
-        String query = 'select Id, Name, Membership_Expiration_Date__c from Account where Membership_Expiration_Date__c!=null and Membership_Expiration_Date__c = :targetDate';
+        String query = 'select Id, Name, npo02__MembershipEndDate__c from Account where npo02__MembershipEndDate__c != null and npo02__MembershipEndDate__c = :targetDate';
         system.debug(query);
         return Database.getQueryLocator(query);
     }

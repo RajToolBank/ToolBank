@@ -32,4 +32,17 @@ public with sharing class SearchComponentController {
         }
         return createdRecord;
     }
+
+    @AuraEnabled
+    public static List<sObject> search2(String objectName, List<String> fields, String searchTerm, String parentId){
+        String searchKeyword = '%'+ searchTerm + '%';
+        String query = 'SELECT Id, '+String.join(fields,',')+' FROM '+objectName+' WHERE Name like \''+searchKeyword+'\'';
+        if(String.isNotBlank(parentId))
+            query =  query + ' AND AccountId = \''+parentId+'\'';
+
+        List<SObject> sobjList = Database.query( query );
+        return sobjList;
+    }
+
+
 }

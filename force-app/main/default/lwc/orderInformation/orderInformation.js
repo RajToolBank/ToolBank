@@ -12,6 +12,7 @@ import VOLUNTEER_SRC from '@salesforce/schema/Order.Volunteer_Source__c';
 import zipCodeList from '@salesforce/apex/PlaceOrderController.zipCodes';
 import accid from '@salesforce/apex/PlaceOrderController.accid';
 import getAgencyContact from '@salesforce/apex/PlaceOrderController.getAgencyContact';
+import getPicklistValuesApex from '@salesforce/apex/PlaceOrderController.getPicklistValuesApex';
 export default class OrderInformation extends LightningElement {
 
     fieldsToCreate = ['Name','Rating','Phone','Industry'];
@@ -32,6 +33,7 @@ export default class OrderInformation extends LightningElement {
     returndate;
     corp = false;
     home = false;
+    specialEvents = false;
     zipCodeList;
     @api
     email ="";
@@ -58,13 +60,18 @@ export default class OrderInformation extends LightningElement {
     };
    @wire(getAgencyContact) getAgencyContact({data,error}){
         if(data){
-            
+            console.log("data.Contact");
+            console.log(data.Contact);
             if(data.Contact){
-                this.accountId = data.Contact.AccountId;
-                this.contactId = data.ContactId;
-                if(data.Contact.Account){
+                if(data.Contact.npsp__Primary_Affiliation__c){
+                this.accountId = data.Contact.npsp__Primary_Affiliation__c;
+                this.accountName = data.Contact.npsp__Primary_Affiliation__r.Name;
+                }else{ 
+                    this.accountId = data.Contact.AccountId;
                     this.accountName = data.Contact.Account.Name;
                 }
+                this.contactId = data.ContactId;
+                
                 this.contactName = data.Contact.Name;
                 this.email = data.Contact.Email;
                 
@@ -107,11 +114,11 @@ export default class OrderInformation extends LightningElement {
         }
     };
 
-    @wire(getPicklistValues, { recordTypeId: '$orderMetadata.data.defaultRecordTypeId',  fieldApiName: PROJECT_TYPE }) 
+    @wire(getPicklistValuesApex, { field_name: "Project_Type__c" }) 
     wiredprojectType({data, error}){
         if(data){
             
-            this.projectType = data.values;
+            this.projectType = data;
             //console.log(this.projectType);
         }
         if(error){
@@ -120,35 +127,40 @@ export default class OrderInformation extends LightningElement {
     };
 
 
-    @wire(getPicklistValues, { recordTypeId: '$orderMetadata.data.defaultRecordTypeId',  fieldApiName: AREAS_IMPACT }) 
+    @wire(getPicklistValuesApex, {  field_name: "Areas_Of_Impact__c" }) 
     wiredareasImpacted({data, error}){
         if(data){
-            this.areasImpacted  = data.values;
+            this.areasImpacted  = data;
         }
         if(error){
 
         }
     };
 
-    @wire(getPicklistValues, { recordTypeId: '$orderMetadata.data.defaultRecordTypeId',  fieldApiName: PROJECT_VENUE }) 
+    @wire(getPicklistValuesApex, { field_name: "Project_Venue__c" }) 
     wiredprojectVenue({data, error}){
         if(data){
-            this.projectVenue  = data.values;
+            this.projectVenue  = data;
+            console.log("Project_Venue__c data");
+            console.log(data);
         }
         if(error){
-
+            console.log("Project_Venue__c error");
+            console.log(error);
         }
     };
 
-    @wire(getPicklistValues, { recordTypeId: '$orderMetadata.data.defaultRecordTypeId',  fieldApiName: SERVING }) 
-    wiredserving({data, error}){
+    @wire(getPicklistValuesApex, { field_name: "Serving_50_of_Low_Income_People__c" }) 
+    wiredServing({data, error}){
         if(data){
-            this.serving  = data.values;
+            this.serving  = data;
         }
         if(error){
 
         }
     };
+
+   
 
     @wire(getPicklistValues, { recordTypeId: '$orderMetadata.data.defaultRecordTypeId',  fieldApiName: VOLUNTEER_SRC }) 
     wiredVolSrc({data, error}){
@@ -211,7 +223,9 @@ export default class OrderInformation extends LightningElement {
                
                 console.log(retvalue);
                 console.log(selectedValue);
-                if(retvalue !== selectedValue){
+                const diff = (new Date(retvalue)- new Date(selectedValue))/(1000*60*60*24)
+                console.log(diff);
+                if((retvalue < selectedValue) || diff >= 7){
                     returnerror.innerHTML = "Return date is not aligned with Pickup date and borrowing week, please fix the dates";
                 }else{
                     returnerror.innerHTML = "";
@@ -259,8 +273,12 @@ export default class OrderInformation extends LightningElement {
         let state = event.target.checked;
         if(state){
             this.proType.push(event.target.value);
+            if(event.target.value === "Special Events/Fundraisers")
+                this.specialEvents = true;
         }else{
             this.proType.pop(event.target.value);
+            if(event.target.value === "Special Events/Fundraisers")
+                this.specialEvents = false;
         }
     }
 
@@ -309,7 +327,7 @@ export default class OrderInformation extends LightningElement {
         let volunteersnumber = this.template.querySelector(`[data-id="volunteersnumber"]`);
         let peopleImImpacted = this.template.querySelector(`[data-id="peopleImImpacted"]`);
         let staff = this.template.querySelector(`[data-id="staff"]`);
-        let projectVolunteerHr = this.template.querySelector(`[data-id="projectVolunteerHr"]`);corpname
+        let projectVolunteerHr = this.template.querySelector(`[data-id="projectVolunteerHr"]`);
         let corpname = this.template.querySelector(`[data-id="corpname"]`);
 
         let accerror = this.template.querySelector(`[data-id="accerror"]`);
@@ -335,6 +353,8 @@ export default class OrderInformation extends LightningElement {
         let radioerror = this.template.querySelector(`[data-id="radioerror"]`);
         let home = this.template.querySelector(`[data-id="home"]`);
         let homeerror = this.template.querySelector(`[data-id="homeerror"]`);
+        let specialEvents = this.template.querySelector(`[data-id="specialEvents"]`);
+        let specialEventserror = this.template.querySelector(`[data-id="specialEventserror"]`);
         let errormsg = "This Field is Required"
         let errormsgList = "Please Select at least One Option"
 
@@ -446,6 +466,14 @@ export default class OrderInformation extends LightningElement {
             homeerror.innerHTML = "";
             homeValue = home.value;
         }
+
+        let numAttend;
+        if(this.specialEvents && !specialEvents.value){
+            specialEventserror.innerHTML = errormsg;           
+        }else if(this.specialEvents) { 
+            specialEventserror.innerHTML = "";
+            numAttend = specialEvents.value;
+        }
         
         if(!this.serv)
         radioerror.innerHTML =errormsg;
@@ -465,6 +493,7 @@ export default class OrderInformation extends LightningElement {
             && this.volSrc
             && (!this.corp || (this.corp && corporationName))
             && (!this.home || (this.home && home.value))
+            && (!this.specialEvents || (this.specialEvents && specialEvents.value))
             && onsitehours.value
             && volunteersnumber.value
             && peopleImImpacted.value
@@ -488,6 +517,7 @@ export default class OrderInformation extends LightningElement {
                         pickdate:pickupDate.value,
                         pickTime:pickupTime.value,
                         retDate:returnDate.value,
+                        numAttend:numAttend,
                         home:homeValue,
                         duration:this.borrowing,
                         affiliateid:this.affiliateId,

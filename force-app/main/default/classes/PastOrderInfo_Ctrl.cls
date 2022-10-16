@@ -11,22 +11,28 @@ public class PastOrderInfo_Ctrl {
     public List<User> licen {get;set;}
     
     public PastOrderInfo_Ctrl(){
-        String accId = [Select contactId from user where id=:userinfo.getuserid()].ContactId;
+        Contact con = [Select contactId,contact.AccountId,contact.npsp__Primary_Affiliation__c from user where id=:userinfo.getuserid()].Contact;
+        String accId;
+        if(con.npsp__Primary_Affiliation__c != Null)
+            accId = con.npsp__Primary_Affiliation__c;
+        else accId = con.AccountId;
+        System.debug(accId );
         
         System.debug(accId );
-        accDetails  = [Select id,Name,Phone,Billingaddress,BillingStreet,BillingCity,BillingState,BillingCountry,BillingPostalCode,website,annual_budget__c,Membership_Expiration_Date__c,Membership_Start_Date__c
+        accDetails  = [Select id,Name,Phone,Billingaddress,BillingStreet,BillingCity,BillingState,BillingCountry,BillingPostalCode,website,annual_budget__c
                        from Account 
-                       where id=:[select AccountId from Contact where id=:accId ].AccountId ];
+                       where id=:accId ];
         orderAccountId = accDetails.Id;                
         ordr =  [select id,Name,ordernumber,EffectiveDate,BillToContactId,TotalAmount,AccountId,Total_Amount__c,Number_Of_Projects__c   
                  from order where EffectiveDate <= Today and AccountId = :accDetails.Id
                  limit 3];   
         
         listOfNetwork = new list<Network>();
-        String urlpath ;
+       /* String urlpath ;
         listOfNetwork = [SELECT Name, UrlPathPrefix, Status FROM Network where Name = 'Agency Member' and status='live' ];
         licen = [SELECT Profile.UserLicense.Name FROM User where id=:userinfo.getuserid()];
-        dom = [select domain from domain];
+        List<Domain> domList= [select domain from domain];
+        dom = domList[0];
         
         if(!listOfNetwork.isEmpty()) {
             for(Network n : listOfNetwork) {
@@ -36,8 +42,9 @@ public class PastOrderInfo_Ctrl {
                         finalURL = 'https://'+dom.domain+'/'+urlpath;
                     }
                 } 
-            }
-        }
+            }CommunitySiteURL
+        }*/
+        finalURL = label.CommunitySiteURL;
         System.debug('Final'+finalURL);
     }
     

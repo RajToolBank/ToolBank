@@ -97,6 +97,8 @@ public class TestDataFactory {
     }
     
     public static User createCustomerUser(Contact con, Profile prof) {
+        UserRole r = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
+        insert r;
         User user1 = new User(
             Username = 'test12345@test.com',
             ContactId = con.Id,
@@ -108,7 +110,8 @@ public class TestDataFactory {
             CommunityNickname = 'test12345',
             TimeZoneSidKey = 'America/Los_Angeles',
             LocaleSidKey = 'en_US',
-            LanguageLocaleKey = 'en_US'
+            LanguageLocaleKey = 'en_US',
+            UserRoleId = r.Id
         );
         insert user1;
         return user1;
@@ -123,5 +126,10 @@ public class TestDataFactory {
         Zip_Code__c zipCode = new Zip_Code__c(Name = zip, Zip_Code__c = zip);
         insert zipCode;
         return zipCode;
+    }
+    public static Transaction__c createTransaction(Id assestId, Id recType, String subType) {
+        Transaction__c tran = new Transaction__c(Inventory__c = assestId, Sub_Type__c = subType, Quantity__c = 5, RecordtypeId = recType);
+        insert tran;
+        return tran;
     }
 }

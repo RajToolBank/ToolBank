@@ -27,7 +27,7 @@
                      
                      <tr>
                          
-                     <td  style="font-size:15px;" colspan="2"><b>Time : </b><apex:outputText value="{!Order.Scheduled_Pickup_Time__c}"/></td>
+                     <td  style="font-size:15px;" colspan="2"><b>Time : </b><apex:outputField value="{!Order.Scheduled_Pickup_Time__c}"/></td>
                          <td  style="font-size:15px;" colspan="2"><b>Order Contact Phone : </b><apex:outputText value="{!Order.BillToContact.phone}"/></td>
 					    
                      </tr>	

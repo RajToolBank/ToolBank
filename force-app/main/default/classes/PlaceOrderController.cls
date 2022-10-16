@@ -2,14 +2,21 @@ public without Sharing class PlaceOrderController {
     
     @AuraEnabled(cacheable = true)
     public static Boolean getFlag(){
-        Boolean flagged = [SELECT Id, Contact.Account.parentId, Contact.Account.Flagged__c FROM User WHERE Id =: UserInfo.getUserId()].Contact.Account.Flagged__c;
-        
+        Contact con = [SELECT Id, AccountId,Contact.Account.parentId,contact.npsp__Primary_Affiliation__c,contact.npsp__Primary_Affiliation__r.Flagged__c, Contact.Account.Flagged__c FROM User WHERE Id =: UserInfo.getUserId()].Contact;
+        Boolean flagged = false;
+        if(con != null && con.npsp__Primary_Affiliation__c != Null)
+            flagged = con.npsp__Primary_Affiliation__r.Flagged__c;
+        else if(con != null) flagged = con.Account.Flagged__c;
         return flagged;
     }
     
     @AuraEnabled(cacheable = true)
     public static string accid(){
-        String accid = [SELECT Id, Contact.Account.parentId FROM User WHERE Id =: UserInfo.getUserId()].Contact.Account.parentId;
+        Contact con = [SELECT Id,AccountId, Contact.Account.parentId,contact.npsp__Primary_Affiliation__r.parentId FROM User WHERE Id =: UserInfo.getUserId()].Contact;
+        String accid;
+        if(con != null &&  con.npsp__Primary_Affiliation__c != Null)
+            accid = con.npsp__Primary_Affiliation__r.parentId;
+        else if(con != null) accid = con.Account.parentId;
         if(String.isBlank(accId)){
             List<Affiliate_Account__c> aff = [SELECT Id, Affiliate__c,Affiliate__r.Name FROM Affiliate_Account__c WHERE User__c =:UserInfo.getUserId()];
             if(aff != null && aff.size() >0 && aff.size() == 1)
@@ -20,7 +27,7 @@ public without Sharing class PlaceOrderController {
     
     @AuraEnabled(cacheable = true)
     public static User getAgencyContact(){
-        User user = [SELECT Id,contactId, Contact.Email, Contact.AccountId,Contact.Name,contact.Account.Name FROM User WHERE Id =: UserInfo.getUserId()];
+        User user = [SELECT Id,contactId, Contact.Email,contact.npsp__Primary_Affiliation__c, contact.npsp__Primary_Affiliation__r.name, Contact.AccountId,Contact.Name,contact.Account.Name FROM User WHERE Id =: UserInfo.getUserId()];
         
         return user;
     }
@@ -34,13 +41,17 @@ public without Sharing class PlaceOrderController {
         
         if(accList != Null && accList.size() >0)
             return accList;
-        else return  [SELECT Id,Name FROM Account WHERE RecordTypeId='012020000000KwbAAE'];
+        else return  [SELECT Id,Name FROM Account WHERE RecordTypeId=:Schema.SObjectType.Account.getRecordTypeInfosByName().get('Affiliate').getRecordTypeId()];
     }
     
     @AuraEnabled(cacheable = true)
     public static List<Tool> returnAssets(String searchString,String affiliateId){
         try {
-            String accid = [SELECT Id, Contact.Account.parentId FROM User WHERE Id =: UserInfo.getUserId()].Contact.Account.parentId;
+            Contact con = [SELECT Id, AccountId,Contact.Account.parentId,contact.npsp__Primary_Affiliation__r.parentId FROM User WHERE Id =: UserInfo.getUserId()].Contact;
+            String accid;
+            if(con != Null && con.npsp__Primary_Affiliation__c != Null)
+                accid = con.npsp__Primary_Affiliation__r.parentId;
+            else if(con != Null) accid = con.Account.parentId;
             List<Asset> assetList;
             List<Tool> tools = new List<Tool>();
             if(String.isNotBlank(affiliateId)){
@@ -132,6 +143,25 @@ public without Sharing class PlaceOrderController {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
+    @AuraEnabled(cacheable=true)
+    public static List<HelpText> getPicklistValuesApex(String field_name){
+        List<HelpText> picklistValues = new List<HelpText>();
+        Map<String, Help_Text__c> helpTextMap = Help_Text__c.getAll();
+        String[] types = new String[]{'Order'};
+        Schema.DescribeSobjectResult[] results = Schema.describeSObjects(types);
+        Schema.DescribeFieldResult fieldResult = results[0].fields.getMap().get(field_name).getDescribe();
+		List<Schema.PicklistEntry> ple = fieldResult.getPicklistValues();
+		for( Schema.PicklistEntry pickListVal : ple){
+            HelpText helpText = new HelpText();
+            helpText.value = pickListVal.getValue();
+            helpText.label = pickListVal.getLabel();
+            helpText.helpText = helpTextMap.containsKey(pickListVal.getValue())?helpTextMap.get(pickListVal.getValue()).Help_Text__c:'';
+			picklistValues.add(HelpText);
+		} 
+        
+        return picklistValues;
+    }
     
     @AuraEnabled
     public static string placeOrder(String Order){
@@ -172,6 +202,10 @@ public without Sharing class PlaceOrderController {
         ord.Corporation_Name__c = (String)orderObj.get('corpname');
         if((String)orderObj.get('home') != null)
             ord.If_Yes_How_Many_Homes__c = Decimal.valueOf((String)orderObj.get('home'));
+        
+        if((String)orderObj.get('numAttend') != null)
+            ord.Number_of_Attendees__c = Decimal.valueOf((String)orderObj.get('numAttend'));
+        
         ord.EffectiveDate =ord.Desired_Pickup_Date__c;
         ord.Affiliate__c = (String)orderObj.get('affiliateid');
         String peopleserved= (String)orderObj.get('peopledirectlyserved');
@@ -247,6 +281,15 @@ public without Sharing class PlaceOrderController {
         public PriceBookEntry pbe;
         @AuraEnabled
         public Decimal hanlingFee;
+    }
+
+    public class HelpText{
+        @AuraEnabled
+        public String value;
+        @AuraEnabled
+        public String label;
+        @AuraEnabled
+        public String helpText;
     }
     
 }

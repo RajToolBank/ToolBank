@@ -87,7 +87,7 @@
                     <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: center;">
                         <div class="slds-truncate" title="PRICE">
                             <template if:true={record.edit}>
-                                <input class="slds-input" value={record.UnitPrice} onkeyup={handlePriceChange} data-priceid ={record.Id} data-inputindex={record.index} style="width: 52%;" type="number" />
+                                <input class="slds-input" step="0.01" value={record.UnitPrice} onkeyup={handlePriceChange} data-priceid ={record.Id} data-inputindex={record.index} style="width: 52%;" type="number" />
                             </template>
                             <template if:false={record.edit}>
                                 ${record.UnitPrice}

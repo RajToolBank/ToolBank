@@ -75,6 +75,11 @@
                 <default>false</default>
                 <label>Other</label>
             </value>
+            <value>
+                <fullName>Membership</fullName>
+                <default>false</default>
+                <label>Membership</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

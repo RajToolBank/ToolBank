@@ -86,6 +86,7 @@
                             <th class="" scope="col">
                                 <div class="slds-truncate" title="Retail Value">Retail Value</div>
                             </th>
+                            <th></th>
                             <th class="" scope="col">
                                 <div class="slds-truncate" title="Handlin Fees">Handling Fees</div>
                             </th>
@@ -120,6 +121,7 @@
                                         <lightning-formatted-number value={record.retailPrice} minimum-fraction-digits="2"></lightning-formatted-number>
                                     </div>
                                 </td>
+                                <td></td>
                                 <td class="slds-cell-wrap" data-label="Amount">
                                     <div class="slds-truncate" >$
                                         <lightning-formatted-number value={record.hanlingFee} minimum-fraction-digits="2"></lightning-formatted-number>
@@ -131,18 +133,46 @@
                                     </div>
                                 </td>
                                 <td class="slds-cell-wrap" data-label="link">
-                                    <div class="slds-truncate" title="picture">
-                                        
-                                        <lightning-helptext icon-name="utility:photo" content="test image"></lightning-helptext>
+                                    <div class="pictureContainer">
+                                        <div class="photoIcon">
+                                            <lightning-icon icon-name="utility:photo" size="x-small" alternative-text="Utility image" title="Image"></lightning-icon>
+                                        </div>
+
+                                        <template if:true={record.picture}>
+                                            <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-right" role="tooltip" id={record.product2Id}>
+                                                <div class="slds-popover__body">
+                                                    <lightning-formatted-rich-text
+                                                        value={record.picture}
+                                                    ></lightning-formatted-rich-text>
+                                                </div>
+                                            </div>
+                                        </template>
                                     </div>
                                 </td>
                             </tr>
                         </template>
+                        <tr>
+                            <td colspan="3" style="text-align: center;">
+                                <b>Loan Duration:&nbsp; <template if:true={orderDetails}>
+                                    {orderDetails.duration}
+                                </template></b>
+                            </td>
+                            <td style="text-align: right;"><b>Total Retail Cost Order:</b></td>
+                            <td>
+                                <b>
+                                    $<lightning-formatted-number value={totalRetailCostOrder} ></lightning-formatted-number></b>
+                            </td>
+                            <td style="text-align: right;"><b>Total Tool Handling Fees:</b></td>
+                            <td>
+                                <b>
+                                    $<lightning-formatted-number value={totalToolHandlingFees} ></lightning-formatted-number></b>
+                            </td><td></td><td></td>
+                        </tr>
                     </tbody>
                 </table>
                 <br/>
                
-                    <article class="slds-card" style="margin-top: 1%;margin-left: 1%;margin-right: 2%;">
+                    <!--article class="slds-card" style="margin-top: 1%;margin-left: 1%;margin-right: 2%;">
                         
                         <div class="slds-card__body slds-card__body_inner" style="margin-top: 1%;">
                 
@@ -159,7 +189,7 @@
                                 $<lightning-formatted-number value={totalRetailCostOrder} ></lightning-formatted-number></b></div>
                             </div>
                             </div>
-                    </article>            
+                    </article-->            
                 </div>
 </div>
 
@@ -176,7 +206,7 @@
               
               <div class="slds-modal__header">
                 <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
-                    <img src="https://toolbankusa--pro--c.visualforce.com/resource/1614275436000/Toolbank_Atlanta" style="padding-top:10px;width:30%;height:10%;"></h1>
+                    <img src="https://toolbank.my.salesforce.com/resource/1663178135000/Toolbank_USA" style="padding-top:10px;width:30%;height:10%;"></h1>
               </div>
               <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" style="font-size: 200%;">
                 <p>Your order has been placed. The ToolBank will contact you within 2 days to let you know your order is confirmed. &nbsp;

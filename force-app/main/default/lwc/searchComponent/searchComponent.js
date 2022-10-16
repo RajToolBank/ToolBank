@@ -1,5 +1,5 @@
 import { LightningElement, api, track, wire } from 'lwc';
-import search from '@salesforce/apex/SearchComponentController.search';
+import search2 from '@salesforce/apex/SearchComponentController.search2';
 import getRecentlyCreatedRecord from '@salesforce/apex/SearchComponentController.getRecentlyCreatedRecord';
 const DELAY = 10;
 
@@ -22,6 +22,7 @@ export default class SearchComponent extends NavigationMixin(LightningElement) {
     @api showLabel     = false;
     @api parentAPIName = 'ParentId';
     @api createRecord  = false;
+    @api parentId;
 
     /* values to be passed to create the new record */
     @api recordTypeId;
@@ -106,10 +107,11 @@ export default class SearchComponent extends NavigationMixin(LightningElement) {
         //this.isLoading = true;
         this.delayTimeout = setTimeout(() => {
             //if(searchKey.length >= 2){
-                search({
+                search2({
                     objectName : this.objName,
                     fields     : this.fields,
-                    searchTerm : searchKey
+                    searchTerm : searchKey,
+                    parentId   : this.parentId
                 })
                 .then(result => {
                     let stringResult = JSON.stringify(result);

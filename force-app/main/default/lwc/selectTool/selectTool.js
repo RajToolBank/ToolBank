@@ -5,13 +5,19 @@ import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import TOOL_OBJECT from '@salesforce/schema/Product2';
 import JOB_TYPE from '@salesforce/schema/Product2.Job_Type__c';
 import HIGHLIGHT from '@salesforce/schema/Product2.Highlights__c';
+import { loadScript } from 'lightning/platformResourceLoader';
+import jQuery from '@salesforce/resourceUrl/JQuery';
 
 export default class SelectTool extends LightningElement { 
     assets;
+    allassets;
+    loaded = false;
     jobtypes;
     highlights;
     jbtype={};
     highlightColor ={}
+    typingTimer;                //timer identifier
+    doneTypingInterval = 2000;
 
     @api orderDetails;
     @api affiliateId;
@@ -19,9 +25,10 @@ export default class SelectTool extends LightningElement {
     @wire(assetList,{searchString: '',affiliateId:'$affiliateId'}) assetsList({data,error}){
         
         if(data){
-            //console.log("data");
-            //console.log(data);
+            console.log("data");
+            console.log(data);
             this.assets = data;
+            this.allassets = data;
         }
         if(error){
             console.log("error");
@@ -29,16 +36,89 @@ export default class SelectTool extends LightningElement {
         }
     };
 
+    renderedCallback(){
+        loadScript(this, jQuery)
+        .then(() => {
+            console.log('JQuery loaded.');
+        })
+        .catch(error=>{
+            console.log('Failed to load the JQuery : ' +error);
+        });
+    }
+
     handleSearch(event){
+        clearTimeout(this.typingTimer);
+        this.typingTimer = setTimeout(()=>{
+           // this.loaded = true;
+            this.handleSearchInternal(event);
+        },1500)
+    }
+
+    handleSearchInternal(event){
         
-        const searchString =event.target.value;
-        
+        const searchString =this.template.querySelector(`[data-id="searchbar"]`).value;
+        //table = this.getElementById("datatable~");
+        let rows = this.template.querySelectorAll(`[data-row="data"]`);
+        console.log(rows.length);
+        console.log(searchString);
+       // alert(searchString);
+        /*
         assetList({searchString: searchString,affiliateId:this.affiliateId}).then(res =>{
             console.log(res);
             this.assets = res;
         }).catch(error =>{
             console.log(error);
-        });
+        });*/
+        //let tempAssets = [];
+
+        $(rows).show().filter(function() {
+           /* console.log($(this));
+            console.log($(this)[0]);
+            console.log($(this)[0].innerText);
+            //console.log($(this)[0].target.dataset);*/
+            var text = $(this)[0].innerText.toLowerCase();
+            return !~text.indexOf(searchString);
+        }).hide();
+
+        /*for (let i = 0; i < tr.length; i++) {
+           // console.log(tr[i].dataset.toolnametr);
+           if(  (tr[i].dataset.toolnotetr && tr[i].dataset.toolnotetr.indexOf(searchString) >=0)
+                    || (tr[i].dataset.toolnametr && tr[i].dataset.toolnametr.indexOf(searchString) >=0)
+                    || (tr[i].dataset.categorytr && tr[i].dataset.categorytr.indexOf(searchString) >=0)
+                    || (tr[i].dataset.subcategorytr && tr[i].dataset.subcategorytr.indexOf(searchString) >=0)
+                    || (tr[i].dataset.productcodetr && tr[i].dataset.productcodetr.indexOf(searchString) >=0)
+                    || (tr[i].dataset.spanishtr && tr[i].dataset.spanishtr.indexOf(searchString) >=0)){
+                    //console.log(this.allassets[i].asset);
+                    //tempAssets.push(this.allassets[i]);
+                    tr[i].style.display = 'table-row';
+                }else{
+                    tr[i].style.display = 'none';
+                }
+        }*/
+        /*for(let i in this.allassets){
+            const assetid = this.allassets[i].asset.Id;
+            let row = this.template.querySelector(`[data-id="`+assetid+`"]`);
+            let qtyrow = this.template.querySelector(`[data-assetid="`+assetid+`"]`);
+            if(searchString.length >= 2){
+                if( row && ((qtyrow.dataset.toolnote && qtyrow.dataset.toolnote.indexOf(searchString) >=0)
+                    || (qtyrow.dataset.toolname && qtyrow.dataset.toolname.indexOf(searchString) >=0)
+                    || (qtyrow.dataset.category && qtyrow.dataset.category.indexOf(searchString) >=0)
+                    || (qtyrow.dataset.subcategory && qtyrow.dataset.subcategory.indexOf(searchString) >=0)
+                    || (qtyrow.dataset.productcode && qtyrow.dataset.productcode.indexOf(searchString) >=0)
+                    || (qtyrow.dataset.spanish && qtyrow.dataset.spanish.indexOf(searchString) >=0))){
+                    //console.log(this.allassets[i].asset);
+                    //tempAssets.push(this.allassets[i]);
+                    row.style.display = 'table-row';
+                }else if(row){
+                    row.style.display = 'none';
+                }
+            }else if(row){
+                row.style.display = 'table-row';
+            }
+        }*/
+
+       // this.assets = tempAssets;
+      // this.loaded = false;
     }
 
     @wire(getObjectInfo, { objectApiName: TOOL_OBJECT })

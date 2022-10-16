@@ -5,8 +5,8 @@
       "default": true
     }
   ],
-  "name": "Toolbankback",
+  "name": "Toolbank",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "54.0"
+  "sourceApiVersion": "55.0"
 }

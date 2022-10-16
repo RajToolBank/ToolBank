@@ -288,15 +288,15 @@
     <picklistValues>
         <picklist>Serving_50_of_Low_Income_People__c</picklist>
         <values>
-            <fullName>All Project%28s%29 are being completed in an area considered to be low-income%2E</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>All Project%28s%29 are being completed in an area%28s%29 considered to be low-income to moderate-income%2E</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>None of the above%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>low-income to moderate-income%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>low-income%2E</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -144,19 +144,40 @@ public static void lowestQuantityOrder2(List<Order> orderList){
     
     public static Decimal lowestQuantityItemDate(orderItem orderItem, List<orderItem> existingOrderItems){
 
-        Decimal reservedQuantity = 0;
-        if(existingOrderItems != Null){
-            for(OrderItem item: existingOrderItems){
+        
+        List<Decimal> qtyList = new List<Decimal>();
+        
+            for(Date dt=orderItem.Schedule_Pick_Date__c;dt<=orderItem.Schedule_Return_Date__c;dt = dt.addDays(1)){
+                system.debug('Date ::: '+ dt);
+                Decimal reservedQuantity =0;
+                Decimal currentInventory = orderItem.Inventory_Tool__r.Current_Inventory_F__c;
+                if(existingOrderItems != Null){
+                    for(OrderItem item: existingOrderItems){
 
-                if(item.LastModifiedDate <= OrderItem.LastModifiedDate && 
-                    orderItem.Schedule_Pick_Date__c <= item.Schedule_Return_Date__c && 
-                    orderItem.Schedule_Return_Date__c >= item.Schedule_Pick_Date__c ) {
-                        reservedQuantity += item.Reserved_Quantity__c!= Null?item.Reserved_Quantity__c:0;
-                }
+                        if(//item.LastModifiedDate <= OrderItem.LastModifiedDate 
+                            //&&
+                            //orderItem.Schedule_Pick_Date__c <= item.Schedule_Return_Date__c 
+                        // && orderItem.Schedule_Return_Date__c >= item.Schedule_Pick_Date__c 
+                        dt <= item.Schedule_Return_Date__c 
+                        && dt >= item.Schedule_Pick_Date__c 
+                        ) 
+                        {
+                                reservedQuantity += item.Reserved_Quantity__c!= Null?item.Reserved_Quantity__c:0;
+                                //Decimal itemReservedQuantity = item.Reserved_Quantity__c!= Null?item.Reserved_Quantity__c:0;    
+                                
+                        }
+                    }
             }
+
+            currentInventory = currentInventory -reservedQuantity;
+            qtyList.add(currentInventory);
+            
         }
 
-        Decimal lowestAvailableQuantity = orderItem.Inventory_Tool__r.Current_Inventory_F__c - reservedQuantity;
+        qtyList.sort();
+
+        //Decimal lowestAvailableQuantity = orderItem.Inventory_Tool__r.Current_Inventory_F__c - reservedQuantity;
+        Decimal lowestAvailableQuantity = (qtyList != Null && qtyList.size() >0)?qtyList[0]:0;
 
         return lowestAvailableQuantity;
 
@@ -164,19 +185,35 @@ public static void lowestQuantityOrder2(List<Order> orderList){
 
     public static Decimal lowestQuantityItemDate(orderItem orderItem, DateTime lastmodified, List<orderItem> existingOrderItems){
 
-        Decimal reservedQuantity = 0;
-        if(existingOrderItems != Null){
-            for(OrderItem item: existingOrderItems){
+       
+        List<Decimal> qtyList = new List<Decimal>();
+        
+            for(Date dt=orderItem.Schedule_Pick_Date__c;dt<=orderItem.Schedule_Return_Date__c;dt = dt.addDays(1)){
+                Decimal currentInventory = orderItem.Inventory_Tool__r.Current_Inventory_F__c;
+                Decimal reservedQuantity = 0;
+                if(existingOrderItems != Null){
+                    for(OrderItem item: existingOrderItems){
 
-                if(item.LastModifiedDate <= lastmodified && 
-                    orderItem.Schedule_Pick_Date__c <= item.Schedule_Return_Date__c && 
-                    orderItem.Schedule_Return_Date__c >= item.Schedule_Pick_Date__c ) {
-                        reservedQuantity += item.Reserved_Quantity__c!= Null?item.Reserved_Quantity__c:0;
-                }
+                        if(//item.LastModifiedDate <= lastmodified && 
+                            //orderItem.Schedule_Pick_Date__c <= item.Schedule_Return_Date__c && 
+                            //orderItem.Schedule_Return_Date__c >= item.Schedule_Pick_Date__c 
+                            dt <= item.Schedule_Return_Date__c 
+                        && dt >= item.Schedule_Pick_Date__c) {
+                                Decimal itemReservedQuantity = item.Reserved_Quantity__c!= Null?item.Reserved_Quantity__c:0;
+                                if(item.quantity >= itemReservedQuantity){
+                                    reservedQuantity += currentInventory - item.quantity > 0? item.quantity:currentInventory;
+                                }
+                                
+                        }
+                        
+                    }
             }
+            currentInventory = currentInventory - reservedQuantity;
+            qtyList.add(currentInventory);
         }
-        system.debug(orderItem.Inventory_Tool__r.Current_Inventory_F__c);
-        Decimal lowestAvailableQuantity = orderItem.Inventory_Tool__r.Current_Inventory_F__c - reservedQuantity;
+        qtyList.sort();
+        //Decimal lowestAvailableQuantity = orderItem.Inventory_Tool__r.Current_Inventory_F__c - reservedQuantity;
+        Decimal lowestAvailableQuantity = (qtyList != Null && qtyList.size() >0)?qtyList[0]:0;
 
         return lowestAvailableQuantity <0 ?0:lowestAvailableQuantity;
 

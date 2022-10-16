@@ -60,7 +60,7 @@ public with sharing class AdditionalChargesController {
     @AuraEnabled(cacheable=true)
     public static List<OrderItem> getOrderItems(string orderid){
 
-        return [SELECT Id,OrderId,Total_Handling_Fee__c, Tool_Handling_Fee_Per_Item__c,UnitPrice,Requested_Borrowing_Period__c,Product2.Name,Schedule_Return_Date__c,Status__c,Quantity,Reserved_Quantity__c FROM OrderItem WHERE OrderId =: orderid AND Product2.Type__c ='Tool'];
+        return [SELECT Id,OrderId,order.Amount_Owed__c,Total_Handling_Fee__c, Tool_Handling_Fee_Per_Item__c,UnitPrice,Requested_Borrowing_Period__c,Product2.Name,Schedule_Return_Date__c,Status__c,Quantity,Reserved_Quantity__c FROM OrderItem WHERE OrderId =: orderid AND Product2.Type__c ='Tool'];
     }
 
 

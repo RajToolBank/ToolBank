@@ -7,6 +7,8 @@
     <fields>EffectiveDate</fields>
     <fields>Schedule_Return_Date__c</fields>
     <fields>Status</fields>
+    <fields>Total_Amount__c</fields>
     <fields>Total_Handling_Fees__c</fields>
+    <fields>Amount_Owed__c</fields>
     <label>Compact Order Layout</label>
 </CompactLayout>

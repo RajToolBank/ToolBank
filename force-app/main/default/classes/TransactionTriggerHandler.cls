@@ -1,9 +1,12 @@
 public with sharing class TransactionTriggerHandler {
-
-    static final String  DONATION='012020000000L9zAAE', DAMAGED='012020000000L9QAAU',BACK_IN_SERVICE='012020000000LJzAAM',
-            INTERNAL_AUDIT='012020000000L9fAAE',LOST='012020000000L9kAAE',PURCHASED='012020000000L9RAAU',
-            RETIRE='012020000000L9aAAE',RE_TURN='012020000000L9uAAE',OUT='012020000000LJuAAM',OUT_OF_SERVICE='012020000000LJVAA2';
-            
+    
+    static final String  DONATION = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Donation').getRecordTypeId(), 
+        INTERNAL_AUDIT = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Inventory_Audit').getRecordTypeId(),
+        LOST = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Lost').getRecordTypeId(),
+        PURCHASED = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Purchased').getRecordTypeId(),
+        BACK_IN_SERVICE = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Back_In_Service').getRecordTypeId(),
+        RETIRE = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Retired').getRecordTypeId();
+    
     public static void updqteQuantity(List<Transaction__c> transList){
 
         for (Transaction__c tran : transList) {

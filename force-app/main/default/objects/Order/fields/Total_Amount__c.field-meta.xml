@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Total_Amount__c</fullName>
     <externalId>false</externalId>
-    <formula>Cleaning_R__c + Deposit_R__c + Total_Handling_Fees__c + Other_R__c + Total_Late_Fee__c</formula>
+    <formula>Cleaning_R__c + Deposit_R__c + Total_Handling_Fees__c + Other_R__c + Total_Late_Fee__c+ Delivery_R_Fee__c + Membership_R_Fee__c+ Lost_R_Fee__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Total Amount</label>
     <precision>18</precision>

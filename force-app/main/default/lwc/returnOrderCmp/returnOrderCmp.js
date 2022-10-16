@@ -176,10 +176,10 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         let borrowed = this.template.querySelector(`[data-borrowed="`+recid+`"]`);
         let retDate = this.template.querySelector(`[data-return="`+recid+`"]`);
         let schpickDate = this.order.EffectiveDate;
-        const lost = lostqty.value !== "NaN" && (lostqty.value)? parseInt(lostqty.value):0;
-        const damaged = damagedqty.value !== "NaN" && (damagedqty.value) ? parseInt(damagedqty.value):0;
-        const retQty = returnqty.value !== "NaN" && (returnqty.value)? parseInt(returnqty.value):0;
-        const borrowedQty = borrowed.innerHTML !== "NaN" && (borrowed.innerHTML)? parseInt(borrowed.innerHTML):0;
+        const lost = lostqty && lostqty.value !== "NaN" && (lostqty.value)? parseInt(lostqty.value):0;
+        const damaged = damagedqty && damagedqty.value !== "NaN" && (damagedqty.value) ? parseInt(damagedqty.value):0;
+        const retQty = returnqty && returnqty.value !== "NaN" && (returnqty.value)? parseInt(returnqty.value):0;
+        const borrowedQty = borrowed && borrowed.innerHTML !== "NaN" && (borrowed.innerHTML)? parseInt(borrowed.innerHTML):0;
         const stillOutqty = borrowedQty - ( lost + damaged + retQty);
         stillOut.innerHTML = stillOutqty;
         let totalFee = 0;
@@ -193,8 +193,8 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         let unitprice = parseFloat(retDate.dataset.unitprice);
         const handleFeePerTool = (((parseInt(affiliateFee)*unitprice)/100)*week).toFixed(2);
         retDate.dataset.week = week>1?(week+" weeks"):(week+" week");
-        let feeperTool = this.template.querySelector(`[data-toolfee="`+recid+`"]`);
-        feeperTool.innerHTML = "$ "+(handleFeePerTool);
+        //let feeperTool = this.template.querySelector(`[data-toolfee="`+recid+`"]`);
+        //feeperTool.innerHTML = "$ "+(handleFeePerTool);
         let basefee = this.template.querySelector(`[data-basefee="`+recid+`"]`);
         basefee.innerHTML = "$ "+(handleFeePerTool);
         const lostToolFee = (unitprice * parseInt(lost)).toFixed(2);
@@ -293,7 +293,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
             let stillOutqty = state.querySelector(`[data-stillout="`+recid+`"]`);
             const checkbox = state.querySelector(`[data-recid="`+ele.dataset.rowid+`"]`);
             if(filter === "Still out"){
-                if(parseInt(stillOutqty.innerHTML)>0){
+                if(parseInt(stillOutqty.innerHTML)>0 || (parseInt(stillOutqty.innerHTML) === 0 &&  status.innerHTML !== "Returned")){
                     ele.style.display = "table-row";
                     checkbox.classList.add("filtered");
                 }else {
@@ -536,7 +536,13 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 else if(parseInt(stillOutqty.innerHTML) > 0 && parseInt(stillOutqty.innerHTML) < parseInt(borrowed.innerHTML))
                     status.innerHTML = "Partially Returned";
                 else if(parseInt(stillOutqty.innerHTML) < 0){
-                    alert("Total return can not be greater than total borrowed");
+                    
+                    const evt = new ShowToastEvent({
+                        title: "Return Tools",
+                        message: "Total return can not be greater than total borrowed",
+                        variant: "error",
+                    });
+                    this.dispatchEvent(evt);
                    
                     returnqty.style.borderColor = "red";
                     lostqty.style.borderColor = "red";
@@ -545,9 +551,15 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 
             }
         });
-
+        
+        
         if(!isSelected){
-            alert('Nothing is selected please select a row to return');
+            const evt = new ShowToastEvent({
+                title: "Return Tools",
+                message: "Nothing is selected please select a row to return",
+                variant: "error",
+            });
+            this.dispatchEvent(evt);
         }else{
 
         let state = this.template;

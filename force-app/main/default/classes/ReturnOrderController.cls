@@ -1,7 +1,7 @@
-public with sharing class ReturnOrderController {
+public class ReturnOrderController {
     
     @AuraEnabled(cacheable = true)
-    public static OrderDetails getOrderItems(String orderId){
+    public static OrderDetails getOrderItems(String orderId) {
         try {
 
             OrderDetails orderDetail = new OrderDetails();
@@ -31,7 +31,7 @@ public with sharing class ReturnOrderController {
                     FROM OrderItems 
                     WHERE Product2.Type__c ='Tool'
                     ORDER BY Product2.Name ) 
-                    FROM ORDER WHERE Id =: orderid]){
+                    FROM ORDER WHERE Id =: orderId]){
                 orderDetail.order = ord;
                 for(OrderItem item: ord.OrderItems){
                     OrderItemDetails orditem = new OrderItemDetails();

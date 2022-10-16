@@ -20,6 +20,7 @@ public class OrderItemTriggerTest {
         Order ord = TestDataFactory.createOrder(acc.Id,con.Id,Affiliate.Id);
         orderItem ordItem = TestDataFactory.createOrderItem(ord.Id,toolpbe.Id,asset.id);
         ordItem.Check_Out_Quantity__c = 5;
+        ordItem.Schedule_return_date__c = Date.today().addDays(10);
         update ordItem;
 
         OrderItemHelperClass.recursion = false;

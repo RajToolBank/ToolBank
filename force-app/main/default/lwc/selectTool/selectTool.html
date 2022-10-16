@@ -1,4 +1,9 @@
 <template>
+    <template if:true={loaded}>
+        <div class="backgroundInverse">
+            <lightning-spinner alternative-text="Loading" variant="inverse"></lightning-spinner>
+        </div>
+    </template>
     <div class="slds-path">
         <div class="slds-grid slds-path__track">
             <div class="slds-grid slds-path__scroller-container">
@@ -59,8 +64,8 @@
                 <div class="slds-size_4-of-5">
                     <div class="slds-box_x-small slds-m-around_x-small slds-scrollable">
                         <b>Search:</b>&nbsp; 
-                        <input type="text" onkeyup={handleSearch}/><br/><br/>
-                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable" >
+                        <input type="text" data-id="searchbar" onkeyup={handleSearch}/><br/><br/>
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable" id="datatable" >
                             <thead>
                                 <tr class="slds-line-height_reset">
                                     <th  scope="col">
@@ -91,7 +96,18 @@
                             </thead>
                             <tbody>
                                 <template if:true={assets} for:each={assets} for:item="record" for:index="index">
-                                    <tr class="slds-hint-parent" key={record.asset.Id} data-id={record.asset.Id} data-label={record.asset.Product2.Highlights__c} title={record.asset.Product2.Job_Type__c} >
+                                    <tr class="slds-hint-parent" 
+                                        data-row="data"
+                                        key={record.asset.Id} 
+                                        data-id={record.asset.Id} 
+                                        data-label={record.asset.Product2.Highlights__c} 
+                                        title={record.asset.Product2.Job_Type__c}
+                                        data-toolnotetr={record.asset.Product2.Tool_Note__c}
+                                        data-toolnametr={record.asset.Product2.Name}
+                                        data-categorytr={record.asset.Product2.Family}
+                                        data-subcategorytr={record.asset.Product2.Sub_Category__c}
+                                        data-productcodetr={record.asset.Product2.ProductCode}
+                                        data-spanishtr={record.asset.Product2.Spanish_Name__c} >
                                         <td class="slds-cell-wrap" data-label="category" scope="row">
                                             <div class="slds-truncate" title={record.asset.Product2.Family} >{record.asset.Product2.Family}</div>
                                         </td>
@@ -126,16 +142,29 @@
                                                 data-toolname={record.asset.Product2.Name}
                                                 data-category={record.asset.Product2.Family}
                                                 data-subcategory={record.asset.Product2.Sub_Category__c}
+                                                data-productcode={record.asset.Product2.ProductCode}
+                                                data-spanish={record.asset.Product2.Spanish_Name__c}
                                                 data-hanlingfee={record.hanlingFee}
                                                 data-affilatefee ={record.asset.Affiliate_Handling_Fee__c}
                                                 data-picture={record.asset.Product2.Product_Image__c}
-                                                onkeydown={handleQuantity} onkeyup={handleQuantity}/>
+                                                oninput={handleQuantity} />
                                             </div>
                                         </td>
                                         <td class="slds-cell-wrap" data-label="link">
-                                            <div class="slds-truncate" title="picture">
-                                                
-                                                <lightning-helptext icon-name="utility:photo" content={record.asset.Product2.Product_Image__c}></lightning-helptext>
+                                            <div class="pictureContainer">
+                                                <div class="photoIcon">
+                                                    <lightning-icon icon-name="utility:photo" size="x-small" alternative-text="Utility image" title="Image"></lightning-icon>
+                                                </div>
+
+                                                <template if:true={record.asset.Product2.Product_Image__c}>
+                                                    <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-right" role="tooltip" id={record.asset.Product2.Id}>
+                                                        <div class="slds-popover__body">
+                                                            <lightning-formatted-rich-text
+                                                                value={record.asset.Product2.Product_Image__c}
+                                                            ></lightning-formatted-rich-text>
+                                                        </div>
+                                                    </div>
+                                                </template>
                                             </div>
                                         </td>
                                     </tr>

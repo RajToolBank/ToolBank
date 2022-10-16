@@ -1,7 +1,18 @@
-<apex:page sidebar="false" showHeader="false" title="NavBar" lightningstylesheets="true" >
+<apex:page applyHtmlTag="true" standardController="Account" renderAs="html" docType="html-5.0" standardStylesheets="true" sidebar="false" showHeader="false" title="NavBar" lightningstylesheets="true" >
     <apex:includeLightning />
+<html>
+    <head>
+        <apex:slds />
+    </head>
+    <body>
+        <div class="slds-scope">
+            <div id="lightningvf" />
+        </div>
+        
+    </body>
 
-    <div id="lightningvf" />
+</html>
+    
 
     <script>
         

@@ -12,12 +12,12 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>All Project(s) are being completed in an area considered to be low-income.</fullName>
+                <fullName>low-income.</fullName>
                 <default>false</default>
                 <label>All Project(s) are being completed in an area considered to be low-income.</label>
             </value>
             <value>
-                <fullName>All Project(s) are being completed in an area(s) considered to be low-income to moderate-income.</fullName>
+                <fullName>low-income to moderate-income.</fullName>
                 <default>false</default>
                 <label>All Project(s) are being completed in an area(s) considered to be low-income to moderate-income.</label>
             </value>

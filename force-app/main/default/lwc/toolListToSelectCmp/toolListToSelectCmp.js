@@ -12,6 +12,7 @@ export default class ToolListToSelectCmp extends LightningElement {
     @api productRecords;
     @api recordId;
     @api orderDetail;
+    @api timeZone;
 
     @wire(getObjectInfo, { objectApiName: ORDER_OBJECT })
     productMetadata;
@@ -41,7 +42,7 @@ export default class ToolListToSelectCmp extends LightningElement {
         let searchFilter = this.template.querySelector(`[data-id="searchTool"]`);
 
         let categoryFilter = this.template.querySelector(`[data-id="CategoryFilter"]`);
-        
+        console.log(searchFilter.value);
         console.log(JSON.parse(JSON.stringify(this.productRecords)));
         getTools({toolIds: this.productRecords, accid:this.orderDetail.Affiliate__c, searchString: searchFilter.value,category:categoryFilter.value}).then(res =>{
             console.log(res);
@@ -87,6 +88,11 @@ export default class ToolListToSelectCmp extends LightningElement {
             borrow = borrowing.replace("weeks", "");
             borrow = borrowing.replace("week", "");
         }
+        let todayDate = new Date(new Date().setHours(0, 0, 0, 0));
+        const offset =  new Date().getTimezoneOffset()
+        pickdate = new Date(pickdate);
+        pickdate = new Date(pickdate.getTime()+offset*60000);
+        pickdate = new Date(pickdate.setHours(0, 0, 0, 0));
         console.log(pickdate);
         let week = borrow?parseInt(borrow):1;
         let retDate = new Date(pickdate);
@@ -94,13 +100,12 @@ export default class ToolListToSelectCmp extends LightningElement {
         console.log(retDate);
         console.log(days);
         retDate.setDate(retDate.getDate() + days);
-        console.log(retDate);
+        
         let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(retDate);
         let mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(retDate);
         let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(retDate);
         retDate = `${ye}-${mo}-${da}`;
-        
-        
+        console.log(retDate);
         
         let qtyError = false;
         let products = JSON.parse(JSON.stringify(this.productRecords));
@@ -124,6 +129,7 @@ export default class ToolListToSelectCmp extends LightningElement {
                     Product2Id:ele.dataset.prod2id,
                     Lowest_Available_Quantity_For_this_Item__c:"",
                     Quantity:ele.value,
+                    Reserved_Quantity__c:ele.value,
                     Affiliate_Handling_Fee__c:affiliateFee,
                     UnitPrice:ele.dataset.price,
                     Inventory_Tool__c:ele.dataset.assetid,

@@ -14,7 +14,10 @@ import singleItemQuantity from '@salesforce/apex/ConfirmOrderPageController.sing
 import massDateChangeLowest from '@salesforce/apex/ConfirmOrderPageController.massDateChangeLowest';
 import saveOrder from '@salesforce/apex/ConfirmOrderPageController.saveOrder';
 import getOrderDetailsDirect from '@salesforce/apex/ConfirmOrderPageController.getOrderDetailsDirect';
+import getTimeZone from '@salesforce/apex/ConfirmOrderPageController.getTimeZone';
+import getConflictedItems from '@salesforce/apex/ConfirmOrderPageController.getConflictedItems';
 import { NavigationMixin } from "lightning/navigation";
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 
 export default class ConfirmOrderPage extends NavigationMixin(LightningElement) {
@@ -30,17 +33,21 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
     desirePickTimeField = DESIRE_PICKED_TIME_FIELD;
     schPickDateField = SCH_PICKED_TIME_FIELD;
     schPickTimeField = SCH_PICKED_DATE_FIELD;
-
+    
+    schPickTime;
     loaded = true;
     readonlyFlag = false;
+    showConflict = false;
     lable;
     order;
     orderItems;
     allOrderItems;
+    conflictedOrderItems;
     productIds=[];
     setReturnDate = false;
     extendDays;
     matchingDate;
+    timeZone;
     filters =[
         {label:"All", value:"All"},
         {label:"Unconfirmed", value:"Unconfirmed"},
@@ -48,6 +55,13 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         {label:"Deleted", value:"Deleted"}
     ];
 
+    @wire(getTimeZone)
+    getTimeZone({data,error}){
+        if(data){
+            console.log(data);
+            this.timeZone = data;
+        }
+    }
     @wire(orderDetails,{recordId: "$recordId"}) orderDetail({data,error}){
         if(data){
             this.loaded = false;
@@ -55,6 +69,15 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
             this.readonlyFlag = data.readOnly;
             this.orderItems = data.orderItemList;
             this.allOrderItems = data.orderItemList;
+            let totalTimeInSeconds = (data.order.Scheduled_Pickup_Time__c/1000);
+            let result = new Date(null, null, null, null, null, totalTimeInSeconds);
+            let tempTime = result.toTimeString().split(' ')[0].substring(0,5)
+            tempTime = tempTime.split(':');
+            if(data.order.Scheduled_Pickup_Time__c && tempTime){
+                const hour = parseInt(tempTime[0]) >12 && parseInt(tempTime[0]) !== 0 && parseInt(tempTime[0]) !== 12 ?(parseInt(tempTime)-12):(parseInt(tempTime[0]) === 0?12:tempTime[0]);
+                const hour12 =  parseInt(tempTime[0]) >=12?"PM":"AM";
+                this.schPickTime = hour+':'+tempTime[1]+' '+hour12;
+            }
             for(let i in this.orderItems ){
                 this.productIds.push(this.orderItems[i].Product2Id);
             }
@@ -67,9 +90,51 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
     };
 
     OpenModal(event){
-        if(!this.setReturnDate)
-            this.setReturnDate = true;
-        else this.setReturnDate = false;
+        let allselectrows = this.template.querySelectorAll(`[data-check="checkbox"]`);
+        console.log(allselectrows);
+        let isAnySelected = false;
+        allselectrows.forEach(function(ele){
+
+            if(ele.checked){
+                isAnySelected = true
+            }
+        })
+        if(!isAnySelected){
+            const evt = new ShowToastEvent({
+                title: "Mass Date Change",
+                message: "Please select atleast one tool",
+                variant: "error",
+            });
+            this.dispatchEvent(evt);
+            this.setReturnDate = false;
+            return
+        }else{
+            if(!this.setReturnDate)
+                this.setReturnDate = true;
+            else this.setReturnDate = false;
+        }
+    }
+
+    openConflictModal(event){
+        this.showConflict = true;
+        const itemId = event.target.dataset.itemid;
+        let retDate = this.template.querySelector(`[data-return="`+itemId+`"]`);
+        const product2Id = retDate.dataset.product2id;
+        let schretDate = new Date(retDate.value);
+        let pickupDate = this.order.EffectiveDate;
+        const affilliateId = this.order.Affiliate__c;
+        getConflictedItems({itemId:itemId, affilliateId:affilliateId, product2Id:product2Id, pickupDate:pickupDate, returnDate:schretDate })
+        .then(res=>{
+            this.conflictedOrderItems = res;
+            console.log(res);
+        }).catch(error =>{
+            console.log(error);
+        })
+    }
+
+    closeConflictModal(event){
+        this.conflictedOrderItems = false;
+        this.showConflict = false;
     }
 
     handleModalRadio(event){
@@ -101,7 +166,10 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         let itemIds = [];
         if(schpickTime.value){
             myArray = schpickTime.value.split(":");
-            const hour = myArray[0]>12?(myArray[0]/12):(myArray[0]==="00"?12:myArray[0]);
+            console.log((myArray[0]));
+            console.log((myArray[0]/12));
+            console.log(Math.round(myArray[0]/12));
+            const hour = parseInt(myArray[0]) >12 && parseInt(myArray[0]) !== 0 && parseInt(myArray[0]) !== 12 ?(parseInt(myArray)-12):(parseInt(myArray[0]) === 0?12:myArray[0]);
             const min = myArray[1];
             const hour12 =  myArray[0]>=12?"PM":"AM";
             this.template.querySelector(`[data-sch="schtime"]`).innerHTML = hour+":"+min+" "+hour12;
@@ -117,7 +185,7 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
 
             if(ele.checked){
                 const recid = ele.dataset.recid;
-                console.log(recid);
+                
                 //let retDate = template.template.querySelector(`[data-id="`+recid+`"]`);
                 let retDate = template.template.querySelector(`[data-return="`+recid+`"]`);
 
@@ -350,10 +418,11 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
         let week = Math.ceil(TotalDays/7);
         let weeks = this.template.querySelector(`[data-weeks="`+itemId+`"]`);
-        weeks.innerHTML = week+" "+(week===1?"week":"weeks")
+        weeks.innerHTML = week+" "+(week===1?"week":"weeks");
+        event.target.dataset.week = week+" "+(week===1?"week":"weeks");
         const handleFeePerTool = (((parseInt(affiliateFee)*parseFloat(unitprice))/100)*week).toFixed(2);
-        let feeperTool = this.template.querySelector(`[data-toolfee="`+itemId+`"]`);
-        feeperTool.value =handleFeePerTool;
+        //let feeperTool = this.template.querySelector(`[data-toolfee="`+itemId+`"]`);
+        //feeperTool.value =handleFeePerTool;
         let totalFee = this.template.querySelector(`[data-totalfee="`+itemId+`"]`);
         let confirmqty = this.template.querySelector(`[data-confirm="`+itemId+`"]`);
         const qty = parseInt(confirmqty.value);
@@ -442,7 +511,10 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         let orderitemsDetails = [];
         let orderItemToDelete = [];
         let qtyError = false;
-       
+        let schedulePickTime = this.template.querySelector(`[data-sch="schtime"]`).innerHTML;
+        let scheduleReturnDates = [];
+        let tempOrder = JSON.parse(JSON.stringify(this.order));
+        let toolpickby =  this.template.querySelector(`[data-id="toolpickby"]`);
         
         rows.forEach(function(ele){
             if(ele.dataset.deleted !== "yes"){
@@ -452,11 +524,11 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                 let lowest = template.template.querySelector(`[data-lowest="`+ele.dataset.rowid+`"]`);
                 const lowqty = (lowest.innerHTML)?parseInt(lowest.innerHTML):0;
                 const confirmQty = (confirm.value)?parseInt(confirm.value):0;
-                console.log(confirmQty);
+
                 if(confirmQty > lowqty){
                     confirm.style.borderColor = "red";
                     qtyError = true;
-                }else if(confirmQty === 0){
+                }else if(confirmQty === 0 && ele.dataset.status === "Confirmed"){
                     confirm.style.borderColor = "red";
                     qtyError = true;
                 }else confirm.style.borderColor = "";
@@ -465,43 +537,44 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                 let item = {
                     Id:ele.dataset.rowid,
                     status:ele.dataset.status,
-                    orderid: template.order.Id,
+                    orderid: tempOrder.Id,
                     quantity: req.innerHTML,
                     week:returnDate.dataset.week,
                     reserv:confirm.value,
                     affiliateFee:returnDate.dataset.affiliatefee,
                     retDate:returnDate.value,
-                    pickdate:template.order.EffectiveDate,
+                    pickdate:tempOrder.EffectiveDate,
                     pbeId:returnDate.dataset.pbeid,
                     unitprice:returnDate.dataset.unitprice,
-                    assetid:returnDate.dataset.assetid
-                    
+                    assetid:returnDate.dataset.assetid  
                 }
-
+                scheduleReturnDates.push(returnDate.value)
                 orderitemsDetails.push(item);
             }else{
                 orderItemToDelete.push(ele.dataset.rowid);
             }
         });
+        scheduleReturnDates.sort(function(a,b){
+            return new Date(b) - new Date(a);
+          });
 
-        
-        if(!qtyError){
+          if(!qtyError){
+            if(toolpickby && toolpickby.value)
+                tempOrder.Tools_Picked_Up_By__c = toolpickby.value;
+            if(scheduleReturnDates)
+                tempOrder.Schedule_Return_Date__c = scheduleReturnDates[0];
+                console.log("schedulePickTime");
+                console.log(schedulePickTime);
+        if(schedulePickTime)
+            tempOrder.Scheduled_Pickup_Time__c = schedulePickTime;
             let orderDetailsCmp = {
-                order: this.order,
+                order: tempOrder,
                 orderItems:orderitemsDetails
             }
-            console.log(orderDetailsCmp);
+            
             saveOrder({orderNitemsDetails:JSON.stringify(orderDetailsCmp), orderItemToDelete:JSON.stringify(orderItemToDelete) }).then(res=>{
                 this.loaded = false;
-                /*const config = {
-                    type: 'standard__recordPage',
-                    attributes: {
-                        recordId: template.order.Id,
-                        objectApiName:"Order",
-                        actionName: 'view'
-                    }
-                };
-                this[NavigationMixin.Navigate](config);*/
+                
                 location.reload();
             }).catch(error=>{
 
@@ -518,53 +591,87 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         let template = this;
         let rows = this.template.querySelectorAll(`[data-id="dataid"]`);
         let orderitemsDetails = [];
+        let orderItemToDelete = [];
         let qtyError = false;
+        let schedulePickTime = this.template.querySelector(`[data-sch="schtime"]`).innerHTML;
+        let scheduleReturnDates = [];
+        let tempOrder = JSON.parse(JSON.stringify(this.order));
+        let toolpickby =  this.template.querySelector(`[data-id="toolpickby"]`);
         rows.forEach(function(ele){
+            if(ele.dataset.deleted !== "yes"){
             let req = template.template.querySelector(`[data-req="`+ele.dataset.rowid+`"]`);
             let confirm = template.template.querySelector(`[data-confirm="`+ele.dataset.rowid+`"]`);
             let returnDate = template.template.querySelector(`[data-return="`+ele.dataset.rowid+`"]`);
             let lowest = template.template.querySelector(`[data-lowest="`+ele.dataset.rowid+`"]`);
             const lowqty = (lowest.innerHTML)?parseInt(lowest.innerHTML):0;
             const confirmQty = (confirm.value)?parseInt(confirm.value):0;
-            console.log(confirmQty);
+
             if(confirmQty > lowqty){
                 confirm.style.borderColor = "red";
                 qtyError = true;
-            }else if(confirmQty === 0){
+            }else if(confirmQty === 0 && ele.dataset.status === "Confirmed"){
                 confirm.style.borderColor = "red";
                 qtyError = true;
             }else confirm.style.borderColor = "";
             let item = {
                 Id:ele.dataset.rowid,
                 status:ele.dataset.status,
-                orderid: template.order.Id,
+                orderid: tempOrder.Id,
                 quantity: req.innerHTML,
                 week:returnDate.dataset.week,
                 reserv:confirm.value,
                 affiliateFee:returnDate.dataset.affiliatefee,
                 retDate:returnDate.value,
-                pickdate:template.order.EffectiveDate,
+                pickdate:tempOrder.EffectiveDate,
                 pbeId:returnDate.dataset.pbeid,
                 unitprice:returnDate.dataset.unitprice,
                 assetid:returnDate.dataset.assetid
             }
-
+            scheduleReturnDates.push(returnDate.value);
             orderitemsDetails.push(item);
+            }else{
+                orderItemToDelete.push(ele.dataset.rowid);
+            }
         });
 
+        scheduleReturnDates.sort(function(a,b){
+            return new Date(b) - new Date(a);
+          });
+
+        if(toolpickby && toolpickby.value)
+                tempOrder.Tools_Picked_Up_By__c = toolpickby.value;
+        if(scheduleReturnDates)
+                tempOrder.Schedule_Return_Date__c = scheduleReturnDates[0];
+                console.log("schedulePickTime");
+                console.log(schedulePickTime);
+        if(schedulePickTime)
+            tempOrder.Scheduled_Pickup_Time__c = schedulePickTime;
+
         let orderDetailsCmp = {
-            order: this.order,
+            order: tempOrder,
             orderItems:orderitemsDetails
         }
-        console.log(orderDetailsCmp);
+        
         if(!qtyError){
-            saveOrder({orderNitemsDetails:JSON.stringify(orderDetailsCmp)}).then(res=>{
+            saveOrder({orderNitemsDetails:JSON.stringify(orderDetailsCmp), orderItemToDelete:JSON.stringify(orderItemToDelete)}).then(res=>{
                 console.log(res);
+                //this.loaded = false;
+                if(res)
+                return getOrderDetailsDirect({recordId: this.recordId});
+            }).then(data =>{
                 this.loaded = false;
-            }).catch(error=>{
+                    this.order = data.order;
+                    this.readonlyFlag = data.readOnly;
+                    this.orderItems = data.orderItemList;
+                    this.allOrderItems = data.orderItemList;
+                    for(let i in this.orderItems ){
+                        this.productIds.push(this.orderItems[i].Product2Id);
+                    }
+
+                }).catch(error=>{
 
             });
-            
+        
 
         }else{
             alert("Please correct the error");
@@ -579,8 +686,8 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         this.allOrderItems = [];
         let recid = this.recordId
         let state = this;
-            console.log(recid);
-            getOrderDetailsDirect({recordId: recid}).then(res =>{
+
+        getOrderDetailsDirect({recordId: recid}).then(res =>{
                 
                 state.order = res.order;
                 state.orderItems = res.orderItemList;
@@ -590,31 +697,16 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                     state.productIds.push(state.orderItems[i].Product2Id);
                 }
                 state.loaded = false;
-                console.log(res.orderItemList);
-                }).catch(error =>{
+
+            }).catch(error =>{
                     console.log(error);
                 });
-        
-
-        //eval("$A.get('e.force:refreshView').fire();");
-
 
     }
 
     handleCancel(event){
 
-        //this.dispatchEvent(new CloseActionScreenEvent());
-       /* let template = this;
-            const config = {
-                type: 'standard__recordPage',
-                attributes: {
-                    recordId: template.order.Id,
-                    objectApiName:"Order",
-                    actionName: 'view'
-                }
-            };
-
-            this[NavigationMixin.Navigate](config);*/
+       
             location.reload();
           
     }
@@ -622,12 +714,7 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
     handlepdf(event){
 
         let template = this;
-        /*const config = {
-            type: 'standard__webPage',
-            attributes: {
-                url: "/apex/orderConfirmPdf?id="+template.order.Id,
-            }
-        };*/
+      
         this[NavigationMixin.GenerateUrl]({
             type: 'standard__webPage',
             attributes: {
@@ -645,8 +732,7 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         let retDate = this.template.querySelector(`[data-return="`+recid+`"]`);
         const lowqty = parseInt(req.innerHTML);
         const confirmQty = parseInt(event.target.value);
-        console.log(lowqty);
-        console.log(confirmQty);
+
         if(confirmQty > lowqty){
             event.target.style.borderColor = "red";
         }else{ 
@@ -662,8 +748,8 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
             let unitprice = parseFloat(retDate.dataset.unitprice);
             weeks.innerHTML = week+" "+(week===1?"week":"weeks")
             const handleFeePerTool = (((parseInt(affiliateFee)*unitprice)/100)*week).toFixed(2);
-            let feeperTool = this.template.querySelector(`[data-toolfee="`+recid+`"]`);
-            feeperTool.value = handleFeePerTool;
+           // let feeperTool = this.template.querySelector(`[data-toolfee="`+recid+`"]`);
+           // feeperTool.value = handleFeePerTool;
             let totalFee = this.template.querySelector(`[data-totalfee="`+recid+`"]`);
             
             totalFee.value =(handleFeePerTool*confirmQty).toFixed(2);
@@ -678,7 +764,10 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         let orderitemsDetails = [];
         let StatusError = false;
         let qtyError = false;
-
+        let tempOrder = JSON.parse(JSON.stringify(this.order));
+        let toolpickby =  this.template.querySelector(`[data-id="toolpickby"]`);
+        let schedulePickTime = this.template.querySelector(`[data-sch="schtime"]`).innerHTML;
+        let scheduleReturnDates = [];
         rows.forEach(function(ele){
             let req = template.template.querySelector(`[data-req="`+ele.dataset.rowid+`"]`);
             let confirm = template.template.querySelector(`[data-confirm="`+ele.dataset.rowid+`"]`);
@@ -701,42 +790,49 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
             let item = {
                 Id:ele.dataset.rowid,
                 status:"Fulfilled",
-                orderid: template.order.Id,
+                orderid: tempOrder.Id,
                 quantity: req.innerHTML,
                 week:returnDate.dataset.week,
                 reserv:confirm.value,
                 affiliateFee:returnDate.dataset.affiliatefee,
                 retDate:returnDate.value,
-                pickdate:template.order.EffectiveDate,
+                pickdate:tempOrder.EffectiveDate,
                 pbeId:returnDate.dataset.pbeid,
                 unitprice:returnDate.dataset.unitprice,
                 assetid:returnDate.dataset.assetid
             }
-
+            scheduleReturnDates.push(returnDate.value);
             orderitemsDetails.push(item);
         });
 
+        scheduleReturnDates.sort(function(a,b){
+            return new Date(b) - new Date(a);
+          });
+
+        if(toolpickby && toolpickby.value)
+            tempOrder.Tools_Picked_Up_By__c = toolpickby.value;
+        if(scheduleReturnDates)
+            tempOrder.Schedule_Return_Date__c = scheduleReturnDates[0];
+            console.log("schedulePickTime");
+            console.log(schedulePickTime);
+        if(schedulePickTime){
+           
+            tempOrder.Scheduled_Pickup_Time__c = schedulePickTime;
+            console.log(tempOrder.Scheduled_Pickup_Time__c);
+        }
+
         let orderDetailsCmp = {
-            order: this.order,
+            order: tempOrder,
             orderItems:orderitemsDetails
         }
-        console.log(orderDetailsCmp);
+        
         if(!StatusError && !qtyError){
             saveOrder({orderNitemsDetails:JSON.stringify(orderDetailsCmp)}).then(res=>{
-                console.log(res);
                 this.loaded = false;
-                /*const config = {
-                    type: 'standard__recordPage',
-                    attributes: {
-                        recordId: template.order.Id,
-                        objectApiName:"Order",
-                        actionName: 'view'
-                    }
-                };
-                this[NavigationMixin.Navigate](config);*/
+                
                 location.reload();
             }).catch(error=>{
-
+                console.log(error);
             });
             
 

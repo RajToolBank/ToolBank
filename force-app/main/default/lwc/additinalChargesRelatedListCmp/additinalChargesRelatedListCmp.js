@@ -120,11 +120,13 @@ export default class AdditinalChargesRelatedListCmp extends LightningElement {
         console.log(pbeIdEle);
         if(pbeIdEle){ 
             pbeId = pbeIdEle.value;
+            if(pbeIdEle.options)
             category = pbeIdEle.options.find(opt => opt.value === pbeId).category;
             item.PricebookEntryId = pbeId;
             item.category = category;
         }
-        const unitprice = event.target.value != "NaN"?parseFloat(event.target.value):0;
+        console.log(event.target.value);
+        let unitprice = event.target.value;// != "NaN"?parseFloat(event.target.value):0;
 
         console.log(unitprice);
         console.log(pbeId);

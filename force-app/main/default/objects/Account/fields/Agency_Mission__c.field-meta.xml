@@ -12,29 +12,14 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Arts, Culture, Humanities</fullName>
-                <default>false</default>
-                <label>Arts, Culture, Humanities</label>
-            </value>
-            <value>
                 <fullName>Community improvement</fullName>
                 <default>false</default>
                 <label>Community improvement</label>
             </value>
             <value>
-                <fullName>Educational institution</fullName>
-                <default>false</default>
-                <label>Educational institution</label>
-            </value>
-            <value>
                 <fullName>Environmental quality/protection</fullName>
                 <default>false</default>
                 <label>Environmental quality/protection</label>
-            </value>
-            <value>
-                <fullName>Faith-based institution</fullName>
-                <default>false</default>
-                <label>Faith-based institution</label>
             </value>
             <value>
                 <fullName>Housing</fullName>
@@ -62,11 +47,6 @@
                 <label>Non-profit improvement</label>
             </value>
             <value>
-                <fullName>Public/social benefits</fullName>
-                <default>false</default>
-                <label>Public/social benefits</label>
-            </value>
-            <value>
                 <fullName>Social services</fullName>
                 <default>false</default>
                 <label>Social services</label>
@@ -85,6 +65,90 @@
                 <fullName>Veterans services</fullName>
                 <default>false</default>
                 <label>Veterans services</label>
+            </value>
+            <value>
+                <fullName>Animal Welfare</fullName>
+                <default>false</default>
+                <label>Animal Welfare</label>
+            </value>
+            <value>
+                <fullName>Arts, Culture, and Humanities</fullName>
+                <default>false</default>
+                <label>Arts, Culture, and Humanities</label>
+            </value>
+            <value>
+                <fullName>Community Revitalization</fullName>
+                <default>false</default>
+                <label>Community Revitalization</label>
+            </value>
+            <value>
+                <fullName>Disaster Relief and Recovery</fullName>
+                <default>false</default>
+                <label>Disaster Relief and Recovery</label>
+            </value>
+            <value>
+                <fullName>Education</fullName>
+                <default>false</default>
+                <label>Education</label>
+            </value>
+            <value>
+                <fullName>Environment and Greenspace</fullName>
+                <default>false</default>
+                <label>Environment and Greenspace</label>
+            </value>
+            <value>
+                <fullName>Faith-based</fullName>
+                <default>false</default>
+                <label>Faith-based</label>
+            </value>
+            <value>
+                <fullName>Health</fullName>
+                <default>false</default>
+                <label>Health</label>
+            </value>
+            <value>
+                <fullName>Housing and Homelessness</fullName>
+                <default>false</default>
+                <label>Housing and Homelessness</label>
+            </value>
+            <value>
+                <fullName>Human Services</fullName>
+                <default>false</default>
+                <label>Human Services</label>
+            </value>
+            <value>
+                <fullName>Public, Societal Benefit</fullName>
+                <default>false</default>
+                <label>Public, Societal Benefit</label>
+            </value>
+            <value>
+                <fullName>Youth and Children</fullName>
+                <default>false</default>
+                <label>Youth and Children</label>
+            </value>
+            <value>
+                <fullName>Arts, Culture, Humanities</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Arts, Culture, Humanities</label>
+            </value>
+            <value>
+                <fullName>Educational institution</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Educational institution</label>
+            </value>
+            <value>
+                <fullName>Faith-based institution</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Faith-based institution</label>
+            </value>
+            <value>
+                <fullName>Public/social benefits</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Public/social benefits</label>
             </value>
         </valueSetDefinition>
     </valueSet>

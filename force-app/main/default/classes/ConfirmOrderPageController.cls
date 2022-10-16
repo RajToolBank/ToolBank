@@ -6,14 +6,19 @@ public class ConfirmOrderPageController {
         return getOrderDetailsDirect(recordId);
     }
 
+    @AuraEnabled(cacheable=true)
+    public static String getTimeZone(){
+        TimeZone tz = UserInfo.getTimeZone();
+        return tz.getID();
+    }
 
     @AuraEnabled
     public static OrderDetails getOrderDetailsDirect(String recordId){
 
-        List<Order> order = [SELECT Id,Account.name,Affiliate__c,Status,Order_Fulfill_Date__c, Requested_Borrowing_Period__c,createdDate,name,Schedule_Return_Date__c, OrderNumber,Desired_Pickup_Date__c,Desired_Pickup_Time__c,EffectiveDate,Scheduled_Pickup_Time__c FROM Order WHERE Id =: recordId];
+        List<Order> order = [SELECT Id,Account.name,Affiliate__c,Tools_Picked_Up_By__c,Status,Actual_Pickup_Date_Time__c, Requested_Borrowing_Period__c,createdDate,name,Schedule_Return_Date__c, OrderNumber,Desired_Pickup_Date__c,Desired_Pickup_Time__c,EffectiveDate,Scheduled_Pickup_Time__c FROM Order WHERE Id =: recordId];
         OrderDetails OrderDetails = new OrderDetails();
         OrderDetails.order = order[0];
-        Long milliseconds = system.now().getTime() - order[0].Order_Fulfill_Date__c.getTime();
+        Long milliseconds = system.now().getTime() - (order[0].Actual_Pickup_Date_Time__c != Null ?order[0].Actual_Pickup_Date_Time__c.getTime():system.now().getTime());
         Long seconds = milliseconds / 1000;
         Long minutes = seconds / 60;
         Long hours = minutes / 60;
@@ -208,6 +213,7 @@ public class ConfirmOrderPageController {
 
             List<OrderItem> orderItemList =   [SELECT Id,product2Id,
                                         LastModifiedDate,Quantity,
+                                        status__c,
                                         PriceBookEntryId,
                                         Affiliate_Handling_Fee__c,
                                         Inventory_Tool__c,
@@ -265,6 +271,34 @@ public class ConfirmOrderPageController {
     }
 
     @AuraEnabled
+    public static List<OrderItem> getConflictedItems(String itemId, String affilliateId, String product2Id, Date pickupDate, Date returnDate){
+
+        List<String> orderstatus = new List<String>{'Unconfirmed','Partially Confirmed','Confirmed','Fulfilled','Partially Returned' };
+        List<OrderItem> allItemList =   [SELECT Id,product2Id,
+                                        LastModifiedDate,Quantity,
+                                        Order.status,Order.Name, Order.OrderNumber,
+                                        PriceBookEntryId,
+                                        Inventory_Tool__c,
+                                        Affiliate_Handling_Fee__c,
+                                        Inventory_Tool__r.Current_Inventory_F__c,
+                                        Lowest_Available_Quantity_For_this_Item__c,
+                                        Reserved_Quantity__c,
+                                        Schedule_Pick_Date__c,
+                                        Schedule_Return_Date__c 
+                                        FROM OrderItem 
+                                        WHERE product2Id =: product2Id 
+                                        AND Schedule_Pick_Date__c <=: returnDate
+                                        AND Schedule_Return_Date__c >=: pickupDate
+                                        AND Product2.Type__c = 'Tool'
+                                        AND Order.Affiliate__c =:affilliateId
+                                        AND Order.status IN: orderstatus
+                                        AND id !=: itemId
+                                        ORDER BY LastModifiedDate ASC];
+
+        return allItemList;
+    }
+
+    @AuraEnabled
     public static string saveOrder(String orderNitemsDetails, String orderItemToDelete){
         system.debug(orderNitemsDetails);
         Map<String, object> orderAndItemDetails = (Map<String, object>)JSON.deserializeUntyped(orderNitemsDetails);
@@ -282,16 +316,31 @@ public class ConfirmOrderPageController {
             if(!toolsToDelete.isEmpty())
                 delete toolsToDelete;
         }
-
+system.debug(order.get('Scheduled_Pickup_Time__c'));
+Time pickTime;
+if(order.get('Scheduled_Pickup_Time__c') != null && String.isNotBlank(((String)order.get('Scheduled_Pickup_Time__c')).trim())){
+    List<String> timeString = Test.isRunningTest()?'02:45 PM'.split(':'):((String)order.get('Scheduled_Pickup_Time__c')).split(':');
+    if(timeString != null && timeString.size() >0){
+        Integer hour = Integer.valueOf(timeString[0]);
+        Integer minutes = Integer.valueOf(timeString[1].split(' ')[0]);
+        String AMPM = timeString[1].split(' ')[1];
+        if(AMPM == 'PM')
+            hour = hour+12;
+    pickTime = Time.newInstance(hour,minutes,0,0);
+    }
+}
         Order updateOrder =  new order(
             id= (Id)order.get('Id'),
             EffectiveDate = Date.valueOf((String)order.get('EffectiveDate')),
+            Tools_Picked_Up_By__c = (String)order.get('Tools_Picked_Up_By__c'),
+            Scheduled_Pickup_Time__c = pickTime,
+            Schedule_Return_Date__c =  Date.valueOf((String)order.get('Schedule_Return_Date__c')),
             name =  (String)order.get('Name'),
             status = (String)order.get('Status'),
             pricebook2Id = label.pricebookid
         );
         if((String)order.get('Status') == 'Fulfilled')
-        updateOrder.Order_Fulfill_Date__c = system.now();
+        updateOrder.Actual_Pickup_Date_Time__c = system.now();
 
         update updateOrder;
         

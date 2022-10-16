@@ -4,9 +4,7 @@
     <fields>RecordTypeId</fields>
     <fields>Name</fields>
     <fields>Phone</fields>
-    <fields>MobilePhone</fields>
     <fields>Email</fields>
     <fields>Primary_Org_Contact__c</fields>
-    <fields>OwnerId</fields>
     <label>Compact Layout1</label>
 </CompactLayout>

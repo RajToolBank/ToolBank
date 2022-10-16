@@ -8,6 +8,7 @@ export default class OrderToolRelatedList  extends NavigationMixin(LightningElem
     error;
     orderlink;
     num;
+    AmountOwed=0;
 
     @wire(getRelatedListRecords, {orderid: '$recordId' })
     orderItems({ error, data }) {
@@ -18,6 +19,7 @@ export default class OrderToolRelatedList  extends NavigationMixin(LightningElem
                 itemlist[i].UnitPrice = itemlist[i].UnitPrice.toFixed(2);
                 itemlist[i].Total_Handling_Fee__c = itemlist[i].Total_Handling_Fee__c.toFixed(2);
                 itemlist[i].Tool_Handling_Fee_Per_Item__c = itemlist[i].Tool_Handling_Fee_Per_Item__c.toFixed(2);
+                this.AmountOwed = itemlist[i].Order.Amount_Owed__c;
             }
             this.records = itemlist;
             this.num = data.length; 

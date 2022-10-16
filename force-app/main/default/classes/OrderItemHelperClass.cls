@@ -1,6 +1,8 @@
 public with sharing class OrderItemHelperClass {
     public static Boolean recursion = false;
-    static final String  LOST='012020000000L9kAAE',RE_TURN='012020000000L9uAAE',OUT='012020000000LJuAAM';
+    static final String LOST = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Lost').getRecordTypeId();
+    static final String RE_TURN =Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Returned').getRecordTypeId();
+    static final String OUT = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Fulfilled').getRecordTypeId();
 
     public static void createTransaction(List<OrderItem> itemList, Map<Id, OrderItem> oldMap){
 
@@ -122,6 +124,7 @@ public with sharing class OrderItemHelperClass {
                 isUpdate = true;
             }else if(!unconfirmed && !confirmed && fulfilled && !cancelled && !overdue && !returned && !partiallyReturned  ){
                 order.status = 'Fulfilled';
+                order.Actual_Pickup_Date_Time__c = system.now();
                 isUpdate = true;
             }else if(!unconfirmed && !confirmed && !fulfilled && cancelled && !overdue && !returned && !partiallyReturned ){
                 order.status = 'Cancelled';

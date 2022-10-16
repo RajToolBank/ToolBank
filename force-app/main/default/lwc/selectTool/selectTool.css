@@ -1,0 +1,57 @@
+.pictureContainer{
+    position: relative;
+}
+.slds-popover{
+    display: none;
+    position: absolute;
+    top: -129px;
+    left: -90px;
+}
+.slds-popover_tooltip{
+    background-color: #fff;
+    width: 120px;
+}
+.slds-popover__body{
+    padding: 4px;
+}
+
+.photoIcon{
+    width: 15px;
+}
+.photoIcon:hover + .slds-popover{
+    display: block;
+}
+
+/* .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    right: 110%;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent black;
+  }
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  } */

@@ -1,4 +1,4 @@
-public class show_AccountsinCommunityCtrl {
+public without Sharing class show_AccountsinCommunityCtrl {
     public string name {get;set;}
     public String Phone {get;set;}
     public string Billingaddress{get;set;}
@@ -16,7 +16,7 @@ public class show_AccountsinCommunityCtrl {
     public String insta {get;set;}
     public String face {get;set;}
     public String tweet {get;set;}
-    public string ids{get;set;}
+    public List<string> ids{get;set;}
     public String conEdit{get;set;}
     public String memberexpDate{get; set;}
     public String memberStatus{get;set;}
@@ -30,11 +30,11 @@ public class show_AccountsinCommunityCtrl {
     public Boolean primaryId{get; set;}
     public Boolean ExecutivecontactId{get; set;}
     //public String accLoc{get;set;}
-    public String accId{get;set;}
+    public String conId{get;set;}
     public Boolean showAccount {get;set;}  
     public Boolean hideAccount {get;set;}
     public List<Contact> deleteContact {get;set;}
-    
+    public String accId{get;set;}
     public string affiliateContact {get;set;}
     public string affiliateEmail {get;set;}
     public string affiliatePhone {get;set;}
@@ -44,22 +44,32 @@ public class show_AccountsinCommunityCtrl {
     
     public show_AccountsinCommunityCtrl(){
         size=3;
+        ids = new List<String>();
         showAccount= true;
         hideAccount = false;
         deleteContact = new List<Contact>();    
         getcont = new contact();
         getcontc = new contact();
-        accId = [Select contactId from user where id=:userinfo.getuserid()].ContactId;
-        primaryId = [Select Contact.Primary_contact__c from user where id=:userinfo.getuserid()].Contact.Primary_contact__c;
+        contact con  = [Select contactId,contact.AccountId, contact.npsp__Primary_Affiliation__c,Contact.Primary_contact__c,Contact.Executive_Contact__c from user where id=:userinfo.getuserid()].Contact;
+        conId = con.Id;
+        primaryId = con.Primary_contact__c;
         System.debug(PrimaryId);
-        ExecutivecontactId = [Select Contact.Executive_Contact__c from user where id=:userinfo.getuserid()].Contact.Executive_Contact__c;
+        ExecutivecontactId = con.Executive_Contact__c;
         System.debug(ExecutivecontactId);
-        System.debug(accId );
-        accDetails  = [Select id,Name,Affiliate_Email__c,Affiliate_Phone__c,owner.name, Warehouse_Manager__c,Warehouse_Manager__r.name, Warehouse_Manager_Email__c,Warehouse_Manager_Phone__c,Phone,Billingaddress,BillingStreet,BillingCity,BillingState,BillingCountry,BillingPostalCode,website,annual_budget__c,
-                       Membership_Expiration_Date__c,Membership_Start_Date__c,Agency_Impact__c,Agency_Mission__c ,PT__c,FT__c,
-                       Instagram__c,Facebook__c,twitter__c,Membership_Status__c
-                       from Account 
-                       where id=:[select AccountId from Contact where id=:accId ].AccountId ];
+        System.debug(conId );
+        if(con.npsp__Primary_Affiliation__c != Null)
+        accId = con.npsp__Primary_Affiliation__c;
+        else accId = con.AccountId;
+        accDetails  =   [Select id,Name,Affiliate_Email__c,Affiliate_Phone__c,owner.name, 
+                        Warehouse_Manager__c,Warehouse_Manager__r.name, 
+                        Warehouse_Manager_Email__c,Warehouse_Manager_Phone__c,
+                        Phone,Billingaddress,BillingStreet,BillingCity,BillingState,
+                        BillingCountry,BillingPostalCode,website,annual_budget__c,
+                        npo02__MembershipEndDate__c,npo02__MembershipJoinDate__c,
+                        Agency_Impact__c,Agency_Mission__c ,PT__c,FT__c,
+                        Instagram__c,Facebook__c,twitter__c,Membership_Status__c
+                        from Account 
+                        where id=:accId ];
         System.debug('##'+accDetails);
         name = accDetails.Name;
         Phone =accDetails.Phone;
@@ -71,10 +81,11 @@ public class show_AccountsinCommunityCtrl {
         BillingPostalCode =accDetails.BillingPostalCode ;
         website=accDetails.website;
         annualbudget=accDetails.annual_budget__c;
-        memberexpDate=String.valueOf(accDetails.Membership_Expiration_Date__c);
+        memberexpDate=String.valueOf(accDetails.npo02__MembershipEndDate__c);
         memberStatus=accDetails.Membership_Status__c;
-        memberstartDate=String.valueof(accDetails.Membership_Start_Date__c);
-        ids=accDetails.id;
+        memberstartDate=String.valueof(accDetails.npo02__MembershipJoinDate__c);
+        ids.add(con.npsp__Primary_Affiliation__c);
+        ids.add(con.AccountId);
         //accLoc=accDetails.Parent.Community_URL_Prefix__c;
         agencyImpact = accDetails.Agency_Impact__c;
         agencyMission=accDetails.Agency_Mission__c;
@@ -106,7 +117,7 @@ public class show_AccountsinCommunityCtrl {
     public Pagereference insertContact(){
         panel1=false;
         panel2=false;
-        getcontc.AccountId=ids;
+        getcontc.AccountId=accId;
         if(!Test.isRunningTest()) {
             insert getcontc;
         }
@@ -114,7 +125,7 @@ public class show_AccountsinCommunityCtrl {
         getcont = new contact();
         setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
             [select id,name,phone,email,AccountId,Primary_contact__c,Executive_Contact__c,Status__c,Unsubscribe_Notifications__c,Executive_Home_Phone__c,
-             (select id,username from users) from contact where AccountId=:ids ]));
+             (select id,username from users) from contact where AccountId IN:ids ]));
         setCon.setPageSize(size);  
         noOfRecords = setCon.getResultSize();
         getContacts();
@@ -130,7 +141,7 @@ public class show_AccountsinCommunityCtrl {
         System.debug('ConId'+conEdit);
         System.debug('ids-->'+ids);
         getcont = [select id,FirstName,lastname,phone,email,AccountId,Primary_contact__c,Executive_Contact__c,Status__c,Unsubscribe_Notifications__c,Executive_Home_Phone__c,
-                   (select id,username from users) from contact where AccountId=:ids and id=:conEdit];
+                   (select id,username from users) from contact where AccountId IN:ids and id=:conEdit];
         System.debug('Contlist'+getcont.FirstName);
         return null;
     }
@@ -141,7 +152,7 @@ public class show_AccountsinCommunityCtrl {
             update getcont;
             setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
                 [select id,name,phone,email,AccountId,Primary_contact__c,Executive_Contact__c,Status__c,Executive_Home_Phone__c,
-                 Unsubscribe_Notifications__c,(select id,username from users) from contact where AccountId=:ids ]));
+                 Unsubscribe_Notifications__c,(select id,username from users) from contact where AccountId IN:ids ]));
             setCon.setPageSize(size);  
             noOfRecords = setCon.getResultSize();
             getContacts();
@@ -163,7 +174,7 @@ public class show_AccountsinCommunityCtrl {
         panel3=true;
         setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
             [select id,name,phone,email,AccountId,Primary_contact__c,Executive_Contact__c,Status__c,Executive_Home_Phone__c,
-             Unsubscribe_Notifications__c,(select id,username from users) from contact where AccountId=:ids ]));
+             Unsubscribe_Notifications__c,(select id,username from users) from contact where AccountId IN:ids ]));
         getContacts();
         return null;
     }
@@ -173,7 +184,7 @@ public class show_AccountsinCommunityCtrl {
         panel3=false;                
         setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
             [select id,name,phone,email,AccountId,Primary_contact__c,Executive_Contact__c,Status__c,Executive_Home_Phone__c,
-             Unsubscribe_Notifications__c,(select id,username from users) from contact where AccountId=:ids ]));
+             Unsubscribe_Notifications__c,(select id,username from users) from contact where AccountId IN:ids ]));
         setCon.setPageSize(size);  
         noOfRecords = setCon.getResultSize();
         
@@ -187,7 +198,7 @@ public class show_AccountsinCommunityCtrl {
             if(setCon == null) {                
                 setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
                     [select id,name,phone,email,AccountId,Primary_contact__c,Executive_Contact__c,status__c,Executive_Home_Phone__c, Unsubscribe_Notifications__c,
-                     (select id,username from users) from contact where AccountId=:ids ]));
+                     (select id,username from users) from contact where AccountId IN:ids ]));
                 setCon.setPageSize(size);  
                 noOfRecords = setCon.getResultSize();
             }            
@@ -204,10 +215,10 @@ public class show_AccountsinCommunityCtrl {
         hideAccount = true;
         showAccount = false;
         accDetails  = [Select id,Name,Phone,Billingaddress,BillingStreet,BillingCity,BillingState,BillingCountry,BillingPostalCode,website,annual_budget__c,
-                       Membership_Expiration_Date__c,Membership_Start_Date__c,ParentId,Agency_Impact__c,Agency_Mission__c ,PT__c,FT__c,
+                        npo02__MembershipEndDate__c,npo02__MembershipJoinDate__c,ParentId,Agency_Impact__c,Agency_Mission__c ,PT__c,FT__c,
                        Instagram__c,Facebook__c,twitter__c,Membership_Status__c
                        from Account 
-                       where id=:[select AccountId from Contact where id=:accId ].AccountId ];
+                       where id=:accId ];
         System.debug('##'+accDetails);
         name = accDetails.Name;
         Phone =accDetails.Phone;
@@ -219,9 +230,9 @@ public class show_AccountsinCommunityCtrl {
         BillingPostalCode =accDetails.BillingPostalCode ;
         website=accDetails.website;
         annualbudget=accDetails.annual_budget__c;
-        memberexpDate=String.valueOf(accDetails.Membership_Expiration_Date__c);
+        memberexpDate=String.valueOf(accDetails.npo02__MembershipEndDate__c);
         memberStatus=accDetails.Membership_Status__c;
-        memberstartDate=String.valueof(accDetails.Membership_Start_Date__c);
+        memberstartDate=String.valueof(accDetails.npo02__MembershipJoinDate__c);
         agencyImpact = accDetails.Agency_Impact__c;
         agencyMission=accDetails.Agency_Mission__c;
         if(accDetails.PT__c!=null)
@@ -232,7 +243,7 @@ public class show_AccountsinCommunityCtrl {
         insta=accDetails.Instagram__c;
         face=accDetails.Facebook__c;
         tweet=accDetails.twitter__c;
-        ids=accDetails.id;
+        ids.add(accDetails.id);
         //accLoc=accDetails.Parent.Community_URL_Prefix__c;
         return null;
     }
@@ -262,9 +273,9 @@ public class show_AccountsinCommunityCtrl {
         accDetails.Facebook__c=face;
         accDetails.twitter__c=tweet;
         system.debug('Before Updated'+accDetails);
-        if(!Test.isRunningTest()) {
+       /* if(!Test.isRunningTest()) {
             update accDetails;
-        }
+        }*/
         system.debug('Updated'+accDetails);
         return null;
     }
@@ -272,10 +283,10 @@ public class show_AccountsinCommunityCtrl {
         
         //accDetails = new Account();
         accDetails  = [Select id,Name,Phone,Billingaddress,BillingStreet,BillingCity,BillingState,BillingCountry,BillingPostalCode,website,annual_budget__c,
-                       Membership_Expiration_Date__c,Membership_Status__c,Membership_Start_Date__c,ParentId,Agency_Impact__c,Agency_Mission__c ,PT__c,FT__c,
+                        npo02__MembershipJoinDate__c,npo02__MembershipEndDate__c,Membership_Status__c,ParentId,Agency_Impact__c,Agency_Mission__c ,PT__c,FT__c,
                        Instagram__c,Facebook__c,twitter__c 
                        from Account 
-                       where id=:[select AccountId from Contact where id=:accId ].AccountId ];
+                       where id=:accId ];
         Phone =accDetails.Phone;
         
         BillingStreet=accDetails.BillingStreet;
@@ -285,9 +296,9 @@ public class show_AccountsinCommunityCtrl {
         BillingPostalCode =accDetails.BillingPostalCode ;
         website=accDetails.website;
         annualbudget=accDetails.annual_budget__c;
-        memberexpDate=String.valueOf(accDetails.Membership_Expiration_Date__c);
+        memberexpDate=String.valueOf(accDetails.npo02__MembershipEndDate__c);
         memberStatus=accDetails.Membership_Status__c;
-        memberstartDate=String.valueof(accDetails.Membership_Start_Date__c);
+        memberstartDate=String.valueof(accDetails.npo02__MembershipJoinDate__c);
         agencyImpact = accDetails.Agency_Impact__c;
         agencyMission=accDetails.Agency_Mission__c;
         staffPT=String.valueof(accDetails.PT__c);

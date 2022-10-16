@@ -293,7 +293,7 @@ float: left;*/
                   <!-- img  src="https://doubledribble.in/wp-content/uploads/2019/03/pencil.png"/ -->
                 </apex:commandLink>
               </apex:column>
-              <apex:column styleclass="slds-truncate" value="{!c.Status__c}" />
+              <!--apex:column styleclass="slds-truncate" value="{!c.Status__c}" /-->
               <apex:column styleclass="slds-truncate" value="{!c.Name}" />
               <apex:column styleclass="slds-truncate" value="{!c.Executive_Home_Phone__c}" />
               <apex:column styleclass="slds-truncate" value="{!c.email}" />

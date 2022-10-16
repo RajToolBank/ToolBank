@@ -118,6 +118,7 @@
                             create-record=false
                             parent-a-p-i-name="Accountid"
                             obj-name="Contact"
+                            parent-id ={accountId}
                             display-fields="Name, Email"
                             fields = {fields}
                             value-id={contactId}
@@ -133,6 +134,7 @@
                             create-record=false
                             parent-a-p-i-name="Accountid"
                             obj-name="Contact"
+                            parent-id ={accountId}
                             display-fields="Name, Email"
                             fields = {fields}
                             value-id={contactId}
@@ -381,10 +383,23 @@
                         <input type="checkbox" name="options" onchange={handleProjectType} id={record.label} value={record.label}  />&nbsp;&nbsp;
                             <label class="slds-checkbox__label" for={record.label}>
                               <span class="slds-checkbox_faux"></span>
-                              <span class="slds-form-element__label" style="margin-left: 2%;">{record.label}</span>
+                              <span class="slds-form-element__label" style="margin-left: 2%;">{record.label}
+                                <template if:true={record.helpText}>
+                                    <lightning-helptext class="customIcon" content={record.helpText}></lightning-helptext>
+                                    </template>
+                              </span>
                             </label><br/><br/>
                     </div> 
                         
+                </template>
+                <template if:true={specialEvents}>
+                    <div  class="slds-col slds-size_1-of-2">
+                        <span>Number of Attendees?</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                         <Span><input class="slds-input" onchange={handleQuantity} data-id="specialEvents"  type="number" ></input></Span>
+                         <span style="color: red;font-style: italic;" data-id="specialEventserror"></span>
+                    </div><br/>
                 </template>
             <!--/fieldset-->
             <!--c-multi-select-picklist  <br/>
@@ -413,7 +428,11 @@
                                 value={record.label} />&nbsp;&nbsp;
                             <label class="slds-checkbox__label" for={record.label}>
                                 <span class="slds-checkbox_faux"></span>
-                                <span class="slds-form-element__label" style="margin-left: 2%;">{record.label}</span>
+                                <span class="slds-form-element__label" style="margin-left: 2%;">{record.label}
+                                    <template if:true={record.helpText}>
+                                        <lightning-helptext class="customIcon" content={record.helpText}></lightning-helptext>
+                                        </template>
+                                </span>
                             </label><br /><br />
                         </div>
                     </template>
@@ -440,7 +459,11 @@
                                     value={record.value} />&nbsp;&nbsp;
                                 <label class="slds-checkbox__label" for={record.label}>
                                     <span class="slds-checkbox_faux"></span>
-                                    <span class="slds-form-element__label" style="margin-left: 2%;">{record.label}</span>
+                                    <span class="slds-form-element__label" style="margin-left: 2%;">{record.label}
+                                        <template if:true={record.helpText}>
+                                        <lightning-helptext class="customIcon" content={record.helpText}></lightning-helptext>
+                                        </template>
+                                    </span>
                                 </label><br /><br />
                             </div>
                         </template>
@@ -468,10 +491,14 @@
                             
                             <div class="slds-form-element__control" key={record.value}>
                                 <span class="slds-checkbox">
-                                    <input type="radio" name="options"  value={record.label} onchange={handleserv}  />
+                                    <input type="radio" name="options"  value={record.value} onchange={handleserv}  />
                                     <label class="slds-radio__label" for="checkbox-unique-id-84">
                                         <span class="slds-radio_faux"></span>
-                                    <span class="slds-form-element__label" style="margin-left: 3%;width: 93%;">{record.label}</span>
+                                    <span class="slds-form-element__label" style="margin-left: 3%;width: 93%;">{record.label}
+                                        <template if:true={record.helpText}>
+                                        <lightning-helptext class="customIcon" content={record.helpText}></lightning-helptext>
+                                        </template>
+                                    </span>
                                   </label>
                                 </span><br/>
                             </div>
