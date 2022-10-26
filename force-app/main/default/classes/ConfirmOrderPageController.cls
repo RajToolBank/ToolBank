@@ -93,7 +93,19 @@ public class ConfirmOrderPageController {
                             OR Quantity != 0)];
             }
             else if(String.isNotBlank(category) && String.isBlank(searchString)){
-                assetList = [SELECT Id,Affiliate_Handling_Fee__c,
+                if(category == 'All'){
+                    assetList = [SELECT Id,Affiliate_Handling_Fee__c,
+                    Product2Id,
+                    price 
+                    FROM Asset 
+                    WHERE AccountId =: accid
+                    AND Unlisted_Item__c = false
+                    AND Product2Id  NOT IN: toolIds
+                    AND Product2.Type__c = 'Tool'
+                    AND (Quantity != Null 
+                    OR Quantity != 0)];
+                }else{
+                    assetList = [SELECT Id,Affiliate_Handling_Fee__c,
                             Product2Id,
                             price 
                             FROM Asset 
@@ -104,8 +116,26 @@ public class ConfirmOrderPageController {
                             AND Product2.Type__c = 'Tool'
                             AND (Quantity != Null 
                             OR Quantity != 0)];
+                }
+                
             }
             else if(String.isNotBlank(category) && String.isNotBlank(searchString)){
+
+                if(category == 'All'){
+                    assetList = [SELECT Id,Affiliate_Handling_Fee__c,
+                    Product2Id,
+                    price 
+                    FROM Asset 
+                    WHERE AccountId =: accid
+                    AND Unlisted_Item__c = false
+                    AND (Product2.name like: searchString
+                    OR Product2.productCode like:searchString
+                    OR Product2.Tool_Note__c like:searchString)
+                    AND Product2Id  NOT IN: toolIds
+                    AND Product2.Type__c = 'Tool'
+                    AND (Quantity != Null 
+                    OR Quantity != 0)];
+                }else{
                 assetList = [SELECT Id,Affiliate_Handling_Fee__c,
                             Product2Id,
                             price 
@@ -120,6 +150,7 @@ public class ConfirmOrderPageController {
                             AND Product2.Type__c = 'Tool'
                             AND (Quantity != Null 
                             OR Quantity != 0)];
+                }
             }
         }
 
@@ -225,6 +256,7 @@ public class ConfirmOrderPageController {
                                         FROM OrderItem 
                                         WHERE product2Id IN: productIdSet 
                                         AND Order.Affiliate__c =: accountId
+                                        AND status__c != 'Returned'
                                         AND (Id  IN: itemIdList
                                         OR (Schedule_Pick_Date__c <=: maxReturnDate
                                         AND Schedule_Return_Date__c >=: minPickDate))
@@ -274,9 +306,16 @@ public class ConfirmOrderPageController {
     public static List<OrderItem> getConflictedItems(String itemId, String affilliateId, String product2Id, Date pickupDate, Date returnDate){
 
         List<String> orderstatus = new List<String>{'Unconfirmed','Partially Confirmed','Confirmed','Fulfilled','Partially Returned' };
-        List<OrderItem> allItemList =   [SELECT Id,product2Id,
-                                        LastModifiedDate,Quantity,
-                                        Order.status,Order.Name, Order.OrderNumber,
+         
+        Map<String, OrderItem> orderToItemMap = new Map<String, OrderItem>();
+        for(OrderItem item: [SELECT Id,product2Id,
+                                        orderid,
+                                        LastModifiedDate,
+                                        Quantity,
+                                        order.EffectiveDate,
+                                        Order.status,
+                                        Order.Name, 
+                                        Order.OrderNumber,
                                         PriceBookEntryId,
                                         Inventory_Tool__c,
                                         Affiliate_Handling_Fee__c,
@@ -293,9 +332,21 @@ public class ConfirmOrderPageController {
                                         AND Order.Affiliate__c =:affilliateId
                                         AND Order.status IN: orderstatus
                                         AND id !=: itemId
-                                        ORDER BY LastModifiedDate ASC];
+                                        ORDER BY Schedule_Return_Date__c ASC])
+        {
+            if(!orderToItemMap.containsKey(item.orderid))
+                orderToItemMap.put(item.orderid, new OrderItem(quantity=0,Reserved_Quantity__c=0, order=item.order));
+            
+            orderItem line = orderToItemMap.get(item.orderid);
+            line.quantity += item.quantity != null? item.quantity:0;
+            line.Reserved_Quantity__c += item.Reserved_Quantity__c != null? item.Reserved_Quantity__c:0;
+            line.Schedule_Pick_Date__c = item.order.EffectiveDate;
+            line.Schedule_Return_Date__c = item.Schedule_Return_Date__c;
 
-        return allItemList;
+        }
+        
+
+        return orderToItemMap.values();
     }
 
     @AuraEnabled

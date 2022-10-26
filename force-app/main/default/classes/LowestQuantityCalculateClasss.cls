@@ -39,6 +39,7 @@ public static void lowestQuantityOrder2(List<Order> orderList){
                                             FROM OrderItem 
                                             WHERE OrderId IN:orderList
                                             AND Product2.type__c = 'Tool' 
+                                            AND Status__c != 'Returned'
                                             ORDER BY product2.Name];
         if(newOrderItemList != null && newOrderItemList.size()>0){
             Set<Id> productIdSet = new set<Id>();
@@ -73,6 +74,7 @@ public static void lowestQuantityOrder2(List<Order> orderList){
                                             AND Schedule_Pick_Date__c <=: maxReturnDate
                                             AND Schedule_Return_Date__c >=: minPickDate
                                             AND Product2.Type__c = 'Tool'
+                                            AND Status__c != 'Returned'
                                             ORDER BY LastModifiedDate ASC];
             
         // Map<id, List<OrderItem>> productIdToItemListMap = new Map<Id, List<OrderItem>>();
@@ -186,7 +188,7 @@ public static void lowestQuantityOrder2(List<Order> orderList){
     public static Decimal lowestQuantityItemDate(orderItem orderItem, DateTime lastmodified, List<orderItem> existingOrderItems){
 
        
-        List<Decimal> qtyList = new List<Decimal>();
+       /* List<Decimal> qtyList = new List<Decimal>();
         
             for(Date dt=orderItem.Schedule_Pick_Date__c;dt<=orderItem.Schedule_Return_Date__c;dt = dt.addDays(1)){
                 Decimal currentInventory = orderItem.Inventory_Tool__r.Current_Inventory_F__c;
@@ -213,7 +215,8 @@ public static void lowestQuantityOrder2(List<Order> orderList){
         }
         qtyList.sort();
         //Decimal lowestAvailableQuantity = orderItem.Inventory_Tool__r.Current_Inventory_F__c - reservedQuantity;
-        Decimal lowestAvailableQuantity = (qtyList != Null && qtyList.size() >0)?qtyList[0]:0;
+        //Decimal lowestAvailableQuantity = (qtyList != Null && qtyList.size() >0)?qtyList[0]:0;*/
+        Decimal lowestAvailableQuantity = lowestQuantityItemDate(orderItem,existingOrderItems);
 
         return lowestAvailableQuantity <0 ?0:lowestAvailableQuantity;
 

@@ -7,7 +7,7 @@ import FAMILY from '@salesforce/schema/Product2.Family';
 
 export default class ToolListToSelectCmp extends LightningElement {
 
-    categories;
+    categories =[];
     toolList;
     @api productRecords;
     @api recordId;
@@ -31,7 +31,8 @@ export default class ToolListToSelectCmp extends LightningElement {
     @wire(getPicklistValues, { recordTypeId: '$productMetadata.data.defaultRecordTypeId',  fieldApiName: FAMILY }) 
         wiredCategory({data, error}){
             if(data){
-                this.categories  = data.values;
+                this.categories = data.values;
+                console.log(data.values);
             }
             if(error){
 

@@ -1,17 +1,21 @@
-<aura:component implements="force:lightningQuickAction,force:hasRecordId">
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
     <aura:attribute name="recordId" type="String" />
     <c:returnOrderCmp recordId="{!v.recordId}"></c:returnOrderCmp>
 
     <aura:html tag="style">
         .slds-modal__container{
-        height : auto;
+        <!-- height : auto; -->
         max-width: 100% !important;
         width: 95% !important;
         }
+        .slds-modal__content{
+            height: inherit !important;
+            max-height: inherit !important;
+        }
 
         .modal-body{
-            height :550px !important;
-            max-height :550px !important;
+            <!-- height :550px !important;
+            max-height :550px !important; -->
         }
 
     </aura:html>

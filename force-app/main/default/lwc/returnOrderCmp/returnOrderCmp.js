@@ -1,5 +1,6 @@
 import { api, LightningElement, wire } from 'lwc';
 import getOrderItems from '@salesforce/apex/ReturnOrderController.getOrderItems';
+import getOrderItemsDirect from '@salesforce/apex/ReturnOrderController.getOrderItems';
 import saveOrder from '@salesforce/apex/ReturnOrderController.saveOrder';
 import TOOL_PICKED_FIELD from '@salesforce/schema/Order.Tools_Picked_Up_By__c';
 import { NavigationMixin } from "lightning/navigation";
@@ -12,6 +13,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
     @api
     recordId;
     order;
+    schPickTime;
     setReturnDate = false;
     orderItems;
     returnOrderItems;
@@ -31,7 +33,15 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
             if(data){
                 console.log( data);
                 this.order = data.order; 
-                
+                let totalTimeInSeconds = (data.order.Scheduled_Pickup_Time__c/1000);
+                let result = new Date(null, null, null, null, null, totalTimeInSeconds);
+                let tempTime = result.toTimeString().split(' ')[0].substring(0,5)
+                tempTime = tempTime.split(':');
+                if(data.order.Scheduled_Pickup_Time__c && tempTime){
+                    const hour = parseInt(tempTime[0]) >12 && parseInt(tempTime[0]) !== 0 && parseInt(tempTime[0]) !== 12 ?(parseInt(tempTime)-12):(parseInt(tempTime[0]) === 0?12:tempTime[0]);
+                    const hour12 =  parseInt(tempTime[0]) >=12?"PM":"AM";
+                    this.schPickTime = hour+':'+tempTime[1]+' '+hour12;
+                }
 
                 let itemlist = JSON.parse(JSON.stringify(data.orderItems));
                 for(let i in itemlist){
@@ -55,8 +65,68 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
             console.log( this.orderItems);
         }
 
+    handleUndo(){
+        let state = this;
+        state.orderItems = [];
+        state.allOrderItems = [];
+        state.returnOrderItems = [];
+        let recid = this.recordId
+        getOrderItemsDirect({orderId: recid}).then(res =>{
+            console.log( res);
+                state.order = res.order; 
+                let totalTimeInSeconds = (res.order.Scheduled_Pickup_Time__c/1000);
+                let result = new Date(null, null, null, null, null, totalTimeInSeconds);
+                let tempTime = result.toTimeString().split(' ')[0].substring(0,5)
+                tempTime = tempTime.split(':');
+                if(res.order.Scheduled_Pickup_Time__c && tempTime){
+                    const hour = parseInt(tempTime[0]) >12 && parseInt(tempTime[0]) !== 0 && parseInt(tempTime[0]) !== 12 ?(parseInt(tempTime)-12):(parseInt(tempTime[0]) === 0?12:tempTime[0]);
+                    const hour12 =  parseInt(tempTime[0]) >=12?"PM":"AM";
+                    state.schPickTime = hour+':'+tempTime[1]+' '+hour12;
+                }
+
+                let itemlist = JSON.parse(JSON.stringify(res.orderItems));
+                for(let i in itemlist){
+                    console.log( itemlist[i].UnitPrice);
+                    itemlist[i].orderItem.UnitPrice = itemlist[i].orderItem.UnitPrice.toFixed(2);
+                }
+
+                let returnitemlist = JSON.parse(JSON.stringify(res.returnOrderItems));
+                for(let i in returnitemlist){
+                    returnitemlist[i].orderItem.UnitPrice = returnitemlist[i].orderItem.UnitPrice.toFixed(2);
+                }
+
+                state.orderItems = itemlist;
+                state.allOrderItems = itemlist;
+                state.returnOrderItems = returnitemlist;
+        }).catch(error =>{
+
+        })
+    }
+
     openModal(event){
-        this.setReturnDate = true;
+        let allselectrows = this.template.querySelectorAll(`[data-check="checkbox"]`);
+        console.log(allselectrows);
+        let isAnySelected = false;
+        allselectrows.forEach(function(ele){
+
+            if(ele.checked){
+                isAnySelected = true
+            }
+        })
+        if(!isAnySelected){
+            const evt = new ShowToastEvent({
+                title: "Mass Date Change",
+                message: "Please select atleast one tool",
+                variant: "error",
+            });
+            this.dispatchEvent(evt);
+            this.setReturnDate = false;
+            return
+        }else{
+            if(!this.setReturnDate)
+                this.setReturnDate = true;
+            else this.setReturnDate = false;
+        }
     }
 
     closeOpenModal(event){
@@ -75,9 +145,6 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
             this.extendDays = parseInt(this.template.querySelector(`[data-id="radio64"]`).value);
             this.matchingDate = parseInt(this.template.querySelector(`[data-id="matchingDate"]`).value);
         }
-        
-        console.log(this.extendDays);
-        console.log(this.matchingDate);
 
     }
 
@@ -87,6 +154,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         let template = this;
         let tempOrder = JSON.parse(JSON.stringify(this.order));
         let schpickDate = this.order.EffectiveDate;//this.template.querySelector(`[data-id="scheduleDate"]`);
+        let schreturnDate = this.template.querySelector(`[data-id="scheduleReturnDate"]`);
         let myArray;
         let itemIds = [];
 
@@ -100,40 +168,14 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 let lostqty = template.template.querySelector(`[data-lostqty="`+recid+`"]`);
                 let stillOutqty = template.template.querySelector(`[data-stillout="`+recid+`"]`);
                 let totalFee = 0;
-                let schDate = new Date(retDate.value);
-                
-                if(template.matchingDate){
-                    
-                    let mDate = new Date(template.matchingDate);
-                    if(mDate === schDate)
-                        schDate.setDate(schDate.getDate() + template.extendDays);
-
-                }
-                else if(template.extendDays){
-                    schDate.setDate(schDate.getDate() + template.extendDays);
-                    
-                } else{
-                   let borrowing = retDate.dataset.week;
-                    if(borrowing){
-                        borrowing = borrowing.replace("weeks", "");
-                        borrowing = borrowing.replace("week", "");
-                    }
-                    
-                    let week = parseInt(borrowing);
-                    const days = week*7;
-                    schDate = new Date(schpickDate);
-                    schDate.setDate(schDate.getDate() + days);
-                }
-                let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(schDate);
-                let mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(schDate);
-                let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(schDate);
-                retDate.value = `${ye}-${mo}-${da}`;
+                retDate.value =schreturnDate.value;
                 let date_1 = new Date(schpickDate);
                 let date_2 = new Date(retDate.value);
                 let date_3 = new Date();
                 let difference = date_2.getTime() - date_1.getTime();
                 let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
                 let week = Math.ceil(TotalDays/7);
+                retDate.dataset.week = week+" "+(week===1?"week":"weeks")
                 let affiliateFee = parseInt(retDate.dataset.affiliatefee);
                 let unitprice = parseFloat(retDate.dataset.unitprice);
                 const handleFeePerTool = (((parseInt(affiliateFee)*unitprice)/100)*week).toFixed(2);
@@ -191,7 +233,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         let week = Math.ceil(TotalDays/7);
         let affiliateFee = parseInt(retDate.dataset.affiliatefee);
         let unitprice = parseFloat(retDate.dataset.unitprice);
-        const handleFeePerTool = (((parseInt(affiliateFee)*unitprice)/100)*week).toFixed(2);
+        const handleFeePerTool = (((parseInt(affiliateFee)*unitprice)/100)*week*parseInt(retQty)).toFixed(2);
         retDate.dataset.week = week>1?(week+" weeks"):(week+" week");
         //let feeperTool = this.template.querySelector(`[data-toolfee="`+recid+`"]`);
         //feeperTool.innerHTML = "$ "+(handleFeePerTool);
@@ -249,7 +291,13 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 else if(parseInt(stillOutqty.innerHTML) > 0 && parseInt(stillOutqty.innerHTML) < parseInt(borrowed.innerHTML))
                     status.innerHTML = "Partially Returned";
                 else if(parseInt(stillOutqty.innerHTML) < 0){
-                    alert("Total return can not be greater than total borrowed");
+                    //alert("Total return can not be greater than total borrowed");
+                    const evt = new ShowToastEvent({
+                        title: "Return",
+                        message: "Total return can not be greater than total borrowed",
+                        variant: "error",
+                    });
+                    this.dispatchEvent(evt);
                    
                     returnqty.style.borderColor = "red";
                     lostqty.style.borderColor = "red";
@@ -260,7 +308,13 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         });
 
         if(!isSelected){
-            alert('Nothing is selected please select a row to return');
+            //alert('Nothing is selected please select a row to return');
+            const evt = new ShowToastEvent({
+                title: "Return",
+                message: "Nothing is selected please select a row to return",
+                variant: "error",
+            });
+            this.dispatchEvent(evt);
         }
     }
 
@@ -293,7 +347,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
             let stillOutqty = state.querySelector(`[data-stillout="`+recid+`"]`);
             const checkbox = state.querySelector(`[data-recid="`+ele.dataset.rowid+`"]`);
             if(filter === "Still out"){
-                if(parseInt(stillOutqty.innerHTML)>0 || (parseInt(stillOutqty.innerHTML) === 0 &&  status.innerHTML !== "Returned")){
+                if(parseInt(stillOutqty.innerHTML)>0 || (parseInt(stillOutqty.innerHTML) <= 0 &&  status.innerHTML !== "Returned")){
                     ele.style.display = "table-row";
                     checkbox.classList.add("filtered");
                 }else {
@@ -307,7 +361,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 }
             } else if(filter === "All"){
                 ele.style.display = "table-row";
-                checkbox.classList.remove("filtered");
+                checkbox.classList.add("filtered");
             } else if(filter === "Partially Returned"){
                 if(status.innerHTML === "Partially Returned"){
                     ele.style.display = "table-row";
@@ -349,14 +403,24 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
     }
 
     handleSelectAll(event){
-        let state = this.template;
-        let getAllTools = state.querySelectorAll(`.filtered`);
+        let state = this;
+        let getAllTools = state.template.querySelectorAll(`.filtered`);
 
         getAllTools.forEach(function(ele){
                 ele.checked = event.target.checked;
-                if(event.target.checked)
+                if(event.target.checked){
                     ele.classList.add("selected");
-                else
+                    let recid = ele.dataset.recid;
+                    console.log(recid);
+                    let borrowed = state.template.querySelector(`[data-borrowed="`+recid+`"]`).innerHTML;
+                    let retqty = state.template.querySelector(`[data-qtyid="`+recid+`"]`);
+                    retqty.value = borrowed;
+                    let tempev = {};
+                    tempev["target"]={};
+                    tempev.target["dataset"]={};
+                    tempev.target.dataset["qtyid"] = recid;
+                    state.handleLineReturned(tempev);
+                }else
                 ele.classList.remove("selected");
         });
     }
@@ -497,7 +561,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 variant: "success",
             });
             this.dispatchEvent(evt);
-            location.reload();
+            //location.reload();
         }).catch(error=>{
             console.log(error);
             const evt = new ShowToastEvent({
@@ -514,7 +578,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         let template = this;
         let allselectrows = template.template.querySelectorAll(`[data-check="checkbox"]`);
         let isSelected = false;
-        allselectrows.forEach(function(ele){
+       /* allselectrows.forEach(function(ele){
 
             if(ele.checked){
                 isSelected = true;
@@ -560,7 +624,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 variant: "error",
             });
             this.dispatchEvent(evt);
-        }else{
+        }else{*/
 
         let state = this.template;
         let getAllTools = state.querySelectorAll(`[data-id="dataid"]`);
@@ -705,7 +769,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
             });
             this.dispatchEvent(evt);
         });
-    }
+    //}
 
     }
 }

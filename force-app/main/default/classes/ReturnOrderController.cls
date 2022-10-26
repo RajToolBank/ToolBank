@@ -1,14 +1,20 @@
 public class ReturnOrderController {
-    
+
     @AuraEnabled(cacheable = true)
     public static OrderDetails getOrderItems(String orderId) {
+        return getOrderItemsDirect(orderId);
+    }
+
+    @AuraEnabled
+    public static OrderDetails getOrderItemsDirect(String orderId) {
         try {
 
             OrderDetails orderDetail = new OrderDetails();
             orderDetail.orderItems = new List<OrderItemDetails>();
             orderDetail.returnOrderItems = new List<OrderItemDetails>();
             for(Order ord: [SELECT Id, name,Account.Name,Desired_Pickup_Date__c,
-                    Desired_Pickup_Time__c,OrderNumber,CreatedDate,EffectiveDate,Scheduled_Pickup_Time__c, 
+                    Desired_Pickup_Time__c,OrderNumber,CreatedDate,EffectiveDate,
+                    Scheduled_Pickup_Time__c,Schedule_Return_Date__c, 
                     (SELECT Id,
                     Product2.Name,
                     Tool_Handling_Fee_Per_Item__c,
@@ -77,12 +83,14 @@ public class ReturnOrderController {
                     orderItem.unitPrice =Decimal.valueOf((String)item.get('unitPrice'));
                     //product2id:product2id,
                     orderitem.orderid = (string)item.get('orderid');
-                    orderitem.quantity = Decimal.valueOf((Integer)item.get('borrowed'));
-                    orderitem.Reserved_Quantity__c = Decimal.valueOf((Integer)item.get('borrowed'));
                     orderItem.pricebookEntryId = (string)item.get('pbeid');
                     orderItem.Affiliate_Handling_Fee__c = Decimal.valueOf((String)item.get('affiliatefee'));
-                
                     
+                }
+
+                if(item.containsKey('borrowed')){
+                    orderitem.quantity = Decimal.valueOf((Integer)item.get('borrowed'));
+                    orderitem.Reserved_Quantity__c = Decimal.valueOf((Integer)item.get('borrowed'));
                 }
 
                 //OrderItem/returnDate:returnDate,
