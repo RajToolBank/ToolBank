@@ -100,7 +100,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 state.orderItems = itemlist;
                 state.allOrderItems = itemlist;
                 state.returnOrderItems = returnitemlist;
-                state.loaded = true;
+                state.loaded = false;
         }).catch(error =>{
             const evt = new ShowToastEvent({
                 title: "Return Tools",
@@ -108,7 +108,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 variant: "error",
             });
             this.dispatchEvent(evt);
-            state.loaded = true;
+            state.loaded = false;
         })
     }
 
