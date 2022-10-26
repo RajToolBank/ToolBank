@@ -12,6 +12,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
 
     @api
     recordId;
+    loaded = false;
     order;
     schPickTime;
     setReturnDate = false;
@@ -66,6 +67,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         }
 
     handleUndo(){
+        this.loaded = true;
         let state = this;
         state.orderItems = [];
         state.allOrderItems = [];
@@ -98,8 +100,15 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 state.orderItems = itemlist;
                 state.allOrderItems = itemlist;
                 state.returnOrderItems = returnitemlist;
+                state.loaded = true;
         }).catch(error =>{
-
+            const evt = new ShowToastEvent({
+                title: "Return Tools",
+                message: error,
+                variant: "error",
+            });
+            this.dispatchEvent(evt);
+            state.loaded = true;
         })
     }
 
@@ -427,7 +436,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
 
 
     handleSave(event){
-        
+        this.loaded = true;
         let state = this.template;
         let getAllTools = state.querySelectorAll(`[data-id="dataid"]`);
         let itemList = [];
@@ -561,6 +570,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 variant: "success",
             });
             this.dispatchEvent(evt);
+            this.loaded = false;
             //location.reload();
         }).catch(error=>{
             console.log(error);
@@ -570,11 +580,13 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 variant: "error",
             });
             this.dispatchEvent(evt);
+            this.loaded = false;
         });
     }
 
 
     handleReturnAndSave(event){
+        this.loaded = true;
         let template = this;
         let allselectrows = template.template.querySelectorAll(`[data-check="checkbox"]`);
         let isSelected = false;
