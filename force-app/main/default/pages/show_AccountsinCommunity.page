@@ -115,7 +115,7 @@ float: left;*/
           </span>
           <div class="slds-media__body">
             <h2 class="slds-card__header-title">
-              <span>Account Information</span>
+              <span>Member Agency</span>
             </h2>
           </div>
         </header>

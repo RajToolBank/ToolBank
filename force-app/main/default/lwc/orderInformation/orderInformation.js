@@ -13,8 +13,10 @@ import zipCodeList from '@salesforce/apex/PlaceOrderController.zipCodes';
 import accid from '@salesforce/apex/PlaceOrderController.accid';
 import getAgencyContact from '@salesforce/apex/PlaceOrderController.getAgencyContact';
 import getPicklistValuesApex from '@salesforce/apex/PlaceOrderController.getPicklistValuesApex';
+import TIME_ZONE from '@salesforce/i18n/timeZone';
 export default class OrderInformation extends LightningElement {
 
+    timeZone = TIME_ZONE;
     fieldsToCreate = ['Name','Rating','Phone','Industry'];
     fields        = ['Name'];
     PickupTime;
@@ -61,19 +63,24 @@ export default class OrderInformation extends LightningElement {
    @wire(getAgencyContact) getAgencyContact({data,error}){
         if(data){
             console.log("data.Contact");
-            console.log(data.Contact);
+            console.log(data);
             if(data.Contact){
                 if(data.Contact.npsp__Primary_Affiliation__c){
                 this.accountId = data.Contact.npsp__Primary_Affiliation__c;
                 this.accountName = data.Contact.npsp__Primary_Affiliation__r.Name;
-                }else{ 
-                    this.accountId = data.Contact.AccountId;
-                    this.accountName = data.Contact.Account.Name;
-                }
                 this.contactId = data.ContactId;
                 
                 this.contactName = data.Contact.Name;
                 this.email = data.Contact.Email;
+                }else if(data.UserType && data.UserType !== "PowerPartner"){ 
+                    this.accountId = data.Contact.AccountId;
+                    this.accountName = data.Contact.Account.Name;
+                    this.contactId = data.ContactId;
+                
+                    this.contactName = data.Contact.Name;
+                    this.email = data.Contact.Email;
+                }
+                
                 
             }
         }
@@ -177,7 +184,7 @@ export default class OrderInformation extends LightningElement {
     }
 
 
-    handleWeekChange(event){
+    handleWeekChange(event){ 
         let data = this.template.querySelector(`[data-id="Week"]`);
         let pickDateerror = this.template.querySelector(`[data-id="pickDateerror"]`);
         let returnerror = this.template.querySelector(`[data-id="returnerror"]`);
@@ -186,11 +193,16 @@ export default class OrderInformation extends LightningElement {
         console.log(pickDate.value);
         let pickupdate = new Date(pickDate.value);
         let todayDate = new Date(new Date().setHours(0, 0, 0, 0));
-        const offset =  new Date().getTimezoneOffset()
-        pickupdate = new Date(pickupdate.getTime()+offset*60000);
-        pickupdate = new Date(pickupdate.setHours(0, 0, 0, 0));
-        todayDate = new Date(todayDate.getTime());
-        console.log(offset);
+        //const offset =  new Date().getTimezoneOffset()
+       // pickupdate = new Date(pickupdate.getTime()+offset*60000);
+       console.log(todayDate); 
+       console.log(pickupdate);
+        pickupdate = new Date(pickupdate.setHours(23,59,59,59)).toLocaleString("en-US", {timeZone: this.timeZone});
+        todayDate = new Date(todayDate.getTime()).toLocaleString("en-US", {timeZone: this.timeZone});
+        //console.log(offset);
+        pickupdate = new Date(pickupdate);
+        todayDate = new Date(new Date(todayDate).setHours(23,59,59,59)).toLocaleString("en-US", {timeZone: this.timeZone});
+        todayDate = new Date(todayDate);
         console.log(todayDate); 
         console.log(pickupdate);
         if(pickupdate < todayDate){
@@ -209,7 +221,9 @@ export default class OrderInformation extends LightningElement {
             borrow = this.borrowing.replace("week", "");
             let week = parseInt(borrow)
             week = (week*7);
-            pickupdate.setDate(pickupdate.getDate() + week);
+            pickupdate.setDate(pickupdate.getDate() + week+1);
+            pickupdate = pickupdate.toLocaleString("en-US", {timeZone: this.timeZone});
+            pickupdate = new Date(pickupdate);
             let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(pickupdate);
             let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(pickupdate);
             let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(pickupdate);
@@ -251,6 +265,7 @@ export default class OrderInformation extends LightningElement {
         if(data && data.record){
             console.log(JSON.parse(JSON.stringify(data)));
                 orderinfo.value=data.record.Email;
+                this.email  =data.record.Email;
                 this.contactId = data.record.Id;
             
             
@@ -262,11 +277,18 @@ export default class OrderInformation extends LightningElement {
 
     handleLookupAcc = (event) => {
         let data = event.detail.data;
+        let orderinfo = this.template.querySelector(`[data-id="email"]`);
+        
+        this.contactId = null;
+        orderinfo.value="";
+        this.email  =undefined;
+        this.contactName = null;
+        this.template.querySelector(`[data-id="ContactSearch"]`).handleRecordClear(event);
         if(data && data.record){
-          
-                this.accountId = data.record.Id;
-            
-        }else this.accountId = null;
+            this.accountId = data.record.Id;
+        }else {
+            this.accountId = null;
+        }
     }
 
     handleProjectType(event){
@@ -329,6 +351,8 @@ export default class OrderInformation extends LightningElement {
         let staff = this.template.querySelector(`[data-id="staff"]`);
         let projectVolunteerHr = this.template.querySelector(`[data-id="projectVolunteerHr"]`);
         let corpname = this.template.querySelector(`[data-id="corpname"]`);
+        let borrowingPeriod = this.template.querySelector(`[data-id="Week"]`);
+        let volunteersource = this.template.querySelector(`[data-id="volunteersource"]`);
 
         let accerror = this.template.querySelector(`[data-id="accerror"]`);
         let conerror = this.template.querySelector(`[data-id="conerror"]`);
@@ -358,128 +382,170 @@ export default class OrderInformation extends LightningElement {
         let errormsg = "This Field is Required"
         let errormsgList = "Please Select at least One Option"
 
-
-        if(!this.accountId)
-            accerror.innerHTML =errormsg;
-        else accerror.innerHTML ="";
-
-        if(!this.contactId)
-        conerror.innerHTML =errormsg;
-        else conerror.innerHTML ="";
-
-        if(!pickupDate.value)
-        pickDateerror.innerHTML =errormsg;
-        else pickDateerror.innerHTML ="";
-
-        if(!pickupTime.value)
-        pickTimeerror.innerHTML =errormsg;
-        else pickTimeerror.innerHTML ="";
-        
-        if(!returnDate.value)
-        returnerror.innerHTML =errormsg;
-        else returnerror.innerHTML ="";
-        
-        if(!this.borrowing)
-        weekerror.innerHTML =errormsg;
-        else weekerror.innerHTML ="";
-        
-        if(!ordName.value)
-        nameerror.innerHTML =errormsg;
-        else nameerror.innerHTML ="";
-        
-        if(!peopledirectlyserved.value)
-        servederror.innerHTML =errormsg;
-        else servederror.innerHTML ="";
-        
-        if(!numberProject.value)
-        projecterror.innerHTML =errormsg;
-        else projecterror.innerHTML ="";
-        
-        if(!this.volSrc)
-        sourceerror.innerHTML =errormsg;
-        else sourceerror.innerHTML ="";
-        
-        let corporationName;
-        if(this.corp && !corpname.value)
-        corperror.innerHTML =errormsg;
-        else if(this.corp) {
-            corperror.innerHTML ="";
-            corporationName = corpname.value;
+        if(!this.serv){
+            radioerror.innerHTML =errormsg;
+            this.template.querySelector(`[data-id="`+this.serving[0].label+`"]`).focus();
         }
-        
-        if(!onsitehours.value)
-        onSiteerror.innerHTML =errormsg;
-        else onSiteerror.innerHTML ="";
-        
-        if(!volunteersnumber.value) 
-        volerror.innerHTML =errormsg;
-        else volerror.innerHTML ="";
-        
-        if(!peopleImImpacted.value)
-        impacterror.innerHTML =errormsg;
-        else impacterror.innerHTML ="";
-        
-        if(!staff.value)
-        stafferror.innerHTML =errormsg;
-        else stafferror.innerHTML ="";
-        
-        let notvalidcode = false;
-        if(!zip.value){
-        ziperror.innerHTML =errormsg;
-        notvalidcode = true;
-        }
-        else{ 
-            const myArray = zip.value.split(",");
-            for(const i in myArray){
-                if(this.zipCodeList.indexOf(myArray[i]) < 0){
-                    notvalidcode = true;
-                    break;
-                }
-            }
-            if(notvalidcode)
-            ziperror.innerHTML ="Please enter a valid zip code";
-            else ziperror.innerHTML ="";
-        }
-        
-        if(!projectVolunteerHr.value)
-        hourerror.innerHTML =errormsg;
-        else hourerror.innerHTML ="";
-       
-        if(this.proType.length <=0)
-        projectTyeperror.innerHTML =errormsgList;
-        else projectTyeperror.innerHTML ="";
-        
-        if(this.impactArea.length <=0)
-        areaserror.innerHTML =errormsgList;
-        else areaserror.innerHTML ="";
-        
-        if(this.proVenue.length <=0)
-        venueerror.innerHTML =errormsgList;
-        else {
-            venueerror.innerHTML ="";
+        else radioerror.innerHTML ="";
+
+        let numAttend;
+        if(this.specialEvents && !specialEvents.value){
+            specialEventserror.innerHTML = errormsg;  
+            specialEvents.focus();         
+        }else if(this.specialEvents) { 
+            specialEventserror.innerHTML = "";
+            numAttend = specialEvents.value;
         }
 
         let homeValue;
         if(this.home && !home.value){
-                homeerror.innerHTML = errormsg;           
+                homeerror.innerHTML = errormsg;  
+                home.focus();         
         }else if(this.home) { 
             homeerror.innerHTML = "";
             homeValue = home.value;
         }
 
-        let numAttend;
-        if(this.specialEvents && !specialEvents.value){
-            specialEventserror.innerHTML = errormsg;           
-        }else if(this.specialEvents) { 
-            specialEventserror.innerHTML = "";
-            numAttend = specialEvents.value;
+        if(this.proVenue.length <=0){
+            venueerror.innerHTML =errormsgList;
+            this.template.querySelector(`[data-id="`+this.projectVenue[0].label+`"]`).focus();
+        }
+        else {
+            venueerror.innerHTML ="";
+        }
+
+        if(this.impactArea.length <=0){
+            areaserror.innerHTML =errormsgList;
+            this.template.querySelector(`[data-id="`+this.areasImpacted[0].label+`"]`).focus();
+        }
+        else areaserror.innerHTML ="";
+    
+        if(this.proType.length <=0){
+            projectTyeperror.innerHTML =errormsgList;
+            this.template.querySelector(`[data-id="`+this.projectType[0].label+`"]`).focus();
+        }
+        else projectTyeperror.innerHTML ="";
+
+        if(!projectVolunteerHr.value){
+            hourerror.innerHTML =errormsg;
+            projectVolunteerHr.focus();
+        }
+        else hourerror.innerHTML ="";
+
+        let notvalidcode = false;
+        if(!zip.value){
+        ziperror.innerHTML =errormsg;
+        notvalidcode = true;
+        zip.focus();
+        }
+        else{ 
+            const myArray = zip.value.split(",");
+            for(const i in myArray){
+                if(this.zipCodeList.indexOf((myArray[i]).trim()) < 0){
+                    notvalidcode = true;
+                    break;
+                }
+            }
+            if(notvalidcode){
+                ziperror.innerHTML ="Please enter a valid zip code,enter with the comma delimeted and remove any extra spaces.";
+                zip.focus();
+            }
+            else ziperror.innerHTML ="";
         }
         
-        if(!this.serv)
-        radioerror.innerHTML =errormsg;
-        else radioerror.innerHTML ="";
+        if(!staff.value){
+            stafferror.innerHTML =errormsg;
+            staff.focus();
+        }
+        else stafferror.innerHTML ="";
+        
+        if(!peopleImImpacted.value){
+            impacterror.innerHTML =errormsg;
+            peopleImImpacted.focus();
+        }
+        else impacterror.innerHTML ="";
+        
+        if(!volunteersnumber.value){
+            volerror.innerHTML =errormsg;
+            volunteersnumber.focus();
+        }
+        else volerror.innerHTML ="";
+        
+        if(!onsitehours.value){
+            onSiteerror.innerHTML =errormsg;
+            onsitehours.focus();
+        }
+        else onSiteerror.innerHTML ="";
+        
+        let corporationName;
+        if(this.corp && !corpname.value){
+        corperror.innerHTML =errormsg;
+        corpname.focus();
+        }
+        else if(this.corp) {
+            corperror.innerHTML ="";
+            corporationName = corpname.value;
+        }
+        
+        if(!this.volSrc){
+            sourceerror.innerHTML =errormsg;
+            volunteersource.focus();
+        }
+        else sourceerror.innerHTML ="";
         
         
+        if(!numberProject.value){
+            projecterror.innerHTML =errormsg;
+            numberProject.focus();
+        }
+        else projecterror.innerHTML ="";
+        
+        if(!peopledirectlyserved.value){
+            servederror.innerHTML =errormsg;
+            peopledirectlyserved.focus();
+        }
+        else servederror.innerHTML ="";
+       
+        
+        if(!ordName.value){
+            nameerror.innerHTML =errormsg;
+            ordName.focus();
+        }
+        else nameerror.innerHTML ="";
+        
+        
+        if(!returnDate.value){
+            returnerror.innerHTML =errormsg;
+            returnDate.focus();
+        }
+        else returnerror.innerHTML ="";
+
+        if(!this.borrowing){
+            weekerror.innerHTML =errormsg;
+            borrowingPeriod.focus();
+        }
+        else weekerror.innerHTML ="";
+
+        if(!pickupTime.value){
+            pickTimeerror.innerHTML =errormsg;
+            pickupTime.focus();
+        }
+        else pickTimeerror.innerHTML ="";
+
+        if(!pickupDate.value){
+            pickDateerror.innerHTML =errormsg;
+            pickupDate.focus()
+        }
+        else pickDateerror.innerHTML ="";
+        
+        if(!this.contactId)
+            conerror.innerHTML =errormsg;
+        else conerror.innerHTML ="";
+        
+        if(!this.accountId){
+            accerror.innerHTML =errormsg;
+        }
+        else accerror.innerHTML ="";
 
         if(this.accountId 
             && this.contactId 

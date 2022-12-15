@@ -1,117 +1,107 @@
 <template>
-    <lightning-card>
-    <!--div class="slds-var-m-top_medium" style="margin-left: 80%;">
-        <lightning-button variant="brand" type="submit" onclick={handleAddProducts}  label="Add product">
-        </lightning-button>&nbsp;
-        <lightning-button variant="brand" type="submit" onclick={handleSaveProducts}  label="Save">
-        </lightning-button>
-    </div-->
-    <header class="slds-media slds-media--center slds-has-flexi-truncate" data-aura-rendered-by="23550:0">
-        <div aria-hidden="true" class="slds-media__figure stencil slds-avatar slds-avatar_small" data-aura-rendered-by="23551:0">
-            <div style="background-color: #769ED9" class="extraSmall forceEntityIcon" data-aura-rendered-by="23835:0" data-aura-class="forceEntityIcon">
-                <span data-aura-rendered-by="23838:0" class="uiImage" data-aura-class="uiImage">
-                    <img data-aura-rendered-by="23836:0" src="https://toolbankusa--pro.my.salesforce.com/img/icon/t4v35/standard/orders_120.png" class="icon " alt="" title="">
-                </span>
-            </div>
-        </div>
-    <div class="slds-media__body" data-aura-rendered-by="23552:0">
-        <h2 id="header_23533:0" class="slds-card__header-title" data-aura-rendered-by="23553:0">
-            <a href={orderlink} class="slds-card__header-link baseCard__header-title-container" data-aura-rendered-by="23554:0">
-                <span title="Additional Charges" class="slds-truncate slds-m-right--xx-small" data-aura-rendered-by="23555:0">Additional Charges
+    <template if:true={showComp}>
+    <div class="slds-card slds-card_boundary">
+        <div class="slds-grid slds-page-header">
+            <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                <div aria-hidden="true" class="slds-media__figure stencil slds-avatar slds-avatar_small" data-aura-rendered-by="23551:0">
+                    <div style="background-color: #769ED9" class="extraSmall forceEntityIcon" data-aura-rendered-by="23835:0" data-aura-class="forceEntityIcon">
+                        <span data-aura-rendered-by="23838:0" class="uiImage" data-aura-class="uiImage">
+                            <img data-aura-rendered-by="23836:0" src="https://toolbank.my.salesforce.com/img/icon/t4v35/standard/orders_120.png" class="icon " alt="" title="">
+                        </span>
+                    </div>
+                </div>
+                <div class="slds-media__body">
+                    Additional Charges
                     <template if:true={num}>
                         &nbsp;<span  class="slds-truncate slds-m-right--xx-small" data-aura-rendered-by="23555:0">({num})</span>
                     </template>
-                </span>
-                
-            </a>
-        </h2>
-    </div>
-    </header>
-    <div class="slds-no-flex">
-        <div class="actionsContainer" style="margin-left: 80%;margin-top: -3%;">
-            <!-- workaround for W-2413659, remove once that bug is fixed -->
-            <ul class="branding-actions slds-button-group slds-m-left--xx-small" >
-                <li  class="slds-button slds-button--neutral" >
-                    <!--render facet: 3591:0-->
-                    <a href="javascript:void(0);" onclick={handleAddProducts} title="Add Charges" class="forceActionLink" role="button">
-                        <div title="Add Charges" >Add Charges</div>
-                    </a>
-                </li>
-                <li  class="slds-button slds-button--neutral" >
-                    <!--render facet: 3591:0-->
-                    <a href="javascript:void(0);" onclick={handleSaveProducts} title="Save" class="forceActionLink" role="button">
-                        <div title="Save" >Save</div>
-                    </a>
-                </li>
-                <!-- workaround for W-2413659, remove once that bug is fixed --><!--render facet: 3584:0-->
-            </ul>
+                </div>
+            </header>
+            
+            <div class="slds-no-flex">
+                <div class="actionsContainer">
+                    <ul class="branding-actions slds-button-group slds-m-left--xx-small" >
+                        <li  class="slds-button slds-button--neutral" >
+                            <a  onclick={handleAddProducts} title="Add Charges" class="forceActionLink" role="button">
+                                <div title="Add Charges" >Add Charges</div>
+                            </a>
+                        </li>
+                        <li  class="slds-button slds-button--neutral" >
+                            <a onclick={handleSaveProducts} title="Save" class="forceActionLink" role="button">
+                                <div title="Save" >Save</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="previewMode">
+            <div class="slds-card__body_inner">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable" >
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
+                                <div class="slds-truncate" style="white-space: pre-wrap;" title="TOOL NAME">NAME</div>
+                            </th>
+                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                                <div class="slds-truncate" style="white-space: pre-wrap;" title="RETAIL PRICE"> PRICE</div>
+                            </th>
+                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                                <div class="slds-truncate" style="white-space: pre-wrap;" title="RETAIL PRICE"> DESCRIPTION</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template if:true={products} for:each={products} for:item="record" for:index="index">
+                            <tr class="slds-hint-parent" key={record.Id}   data-label="lable" title="title" >
+                                <td class="slds-cell-wrap" data-label="TOOL NAME" scope="row" style="width: 9%;text-align: left;">
+                                    <div class="slds-truncate" style="overflow:initial;width:50%"  data-id="dataid"  data-pbeid={record.Id} >
+                                        <template if:false={record.Id}>
+                                            <lightning-combobox
+                                                style="margin-top: -4%;"
+                                                data-id="option"
+                                                data-index={record.index}
+                                                data-dropid ={record.Id}
+                                                options={options}
+                                                value={record.PricebookEntryId}
+                                                onchange={handleChange} ></lightning-combobox>
+                                        </template>
+                                        <template if:true={record.Id}>
+                                        <span data-fixdropindex={record.index} data-value={record.PricebookEntryId} >{record.Product2.Name}</span>
+                                        </template>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: center;">
+                                    <div class="slds-truncate" title="PRICE">
+                                        <template if:true={record.edit}>
+                                            <input class="slds-input" min="0.00" step="0.01" value={record.UnitPrice} onkeyup={handlePriceChange} data-priceid ={record.Id} data-inputindex={record.index} style="width: 52%;" type="number" />
+                                        </template>
+                                        <template if:false={record.edit}>
+                                            ${record.UnitPrice}
+                                        </template>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="Comments" style="width: 9%;text-align: center;">
+                                    <div class="slds-truncate" title="Comments">
+                                        <template if:true={record.edit}>
+                                            <input class="slds-input" data-descripid ={record.Id} value={record.Description} onkeyup={handleDescripChange} data-descripindex={record.index} style="width: 52%;" type="text" />
+                                        </template>
+                                        <template if:false={record.edit}>
+                                            {record.Description}
+                                        </template>
+                                    </div>
+                                </td>
+                                <td style="width: 9%;text-align: center;">
+                                    <lightning-button-icon icon-name="utility:record_update" data-editindex={record.index}  onclick={handleEdit}  alternative-text="Update"   class="test slds-m-left_xx-small" title="Update"></lightning-button-icon>
+                                    <lightning-button-icon icon-name="utility:delete"  data-deleteindex={record.index}  onclick={handleDelete}  alternative-text="Delete"   class="test slds-m-left_xx-small" title="Delete"></lightning-button-icon>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable" >
-        <thead>
-            <tr class="slds-line-height_reset">
-               
-               
-                <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
-                    <div class="slds-truncate" style="white-space: pre-wrap;" title="TOOL NAME">NAME</div>
-                </th>
-                <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
-                    <div class="slds-truncate" style="white-space: pre-wrap;" title="RETAIL PRICE"> PRICE</div>
-                </th>
-                <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
-                    <div class="slds-truncate" style="white-space: pre-wrap;" title="RETAIL PRICE"> DESCRIPTION</div>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <template if:true={products} for:each={products} for:item="record" for:index="index">
-                <tr class="slds-hint-parent" key={record.Id}   data-label="lable" title="title" >
-    
-                    <td class="slds-cell-wrap" data-label="TOOL NAME" scope="row" style="width: 9%;text-align: left;">
-                        <div class="slds-truncate" style="overflow:initial;width:50%"  data-id="dataid"  data-pbeid={record.Id} >
-                            <template if:false={record.Id}>
-                                <lightning-combobox
-                                    style="margin-top: -4%;"
-                                    data-id="option"
-                                    data-index={record.index}
-                                    data-dropid ={record.Id}
-                                    options={options}
-                                    value={record.PricebookEntryId}
-                                    onchange={handleChange} ></lightning-combobox>
-                            </template>
-                            <template if:true={record.Id}>
-                            <span data-fixdropindex={record.index} data-value={record.PricebookEntryId} >{record.Product2.Name}</span>
-                            </template>
-                        </div>
-                    </td>
-                    <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: center;">
-                        <div class="slds-truncate" title="PRICE">
-                            <template if:true={record.edit}>
-                                <input class="slds-input" step="0.01" value={record.UnitPrice} onkeyup={handlePriceChange} data-priceid ={record.Id} data-inputindex={record.index} style="width: 52%;" type="number" />
-                            </template>
-                            <template if:false={record.edit}>
-                                ${record.UnitPrice}
-                            </template>
-                        </div>
-                    </td>
-
-                    <td class="slds-cell-wrap" data-label="Comments" style="width: 9%;text-align: center;">
-                        <div class="slds-truncate" title="Comments">
-                            <template if:true={record.edit}>
-                                <input class="slds-input" data-descripid ={record.Id} value={record.Description} onkeyup={handleDescripChange} data-descripindex={record.index} style="width: 52%;" type="text" />
-                            </template>
-                            <template if:false={record.edit}>
-                                {record.Description}
-                            </template>
-                        </div>
-                    </td>
-                    <td style="width: 9%;text-align: center;">
-                        <lightning-button-icon icon-name="utility:record_update" data-editindex={record.index}  onclick={handleEdit}  alternative-text="Update"   class="test slds-m-left_xx-small" title="Update"></lightning-button-icon>
-                        <lightning-button-icon icon-name="utility:delete"  data-deleteindex={record.index}  onclick={handleDelete}  alternative-text="Delete"   class="test slds-m-left_xx-small" title="Delete"></lightning-button-icon>
-                    </td>
-                </tr>
-            </template>
-            </tbody>
-        </table>
-    </lightning-card>
+</template>
 </template>

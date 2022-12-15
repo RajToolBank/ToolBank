@@ -1,136 +1,113 @@
 <template>
-    <lightning-card>
-        <header class="slds-media slds-media--center slds-has-flexi-truncate" data-aura-rendered-by="23550:0">
-            <div aria-hidden="true" class="slds-media__figure stencil slds-avatar slds-avatar_small" data-aura-rendered-by="23551:0"><div style="background-color: #769ED9" class="extraSmall forceEntityIcon" data-aura-rendered-by="23835:0" data-aura-class="forceEntityIcon">
-                
-                <span data-aura-rendered-by="23838:0" class="uiImage" data-aura-class="uiImage">
-                    <img data-aura-rendered-by="23836:0" src="https://toolbankusa--pro.my.salesforce.com/img/icon/t4v35/standard/orders_120.png" class="icon " alt="" title="">
-                </span>
-            </div>
+    <div class="slds-card slds-card_boundary">
+        <div class="slds-grid slds-page-header">
+            <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                <div aria-hidden="true" class="slds-media__figure stencil slds-avatar slds-avatar_small" data-aura-rendered-by="23551:0">
+                    <div style="background-color: #769ED9" class="extraSmall forceEntityIcon" data-aura-rendered-by="23835:0" data-aura-class="forceEntityIcon"> 
+                        <span data-aura-rendered-by="23838:0" class="uiImage" data-aura-class="uiImage">
+                            <img data-aura-rendered-by="23836:0" src="https://toolbankusa--pro.my.salesforce.com/img/icon/t4v35/standard/orders_120.png" class="icon " alt="" title="">
+                        </span>
+                    </div>
+                </div>
+                <div class="slds-media__body">
+                    Tools Ordered 
+                    <template if:true={num}>
+                        &nbsp;<span title="Order Tools" class="slds-truncate slds-m-right--xx-small" data-aura-rendered-by="23555:0">({num})</span>
+                    </template>
+                </div>
+            </header>
         </div>
-        <div class="slds-media__body" data-aura-rendered-by="23552:0">
-            <h2 id="header_23533:0" class="slds-card__header-title" data-aura-rendered-by="23553:0">
-                <a href={orderlink} class="slds-card__header-link baseCard__header-title-container" data-aura-rendered-by="23554:0">
-                    <span title="Order Tools" class="slds-truncate slds-m-right--xx-small" data-aura-rendered-by="23555:0">Tools Ordered 
-                        <template if:true={num}>
-                            &nbsp;<span title="Order Tools" class="slds-truncate slds-m-right--xx-small" data-aura-rendered-by="23555:0">({num})</span>
-                        </template>
-                    </span>
-                    
-                </a>
-            </h2>
+
+        <div class="previewMode">
+            <div class="slds-card__body_inner">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable" >
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
+                                <div class="slds-truncate" style="white-space: pre-wrap;" >Name</div>
+                            </th>
+                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                                <div class="slds-truncate" style="white-space: pre-wrap;" > Requested Quantity</div>
+                            </th>
+                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                                <div class="slds-truncate" style="white-space: pre-wrap;" > Confirmed Quantity</div>
+                            </th>
+                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
+                                <div class="slds-truncate" style="white-space: pre-wrap;" >Schedule Return Date</div>
+                            </th>
+                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
+                                <div class="slds-truncate" style="white-space: pre-wrap;" > Weeks</div>
+                            </th>
+                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
+                                <div class="slds-truncate" style="white-space: pre-wrap;" > Status</div>
+                            </th>
+                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                                <div class="slds-truncate" style="white-space: pre-wrap;" > Retail Price</div>
+                            </th>
+                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                                <div class="slds-truncate" style="white-space: pre-wrap;" > Handling Fee Per Tool</div>
+                            </th>
+                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                                <div class="slds-truncate" style="white-space: pre-wrap;" > Total Handling Fee</div>
+                            </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template if:true={records} for:each={records} for:item="rec" for:index="index">
+                            <tr class="slds-hint-parent" key={rec.Id}   data-label="lable" title="title" >
+                                <td class="slds-cell-wrap" data-label="SELECT" scope="row" style="width:15%;text-align: left;">
+                                    <div class="slds-truncate" title="SELECT">
+                                       <!--lightning-button style="text-decoration: underline;cursor: pointer;" variant="base" value={rec.Id} label={rec.Product2.Name} onclick={viewRecord} ></lightning-button-->
+                                       <a href="javascript:void(0);" data-value={rec.Id} onclick={viewRecord} >
+                                        {rec.Product2.Name}
+                                        </a>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: center;">
+                                    <div class="slds-truncate" title="PRICE">
+                                        {rec.Quantity}
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: center;">
+                                    <div class="slds-truncate" title="PRICE">
+                                        {rec.Reserved_Quantity__c}
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="TOOL NAME" scope="row" style="width: 9%;text-align: left;">
+                                    <div class="slds-truncate" >{rec.Schedule_Return_Date__c}</div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: left;">
+                                    <div class="slds-truncate" title="PRICE">
+                                        {rec.Requested_Borrowing_Period__c}
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: left;">
+                                    <div class="slds-truncate" title="PRICE">
+                                        {rec.Status__c}
+                                    </div>
+                                </td>
         
-        <div class="slds-no-flex">
-            <div class="actionsContainer" style="margin-left: 13%;margin-top: -3%;">
-                <ul class="branding-actions slds-button-group slds-m-left--xx-small" >
-                    <li  class="slds-button slds-button--neutral" >
-                        <a href="javascript:void(0);"  class="forceActionLink" role="button">
-                            <div title="Add Charges" >Amount Owed: ${AmountOwed}</div>
-                        </a>
-                    </li>
-                </ul>
+                                <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: center;">
+                                    <div class="slds-truncate" title="PRICE">
+                                        ${rec.UnitPrice}
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: center;">
+                                    <div class="slds-truncate" title="PRICE">
+                                        ${rec.Tool_Handling_Fee_Per_Item__c}
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: center;">
+                                    <div class="slds-truncate" title="PRICE">
+                                       ${rec.Total_Handling_Fee__c}
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-        </header>
-        <div class="slds-no-flex">
-            <div class="actionsContainer" style="margin-left: 80%;margin-top: -3%;">
-                <ul class="branding-actions slds-button-group slds-m-left--xx-small" >
-                    <li  class="slds-button slds-button--neutral" >
-                        <a href="javascript:void(0);"  class="forceActionLink" role="button">
-                            <div title="Add Charges" >Amount Owed: ${AmountOwed}</div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable" >
-            <thead>
-                <tr class="slds-line-height_reset">
-                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
-                        <div class="slds-truncate" style="white-space: pre-wrap;" >Name</div>
-                    </th>
-                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
-                        <div class="slds-truncate" style="white-space: pre-wrap;" > Requested Quantity</div>
-                    </th>
-                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
-                        <div class="slds-truncate" style="white-space: pre-wrap;" > Confirmed Quantity</div>
-                    </th>
-                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
-                        <div class="slds-truncate" style="white-space: pre-wrap;" >Schedule Return Date</div>
-                    </th>
-                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
-                        <div class="slds-truncate" style="white-space: pre-wrap;" > Weeks</div>
-                    </th>
-                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
-                        <div class="slds-truncate" style="white-space: pre-wrap;" > Status</div>
-                    </th>
-                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
-                        <div class="slds-truncate" style="white-space: pre-wrap;" > Retail Price</div>
-                    </th>
-                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
-                        <div class="slds-truncate" style="white-space: pre-wrap;" > Handling Fee Per Tool</div>
-                    </th>
-                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
-                        <div class="slds-truncate" style="white-space: pre-wrap;" > Total Handling Fee</div>
-                    </th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                <template if:true={records} for:each={records} for:item="rec" for:index="index">
-                    <tr class="slds-hint-parent" key={rec.Id}   data-label="lable" title="title" >
-                        <td class="slds-cell-wrap" data-label="SELECT" scope="row" style="width:15%;text-align: left;">
-                            <div class="slds-truncate" title="SELECT">
-                               <!--lightning-button style="text-decoration: underline;cursor: pointer;" variant="base" value={rec.Id} label={rec.Product2.Name} onclick={viewRecord} ></lightning-button-->
-                               <a href="javascript:void(0);" data-value={rec.Id} onclick={viewRecord} >
-                                {rec.Product2.Name}
-                                </a>
-                            </div>
-                        </td>
-                        <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: center;">
-                            <div class="slds-truncate" title="PRICE">
-                                {rec.Quantity}
-                            </div>
-                        </td>
-                        <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: center;">
-                            <div class="slds-truncate" title="PRICE">
-                                {rec.Reserved_Quantity__c}
-                            </div>
-                        </td>
-                        <td class="slds-cell-wrap" data-label="TOOL NAME" scope="row" style="width: 9%;text-align: left;">
-                            <div class="slds-truncate" >{rec.Schedule_Return_Date__c}</div>
-                        </td>
-                        <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: left;">
-                            <div class="slds-truncate" title="PRICE">
-                                {rec.Requested_Borrowing_Period__c}
-                            </div>
-                        </td>
-                        <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: left;">
-                            <div class="slds-truncate" title="PRICE">
-                                {rec.Status__c}
-                            </div>
-                        </td>
-
-                        <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: center;">
-                            <div class="slds-truncate" title="PRICE">
-                                ${rec.UnitPrice}
-                            </div>
-                        </td>
-                        <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: center;">
-                            <div class="slds-truncate" title="PRICE">
-                                ${rec.Tool_Handling_Fee_Per_Item__c}
-                            </div>
-                        </td>
-                        <td class="slds-cell-wrap" data-label="PRICE" style="width: 9%;text-align: center;">
-                            <div class="slds-truncate" title="PRICE">
-                               ${rec.Total_Handling_Fee__c}
-                            </div>
-                        </td>
-    
-                    </tr>
-                </template>
-                </tbody>
-            </table>
-    </lightning-card>
 </template>

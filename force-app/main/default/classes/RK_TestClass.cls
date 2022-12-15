@@ -13,7 +13,8 @@ public class RK_TestClass {
         update acc;
         
         Profile Prof = [Select Id from Profile where Name = 'TB Members' limit 1];
-        User comunityUser = TestDataFactory.createCustomerUser(con,Prof);
+        TestDataFactory.createCustomerUser(con,Prof);
+        user comunityUser = [SELECT Id,contactId FROM User where contactId = :con.Id AND Profile.Name ='TB Members' and isActive = true limit 1];
         
         System.runAs(comunityUser) {
             
@@ -40,7 +41,8 @@ public class RK_TestClass {
         update acc;
         
         Profile Prof = [Select Id from Profile where Name = 'TB Members' limit 1];
-        User comunityUser = TestDataFactory.createCustomerUser(con,Prof);
+        TestDataFactory.createCustomerUser(con,Prof);
+        user comunityUser = [SELECT Id FROM User where contactId = :con.Id AND Profile.Name ='TB Members' and isActive = true limit 1];
         
         System.runAs(comunityUser) {
             
@@ -67,7 +69,8 @@ public class RK_TestClass {
         update acc;
         
         Profile Prof = [Select Id from Profile where Name = 'TB Members' limit 1];
-        User comunityUser = TestDataFactory.createCustomerUser(con,Prof);
+		TestDataFactory.createCustomerUser(con,Prof);
+        user comunityUser = [SELECT Id FROM User where contactId = :con.Id AND Profile.Name ='TB Members' and isActive = true limit 1];
         
         System.runAs(comunityUser) {
             
@@ -107,13 +110,14 @@ public class RK_TestClass {
         acc.parentId = affiliate.Id;
         update acc;
         
-        affiliate.Name = 'Atlanta';
-        update affiliate;
-        
         Profile Prof = [Select Id from Profile where Name = 'TB Members' limit 1];
-        User comunityUser = TestDataFactory.createCustomerUser(con,Prof);
-        
+        TestDataFactory.createCustomerUser(con,Prof);
+        user comunityUser = [SELECT Id,contact.account.parentId FROM User where contactId != null AND Profile.Name ='TB Members' and isActive = true limit 1];
+system.debug('comunityUser :: '+comunityUser);
         System.runAs(comunityUser) {
+            Account affiliateAcc = new Account(Id = comunityUser.contact.account.parentId);
+            affiliateAcc.Name = 'ToolBank_Training_Org';
+        	//update affiliateAcc;
             
             Test.startTest();
             PageReference myVfPage = Page.RK_ContactUSCommunityPage;

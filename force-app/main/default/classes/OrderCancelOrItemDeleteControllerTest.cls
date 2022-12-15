@@ -117,6 +117,10 @@ public class OrderCancelOrItemDeleteControllerTest {
         
         ord.status = 'Confirmed';
         ord2.status = 'Confirmed';
+        ord.EffectiveDate = Date.today();
+        ord.Scheduled_Pickup_Time__c = DateTime.now().time();
+        ord2.EffectiveDate = Date.today();
+        ord2.Scheduled_Pickup_Time__c = DateTime.now().time();
         update ord;
         update ord2;
         ord.status = 'Fulfilled';

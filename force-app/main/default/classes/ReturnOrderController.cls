@@ -14,7 +14,7 @@ public class ReturnOrderController {
             orderDetail.returnOrderItems = new List<OrderItemDetails>();
             for(Order ord: [SELECT Id, name,Account.Name,Desired_Pickup_Date__c,
                     Desired_Pickup_Time__c,OrderNumber,CreatedDate,EffectiveDate,
-                    Scheduled_Pickup_Time__c,Schedule_Return_Date__c, 
+                    Scheduled_Pickup_Time__c,Schedule_Return_Date__c,EndDate, 
                     (SELECT Id,
                     Product2.Name,
                     Tool_Handling_Fee_Per_Item__c,
@@ -36,6 +36,7 @@ public class ReturnOrderController {
                     Schedule_Return_Date__c
                     FROM OrderItems 
                     WHERE Product2.Type__c ='Tool'
+                    AND Status__c != 'Unavailable'
                     ORDER BY Product2.Name ) 
                     FROM ORDER WHERE Id =: orderId]){
                 orderDetail.order = ord;
@@ -72,16 +73,20 @@ public class ReturnOrderController {
             system.debug(itemsList);
             List<Object> ordItemList = (List<Object>) json.deserializeUntyped(itemsList);
             list<OrderItem> orderItemList = new List<orderItem>();
+            String returnedBy;
+            String orderid;
             for(Object obj:ordItemList){
                 Map<String, Object> item = (Map<String, Object>)obj;
                 OrderItem orderItem = new OrderItem();
                 String itemId = (string)item.get('Id');
-                if(itemId != '2')
+                returnedBy = (String)item.get('returnedBy');
+                if(itemId != '2'){
                     orderItem.id = itemId;
-                else{
+                }else{
                     orderItem.Inventory_Tool__c  =(string)item.get('assetid');   
                     orderItem.unitPrice =Decimal.valueOf((String)item.get('unitPrice'));
                     //product2id:product2id,
+                    orderid = (string)item.get('orderid');
                     orderitem.orderid = (string)item.get('orderid');
                     orderItem.pricebookEntryId = (string)item.get('pbeid');
                     orderItem.Affiliate_Handling_Fee__c = Decimal.valueOf((String)item.get('affiliatefee'));
@@ -120,6 +125,11 @@ public class ReturnOrderController {
                 orderItemList.add(orderitem);
             }
             system.debug(orderItemList);
+
+            if(String.isNotBlank(orderid) && String.isNotBlank(returnedBy)){
+                update new order( id=orderid, Tools_Returned_By__c=returnedBy);
+            }
+
             if(!orderItemList.isEmpty())
                 upsert orderItemList;
 

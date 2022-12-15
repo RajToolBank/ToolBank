@@ -3,7 +3,7 @@
         <div class="demo-only demo-only--sizing slds-grid slds-wrap">
             <div class="slds-size_1-of-2">
               <div >
-                <b style="font-size: 13px;">Non Selected Tooltypes:</b>&nbsp;&nbsp;
+                <b style="font-size: 13px;">Non-Selected Tooltypes:</b>&nbsp;&nbsp;
                 <lightning-input style="width: 50%;" placeholder="search using tool name,note or alternate name" data-id="searchTool" type="text" onchange={handleSearch}></lightning-input>                </div>
             </div>
             <div class="slds-size_1-of-2">
@@ -68,7 +68,7 @@
                         </td>
                         <td class="slds-cell-wrap" data-label="qty" scope="row" style="width: 10%;text-align: center;">
                             <div class="slds-truncate" title="qty">
-                                <input type="number" class="slds-input" 
+                                <input type="number" class="slds-input" min="0"
                                 data-qty={record.Id} 
                                 data-prod2id={record.Product2Id}
                                 data-note={record.ToolNote}

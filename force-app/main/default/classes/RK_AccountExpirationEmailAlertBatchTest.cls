@@ -2,7 +2,7 @@
 public class RK_AccountExpirationEmailAlertBatchTest {
     @testSetup static void setup() {
         Date setDate = Date.today()-335;
-        Account acc = new Account(Name = 'Test Account', Approval_Date__c = setDate, Membership_Status__c = 'Approved');
+        Account acc = new Account(Name = 'Test Account', Approval_Date__c = setDate, Membership_Status__c = 'Active');
         insert acc;
         
         Contact con = new Contact(LastName = 'Test Contact', Email = 'test@test.com', Primary_Contact__c = true, AccountId = acc.Id);

@@ -1,6 +1,6 @@
 public class RK_UpdateOrderItemTask {
     public static void updateTask(List<OrderItem> orderItemList, Map<Id, OrderItem> itemOldMap) {
-        set<Id> orderIds = new Set<Id>();
+       /* set<Id> orderIds = new Set<Id>();
         Map<String,OrderItem> mapOrderIdToItemReturnDate = new Map<String,OrderItem>();
         Map<String,Task> mapOrderIdToTaskReturnDate = new Map<String,Task>();
         for(OrderItem ordItem :orderItemList) {
@@ -41,6 +41,6 @@ public class RK_UpdateOrderItemTask {
         }
         if(!deleteTaskList.isEmpty()) {
             delete deleteTaskList;
-        }
+        }*/
     }
 }

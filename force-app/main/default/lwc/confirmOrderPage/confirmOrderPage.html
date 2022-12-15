@@ -15,8 +15,9 @@
             <br/>
             <lightning-record-edit-form object-api-name="Order" record-id={recordId} style="width: 100%;">
                 <div class="slds-modal__footer slds-text-align_right custom-footer"><!--slds-align_absolute-center slds-size_12-of-12-->
-                    <lightning-button variant="brand" disabled={readonlyFlag} type="submit" label="Save and Close" onclick={onSaveHandle}></lightning-button>
-                    <lightning-button variant="brand" class="slds-m-left_small" disabled={readonlyFlag} type="submit" label="Cancel" onclick={handleCancel}></lightning-button>
+                    <lightning-button variant="brand" class="slds-m-left_small" disabled={readonlyFlag} type="submit" label="Save and Close" onclick={onSaveHandle}></lightning-button>
+                    <lightning-button variant="brand" class="slds-m-left_small" disabled={enablefulfill} data-id="fulfill" onclick={handleFulfil} label="Fulfill"></lightning-button>
+                    <lightning-button variant="brand" class="slds-m-left_small"  type="submit" label="Cancel" onclick={handleCancel}></lightning-button>
                     <lightning-button variant="brand" class="slds-m-left_small" type="submit" label="Pick List Report" onclick={handlepdf}></lightning-button>
                 </div>
                 <template if:true={order}>
@@ -80,18 +81,16 @@
             </div>
     
             <div class="slds-m-top_small">
-                <b style="font-size: 16px;">Selected Tooltypes:</b>
+                Search Tools:
             </div>
             <div class="slds-grid slds-wrap">
                 <lightning-input onkeydown={handleSearchFilter} onkeyup={handleSearchFilter} class="slds-large-size_4-of-12 slds-small-size_6-of-12" placeholder="search using tool name, alternate name, note" data-id="search" type="text" ></lightning-input>
                 
                 <div class="slds-col slds-large-size_8-of-12 slds-small-size_6-of-12 slds-p-top_medium">
                     <div style="display: inline-flex; float: right;">
-                        <lightning-button variant="brand" disabled={readonlyFlag} type="submit" onclick={OpenModal} label="Change Return Date">
+                        <lightning-button variant="brand" disabled={readonlyFlag}  onclick={OpenModal} label="Change Return Date">
                         </lightning-button>&nbsp;
-                        <lightning-button variant="brand" disabled  onclick={handleConfirmButton} data-title="updateStatus" type="submit" label="Confirm">
-                        </lightning-button>&nbsp;
-                        <lightning-button variant="brand" disabled={readonlyFlag} type="submit" onclick={handleFulfil} label="Fulfill">
+                        <lightning-button variant="brand" disabled  onclick={handleConfirmButton} data-title="updateStatus" label="Confirm">
                         </lightning-button>&nbsp;
                         <lightning-button variant="brand" disabled={readonlyFlag} type="submit" label="Quick Save" onclick={onQuickSaveHandle}>
                         </lightning-button>&nbsp;
@@ -194,7 +193,7 @@
                                 </td>
                                 <td class="slds-cell-wrap" data-label="CONFIRMED QUANTITY" style="text-align: center;">
                                     <div class="slds-truncate" title="CONFIRMED QUANTITY">
-                                        <input type="number" disabled={readonlyFlag} class="slds-input" data-confirm={record.Id} data-id="CONFIRMEDQUANTITY" onkeyup={handleConfirmQty} onkeydown={handleConfirmQty}  value={record.Reserved_Quantity__c} />
+                                        <input type="number" min="0" disabled={readonlyFlag} class="slds-input" data-confirm={record.Id} data-id="CONFIRMEDQUANTITY" onkeyup={handleConfirmQty} onkeydown={handleConfirmQty}  value={record.Reserved_Quantity__c} />
                                         
                                     </div>
                                 </td>
@@ -278,10 +277,10 @@
                     </div>
                     <div class="slds-modal__content slds-p-around_medium" id="modal-content-edit">
                         <lightning-input type="date" data-id="scheduleDate" label="Scheduled Pickup Date" value={order.EffectiveDate}></lightning-input>
-                        <lightning-input type="time" data-id="scheduleTime" label="Scheduled Pickup Time" value={schPickTime}></lightning-input>
+                        <lightning-input type="time" onkeyup={handleTyping} data-id="scheduleTime" label="Scheduled Pickup Time" value={schPickTime}></lightning-input>
                     </div>
                     <div class="slds-modal__footer">
-                        <button disabled={readonlyFlag} class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={closeEditModal}>Cancel</button>
+                        <button  class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={closeEditModal}>Cancel</button>
                         <button disabled={readonlyFlag} class="slds-button slds-button_brand" onclick={handlePickUpModalOk}>Ok</button>
                     </div>
                     </div>
@@ -304,8 +303,8 @@
                     </div>
                     <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
                         
-                        <lightning-input type="date" data-id="scheduleReturnDate" label="Scheduled Return Date" value={order.Schedule_Return_Date__c}></lightning-input>
-                        <lightning-input type="time" data-id="scheduleReturnTime" label="Scheduled Return Time" ></lightning-input>
+                        <lightning-input type="date" data-id="scheduleReturnDate" label="Scheduled Return Date" value={order.EndDate}></lightning-input>
+                        <!--lightning-input type="time" data-id="scheduleReturnTime" label="Scheduled Return Time" ></lightning-input-->
                         <!--lightning-input type="date" data-id="scheduleDate" label="Scheduled Pickup Date" value={order.EffectiveDate}></lightning-input>
                         <lightning-input type="time" data-id="scheduleTime" label="Scheduled Pickup Time" value={schPickTime}></lightning-input>
                         <br/><br/> 
@@ -348,7 +347,7 @@
                         <br/><br/-->
                     </div>
                     <div class="slds-modal__footer">
-                        <button disabled={readonlyFlag} class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={OpenModal}>Cancel</button>
+                        <button  class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={OpenModal}>Cancel</button>
                         <button disabled={readonlyFlag} class="slds-button slds-button_brand" onclick={handleModalOk}>Ok</button>
                     </div>
                     </div>
@@ -400,7 +399,7 @@
                                             <tr class="slds-hint-parent" key={record.Id} data-status={record.Status__c}  data-label="lable" title="title" >
                                     
                                                 <td class="slds-cell-wrap" data-label="TOOL NAME" scope="row" style="width: 9%;text-align: left;">
-                                                    <div class="slds-truncate" onclick={openConflictModal}   >{record.Order.Name}</div>
+                                                    <div class="slds-truncate">{record.Order.Name}</div>
                                                 </td>
                                                 <td class="slds-cell-wrap" data-label="REQUESTED QUANTITY" style="width: 9%;text-align: center;">
                                                     <div class="slds-truncate">
@@ -423,7 +422,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="slds-cell-wrap" data-label="STATUS" style="width: 9%;text-align: center;">
-                                                    <div class="slds-truncate"  data-state={record.Id}>
+                                                    <div class="slds-truncate">
                                                         {record.Order.Status}
                                                     </div>
                                                 </td>

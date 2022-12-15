@@ -61,35 +61,35 @@
         <div class="slds-card__body slds-card__body_inner">
             
             <div class="demo-only demo-only--sizing  slds-grid slds-wrap slds-scrollable">
-                <div class="slds-size_4-of-5">
+                <div class="col-large">
                     <div class="slds-box_x-small slds-m-around_x-small slds-scrollable">
                         <b>Search:</b>&nbsp; 
                         <input type="text" data-id="searchbar" onkeyup={handleSearch}/><br/><br/>
                         <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable" id="datatable" >
                             <thead>
                                 <tr class="slds-line-height_reset">
-                                    <th  scope="col">
+                                    <th scope="col">
                                         <div class="slds-truncate" title="Category">Category</div>
                                     </th>
-                                    <th  scope="col">
+                                    <th scope="col">
                                         <div class="slds-truncate" title="Sub-Category">Sub-Category</div>
                                     </th>
-                                    <th  scope="col">
+                                    <th scope="col">
                                         <div class="slds-truncate" title="Tool Name">Tool Name</div>
                                     </th>
-                                    <th  scope="col">
+                                    <th scope="col">
                                         <div class="slds-truncate" title="Tool Note">Tool Note</div>
                                     </th>
-                                    <th  scope="col">
+                                    <th scope="col">
                                         <div class="slds-truncate" title="Retail Value">Retail Value</div>
                                     </th>
-                                    <th  scope="col">
+                                    <th scope="col">
                                         <div class="slds-truncate" title="Handling Fees">Handling Fees</div>
                                     </th>
-                                    <th  scope="col">
+                                    <th scope="col">
                                         <div class="slds-truncate" title="Quantity">Quantity</div>
                                     </th>
-                                    <th  scope="col">
+                                    <th scope="col">
                                         <div class="slds-truncate" title="Picture">Picture</div>
                                     </th>
                                 </tr>
@@ -133,7 +133,7 @@
                                         </td>
                                         <td class="slds-cell-wrap" data-label="Quantity">
                                             <div class="slds-truncate" title="Quantity">
-                                                <input type="number" 
+                                                <input type="number" class="quantity-input" min="0"
                                                 data-price={record.pbe.UnitPrice}  
                                                 data-id={record.asset.Product2.Id} 
                                                 data-pbe={record.pbe.Id}
@@ -174,42 +174,38 @@
 
                     </div>
                 </div>
-                <div class="slds-size_1-of-5">
+                <div class="col-small">
                     <div class="slds-box slds-box_x-small slds-text-align_left slds-m-around_x-small">
-                        <b> <u>Highlights</u></b><br/><br/>
-                        <fieldset class="slds-form-element">
-                            <template if:true={highlights} for:each={highlights} for:item="record" for:index="index">                            
-                                  <div class="slds-checkbox slds-size--1-of-1" key={record.value}>
-                                    <input type="checkbox" name={record.value} onchange={handleHighlight} id={record.label} />&nbsp;&nbsp;
-                                    <label class="slds-checkbox__label" for={record.label}>
-                                        <span class="slds-checkbox_faux"></span>
-                                        <span class="slds-form-element__label" style="margin-left: 2%;">{record.label}</span>
-                                    </label><br />
-                                </div>
-                            </template>
-                        </fieldset> 
-                        <br/>
-                        <b><u>Job Type</u></b><br/><br/>
-                        <fieldset class="slds-form-element">
-                            <template if:true={jobtypes} for:each={jobtypes} for:item="record" for:index="index">                               
-                                    <div class="slds-checkbox slds-size--1-of-1" key={record.value}>
-                                        <input type="checkbox" name={record.value} onchange={handleJobType} id={record.label} />&nbsp;&nbsp;
-                                        <label class="slds-checkbox__label" for={record.label}>
-                                            <span class="slds-checkbox_faux"></span>
-                                            <span class="slds-form-element__label" style="margin-left: 2%;">{record.label}</span>
-                                        </label><br />
-                                    </div>
-                            </template>
-                        </fieldset>  
-                        <br/>
-                        <b><u>Filters</u></b><br/><br/>
+                        <b> <u>Highlights</u></b><br/>
+                        <template if:true={highlights} for:each={highlights} for:item="record" for:index="index">                            
+                                <div class="slds-checkbox slds-size--1-of-1" key={record.value}>
+                                <input type="checkbox" name={record.value} onchange={handleHighlight} id={record.label} />&nbsp;&nbsp;
+                                <label class="slds-checkbox__label" for={record.label}>
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label" style="margin-left: 2%;">{record.label}</span>
+                                </label>
+                            </div>
+                        </template>
+                        <br/><br/>
+                        <b><u>Job Type</u></b><br/>
+                        <template if:true={jobtypes} for:each={jobtypes} for:item="record" for:index="index">                               
+                            <div class="slds-checkbox slds-size--1-of-1" key={record.value}>
+                                <input type="checkbox" name={record.value} onchange={handleJobType} id={record.label} />&nbsp;&nbsp;
+                                <label class="slds-checkbox__label" for={record.label}>
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label" style="margin-left: 2%;">{record.label}</span>
+                                </label>
+                            </div>
+                        </template>
+                        <br/><br/>
+                        <b><u>Filters</u></b><br/>
                         
                       <div class="slds-checkbox slds-size--1-of-1">
                         <input type="checkbox" name="CommonTool" onchange={handleSelectedCommon} id="CommonTool" />&nbsp;&nbsp;
                         <label class="slds-checkbox__label" for="CommonTool">
                             <span class="slds-checkbox_faux"></span>
                             <span class="slds-form-element__label" style="margin-left: 2%;">Common Tool</span>
-                        </label><br />
+                        </label>
                     </div>
                        
                       <div class="slds-checkbox slds-size--1-of-1">
@@ -217,7 +213,7 @@
                         <label class="slds-checkbox__label" for="SelectedTool">
                             <span class="slds-checkbox_faux"></span>
                             <span class="slds-form-element__label" style="margin-left: 2%;">Selected Tool</span>
-                        </label><br />
+                        </label>
                     </div>
                     </div>
                 </div>
@@ -225,7 +221,7 @@
               </div>
         </div>
       </article>
-      <div style="margin-top: 1%;margin-left: 1%;margin-right: 1%;" >
+      <div style="margin-top: 1%;margin-left: 1%;margin-right: 1%; margin-bottom: 1%;" >
         <button type="button" class="slds-button slds-button_brand" style="background: #1589ee;" onclick={hundleSelectToolPrev} >Previous</button>
         <button type="button" class="slds-button slds-button_brand" style="background: #1589ee;margin-left: 87.5%;" onclick={handleContinue}  >Continue</button> <br/>
     </div>

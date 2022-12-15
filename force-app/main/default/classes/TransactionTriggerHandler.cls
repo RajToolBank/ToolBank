@@ -1,4 +1,4 @@
-public with sharing class TransactionTriggerHandler {
+public class TransactionTriggerHandler {
     
     static final String  DONATION = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Donation').getRecordTypeId(), 
         INTERNAL_AUDIT = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Inventory_Audit').getRecordTypeId(),

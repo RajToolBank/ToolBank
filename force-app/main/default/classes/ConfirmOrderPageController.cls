@@ -15,7 +15,7 @@ public class ConfirmOrderPageController {
     @AuraEnabled
     public static OrderDetails getOrderDetailsDirect(String recordId){
 
-        List<Order> order = [SELECT Id,Account.name,Affiliate__c,Tools_Picked_Up_By__c,Status,Actual_Pickup_Date_Time__c, Requested_Borrowing_Period__c,createdDate,name,Schedule_Return_Date__c, OrderNumber,Desired_Pickup_Date__c,Desired_Pickup_Time__c,EffectiveDate,Scheduled_Pickup_Time__c FROM Order WHERE Id =: recordId];
+        List<Order> order = [SELECT Id,Account.name,Affiliate__c,Tools_Picked_Up_By__c,Status,Actual_Pickup_Date_Time__c, Requested_Borrowing_Period__c,createdDate,name,Schedule_Return_Date__c,EndDate, OrderNumber,Desired_Pickup_Date__c,Desired_Pickup_Time__c,EffectiveDate,Scheduled_Pickup_Time__c FROM Order WHERE Id =: recordId];
         OrderDetails OrderDetails = new OrderDetails();
         OrderDetails.order = order[0];
         Long milliseconds = system.now().getTime() - (order[0].Actual_Pickup_Date_Time__c != Null ?order[0].Actual_Pickup_Date_Time__c.getTime():system.now().getTime());
@@ -170,7 +170,8 @@ public class ConfirmOrderPageController {
                                         Product2.Name, 
                                         Product2.Family 
                                         FROM PriceBookEntry 
-                                        WHERE Product2Id IN: productidSet]){
+                                        WHERE Product2Id IN: productidSet
+                                        AND Pricebook2Id =: label.pricebookid]){
             AvailableProducts availableProduct = new AvailableProducts();
             availableProduct.Id = pbe.id;
             availableProduct.Product2Id =pbe.Product2Id;
@@ -316,6 +317,7 @@ public class ConfirmOrderPageController {
                                         Order.status,
                                         Order.Name, 
                                         Order.OrderNumber,
+                                        Order.EndDate,
                                         PriceBookEntryId,
                                         Inventory_Tool__c,
                                         Affiliate_Handling_Fee__c,
@@ -375,8 +377,11 @@ if(order.get('Scheduled_Pickup_Time__c') != null && String.isNotBlank(((String)o
         Integer hour = Integer.valueOf(timeString[0]);
         Integer minutes = Integer.valueOf(timeString[1].split(' ')[0]);
         String AMPM = timeString[1].split(' ')[1];
-        if(AMPM == 'PM')
+        if(AMPM == 'AM' && hour == 12)
+            hour = hour-12;
+        else if(AMPM == 'PM')
             hour = hour+12;
+    system.debug(hour+':'+minutes);
     pickTime = Time.newInstance(hour,minutes,0,0);
     }
 }
@@ -385,7 +390,7 @@ if(order.get('Scheduled_Pickup_Time__c') != null && String.isNotBlank(((String)o
             EffectiveDate = Date.valueOf((String)order.get('EffectiveDate')),
             Tools_Picked_Up_By__c = (String)order.get('Tools_Picked_Up_By__c'),
             Scheduled_Pickup_Time__c = pickTime,
-            Schedule_Return_Date__c =  Date.valueOf((String)order.get('Schedule_Return_Date__c')),
+            EndDate =  Date.valueOf((String)order.get('EndDate')),
             name =  (String)order.get('Name'),
             status = (String)order.get('Status'),
             pricebook2Id = label.pricebookid

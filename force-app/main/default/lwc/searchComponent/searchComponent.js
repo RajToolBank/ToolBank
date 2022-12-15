@@ -239,4 +239,13 @@ export default class SearchComponent extends NavigationMixin(LightningElement) {
             this.showModal = false;
         });
     }
+
+    @api
+    handleRecordClear(event){   
+        this.valueId = undefined;
+        this.valueName = undefined;
+        this.selectedRecord = undefined;
+        this.searchRecords  = undefined;
+        this.showButton     = false;
+    }
 }

@@ -1,0 +1,13 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+    <aura:attribute name="recordId" type="String" />
+    <c:createPayment recordId="{!v.recordId}"></c:createPayment>
+
+    <aura:html tag="style">
+        
+        .slds-modal__content{
+            height: inherit !important;
+            max-height: inherit !important;
+        }
+
+    </aura:html>
+</aura:component>	

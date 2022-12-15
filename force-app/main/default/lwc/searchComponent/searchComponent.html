@@ -95,6 +95,7 @@
                     </template>
                     <template if:true={selectedRecord}>
                         <c-selected-record icon-url={ICON_URL}
+                            data-id="selectrecord"
                             record={selectedRecord}
                             onclose={handleClose}
                             show-label=false

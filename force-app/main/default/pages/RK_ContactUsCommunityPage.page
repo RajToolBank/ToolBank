@@ -5,31 +5,31 @@
                 <apex:outputText value="Affiliate Details" style="font-size: 150%; font-weight: bold;"></apex:outputText>
             </center>
             <br /><br />
-            <apex:repeat value="{!getData }" var="A">
+            <!--apex:repeat value="{!getData }" var="A"-->
                 <apex:pageBlockSection columns="2">
                     <apex:pageBlockSectionItem >
                         <apex:outputLabel ><b style="font-size: 120%;">Affiliate Name: </b></apex:outputLabel>
-                        <apex:outputField style="font-size: 130%;" value="{!A.DeveloperName}" />
+                        <apex:outputText style="font-size: 130%;" value="{!account.Name}" />
                     </apex:pageBlockSectionItem>
                     <apex:pageBlockSectionItem >
                         <apex:outputLabel ><b style="font-size: 120%;">Affiliate Email: </b></apex:outputLabel>
-                        <apex:outputField value="{!A.Affiliate_Email__c}" />
+                        <apex:outputText style="font-size: 130%;" value="{!account.Generic_Org_Email__c}" />
                     </apex:pageBlockSectionItem>
                     <apex:pageBlockSectionItem >
                         <apex:outputLabel ><b style="font-size: 120%;">Affiliate Phone Number: </b></apex:outputLabel>
-                        <apex:outputField value="{!A.Affiliate_Phone_number__c}" />
+                        <apex:outputText style="font-size: 130%;" value="{!account.phone}" />
                     </apex:pageBlockSectionItem>
                     <apex:pageBlockSectionItem >
                         <apex:outputLabel ><b style="font-size: 120%;">Affiliate Address: </b></apex:outputLabel>
-                        <apex:outputField value="{!A.Affiliate_Address__c}" />
+                        <apex:outputText style="font-size: 130%;" value="{!address}" />
                     </apex:pageBlockSectionItem>
                 </apex:pageBlockSection>
-            </apex:repeat>
+            <!--/apex:repeat -->
             <br /><br />
             <div style="text-align: left;">
                 <apex:outputText style="font-size: 120%; font-weight: bold; margin-left: 07%; margin-right: 32px; float: left;" value="Business Hours:"></apex:outputText>
                 
-                <table border="1px">
+                <table >
                     <thead>
                         <tr>
                             <th></th>
@@ -38,56 +38,98 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <apex:repeat value="{!listBusinessHours}" var="b">
+                        <!--apex:repeat value="{!listBusinessHours}" var="b"-->
                             <tr>
                                 <th>Sunday</th>
-                                <td>{!b.SundayStartTime}</td>
-                                <td>{!b.SundayEndTime}</td>
+                                <apex:outputPanel layout="none" rendered="{!account.Sunday_Start_Time__c != null}">
+                                <td><apex:outputfield value="{!account.Sunday_Start_Time__c}"> </apex:outputfield></td>
+                                <td><apex:outputfield value="{!account.Sunday_End_Time__c}"> </apex:outputfield></td>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!account.Sunday_Start_Time__c = null}">
+                                <td colspan="2" style="text-align:center">Closed</td>
+                                
+                                </apex:outputPanel>
                             </tr>
                             <tr>
                                 <th>Monday</th>
-                                <td>{!b.MondayStartTime}</td>
-                                <td>{!b.MondayEndTime}</td>
+                                <apex:outputPanel layout="none" rendered="{!account.Monday_Start_Time__c!= null}">
+                                <td><apex:outputfield value="{!account.Monday_Start_Time__c}"> </apex:outputfield></td>
+                                <td><apex:outputfield value="{!account.Monday_End_Time__c}"> </apex:outputfield></td>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!account.Monday_Start_Time__c= null}">
+                                <td colspan="2" style="text-align:center">Closed</td>
+                                
+                                </apex:outputPanel>
                             </tr>
                             <tr>
                                 <th>Tuesday</th>
-                                <td>{!b.TuesdayStartTime}</td>
-                                <td>{!b.TuesdayEndTime}</td>
+                                <apex:outputPanel layout="none" rendered="{!account.Tuesday_Start_Time__c!= null}">
+                                <td><apex:outputfield value="{!account.Tuesday_Start_Time__c}"> </apex:outputfield></td>
+                                <td><apex:outputfield value="{!account.Tuesday_End_Time__c}"> </apex:outputfield></td>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!account.Tuesday_Start_Time__c= null}">
+                                <td colspan="2" style="text-align:center">Closed</td>
+                                
+                                </apex:outputPanel>
                             </tr>
                             <tr>
-                                <th>Wednesday</th>
-                                <td>{!b.WednesdayStartTime}</td>
-                                <td>{!b.WednesdayEndTime}</td>
+                                <th>Wednesday &nbsp;&nbsp;&nbsp;</th>
+                                <apex:outputPanel layout="none" rendered="{!account.Wednesday_Start_Time__c!= null}">
+                                <td><apex:outputfield value="{!account.Wednesday_Start_Time__c}"> </apex:outputfield></td>
+                                <td><apex:outputfield value="{!account.Wednesday_End_Time__c}"> </apex:outputfield></td>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!account.Wednesday_Start_Time__c= null}">
+                                <td colspan="2" style="text-align:center">Closed</td>
+                                
+                                </apex:outputPanel>
                             </tr>
                             <tr>
                                 <th>Thursday</th>
-                                <td>{!b.ThursdayStartTime}</td>
-                                <td>{!b.ThursdayEndTime}</td>
+                                <apex:outputPanel layout="none" rendered="{!account.Thursday_Start_Time__c!= null}">
+                                <td><apex:outputfield value="{!account.Thursday_Start_Time__c}"> </apex:outputfield></td>
+                                <td><apex:outputfield value="{!account.Thursday_End_Time__c}"> </apex:outputfield></td>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!account.Thursday_Start_Time__c= null}">
+                                <td colspan="2" style="text-align:center">Closed</td>
+                                
+                                </apex:outputPanel>
                             </tr>
                             <tr>
                                 <th>Friday</th>
-                                <td>{!b.FridayStartTime}</td>
-                                <td>{!b.FridayEndTime}</td>
+                                <apex:outputPanel layout="none" rendered="{!account.Friday_Start_Time__c!= null}">
+                                <td><apex:outputfield value="{!account.Friday_Start_Time__c}"> </apex:outputfield></td>
+                                <td><apex:outputfield value="{!account.Friday_End_Time__c}"> </apex:outputfield></td>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!account.Friday_Start_Time__c= null}">
+                                <td colspan="2" style="text-align:center">Closed</td>
+                                
+                                </apex:outputPanel>
                             </tr>
                             <tr>
                                 <th>Saturday</th>
-                                <td>{!b.SaturdayStartTime}</td>
-                                <td>{!b.SaturdayEndTime}</td>
+                                <apex:outputPanel layout="none" rendered="{!account.Saturday_Start_Time__c!= null}">
+                                <td><apex:outputfield value="{!account.Saturday_Start_Time__c}"> </apex:outputfield></td>
+                                <td><apex:outputfield value="{!account.Saturday_End_Time__c}"> </apex:outputfield></td>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!account.Saturday_Start_Time__c= null}">
+                                <td colspan="2" style="text-align:center">Closed</td>
+                                
+                                </apex:outputPanel>
                             </tr>
-                        </apex:repeat>
+                        <!--/apex:repeat-->
                     </tbody>
                 </table>
                 
                 <br /><br /><br />
             </div>
-            <apex:repeat value="{!getData}" var="b">
+            <!--apex:repeat value="{!getData}" var="b"-->
                 <apex:pageBlockSection >
                     <apex:pageBlockSectionItem >
                         <apex:outputLabel ><b style="font-size: 120%;">Note to the Agency: </b></apex:outputLabel>
-                        <apex:outputField value="{!b.Note_to_the_Agency__c}" />
+                        <apex:outputText value="{!Account.Note_To_Agency__c}" />
                     </apex:pageBlockSectionItem>
                 </apex:pageBlockSection>
-            </apex:repeat>
+            <!--/apex:repeat-->
         </apex:pageblock>
     </apex:form>
 </apex:page>

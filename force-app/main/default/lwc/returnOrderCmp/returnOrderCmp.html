@@ -33,9 +33,9 @@
                         </div>
                         <div class="slds-col slds-size_6-of-12 slds-p-left_large">
                             <dl class="slds-dl_horizontal">
-                                <dt class="slds-dl_horizontal__label slds-m-top_x-small">Tools Picked Up By</dt>
+                                <dt class="slds-dl_horizontal__label slds-m-top_x-small">Tools Returned By</dt>
                                 <dd class="slds-dl_horizontal__detail slds-m-top_xx-small">
-                                    <lightning-input-field field-name={toolPickedField} variant="label-hidden"></lightning-input-field>
+                                    <lightning-input-field field-name={toolReturnedField} data-id="returnedby" variant="label-hidden"></lightning-input-field>
                                 </dd>
                                 <dt class="slds-dl_horizontal__label slds-m-top_x-small">Schedule Pickup Date</dt>
                                 <dd class="slds-dl_horizontal__detail slds-m-top_xx-small">
@@ -56,7 +56,7 @@
             <br/><br/>
 
             <div class="slds-m-top_small">
-                <b style="font-size: 16px;">Selected Tooltypes:</b>
+                Search Tools:
             </div>
             <lightning-input onkeydown={handleSearchFilter} onkeyup={handleSearchFilter} class="slds-large-size_4-of-12 slds-small-size_6-of-12" placeholder="search using tool name, alternate name, note" data-id="search" type="text" ></lightning-input>
             
@@ -73,9 +73,9 @@
                 </div>
                 <div class="slds-col slds-large-size_8-of-12 slds-small-size_6-of-12 slds-p-top_medium slds-text-align_right">
                     <lightning-button variant="brand" type="submit" onclick={openModal} label="Change Return Date"></lightning-button>
-                    <lightning-button variant="brand" class="slds-m-left_small" data-title="Return"  type="submit" onclick={handleReturnButton}  label="Return"></lightning-button>
-                    <lightning-button variant="brand" class="slds-m-left_small" type="submit" onclick={handleSave}  label="Quick Save"></lightning-button>
-                    <lightning-button variant="brand" class="slds-m-left_small" type="submit" onclick={handleUndo}  label="Undo"></lightning-button>
+                    <lightning-button variant="brand" class="slds-m-left_small" data-title="Return" onclick={handleReturnButton}  label="Return"></lightning-button>
+                    <lightning-button variant="brand" class="slds-m-left_small" onclick={handleSave}  label="Quick Save"></lightning-button>
+                    <lightning-button variant="brand" class="slds-m-left_small" onclick={handleUndo}  label="Undo"></lightning-button>
                     
                 </div>
             </div>
@@ -156,20 +156,20 @@
                             <td class="slds-cell-wrap" data-label="RETURN" style="width: 9%;text-align: center;">
                                 <div class="slds-truncate" title="RETURN">
 
-                                        <input type="number" data-qtyid={record.orderItem.Id} data-returnqty={record.orderItem.Id} class="slds-input" onchange={handleLineReturned} value={record.orderItem.Check_In_Quantity__c}/>
+                                        <input type="number" min="0" data-qtyid={record.orderItem.Id} data-returnqty={record.orderItem.Id} class="slds-input" onchange={handleLineReturned} value={record.orderItem.Check_In_Quantity__c}/>
                                 </div>
                             </td>
                             <td class="slds-cell-wrap" data-label="LOST" style="text-align: center;">
                                 <div class="slds-truncate" title="LOST">
                                 
 
-                                        <input type="number"  data-already={record.fixed}  data-qtyid={record.orderItem.Id} data-lostqty={record.orderItem.Id} class="slds-input" onchange={handleLineReturned}  value={record.orderItem.Lost__c} />  
+                                        <input type="number" min="0" data-already={record.fixed}  data-qtyid={record.orderItem.Id} data-lostqty={record.orderItem.Id} class="slds-input" onchange={handleLineReturned}  value={record.orderItem.Lost__c} />  
                                 </div>
                             </td>
                             <td class="slds-cell-wrap" data-label="DAMAGED" style="width: 15%;text-align: center;">
                                 <div class="slds-truncate" title="DAMAGED">
                                 
-                                        <input type="number" data-qtyid={record.orderItem.Id} data-damagedqty={record.orderItem.Id} class="slds-input" onchange={handleLineReturned} value={record.orderItem.Damaged__c} />
+                                        <input type="number" min="0" data-qtyid={record.orderItem.Id} data-damagedqty={record.orderItem.Id} class="slds-input" onchange={handleLineReturned} value={record.orderItem.Damaged__c} />
                                 </div>
                             </td>
                             <td class="slds-cell-wrap" data-label="STILL OUT" style="width: 9%;text-align: center;">
@@ -179,12 +179,13 @@
                                     </span>
                                 </div>
                             </td>
-                            <td class="slds-cell-wrap" data-label="RETURN DATE" style="width: 15%;text-align: center;">
+                            <td class="slds-cell-wrap" data-label="RETURN DATE" style="width: 22%;text-align: center;">
                                 <div class="slds-truncate" title="RETURN DATE" data-state={record.orderItem.Id}>
                                     
 
                                         <lightning-input  data-id={record.orderItem.Id} 
                                         style="margin-top: -15px;"
+                                        readonly="true"
                                         data-assetid={record.orderItem.Inventory_Tool__c} 
                                         data-unitprice={record.orderItem.UnitPrice} 
                                         data-product2id={record.orderItem.Product2Id} 
@@ -367,7 +368,8 @@
             </div>
 
             <br/><br/>
-            <template if:true={setReturnDate}>
+            <!--template if:true={setReturnDate}-->
+            <div style="display: none;" data-id="returnmodal">
                 <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open" style="
                 width: 65%;
                 margin-left: 18%;">
@@ -383,9 +385,9 @@
                         
                     </div>
                     <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                        <lightning-input type="date" data-id="scheduleReturnDate" label="Scheduled Return Date" value={order.Schedule_Return_Date__c}></lightning-input>
-                        <lightning-input type="time" data-id="scheduleReturnTime" label="Scheduled Return Time" ></lightning-input>
-                                        <!--br/><br/> 
+                        <lightning-input type="date" data-id="scheduleReturnDate" label="Scheduled Return Date" value={order.EndDate}></lightning-input>
+                        <!--lightning-input type="time" data-id="scheduleReturnTime" label="Scheduled Return Time" ></lightning-input>
+                                        <br/><br/> 
                         <b>
                             Note:  Schedule Return date will be updated only for selected rows.
                         </b><br/><br/>
@@ -431,7 +433,8 @@
                     </div>
                 </section>
                 <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
-            </template>
+            <!--/template-->
+            </div>
         </div>
     </template>
 </template>

@@ -1,4 +1,4 @@
-public with sharing class OrderItemHelperClass {
+public class OrderItemHelperClass {
     public static Boolean recursion = false;
     static final String LOST = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Lost').getRecordTypeId();
     static final String RE_TURN =Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Returned').getRecordTypeId();
@@ -93,7 +93,7 @@ public with sharing class OrderItemHelperClass {
             Boolean unconfirmed=false,confirmed=false,partiallyReturned=false,fulfilled=false,cancelled=false,overdue=false,returned=false,closed=false,unpaid=false;
             Boolean isUpdate = false;
             for(OrderItem item: order.OrderItems){
-                if('Unconfirmed'.equalsIgnoreCase(item.Status__c))
+                if('Unconfirmed'.equalsIgnoreCase(item.Status__c) || 'Unavailable'.equalsIgnoreCase(item.Status__c))
                     unconfirmed = true;
                 if('confirmed'.equalsIgnoreCase(item.Status__c))
                     confirmed = true;
@@ -113,7 +113,7 @@ public with sharing class OrderItemHelperClass {
                     partiallyReturned = true;
             }
 
-            if(unconfirmed && !confirmed ){
+            if(unconfirmed && !confirmed && !fulfilled){
                 order.status = 'Unconfirmed';
                 isUpdate = true;
             }else if(unconfirmed && confirmed){
@@ -121,6 +121,9 @@ public with sharing class OrderItemHelperClass {
                 isUpdate = true;
             }else if(!unconfirmed && confirmed ){
                 order.status = 'Confirmed';
+                isUpdate = true;
+            }else if(unconfirmed && fulfilled ){
+                order.status = 'Fulfilled';
                 isUpdate = true;
             }else if(!unconfirmed && !confirmed && fulfilled && !cancelled && !overdue && !returned && !partiallyReturned  ){
                 order.status = 'Fulfilled';

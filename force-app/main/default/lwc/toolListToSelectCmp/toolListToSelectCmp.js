@@ -4,6 +4,7 @@ import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import ORDER_OBJECT from '@salesforce/schema/Product2';
 import getTools from '@salesforce/apex/ConfirmOrderPageController.getTools';
 import FAMILY from '@salesforce/schema/Product2.Family';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class ToolListToSelectCmp extends LightningElement {
 
@@ -158,18 +159,27 @@ export default class ToolListToSelectCmp extends LightningElement {
                 count++;
             });
 
-
-        }
-
-        if(!qtyError){
-            this.productRecords = products;
             
-            const selectEvent = new CustomEvent('selecttool', {
-                detail: { 
-                    tools:toolsItem
-                        }
-                });
-            this.dispatchEvent(selectEvent);
+            if(!qtyError){
+                this.productRecords = products;
+                
+                const selectEvent = new CustomEvent('selecttool', {
+                    detail: { 
+                        tools:toolsItem
+                            }
+                    });
+                this.dispatchEvent(selectEvent);
+            }
+
+        }else{
+            const evt = new ShowToastEvent({
+                title: "Tools",
+                message: "Please select at least one tool line.",
+                variant: "error",
+            });
+            this.dispatchEvent(evt);
         }
+
+        
     }
 }

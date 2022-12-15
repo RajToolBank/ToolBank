@@ -1,0 +1,62 @@
+<template>
+    <template if:true={order}>
+        <div class="custom-container">
+            <div class="slds-modal__header custom-header">
+                <h1 class="slds-modal__title slds-hyphenate">Make Payment for {order.Name}-{order.OrderNumber}</h1>
+            </div>
+            <div class="slds-modal__footer slds-text-align_right custom-footer"><!--slds-align_absolute-center slds-size_12-of-12-->
+                <lightning-button variant="brand" class="slds-m-left_small" type="submit" label="Save and Close" onclick={makePayment}></lightning-button>
+                <lightning-button variant="brand" class="slds-m-left_small" type="submit" onclick={cancel} label="Cancel"></lightning-button>
+                </div><br/><br/><br/>
+    <article class="slds-card slds-size_1-of-1" >
+        
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-grid slds-wrap">
+                <div  class="slds-col slds-size_1-of-2">
+                    <span><b>Available Credits: $<lightning-formatted-number value={order.Available_Credits__c} minimum-fraction-digits="2"></lightning-formatted-number>
+                    </b></span>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                     <Span><b>Amount Owed: $<lightning-formatted-number value={order.Amount_Owed__c} minimum-fraction-digits="2"></lightning-formatted-number>
+                     </b></Span>
+                </div><br/><br/><br/>
+            </div>
+            
+            <div class="slds-grid slds-wrap">
+                <div  class="slds-col slds-size_1-of-1">
+                    <span>Payment Method:</span>
+                </div>
+                <div class="slds-col slds-size_1-of-1">
+                    <Span><lightning-combobox 
+                            value={method}
+                            data-id="method"
+                            options={paymentMethods}
+                        ></lightning-combobox >
+                    </Span>
+                    <span style="color: red;font-style: italic;" data-id="methoderror"></span>
+                </div><br/><br/>
+            </div>
+            <div class="slds-grid slds-wrap">
+                <div  class="slds-col slds-size_1-of-1">
+                    <span>Amount:</span>
+                </div>
+                <div class="slds-col slds-size_1-of-1">
+                     <Span><lightning-input value="0.00" data-id="amount" min="0" type="currency" ></lightning-input> </Span>
+                     <span style="color: red;font-style: italic;" data-id="amounterror"></span>
+                </div><br/><br/><br/>
+            </div>
+            <div class="slds-grid slds-wrap">
+                <div  class="slds-col slds-size_1-of-1">
+                    <span>Comments:</span>
+                </div>
+                <div class="slds-col slds-size_1-of-1"> 
+                     <Span> <lightning-textarea data-id="comments"  ></lightning-textarea></Span>
+                     <span style="color: red;font-style: italic;" data-id="commentserror"></span>
+                </div><br/><br/>
+            </div>
+            
+        </div>
+    </article>
+    </div>
+</template>
+</template>

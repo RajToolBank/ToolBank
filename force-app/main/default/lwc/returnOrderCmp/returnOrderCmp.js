@@ -1,14 +1,14 @@
 import { api, LightningElement, wire } from 'lwc';
 import getOrderItems from '@salesforce/apex/ReturnOrderController.getOrderItems';
-import getOrderItemsDirect from '@salesforce/apex/ReturnOrderController.getOrderItems';
+import getOrderItemsDirect from '@salesforce/apex/ReturnOrderController.getOrderItemsDirect';
 import saveOrder from '@salesforce/apex/ReturnOrderController.saveOrder';
-import TOOL_PICKED_FIELD from '@salesforce/schema/Order.Tools_Picked_Up_By__c';
+import TOOL_RETURN_FIELD from '@salesforce/schema/Order.Tools_Returned_By__c';
 import { NavigationMixin } from "lightning/navigation";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
 
-    toolPickedField = TOOL_PICKED_FIELD;
+    toolReturnedField = TOOL_RETURN_FIELD;
 
     @api
     recordId;
@@ -114,14 +114,14 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
 
     openModal(event){
         let allselectrows = this.template.querySelectorAll(`[data-check="checkbox"]`);
-        console.log(allselectrows);
         let isAnySelected = false;
         allselectrows.forEach(function(ele){
 
             if(ele.checked){
-                isAnySelected = true
+                isAnySelected = true;
             }
-        })
+        });
+
         if(!isAnySelected){
             const evt = new ShowToastEvent({
                 title: "Mass Date Change",
@@ -130,16 +130,22 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
             });
             this.dispatchEvent(evt);
             this.setReturnDate = false;
-            return
         }else{
-            if(!this.setReturnDate)
+            if(!this.setReturnDate){
                 this.setReturnDate = true;
-            else this.setReturnDate = false;
-        }
+                this.template.querySelector(`[data-id="returnmodal"]`).style.display="block";
+            }
+            else {this.setReturnDate = false;
+                this.template.querySelector(`[data-id="returnmodal"]`).style.display="none";
+            }
+       }
+
+        return false;
     }
 
     closeOpenModal(event){
         this.setReturnDate = false;
+        this.template.querySelector(`[data-id="returnmodal"]`).style.display="none";
     }
 
     handleModalRadio(event){
@@ -215,6 +221,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 
             }
         });
+        this.template.querySelector(`[data-id="returnmodal"]`).style.display="none";
         this.loaded = false;
     }
 
@@ -242,11 +249,10 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         let week = Math.ceil(TotalDays/7);
         let affiliateFee = parseInt(retDate.dataset.affiliatefee);
         let unitprice = parseFloat(retDate.dataset.unitprice);
-        const handleFeePerTool = (((parseInt(affiliateFee)*unitprice)/100)*week*parseInt(retQty)).toFixed(2);
+        const handleFeePerTool = (((parseInt(affiliateFee)*unitprice)/100)*week*parseInt(lost + damaged + retQty)).toFixed(2);
         retDate.dataset.week = week>1?(week+" weeks"):(week+" week");
-        //let feeperTool = this.template.querySelector(`[data-toolfee="`+recid+`"]`);
-        //feeperTool.innerHTML = "$ "+(handleFeePerTool);
         let basefee = this.template.querySelector(`[data-basefee="`+recid+`"]`);
+        console.log(handleFeePerTool);
         basefee.innerHTML = "$ "+(handleFeePerTool);
         const lostToolFee = (unitprice * parseInt(lost)).toFixed(2);
         let lostfee = this.template.querySelector(`[data-lostfee="`+recid+`"]`);
@@ -306,7 +312,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                         message: "Total return can not be greater than total borrowed",
                         variant: "error",
                     });
-                    this.dispatchEvent(evt);
+                    template.dispatchEvent(evt);
                    
                     returnqty.style.borderColor = "red";
                     lostqty.style.borderColor = "red";
@@ -439,8 +445,32 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         this.loaded = true;
         let state = this.template;
         let getAllTools = state.querySelectorAll(`[data-id="dataid"]`);
+        let returnedBy = state.querySelector(`[data-id="returnedby"]`);
         let itemList = [];
         const EffectiveDate = this.order.EffectiveDate; 
+        let allselectrows = state.querySelectorAll(`[data-check="checkbox"]`);
+        let isSelected = false;
+       allselectrows.forEach(function(ele){
+
+            if(ele.checked){
+                isSelected = true;
+                const recid = ele.dataset.recid;
+                let status = state.querySelector(`[data-sts="`+recid+`"]`);
+                if(status.innerHTML !== "Partially Returned" && status.innerHTML !== "Returned"){
+                    isSelected = false;
+                }
+            }
+        });
+        
+        
+        if(!isSelected){
+            const evt = new ShowToastEvent({
+                title: "Return Tools",
+                message: "No items were returned.  Please select the row(s), update the quantites and click 'Return' before saving.",
+                variant: "warning",
+            });
+            this.dispatchEvent(evt);
+        }
         getAllTools.forEach(function(ele){
             const recid = ele.dataset.rowid;
             console.log(recid);
@@ -485,12 +515,14 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 if(pendingQty === 0){
                     let item ={
                         Id:recid,
+                        orderid:orderid,
                         returnDate:returnDate,
                         borrowedPeriod:borrowedPeriod,
                         lost:lostqty,
                         damaged:damagedqty,
                         returnqty:returnqty,
                         EffectiveDate:EffectiveDate,
+                        returnedBy:returnedBy.value,
                         //basefee:basefee,
                         status:newStatus
                     }
@@ -498,12 +530,14 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 }else if(pendingQty === borrowedqty){
                     let item ={
                         Id:recid,
+                        orderid:orderid,
                         returnDate:returnDate,
                         borrowedPeriod:borrowedPeriod,
                         EffectiveDate:EffectiveDate,
                         lost:0,
                         damaged:0,
                         returnqty:0,
+                        returnedBy:returnedBy.value,
                         //basefee:basefee,
                         status:oldStatus
                     }
@@ -511,6 +545,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 }else{
                     let item1 ={
                         Id:recid,
+                        orderid:orderid,
                         returnDate:returnDate,
                         borrowedPeriod:borrowedPeriod,
                         EffectiveDate:EffectiveDate,
@@ -518,11 +553,13 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                         damaged:damagedqty,
                         returnqty:returnqty,
                         status:"Returned",
+                        returnedBy:returnedBy.value,
                         //basefee:basefee,
                         borrowed:(lostqty+damagedqty+returnqty)
                     }
                     let item2 ={
                         Id:"2",
+                        orderid:orderid,
                         returnDate:returnDate,
                         lost:0,
                         orderid:orderid,
@@ -537,6 +574,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                         unitPrice:unitPrice,
                         product2id:product2id,
                         pbeid:pbeid,
+                        returnedBy:returnedBy.value,
                         affiliatefee:affiliatefee
                     }
                     itemList.push(item1);
@@ -545,12 +583,14 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
             } else{
                 let item ={
                     Id:recid,
+                    orderid:orderid,
                     returnDate:returnDate,
                     borrowedPeriod:borrowedPeriod,
                     EffectiveDate:EffectiveDate,
                     lost:0,
                     damaged:0,
                     returnqty:0,
+                    returnedBy:returnedBy.value,
                     //basefee:basefee,
                     status:oldStatus
                 }
@@ -564,14 +604,46 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         saveOrder({itemsList:JSON.stringify(itemList) }).then(res=>{
             console.log(res);
             //alert("record saved successfully");
-            const evt = new ShowToastEvent({
-                title: "Return Tools",
-                message: "record saved successfully",
-                variant: "success",
-            });
-            this.dispatchEvent(evt);
-            this.loaded = false;
+            if(isSelected){
+                const evt = new ShowToastEvent({
+                    title: "Return Tools",
+                    message: "record saved successfully",
+                    variant: "success",
+                });
+                this.dispatchEvent(evt);
+            }
+            
             //location.reload();
+            if(res)
+            return getOrderItemsDirect({orderId: this.recordId});
+        }).then(res =>{
+            console.log( res);
+                this.order = res.order; 
+                let totalTimeInSeconds = (res.order.Scheduled_Pickup_Time__c/1000);
+                let result = new Date(null, null, null, null, null, totalTimeInSeconds);
+                let tempTime = result.toTimeString().split(' ')[0].substring(0,5)
+                tempTime = tempTime.split(':');
+                if(res.order.Scheduled_Pickup_Time__c && tempTime){
+                    const hour = parseInt(tempTime[0]) >12 && parseInt(tempTime[0]) !== 0 && parseInt(tempTime[0]) !== 12 ?(parseInt(tempTime)-12):(parseInt(tempTime[0]) === 0?12:tempTime[0]);
+                    const hour12 =  parseInt(tempTime[0]) >=12?"PM":"AM";
+                    this.schPickTime = hour+':'+tempTime[1]+' '+hour12;
+                }
+
+                let itemlist = JSON.parse(JSON.stringify(res.orderItems));
+                for(let i in itemlist){
+                    console.log( itemlist[i].UnitPrice);
+                    itemlist[i].orderItem.UnitPrice = itemlist[i].orderItem.UnitPrice.toFixed(2);
+                }
+
+                let returnitemlist = JSON.parse(JSON.stringify(res.returnOrderItems));
+                for(let i in returnitemlist){
+                    returnitemlist[i].orderItem.UnitPrice = returnitemlist[i].orderItem.UnitPrice.toFixed(2);
+                }
+
+                this.orderItems = itemlist;
+                this.allOrderItems = itemlist;
+                this.returnOrderItems = returnitemlist;
+                this.loaded = false;
         }).catch(error=>{
             console.log(error);
             const evt = new ShowToastEvent({
@@ -588,15 +660,19 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
     handleReturnAndSave(event){
         this.loaded = true;
         let template = this;
+        let returnedBy = this.template.querySelector(`[data-id="returnedby"]`);
         let allselectrows = template.template.querySelectorAll(`[data-check="checkbox"]`);
         let isSelected = false;
-       /* allselectrows.forEach(function(ele){
+       allselectrows.forEach(function(ele){
 
             if(ele.checked){
                 isSelected = true;
                 const recid = ele.dataset.recid;
                 let status = template.template.querySelector(`[data-sts="`+recid+`"]`);
-                let stillOutqty = template.template.querySelector(`[data-stillout="`+recid+`"]`);
+                if(status.innerHTML !== "Partially Returned" && status.innerHTML !== "Returned"){
+                    isSelected = false;
+                }
+                /*let stillOutqty = template.template.querySelector(`[data-stillout="`+recid+`"]`);
                 let borrowed = template.template.querySelector(`[data-borrowed="`+recid+`"]`);
 
                 let returnqty = template.template.querySelector(`[data-returnqty="`+recid+`"]`);
@@ -624,7 +700,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                     lostqty.style.borderColor = "red";
                     damagedqty.style.borderColor = "red";
                 }
-                
+                */
             }
         });
         
@@ -632,11 +708,12 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         if(!isSelected){
             const evt = new ShowToastEvent({
                 title: "Return Tools",
-                message: "Nothing is selected please select a row to return",
+                message: "No items were returned.  Please select the row(s), update the quantites and click 'Return' before saving.",
                 variant: "error",
             });
             this.dispatchEvent(evt);
-        }else{*/
+        }
+        /*else{*/
 
         let state = this.template;
         let getAllTools = state.querySelectorAll(`[data-id="dataid"]`);
@@ -686,12 +763,14 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 if(pendingQty === 0){
                     let item ={
                         Id:recid,
+                        orderid:orderid,
                         returnDate:returnDate,
                         borrowedPeriod:borrowedPeriod,
                         lost:lostqty,
                         damaged:damagedqty,
                         returnqty:returnqty,
                         EffectiveDate:EffectiveDate,
+                        returnedBy:returnedBy.value,
                         //basefee:basefee,
                         status:newStatus
                     }
@@ -699,12 +778,14 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 }else if(pendingQty === borrowedqty){
                     let item ={
                         Id:recid,
+                        orderid:orderid,
                         returnDate:returnDate,
                         borrowedPeriod:borrowedPeriod,
                         EffectiveDate:EffectiveDate,
                         lost:0,
                         damaged:0,
                         returnqty:0,
+                        returnedBy:returnedBy.value,
                         //basefee:basefee,
                         status:oldStatus
                     }
@@ -712,6 +793,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 }else{
                     let item1 ={
                         Id:recid,
+                        orderid:orderid,
                         returnDate:returnDate,
                         borrowedPeriod:borrowedPeriod,
                         EffectiveDate:EffectiveDate,
@@ -719,11 +801,13 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                         damaged:damagedqty,
                         returnqty:returnqty,
                         status:"Returned",
+                        returnedBy:returnedBy.value,
                         //basefee:basefee,
                         borrowed:(lostqty+damagedqty+returnqty)
                     }
                     let item2 ={
                         Id:"2",
+                        orderid:orderid,
                         returnDate:returnDate,
                         lost:0,
                         orderid:orderid,
@@ -738,6 +822,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                         unitPrice:unitPrice,
                         product2id:product2id,
                         pbeid:pbeid,
+                        returnedBy:returnedBy.value,
                         affiliatefee:affiliatefee
                     }
                     itemList.push(item1);
@@ -746,12 +831,14 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
             } else{
                 let item ={
                     Id:recid,
+                    orderid:orderid,
                     returnDate:returnDate,
                     borrowedPeriod:borrowedPeriod,
                     EffectiveDate:EffectiveDate,
                     lost:0,
                     damaged:0,
                     returnqty:0,
+                    returnedBy:returnedBy.value,
                     //basefee:basefee,
                     status:oldStatus
                 }
@@ -765,12 +852,14 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         saveOrder({itemsList:JSON.stringify(itemList) }).then(res=>{
             console.log(res);
             //alert("record saved successfully");
-            const evt = new ShowToastEvent({
-                title: "Return Tools",
-                message: "record saved successfully",
-                variant: "success",
-            });
-            this.dispatchEvent(evt);
+            if(isSelected){
+                const evt = new ShowToastEvent({
+                    title: "Return Tools",
+                    message: "record saved successfully",
+                    variant: "success",
+                });
+                this.dispatchEvent(evt);
+            }
             location.reload();
         }).catch(error=>{
             console.log(error);

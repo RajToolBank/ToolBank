@@ -27,7 +27,7 @@ public without Sharing class PlaceOrderController {
     
     @AuraEnabled(cacheable = true)
     public static User getAgencyContact(){
-        User user = [SELECT Id,contactId, Contact.Email,contact.npsp__Primary_Affiliation__c, contact.npsp__Primary_Affiliation__r.name, Contact.AccountId,Contact.Name,contact.Account.Name FROM User WHERE Id =: UserInfo.getUserId()];
+        User user = [SELECT Id,contactId,UserType, Contact.Email,contact.npsp__Primary_Affiliation__c, contact.npsp__Primary_Affiliation__r.name, Contact.AccountId,Contact.Name,contact.Account.Name FROM User WHERE Id =: UserInfo.getUserId()];
         
         return user;
     }
@@ -170,107 +170,137 @@ public without Sharing class PlaceOrderController {
         List<Object> toolObj = (List<Object>)orderDetail.get('tools');
         
         Order ord = new Order();
-        ord.status = 'Unconfirmed';
-        ord.pricebook2Id = '01sA0000000PfKSIA0';
-        ord.name = (String)orderObj.get('name');
-        String zipCodes = (String)orderObj.get('zip');
-        ord.Serving_50_of_Low_Income_People__c = (String)orderObj.get('serv');
-        List<Object> proVenueList = (List<Object>)orderObj.get('proVenue');
-        List<Object> proTypeList = (List<Object>)orderObj.get('proType');
-        List<Object> impactAreaList = (List<Object>)orderObj.get('impactArea');
-        String proVenue='';
-        for(Object obj: proVenueList){
-            proVenue += (String)obj+';';
-        }
-        String proType='';
-        for(Object obj: proTypeList){
-            proType += (String)obj+';';
-        }
-        String impactArea='';
-        for(Object obj: impactAreaList){
-            impactArea += (String)obj+';';
-        }
-        ord.Project_Venue__c = proVenue;
-        ord.Project_Type__c = proType;
-        ord.Areas_Of_Impact__c = impactArea;
-        ord.AccountId = (String)orderObj.get('accountId');
-        ord.BillToContactId = (String)orderObj.get('contactId');
-        ord.Desired_Pickup_Date__c = Date.valueOf((String)orderObj.get('pickdate'));
-        ord.Desired_Pickup_Time__c = (String)orderObj.get('pickTime');
-        ord.EndDate = Date.valueOf((String)orderObj.get('retDate'));
-        ord.Requested_Borrowing_Period__c = (String)orderObj.get('duration');
-        ord.Corporation_Name__c = (String)orderObj.get('corpname');
-        if((String)orderObj.get('home') != null)
-            ord.If_Yes_How_Many_Homes__c = Decimal.valueOf((String)orderObj.get('home'));
-        
-        if((String)orderObj.get('numAttend') != null)
-            ord.Number_of_Attendees__c = Decimal.valueOf((String)orderObj.get('numAttend'));
-        
-        ord.EffectiveDate =ord.Desired_Pickup_Date__c;
-        ord.Affiliate__c = (String)orderObj.get('affiliateid');
-        String peopleserved= (String)orderObj.get('peopledirectlyserved');
-        String projectNumber= (String)orderObj.get('numberProject');
-        String avgHr= (String)orderObj.get('onsitehours');
-        String voluNumber= (String)orderObj.get('volunteersnumber');
-        String staff= (String)orderObj.get('staff');
-        String totalVol= (String)orderObj.get('projectVolunteerHr');
-        String peopleimpact= (String)orderObj.get('peopleImImpacted');
-        ord.Volunteer_Source__c = (String)orderObj.get('volunteersource');
-        
-        ord.People_Directly_Served__c = String.isBlank(peopleserved)?null: Decimal.valueOf(peopleserved);
-        ord.Number_Of_Projects__c = String.isBlank(projectNumber)?null: Decimal.valueOf(projectNumber);
-        ord.Hours_Average_Volunteer_is_on_Site__c = String.isBlank(avgHr)?null: Decimal.valueOf(avgHr);
-        ord.Number_of_Volunteers__c = String.isBlank(voluNumber)?null: Decimal.valueOf(voluNumber);
-        ord.People_Indirectly_Impacted__c = String.isBlank(peopleimpact)?null: Decimal.valueOf(peopleimpact);
-        ord.Staff_on_this_Project__c = String.isBlank(staff)?null: Decimal.valueOf(staff);
-        ord.Total_Project_Volunteer_Hours__c = String.isBlank(totalVol)?null: Decimal.valueOf(totalVol);
-        insert ord;
-        
-        if(zipCodes != null){
-            list<String> zipCodeList =  zipCodes.split(',');
-            if(zipCodeList != null && zipCodeList.size() >0){
-                list<Order_Zip_Code__c> ordZipCodes = new List<Order_Zip_Code__c>();
-                for(String zip: zipCodeList){
-                    system.debug(zip);
-                    if(!String.isblank(zip)){
-                        Order_Zip_Code__c ordZip = new Order_Zip_Code__c();
-                        ordZip.Order__c = ord.id;
-                        ordZip.name = zip;
-                        ordZip.Zip_Code__r = new Zip_Code__c(Zip_Code__c = zip);
-                        ordZipCodes.add(ordZip); 
-                    }
-                }
-                
-                if(!ordZipCodes.isEmpty())
-                    insert ordZipCodes;
+        try{
+            ord.status = 'Unconfirmed';
+            ord.pricebook2Id = label.pricebookid;
+            ord.name = (String)orderObj.get('name');
+            String zipCodes = (String)orderObj.get('zip');
+            ord.Serving_50_of_Low_Income_People__c = (String)orderObj.get('serv');
+            List<Object> proVenueList = (List<Object>)orderObj.get('proVenue');
+            List<Object> proTypeList = (List<Object>)orderObj.get('proType');
+            List<Object> impactAreaList = (List<Object>)orderObj.get('impactArea');
+            String proVenue='';
+            for(Object obj: proVenueList){
+                proVenue +=(String)obj+';';
             }
+            String proType='';
+            for(Object obj: proTypeList){
+                proType += (String)obj+';';
+            }
+            String impactArea='';
+            for(Object obj: impactAreaList){
+                impactArea += (String)obj+';';
+            }
+            ord.Project_Venue__c = proVenue;
+            ord.Project_Type__c = proType;
+            ord.Areas_Of_Impact__c = impactArea;
+            ord.AccountId = (String)orderObj.get('accountId');
+            ord.BillToContactId = (String)orderObj.get('contactId');
+            ord.Desired_Pickup_Date__c = Date.valueOf((String)orderObj.get('pickdate'));
+            ord.Desired_Pickup_Time__c = (String)orderObj.get('pickTime');
+            ord.EndDate = Date.valueOf((String)orderObj.get('retDate'));
+            ord.Schedule_Return_Date__c = Date.valueOf((String)orderObj.get('retDate'));
+            ord.Requested_Borrowing_Period__c = (String)orderObj.get('duration');
+            ord.Corporation_Name__c = (String)orderObj.get('corpname');
+            if((String)orderObj.get('home') != null)
+                ord.If_Yes_How_Many_Homes__c = Decimal.valueOf((String)orderObj.get('home'));
+            
+            if((String)orderObj.get('numAttend') != null)
+                ord.Number_of_Attendees__c = Decimal.valueOf((String)orderObj.get('numAttend'));
+            
+            ord.EffectiveDate =ord.Desired_Pickup_Date__c;
+            
+            if((String)orderObj.get('pickTime') != Null){
+                Time pickTime;
+                String timeString = (String)orderObj.get('pickTime');
+                if(timeString.containsIgnoreCase('am')){
+                    timeString = timeString.replace('AM','');
+                    list<String> temp = timeString.split(':');
+                    Integer hour = temp != Null && temp.size() >0?Integer.valueOf(temp[0].trim()):0;
+                    Integer min = temp != Null && temp.size() >=1?Integer.valueOf(temp[1].trim()):0;
+                    pickTime = Time.newInstance(hour,min,0,0);
+                }else{
+                    timeString = timeString.replace('PM','');
+                    list<String> temp = timeString.split(':');
+                    Integer hour = temp != Null && temp.size() >0?Integer.valueOf(temp[0].trim()):0;
+                    Integer min = temp != Null && temp.size() >=1?Integer.valueOf(temp[1].trim()):0;
+                    pickTime = Time.newInstance(hour+12,min,0,0);
+                }
+                ord.Scheduled_Pickup_Time__c = pickTime;
+            }
+
+            ord.Affiliate__c = (String)orderObj.get('affiliateid');
+            String peopleserved= (String)orderObj.get('peopledirectlyserved');
+            String projectNumber= (String)orderObj.get('numberProject');
+            String avgHr= (String)orderObj.get('onsitehours');
+            String voluNumber= (String)orderObj.get('volunteersnumber');
+            String staff= (String)orderObj.get('staff');
+            String totalVol= (String)orderObj.get('projectVolunteerHr');
+            String peopleimpact= (String)orderObj.get('peopleImImpacted');
+            ord.Volunteer_Source__c = (String)orderObj.get('volunteersource');
+            
+            ord.People_Directly_Served__c = String.isBlank(peopleserved)?null: Decimal.valueOf(peopleserved);
+            ord.Number_Of_Projects__c = String.isBlank(projectNumber)?null: Decimal.valueOf(projectNumber);
+            ord.Hours_Average_Volunteer_is_on_Site__c = String.isBlank(avgHr)?null: Decimal.valueOf(avgHr);
+            ord.Number_of_Volunteers__c = String.isBlank(voluNumber)?null: Decimal.valueOf(voluNumber);
+            ord.People_Indirectly_Impacted__c = String.isBlank(peopleimpact)?null: Decimal.valueOf(peopleimpact);
+            ord.Staff_on_this_Project__c = String.isBlank(staff)?null: Decimal.valueOf(staff);
+            ord.Total_Project_Volunteer_Hours__c = String.isBlank(totalVol)?null: Decimal.valueOf(totalVol);
+            insert ord;
+            
+            if(zipCodes != null){
+                list<String> zipCodeList =  zipCodes.split(',');
+                if(zipCodeList != null && zipCodeList.size() >0){
+                    list<Order_Zip_Code__c> ordZipCodes = new List<Order_Zip_Code__c>();
+                    for(String zip: zipCodeList){
+                        system.debug(zip);
+                        if(!String.isblank(zip)){
+                            Order_Zip_Code__c ordZip = new Order_Zip_Code__c();
+                            ordZip.Order__c = ord.id;
+                            ordZip.name = zip;
+                            ordZip.Zip_Code__r = new Zip_Code__c(Zip_Code__c = zip);
+                            ordZipCodes.add(ordZip); 
+                        }
+                    }
+                    
+                    if(!ordZipCodes.isEmpty())
+                        insert ordZipCodes;
+                }
+            }
+            
+            List<OrderItem> orderItemList = new List<OrderItem>();
+            for(Object tool:toolObj){
+                Map<String, Object> product = ( Map<String, Object>)tool;
+                OrderItem item = new OrderItem();
+                item.quantity = Decimal.valueOf((String)product.get('quantity'));
+                item.unitPrice = Decimal.valueOf((String)product.get('retailPrice'));
+                item.Affiliate_Handling_Fee__c = Decimal.valueOf((String)product.get('affiliatefee'));
+                item.Requested_Borrowing_Period__c = (String)orderObj.get('duration');
+                item.PriceBookEntryId = (String)product.get('pbeid');
+                item.Inventory_Tool__c = (String)product.get('assetId');
+                item.orderId = ord.id;
+                item.Schedule_Pick_Date__c = Date.valueOf((String)orderObj.get('pickdate'));
+                item.Schedule_Return_Date__c = Date.valueOf((String)orderObj.get('retDate'));
+                item.status__c= 'Unconfirmed';
+                orderItemList.add(item);
+            }
+            
+            
+            
+            if(!orderItemList.isEmpty())
+                insert orderItemList;
+            
+            if(ord != Null)
+                LowestQuantityCalculateClasss.lowestQuantityOrder2(new List<order>{ord});
+        }catch(Exception e){
+            Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
+            message.toAddresses = new String[] { 'rajsfdcproject@gmail.com' };
+            message.subject = 'Order place error';
+            message.plainTextBody = e.getMessage() +'\n'+e.getStackTraceString()+'\n'+e.getLineNumber()+'\n'+e.getCause();
+            Messaging.SingleEmailMessage[] messages =   new List<Messaging.SingleEmailMessage> {message};
+            Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);
+            //throw new AuraHandledException(e.getMessage());
         }
-        
-        List<OrderItem> orderItemList = new List<OrderItem>();
-        for(Object tool:toolObj){
-            Map<String, Object> product = ( Map<String, Object>)tool;
-            OrderItem item = new OrderItem();
-            item.quantity = Decimal.valueOf((String)product.get('quantity'));
-            item.unitPrice = Decimal.valueOf((String)product.get('retailPrice'));
-            item.Affiliate_Handling_Fee__c = Decimal.valueOf((String)product.get('affiliatefee'));
-            item.Requested_Borrowing_Period__c = (String)orderObj.get('duration');
-            item.PriceBookEntryId = (String)product.get('pbeid');
-            item.Inventory_Tool__c = (String)product.get('assetId');
-            item.orderId = ord.id;
-            item.Schedule_Pick_Date__c = Date.valueOf((String)orderObj.get('pickdate'));
-            item.Schedule_Return_Date__c = Date.valueOf((String)orderObj.get('retDate'));
-            item.status__c= 'Unconfirmed';
-            orderItemList.add(item);
-        }
-        
-        
-        
-        if(!orderItemList.isEmpty())
-            insert orderItemList;
-        
-        if(ord != Null)
-            LowestQuantityCalculateClasss.lowestQuantityOrder2(new List<order>{ord});
-        
         return '/'+ord.id;
     }
     

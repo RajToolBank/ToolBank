@@ -1,5 +1,9 @@
-public with sharing class AdditionalChargesController {
+public Without Sharing class AdditionalChargesController {
     
+    @AuraEnabled(cacheable=true)
+    public static Order getOrder(String orderId){
+        return [SELECT Id,Affiliate__r.Membership_Fees_Amount__c FROM Order WHERE Id =: orderId];
+    }
     @AuraEnabled(cacheable=true)
     public static List<PricebookEntry> getProducts(){
 

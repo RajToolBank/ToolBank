@@ -22,6 +22,20 @@
     display: block;
 }
 
+.quantity-input{
+  width: 70px;
+}
+.slds-checkbox{
+  display: inline-flex;
+  flex-direction: column;
+}
+.col-large{
+  width: 85%;
+}
+.col-small{
+  width: 15%;
+}
+
 /* .tooltip {
     position: relative;
     display: inline-block;

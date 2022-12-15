@@ -39,13 +39,15 @@ export default class ReviewPage extends LightningElement {
       
         
         placeOrder({Order: JSON.stringify(order)}).then(res =>{
+            console.log(res);
             this.loaded = false;
-            this.success = true;
-
-            
-    
-            this.orderId = currentURL+res;
             this.review = true;
+            if(res !== '/null'){
+                this.success = true;
+                this.orderId = currentURL+res;
+            }else{
+                this.error = true;
+            }
         }).catch(error =>{
             console.log(error);
             this.error = true;

@@ -38,7 +38,7 @@ public with sharing class SearchComponentController {
         String searchKeyword = '%'+ searchTerm + '%';
         String query = 'SELECT Id, '+String.join(fields,',')+' FROM '+objectName+' WHERE Name like \''+searchKeyword+'\'';
         if(String.isNotBlank(parentId))
-            query =  query + ' AND AccountId = \''+parentId+'\'';
+            query =  query + ' AND ( AccountId = \''+parentId+'\' OR npsp__Primary_Affiliation__c = \''+parentId+'\' )';
 
         List<SObject> sobjList = Database.query( query );
         return sobjList;

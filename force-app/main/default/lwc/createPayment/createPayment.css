@@ -1,0 +1,17 @@
+.custom-container{
+    position: relative;
+}
+.custom-header{
+    position: fixed;
+    left: 0;
+    right: 1.1%;
+    top: 48px;
+    z-index: 99;
+}
+.custom-footer{
+    bottom: 80px;
+    left: 0;
+    position: fixed;
+    right: 0px;
+    z-index: 99;
+}

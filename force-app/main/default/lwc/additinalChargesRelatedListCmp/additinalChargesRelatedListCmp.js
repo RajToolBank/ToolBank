@@ -3,21 +3,31 @@ import getProducts from '@salesforce/apex/AdditionalChargesController.getProduct
 import addProducts from '@salesforce/apex/AdditionalChargesController.addProducts';
 import getAdditionProducts from '@salesforce/apex/AdditionalChargesController.getAdditionProducts';
 import deleteItems from '@salesforce/apex/AdditionalChargesController.deleteItems';
+import getOrder from '@salesforce/apex/AdditionalChargesController.getOrder';
 import { getRecordNotifyChange } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import MembershipFeePBEId from '@salesforce/label/c.MembershipFeePBEId';
 
 export default class AdditinalChargesRelatedListCmp extends LightningElement {
 
     @api
     recordId;
+    showComp = false;
     products;
     options;
     orderlink;
+    membershipFee;
     num;
+
+    label = {
+        MembershipFeePBEId
+    };
+
     @wire(getProducts)
     getAllProducts({data,error}){
         if(data){
-            
+            if(this.recordId.startsWith("801"))
+                this.showComp = true; 
             let optlist =[];
             for(let i in data){
                 let item = { label: data[i].Product2.Name, 
@@ -31,7 +41,19 @@ export default class AdditinalChargesRelatedListCmp extends LightningElement {
             this.orderlink = "/lightning/r/Order/"+this.recordId+"/related/OrderItems/view";
         }
         if(error){
+            if(this.recordId.startsWith("Hello"))
+                this.showComp = true; 
             console.log(error);
+        }
+    }
+
+    @wire(getOrder,{orderId: '$recordId'})
+    getOrder({data,error}){
+        if(data){
+            console.log(data);
+            this.membershipFee = data.Affiliate__r.Membership_Fees_Amount__c;
+        }else if(error){
+
         }
     }
 
@@ -66,36 +88,31 @@ export default class AdditinalChargesRelatedListCmp extends LightningElement {
        
         let itemList = JSON.parse(JSON.stringify(this.products));
         
-        itemList.push({index:itemList.length,edit:true});
+        itemList.push({index:itemList.length,edit:true,UnitPrice:0.00,Description:""});
         
         console.log(itemList);
 
         this.products =itemList;
 
-       /* addProducts({orderItems:JSON.stringify(itemList) }).then(res=>{
-            console.log(res);
-            alert("Charges Added successfully");
-        }).catch(error=>{
-            console.log(error);
-        });*/
     }
 
     handleChange(event) {
         console.log(event.detail.value);
-        console.log(event.target.dataset.index);
+        console.log(MembershipFeePBEId);
+        console.log(this.membershipFee);
         const index = event.target.dataset.index;
         const recId = event.target.dataset.dropid;
         const pbeId = event.detail.value;
         const category = event.target.options.find(opt => opt.value === pbeId).category;
         let unitpriceEle = this.template.querySelector(`[data-inputindex="`+index+`"]`);
-        let descripEle = this.template.querySelector(`[data-inputindex="`+index+`"]`);
+        let descripEle = this.template.querySelector(`[data-descripindex="`+index+`"]`);
         const unitprice = unitpriceEle.value != "NaN"?parseFloat(unitpriceEle.value):0;
         let itemList = JSON.parse(JSON.stringify(this.products));
         let item = {};
         item.Id = recId?recId:null;
         item.PricebookEntryId = pbeId;
         item.edit = true;
-        item.UnitPrice = unitprice.toFixed(2);
+        item.UnitPrice = pbeId === MembershipFeePBEId?this.membershipFee: unitprice.toFixed(2);
         item.OrderId = this.recordId;
         item.qty=1;
         item.Description = descripEle.value;

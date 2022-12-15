@@ -96,13 +96,14 @@ public class TestDataFactory {
         return payment;
     }
     
-    public static User createCustomerUser(Contact con, Profile prof) {
+    @future
+    public static void createCustomerUser(String conId, String profId) {
         UserRole r = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
         insert r;
         User user1 = new User(
             Username = 'test12345@test.com',
-            ContactId = con.Id,
-            ProfileId = prof.Id,
+            ContactId = conId,
+            ProfileId = profId,
             Alias = 'test123',
             Email = 'test12345@test.com',
             EmailEncodingKey = 'UTF-8',
@@ -114,7 +115,6 @@ public class TestDataFactory {
             UserRoleId = r.Id
         );
         insert user1;
-        return user1;
     }
     
     public static Affiliate_Account__c createAffiliateAccount(Id accId) {
