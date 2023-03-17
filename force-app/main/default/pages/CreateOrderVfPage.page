@@ -19,6 +19,7 @@
         $Lightning.use("c:CreateOrderAuraApp", function() {
         $Lightning.createComponent("c:createOrder",
           { 
+            recordId:"{!Account.Id}"
           },
           "lightningvf",
           function(cmp) {

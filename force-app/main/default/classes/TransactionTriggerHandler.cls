@@ -65,7 +65,7 @@ public class TransactionTriggerHandler {
                     if('Increase'.equals(tran.sub_type__c)){
                         total += quantity;
                     }else if('Decrease'.equals(tran.sub_type__c)){
-                        total += quantity;
+                        total -= quantity;
                     }
                     
                 }

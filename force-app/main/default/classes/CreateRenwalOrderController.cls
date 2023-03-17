@@ -8,7 +8,7 @@ public without sharing class CreateRenwalOrderController {
 
     public pageReference createOrder(){
 
-        Account acc = [SELECT Id,parentid,name,parent.Membership_Fees_Amount__c FROM Account WHERE Id=:accid];
+        Account acc = [SELECT Id,parentid,name,parent.Membership_Fees_Amount__c,Membership_Join_Date__c FROM Account WHERE Id=:accid];
 
         Order ord = new order();
 
@@ -18,6 +18,7 @@ public without sharing class CreateRenwalOrderController {
         ord.pricebook2Id = label.pricebookId;
         ord.status = acc.parent.Membership_Fees_Amount__c!= Null && acc.parent.Membership_Fees_Amount__c != 0 ?'Unpaid ': 'Closed';
         ord.effectiveDate = Date.today();
+        ByPassValidations.ordStatusValidation = true;
         insert ord;
 
         Orderitem item = new Orderitem();
@@ -38,6 +39,11 @@ public without sharing class CreateRenwalOrderController {
         if(item.unitprice != Null && item.unitprice != 0){
             return new pageReference('/'+ord.Id).setRedirect(true);
         }else{
+            acc.Membership_Status__c = 'Active';
+            acc.Membership_Join_Date__c = acc.Membership_Join_Date__c != Null?acc.Membership_Join_Date__c:system.today();
+            acc.Last_Membership_Date__c = system.today();
+            acc.Membership_End_Date__c = system.today().addYears(1);
+            update acc;
             return new pageReference('/'+accid).setRedirect(true);
         }
 

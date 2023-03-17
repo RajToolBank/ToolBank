@@ -1,4 +1,4 @@
-public with sharing class markOrderItemOverdue implements Database.Batchable<Sobject> {
+public with sharing class markOrderItemOverdue implements Database.Batchable<Sobject>, Schedulable{
  
     public Database.QueryLocator start(Database.BatchableContext BC){
 
@@ -16,5 +16,10 @@ public with sharing class markOrderItemOverdue implements Database.Batchable<Sob
 
     public void finish(Database.BatchableContext BC){
 
+    }
+
+    public void execute(SchedulableContext sc){
+        markOrderItemOverdue batch = New markOrderItemOverdue();
+        database.executeBatch(batch, 200);
     }
 }

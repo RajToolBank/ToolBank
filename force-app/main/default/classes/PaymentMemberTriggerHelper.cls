@@ -77,10 +77,11 @@ public with sharing class PaymentMemberTriggerHelper {
                 }
             }
         
-
+        ByPassValidations.OrdStatusValidation = true;
         if(!creditIdToCreditMap.values().isEmpty())
             update creditIdToCreditMap.values();
-
+        
+        
         if(!creditPaymentList.isEmpty())
             insert creditPaymentList;
 
@@ -125,6 +126,7 @@ public with sharing class PaymentMemberTriggerHelper {
             creditListToUpdate.add(credit);
         }
         system.debug(creditListToUpdate);
+        ByPassValidations.OrdStatusValidation = true;
         if(!creditListToUpdate.isEmpty())
             update creditListToUpdate;
                                                                 

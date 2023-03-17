@@ -51,6 +51,7 @@ public Without Sharing class AdditionalChargesController {
                 }
             }
             system.debug(orderItemList);
+            ByPassValidations.ordItemPriceAndQtyValidation = true;
             if(!orderItemList.isEmpty())
                 upsert orderItemList;
             

@@ -30,6 +30,7 @@
     <template if:true={affiliateId}>
         <div data-id="orderinfo" >
             <c-order-information affiliate-id={affiliateId}
+            record-id={recordId}
             onorderinformation={handleOrderInfo}
             ></c-order-information>
         </div>

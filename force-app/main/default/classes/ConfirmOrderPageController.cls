@@ -189,9 +189,12 @@ public class ConfirmOrderPageController {
     }
 
     @AuraEnabled
-    public static Decimal singleItemLowestQuantity(String itemId, String product2Id, Date pickupDate, Date returnDate){
+    public static Decimal singleItemLowestQuantity(String itemId, String product2Id, Date pickupDate, Date returnDate,String affilliateId,Integer confirmQty){
 
         system.debug('itemId '+itemId +' product2Id '+product2Id+' pickupDate '+pickupDate+' returnDate '+returnDate);
+        if(!itemId.startsWith('802')){
+            itemId = Null;
+        }
         List<OrderItem> allItemList =   [SELECT Id,product2Id,
                                         LastModifiedDate,Quantity,
                                         Affiliate_Handling_Fee__c,
@@ -203,14 +206,24 @@ public class ConfirmOrderPageController {
                                         Schedule_Pick_Date__c,
                                         Schedule_Return_Date__c 
                                         FROM OrderItem 
-                                        WHERE (product2Id =: product2Id 
+                                        WHERE ((product2Id =: product2Id 
                                         AND Schedule_Pick_Date__c <=: returnDate
                                         AND Schedule_Return_Date__c >=: pickupDate)
-                                        OR Id =: itemId
+                                        OR Id =: itemId)
+                                        AND Order.Affiliate__c =: affilliateId 
                                         ORDER BY LastModifiedDate ASC];
         Map<Id, OrderItem> itemMap = new Map<Id, OrderItem>(allItemList);
+        Asset inventory;
+        if(allItemList == null || allItemList.size() <= 0)
+            inventory = [SELECT Id,Current_Inventory_F__c FROM Asset WHERE Product2Id =:product2Id AND AccountId =:affilliateId LIMIT 1];
+        else inventory = allItemList[0].Inventory_Tool__r;
 
-        orderItem orderItem = itemMap.remove(itemId);
+        OrderItem orderItem = itemId != null?itemMap.remove(itemId):new OrderItem(  Reserved_Quantity__c = confirmQty,
+                                                                                    Schedule_Pick_Date__c=pickupDate,
+                                                                                    Schedule_Return_Date__c=returnDate,
+                                                                                    Inventory_Tool__c = inventory.Id,
+                                                                                    Inventory_Tool__r = inventory
+                                                                                    );
         orderItem.Schedule_Pick_Date__c = pickupDate;
         orderItem.Schedule_Return_Date__c = returnDate;
         system.debug('orderItem :: '+orderItem);
@@ -311,11 +324,13 @@ public class ConfirmOrderPageController {
         Map<String, OrderItem> orderToItemMap = new Map<String, OrderItem>();
         for(OrderItem item: [SELECT Id,product2Id,
                                         orderid,
+                                        Order__c,
                                         LastModifiedDate,
                                         Quantity,
                                         order.EffectiveDate,
                                         Order.status,
-                                        Order.Name, 
+                                        Order.Name,
+                                        Order.Account.Name,
                                         Order.OrderNumber,
                                         Order.EndDate,
                                         PriceBookEntryId,
@@ -336,12 +351,15 @@ public class ConfirmOrderPageController {
                                         AND id !=: itemId
                                         ORDER BY Schedule_Return_Date__c ASC])
         {
-            if(!orderToItemMap.containsKey(item.orderid))
-                orderToItemMap.put(item.orderid, new OrderItem(quantity=0,Reserved_Quantity__c=0, order=item.order));
+            if(!orderToItemMap.containsKey(item.orderid)){
+                orderToItemMap.put(item.orderid, item);
+            }
             
             orderItem line = orderToItemMap.get(item.orderid);
-            line.quantity += item.quantity != null? item.quantity:0;
-            line.Reserved_Quantity__c += item.Reserved_Quantity__c != null? item.Reserved_Quantity__c:0;
+            if(line.Id != item.Id){
+                line.quantity += item.quantity != null? item.quantity:0;
+                line.Reserved_Quantity__c += item.Reserved_Quantity__c != null? item.Reserved_Quantity__c:0;
+            }
             line.Schedule_Pick_Date__c = item.order.EffectiveDate;
             line.Schedule_Return_Date__c = item.Schedule_Return_Date__c;
 
@@ -373,13 +391,16 @@ system.debug(order.get('Scheduled_Pickup_Time__c'));
 Time pickTime;
 if(order.get('Scheduled_Pickup_Time__c') != null && String.isNotBlank(((String)order.get('Scheduled_Pickup_Time__c')).trim())){
     List<String> timeString = Test.isRunningTest()?'02:45 PM'.split(':'):((String)order.get('Scheduled_Pickup_Time__c')).split(':');
+    system.debug(timeString);
     if(timeString != null && timeString.size() >0){
         Integer hour = Integer.valueOf(timeString[0]);
         Integer minutes = Integer.valueOf(timeString[1].split(' ')[0]);
+        system.debug(minutes);
         String AMPM = timeString[1].split(' ')[1];
+        system.debug(AMPM);
         if(AMPM == 'AM' && hour == 12)
             hour = hour-12;
-        else if(AMPM == 'PM')
+        else if(AMPM == 'PM' && hour != 12)
             hour = hour+12;
     system.debug(hour+':'+minutes);
     pickTime = Time.newInstance(hour,minutes,0,0);
@@ -397,9 +418,8 @@ if(order.get('Scheduled_Pickup_Time__c') != null && String.isNotBlank(((String)o
         );
         if((String)order.get('Status') == 'Fulfilled')
         updateOrder.Actual_Pickup_Date_Time__c = system.now();
-
-        update updateOrder;
         
+        list<Date> orderItemReturnDateList = new List<Date>();
         list<OrderItem> orderitems = new List<OrderItem>();
         for(object obj: (List<Object>)orderAndItemDetails.get('orderItems')){
             Map<String, object> item = (Map<String, object>)obj;
@@ -420,6 +440,7 @@ if(order.get('Scheduled_Pickup_Time__c') != null && String.isNotBlank(((String)o
             orderItem.Schedule_return_Date__c = Date.valueOf((String)item.get('retDate'));
             orderItem.Schedule_Pick_Date__c = Date.valueOf((String)item.get('pickdate'));
             orderItem.Status__c = (String) item.get('status');
+            orderItemReturnDateList.add(orderItem.Schedule_Return_Date__c);
             system.debug(orderitem);
             if((String) item.get('status') == 'Fulfilled')
                 orderItem.Check_Out_Quantity__c=Decimal.valueOf((String) item.get('reserv'));
@@ -427,6 +448,15 @@ if(order.get('Scheduled_Pickup_Time__c') != null && String.isNotBlank(((String)o
             orderitems.add(orderitem);
         }
 
+        if(orderItemReturnDateList.size()>0){
+            orderItemReturnDateList.sort();
+            updateOrder.EndDate = orderItemReturnDateList[0];
+        }
+
+        ByPassValidations.ordStatusValidation = true;
+        update updateOrder;
+
+        ByPassValidations.ordItemPriceAndQtyValidation = true;
         upsert orderitems;
 
         return 'success';

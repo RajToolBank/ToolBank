@@ -1,0 +1,9 @@
+<template>
+
+    <template if:true={dependentPicklist}>
+
+            <lightning-combobox label={dependentFieldLabel} required data-id="dependent" options={dependentPicklist} value={selectedValue}
+                onchange={selectValue}></lightning-combobox>
+    </template>
+
+</template>

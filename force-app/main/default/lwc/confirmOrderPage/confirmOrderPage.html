@@ -16,7 +16,7 @@
             <lightning-record-edit-form object-api-name="Order" record-id={recordId} style="width: 100%;">
                 <div class="slds-modal__footer slds-text-align_right custom-footer"><!--slds-align_absolute-center slds-size_12-of-12-->
                     <lightning-button variant="brand" class="slds-m-left_small" disabled={readonlyFlag} type="submit" label="Save and Close" onclick={onSaveHandle}></lightning-button>
-                    <lightning-button variant="brand" class="slds-m-left_small" disabled={enablefulfill} data-id="fulfill" onclick={handleFulfil} label="Fulfill"></lightning-button>
+                    <lightning-button variant="brand" class="slds-m-left_small" disabled={enablefulfill} data-id="fulfill" onclick={handleFulfillPopUp} label="Fulfill"></lightning-button>
                     <lightning-button variant="brand" class="slds-m-left_small"  type="submit" label="Cancel" onclick={handleCancel}></lightning-button>
                     <lightning-button variant="brand" class="slds-m-left_small" type="submit" label="Pick List Report" onclick={handlepdf}></lightning-button>
                 </div>
@@ -304,47 +304,7 @@
                     <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
                         
                         <lightning-input type="date" data-id="scheduleReturnDate" label="Scheduled Return Date" value={order.EndDate}></lightning-input>
-                        <!--lightning-input type="time" data-id="scheduleReturnTime" label="Scheduled Return Time" ></lightning-input-->
-                        <!--lightning-input type="date" data-id="scheduleDate" label="Scheduled Pickup Date" value={order.EffectiveDate}></lightning-input>
-                        <lightning-input type="time" data-id="scheduleTime" label="Scheduled Pickup Time" value={schPickTime}></lightning-input>
-                        <br/><br/> 
-                        <b>
-                            Note:  Schedule Return date will be updated only for selected rows.
-                        </b><br/><br/>
-                        <p class="slds-m-top_x-small" style="text-align: center;">The Scheduled Return Date for each row may no longer be correct.</p>
-                        <br/><br/>
-                            What do you want to do to the Scheduled Return Date for each row?
-                        <br/>
-                        <fieldset class="slds-form-element">
-                            <div class="slds-form-element__control">
                         
-                            <span class="slds-radio">
-                                <input type="radio" id="radio-62" data-id="radio-62" value="radio-62" name="default" onclick={handleModalRadio} checked=""/>
-                                <label class="slds-radio__label" for="radio-62">
-                                <span class="slds-radio_faux"></span>
-                                <span class="slds-form-element__label">Extend row's date based on new scheduled pick up date; borrowing period remains the same</span>
-                                </label>
-                            </span><br/>
-                            <span class="slds-radio">
-                                <input type="radio" id="radio-63" data-id="radio-63" value="radio-63" name="default" onclick={handleModalRadio}/>
-                                <label class="slds-radio__label" for="radio-63">
-                                <span class="slds-radio_faux"></span>
-                                <span class="slds-form-element__label">Extend a row's date by&nbsp;<input data-id="radio63" style="width: 6%;" type="number"/>&nbsp;days</span>
-                                </label>
-                            </span><br/>
-                            <span class="slds-radio">
-                                <input type="radio" id="radio-64" data-id="radio-64" value="radio-64" name="default" onclick={handleModalRadio}/>
-                                <label class="slds-radio__label" for="radio-64">
-                                <span class="slds-radio_faux"></span>
-                                <span class="slds-form-element__label">Extend a row's date by&nbsp;<input data-id="radio64" style="width: 6%;" type="number"/>&nbsp;
-                                    days if the Scheduled Return Dates matches this date &nbsp;
-                                    <input type="date" data-id="matchingDate"/>
-                                </span>
-                                </label>
-                            </span>
-                            </div>
-                        </fieldset>
-                        <br/><br/-->
                     </div>
                     <div class="slds-modal__footer">
                         <button  class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={OpenModal}>Cancel</button>
@@ -376,6 +336,10 @@
                                             <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
                                                 <div class="slds-truncate" style="white-space: pre-wrap;" title="TOOL NAME">ORDER NAME</div>
                                             </th>
+
+                                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
+                                                <div class="slds-truncate" style="white-space: pre-wrap;" title="Agency">AGENCY</div>
+                                            </th>
                                             
                                             <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
                                                 <div class="slds-truncate" style="white-space: pre-wrap;" title="REQUESTED QUANTITY">REQUESTED QUANTITY</div>
@@ -399,7 +363,10 @@
                                             <tr class="slds-hint-parent" key={record.Id} data-status={record.Status__c}  data-label="lable" title="title" >
                                     
                                                 <td class="slds-cell-wrap" data-label="TOOL NAME" scope="row" style="width: 9%;text-align: left;">
-                                                    <div class="slds-truncate">{record.Order.Name}</div>
+                                                    <div class="slds-truncate"><a href={record.Order__c} target="_blank" >{record.Order.OrderNumber}</a></div>
+                                                </td>
+                                                <td class="slds-cell-wrap" data-label="AGENCY" scope="row" style="width: 9%;text-align: left;">
+                                                    <div class="slds-truncate">{record.Order.Account.Name}</div>
                                                 </td>
                                                 <td class="slds-cell-wrap" data-label="REQUESTED QUANTITY" style="width: 9%;text-align: center;">
                                                     <div class="slds-truncate">
@@ -446,6 +413,38 @@
                     <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
                 </template>
             </template>
+
+            <!-- ====================================fulfill popup===========================================  -->
+            <div style="display: none;" data-id="fulfillModal">
+                <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open" style="width: 40%;margin-left: 26%;height:50%;margin-top:16%">
+                    <div class="slds-modal__container">
+                    
+                    <div class="slds-modal__header">
+                        <h1 id="modal-heading-06" class="slds-modal__title slds-hyphenate">Fulfill Order</h1>
+                        
+                    </div>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-6">
+                        <p>
+                            <template if:false={fulfillMessage}>
+                                Are you sure want to fulfill the order.
+                            </template>
+                            <template if:true={fulfillMessage}>
+                                This order is being picked up on a date different than what was scheduled. Please review the Scheduled Return dates for all tools. Altering dates may impact orders already confirmed.
+                                <br/>
+                                <br/>
+
+                                <b>The Scheduled Return Date for each tool will determine when late fees begin to calculate</b>.
+                            </template>
+                        </p>
+                    </div>
+                    <div class="slds-modal__footer">
+                        <button  class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={handleFulfillPopUp}>Cancel</button>
+                        <button disabled={readonlyFlag} class="slds-button slds-button_brand" onclick={handleFulfil}>Fulfill</button>
+                    </div>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+            </div>
         </div>
     </template>
 </template>

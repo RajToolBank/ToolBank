@@ -13,6 +13,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
     @api
     recordId;
     loaded = false;
+    readOnly = false;
     order;
     schPickTime;
     setReturnDate = false;
@@ -34,6 +35,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
             if(data){
                 console.log( data);
                 this.order = data.order; 
+                this.readOnly = data.readOnly;
                 let totalTimeInSeconds = (data.order.Scheduled_Pickup_Time__c/1000);
                 let result = new Date(null, null, null, null, null, totalTimeInSeconds);
                 let tempTime = result.toTimeString().split(' ')[0].substring(0,5)
@@ -164,65 +166,84 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
     }
 
     handleModalOk(event){
-        this.loaded = true;
-        this.setReturnDate = false;
+        
         let template = this;
         let tempOrder = JSON.parse(JSON.stringify(this.order));
         let schpickDate = this.order.EffectiveDate;//this.template.querySelector(`[data-id="scheduleDate"]`);
         let schreturnDate = this.template.querySelector(`[data-id="scheduleReturnDate"]`);
         let myArray;
         let itemIds = [];
+        let beyondWeek  = false;
 
        let allselectrows = template.template.querySelectorAll(`[data-check="checkbox"]`);
-       allselectrows.forEach(function(ele){
+       let date_1 = new Date(schpickDate);
+       let date_2 = schreturnDate.value?new Date(schreturnDate.value):date_1;
+       let date_3 = new Date();
+       let difference = date_2.getTime() - date_1.getTime();
+       let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+       console.log(TotalDays);
+       //let week = 1+Math.ceil((TotalDays-8)/7);
+       let week = 1+((TotalDays-8) < 0?0:Math.ceil((TotalDays-8)/7));
+       if(week > 16){
+           beyondWeek = true;
+       }
+        if(!beyondWeek){
+            this.loaded = true;
+            this.setReturnDate = false;
+            allselectrows.forEach(function(ele){
 
-            if(ele.checked){
-                const recid = ele.dataset.recid;
-                console.log(recid);
-                let retDate = template.template.querySelector(`[data-return="`+recid+`"]`);
-                let lostqty = template.template.querySelector(`[data-lostqty="`+recid+`"]`);
-                let stillOutqty = template.template.querySelector(`[data-stillout="`+recid+`"]`);
-                let totalFee = 0;
-                retDate.value =schreturnDate.value;
-                let date_1 = new Date(schpickDate);
-                let date_2 = new Date(retDate.value);
-                let date_3 = new Date();
-                let difference = date_2.getTime() - date_1.getTime();
-                let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
-                let week = Math.ceil(TotalDays/7);
-                retDate.dataset.week = week+" "+(week===1?"week":"weeks")
-                let affiliateFee = parseInt(retDate.dataset.affiliatefee);
-                let unitprice = parseFloat(retDate.dataset.unitprice);
-                const handleFeePerTool = (((parseInt(affiliateFee)*unitprice)/100)*week).toFixed(2);
-                retDate.dataset.week = week>1?(week+" weeks"):(week+" week");
-                let feeperTool = template.template.querySelector(`[data-toolfee="`+recid+`"]`);
-                feeperTool.innerHTML = "$ "+handleFeePerTool;
-                let basefee = template.template.querySelector(`[data-basefee="`+recid+`"]`);
-                basefee.innerHTML = "$ "+handleFeePerTool;
-                totalFee +=parseFloat(handleFeePerTool);
-                const lostToolFee = unitprice * parseInt(lostqty.value);
-                let lostfee = template.template.querySelector(`[data-lostfee="`+recid+`"]`);
-                lostfee.innerHTML = "$ "+(lostToolFee.toFixed(2));
-                totalFee +=parseFloat(lostToolFee);
-                let lateDiff = date_3.getTime() - date_2.getTime();
-                if(lateDiff > 0){
-                    console.log(lateDiff);
-                    let latefee = template.template.querySelector(`[data-latefee="`+recid+`"]`);
-                    latefee.innerHTML = "$ "+((handleFeePerTool * parseInt(stillOutqty.innerHTML) *2 ));
-                    totalFee += parseFloat((handleFeePerTool * parseInt(stillOutqty.innerHTML) *2 ));
-                }else{
-                    let latefee = template.template.querySelector(`[data-latefee="`+recid+`"]`);
-                    latefee.innerHTML = "$ "+0;
+                if(ele.checked ){
+                    const recid = ele.dataset.recid;
+                    console.log(recid);
+                    let retDate = template.template.querySelector(`[data-return="`+recid+`"]`);
+                    let lostqty = template.template.querySelector(`[data-lostqty="`+recid+`"]`);
+                    let stillOutqty = template.template.querySelector(`[data-stillout="`+recid+`"]`);
+                    let totalFee = 0;
+                    retDate.value =schreturnDate.value;
+                    retDate.dataset.week = week+" "+(week===1?"week":"weeks")
+                    let affiliateFee = parseInt(retDate.dataset.affiliatefee);
+                    let unitprice = parseFloat(retDate.dataset.unitprice);
+                    const handleFeePerTool = (((parseInt(affiliateFee)*unitprice)/100)*week).toFixed(2);
+                    retDate.dataset.week = week>1?(week+" weeks"):(week+" week");
+                    let feeperTool = template.template.querySelector(`[data-toolfee="`+recid+`"]`);
+                    feeperTool.innerHTML = "$ "+handleFeePerTool;
+                    let basefee = template.template.querySelector(`[data-basefee="`+recid+`"]`);
+                    basefee.innerHTML = "$ "+handleFeePerTool;
+                    totalFee +=parseFloat(handleFeePerTool);
+                    const lostToolFee = unitprice * parseInt(lostqty.value);
+                    let lostfee = template.template.querySelector(`[data-lostfee="`+recid+`"]`);
+                    lostfee.innerHTML = "$ "+(lostToolFee.toFixed(2));
+                    totalFee +=parseFloat(lostToolFee);
+                    let lateDiff = date_3.getTime() - (retDate.value?date_2.getTime():date_3.getTime());
+                    if(lateDiff > 0){
+                        console.log(lateDiff);
+                        let latefee = template.template.querySelector(`[data-latefee="`+recid+`"]`);
+                        latefee.innerHTML = "$ "+((handleFeePerTool * parseInt(stillOutqty.innerHTML) *2 ));
+                        totalFee += parseFloat((handleFeePerTool * parseInt(stillOutqty.innerHTML) *2 ));
+                    }else{
+                        let latefee = template.template.querySelector(`[data-latefee="`+recid+`"]`);
+                        latefee.innerHTML = "$ "+0;
+                    }
+
+                    let totalfees = template.template.querySelector(`[data-totalfee="`+recid+`"]`);
+                    totalfees.innerHTML = "$ "+(totalFee);
+                    
                 }
+            });
+        }
 
-                let totalfees = template.template.querySelector(`[data-totalfee="`+recid+`"]`);
-                totalfees.innerHTML = "$ "+(totalFee);
-              
-                
-            }
-        });
-        this.template.querySelector(`[data-id="returnmodal"]`).style.display="none";
-        this.loaded = false;
+        if(beyondWeek){
+            const evt = new ShowToastEvent({
+                title: "Return",
+                message: "Please select a Return Date within 16 weeks of the Actual Pick Up Date.",
+                variant: "error",
+            });
+            this.dispatchEvent(evt);
+        }else{
+
+            this.template.querySelector(`[data-id="returnmodal"]`).style.display="none";
+            this.loaded = false;
+        }
     }
 
     handleLineReturned(event){
@@ -242,11 +263,12 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         stillOut.innerHTML = stillOutqty;
         let totalFee = 0;
         let date_1 = new Date(schpickDate);
-        let date_2 = new Date(retDate.value);
+        let date_2 = retDate.value ?new Date(retDate.value):date_1;
         let date_3 = new Date();
         let difference = date_2.getTime() - date_1.getTime();
         let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
-        let week = Math.ceil(TotalDays/7);
+        //let week = 1+Math.ceil((TotalDays-8)/7);
+        let week = 1+((TotalDays-8) < 0?0:Math.ceil((TotalDays-8)/7));
         let affiliateFee = parseInt(retDate.dataset.affiliatefee);
         let unitprice = parseFloat(retDate.dataset.unitprice);
         const handleFeePerTool = (((parseInt(affiliateFee)*unitprice)/100)*week*parseInt(lost + damaged + retQty)).toFixed(2);
@@ -258,7 +280,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         let lostfee = this.template.querySelector(`[data-lostfee="`+recid+`"]`);
         lostfee.innerHTML = "$ "+lostToolFee;
 
-        let lateDiff = date_3.getTime() - date_2.getTime();
+        let lateDiff = date_3.getTime() - (retDate.value?date_2.getTime():date_3.getTime());
         let lateDays = Math.ceil(lateDiff / (1000 * 3600 * 24));
         let lateweek = Math.ceil(lateDays/7);
         let lateCharge =0;
@@ -463,14 +485,15 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         });
         
         
-        if(!isSelected){
+        /*if(!isSelected){
             const evt = new ShowToastEvent({
                 title: "Return Tools",
                 message: "No items were returned.  Please select the row(s), update the quantites and click 'Return' before saving.",
                 variant: "warning",
             });
             this.dispatchEvent(evt);
-        }
+        }*/
+        
         getAllTools.forEach(function(ele){
             const recid = ele.dataset.rowid;
             console.log(recid);
@@ -498,6 +521,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
             const affiliatefee= retDate.dataset.affiliatefee;  
             const borrowedPeriod = retDate.dataset.week;       
                          
+            console.log(borrowedPeriod);
             console.log(oldStatus);
             console.log(newStatus);
 
@@ -705,7 +729,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         });
         
         
-        if(!isSelected){
+        /*if(!isSelected){
             const evt = new ShowToastEvent({
                 title: "Return Tools",
                 message: "No items were returned.  Please select the row(s), update the quantites and click 'Return' before saving.",
@@ -713,7 +737,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
             });
             this.dispatchEvent(evt);
         }
-        /*else{*/
+        else{*/
 
         let state = this.template;
         let getAllTools = state.querySelectorAll(`[data-id="dataid"]`);

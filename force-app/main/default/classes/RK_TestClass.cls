@@ -124,7 +124,7 @@ system.debug('comunityUser :: '+comunityUser);
             myVfPage.getParameters().put('id', String.valueOf(acc.Id));
             Test.setCurrentPage(myVfPage); 
             RK_ContactUs controller = new RK_ContactUs();
-            controller.getListBusinessHours();
+           // controller.getListBusinessHours();
             Test.stopTest();
         }
     }

@@ -1,0 +1,21 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader">
+    <aura:attribute name="recordId" type="String" />
+    <c:createTransactionCmp recordId="{!v.recordId}"></c:createTransactionCmp>
+    <aura:html tag="style">
+        .slds-modal__container{
+        <!-- height : auto; -->
+        max-width: 30% !important;
+        width: %35!important;
+        }
+        .slds-modal__content{
+            height: 65% !important;
+            max-height: inherit !important;
+        }
+
+        .modal-body{
+            <!-- height :650px !important;
+            max-height :650px !important; -->
+        }
+
+    </aura:html>
+</aura:component>

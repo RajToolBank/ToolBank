@@ -5,6 +5,12 @@ public without sharing class CreatePaymentController {
 
         return [SELECT Id,Name,Amount_Owed__c,Available_Credits__c,OrderNumber FROM Order WHERE Id=: recordId];
     }
+    
+    @AuraEnabled
+    public static order refreshOrderDetails(String recordId){
+
+        return [SELECT Id,Name,Amount_Owed__c,Available_Credits__c,OrderNumber FROM Order WHERE Id=: recordId];
+    }
 
     @AuraEnabled
     public static String createPayment(String payment){

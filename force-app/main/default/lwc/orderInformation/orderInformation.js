@@ -1,4 +1,4 @@
-import { api, LightningElement, wire } from 'lwc';
+import { api, LightningElement, track, wire } from 'lwc';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import ORDER_OBJECT from '@salesforce/schema/Order';
@@ -16,6 +16,7 @@ import getPicklistValuesApex from '@salesforce/apex/PlaceOrderController.getPick
 import TIME_ZONE from '@salesforce/i18n/timeZone';
 export default class OrderInformation extends LightningElement {
 
+    @api recordId;
     timeZone = TIME_ZONE;
     fieldsToCreate = ['Name','Rating','Phone','Industry'];
     fields        = ['Name'];
@@ -24,10 +25,10 @@ export default class OrderInformation extends LightningElement {
     proType=[];
     impactArea = [];
     proVenue = [];
-    accountId;
-    contactId;
-    accountName;
-    contactName;
+    @api accountId;
+    @api contactId;
+    @api accountName;
+    @api contactName;
     @api
     affiliateId;
     serv;
@@ -54,38 +55,28 @@ export default class OrderInformation extends LightningElement {
     
     /*
 */
+
+connectedCallback(){
+
+    getAgencyContact({recordId:this.recordId})
+    .then(res=>{
+        console.log(res);
+        this.contactId = res.contactId;
+        this.contactName = res.contactName;
+        this.email = res.contactEmail;
+        this.accountId = res.contactAccountId;
+        this.accountName = res.contactAccountName;
+    }).catch(err =>{
+        console.log(err);
+    })
+}
     @wire(accid) getaccid({data,error}){
         if(data){
             
             this.affiliateId = data;
         }
     };
-   @wire(getAgencyContact) getAgencyContact({data,error}){
-        if(data){
-            console.log("data.Contact");
-            console.log(data);
-            if(data.Contact){
-                if(data.Contact.npsp__Primary_Affiliation__c){
-                this.accountId = data.Contact.npsp__Primary_Affiliation__c;
-                this.accountName = data.Contact.npsp__Primary_Affiliation__r.Name;
-                this.contactId = data.ContactId;
-                
-                this.contactName = data.Contact.Name;
-                this.email = data.Contact.Email;
-                }else if(data.UserType && data.UserType !== "PowerPartner"){ 
-                    this.accountId = data.Contact.AccountId;
-                    this.accountName = data.Contact.Account.Name;
-                    this.contactId = data.ContactId;
-                
-                    this.contactName = data.Contact.Name;
-                    this.email = data.Contact.Email;
-                }
-                
-                
-            }
-        }
-    };
-
+  
     @wire(zipCodeList) zipCodesList({data,error}){
         if(data){
             
@@ -191,20 +182,23 @@ export default class OrderInformation extends LightningElement {
         let pickDate =this.template.querySelector(`[data-id="pickupDate"]`);
         let returnDate =this.template.querySelector(`[data-id="returnDate"]`);
         console.log(pickDate.value);
-        let pickupdate = new Date(pickDate.value);
+        let pickupdate = new Date(pickDate.value+" 23:59:50");
         let todayDate = new Date(new Date().setHours(0, 0, 0, 0));
         //const offset =  new Date().getTimezoneOffset()
        // pickupdate = new Date(pickupdate.getTime()+offset*60000);
-       console.log(todayDate); 
+       
+       console.log(todayDate);  
        console.log(pickupdate);
-        pickupdate = new Date(pickupdate.setHours(23,59,59,59)).toLocaleString("en-US", {timeZone: this.timeZone});
-        todayDate = new Date(todayDate.getTime()).toLocaleString("en-US", {timeZone: this.timeZone});
-        //console.log(offset);
-        pickupdate = new Date(pickupdate);
-        todayDate = new Date(new Date(todayDate).setHours(23,59,59,59)).toLocaleString("en-US", {timeZone: this.timeZone});
-        todayDate = new Date(todayDate);
-        console.log(todayDate); 
-        console.log(pickupdate);
+        //pickupdate = new Date(pickupdate.getTime()).toLocaleString("en-US", {timeZone: this.timeZone});
+        //todayDate = new Date(todayDate.getTime()).toLocaleString("en-US", {timeZone: this.timeZone});
+       // console.log(offset);
+        
+        //todayDate = new Date(new Date(todayDate).setHours(23,59,58,50)).toLocaleString("en-US", {timeZone: this.timeZone});
+       //  pickupdate = new Date((pickupdate.getTime()-(offset/60000)));//.toLocaleString("en-US", {timeZone: this.timeZone});
+        //pickupdate = new Date(pickupdate);
+        //todayDate = new Date(todayDate);
+        //console.log(todayDate); 
+        //console.log(pickupdate);
         if(pickupdate < todayDate){
             pickDateerror.innerHTML ="Pickup Date can not be in the past";
             returnDate.value ="";
@@ -221,9 +215,13 @@ export default class OrderInformation extends LightningElement {
             borrow = this.borrowing.replace("week", "");
             let week = parseInt(borrow)
             week = (week*7);
-            pickupdate.setDate(pickupdate.getDate() + week+1);
+            pickupdate.setDate(pickupdate.getDate() + week);
+            console.log(pickupdate);
+            console.log(this.timeZone);
             pickupdate = pickupdate.toLocaleString("en-US", {timeZone: this.timeZone});
+            console.log(pickupdate);
             pickupdate = new Date(pickupdate);
+            console.log(pickupdate);
             let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(pickupdate);
             let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(pickupdate);
             let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(pickupdate);

@@ -1,7 +1,9 @@
 public class OrderCancelOrItemDeleteController {
     
+    public static Boolean orderRecursion = false;
 
     public static void orderCancelled(List<Order> triggerNew){
+        orderRecursion = true;
         List<Order> cancelledOrderList = new List<Order>();
         set<Id> AffiliateIdSet = new set<Id>();
         for(Order order: triggerNew){
@@ -42,8 +44,7 @@ public class OrderCancelOrItemDeleteController {
                                             WHERE product2Id IN: productIdSet 
                                             AND Id NOT IN: cancelledOrderItemList
                                             AND Order.Affiliate__c IN: AffiliateIdSet
-                                            //AND Schedule_Pick_Date__c <=: maxReturnDate
-                                            //AND Schedule_Return_Date__c >=: minPickDate
+                                            AND (Status__c = 'Unconfirmed' OR Status__c = 'Confirmed')
                                             AND LastModifiedDate <: lastModifieddateList[lastModifieddateList.size()-1]
                                             AND Product2.Type__c = 'Tool'
                                             ORDER BY LastModifiedDate ASC];
@@ -71,7 +72,7 @@ public class OrderCancelOrItemDeleteController {
                     if(item.Reserved_Quantity__c >0)
                         lowestQuantityItemDate(item,itemList);
 
-                    if(!itemList.isEmpty())
+                    if(itemList != null && !itemList.isEmpty())
                         ListToUpdate.addAll(itemList);
                 }
                 item.status__c = 'Cancelled';
@@ -102,7 +103,7 @@ public class OrderCancelOrItemDeleteController {
                         reservedQuantity = reservedQuantity - adjusted;
                 }
             }
-            if(!system.trigger.isDelete)
+            if(!System.trigger.isExecuting || !System.trigger.isDelete)
                 orderItem.Reserved_Quantity__c =0;
         }
 
@@ -114,7 +115,7 @@ public class OrderCancelOrItemDeleteController {
         Set<Id> productIdSet = new set<Id>();
         List<Date> dateList = new List<Date>();
         List<Date> lastModifieddateList = new List<Date>();
-        set<Id> AffiliateIdSet = new set<Id>();
+        Map<Id,Id> AffiliateIdSet = new Map<Id,Id>();
         set<Id> orderIdSet = new set<Id>();
         for(OrderItem item: triggerOld){
             productIdSet.add(item.product2Id);
@@ -131,7 +132,7 @@ public class OrderCancelOrItemDeleteController {
         system.debug('dateList :: '+ dateList);
 
         for(Order order:[SELECT Id, Affiliate__c FROM Order WHERE Id IN:orderIdSet]){
-            AffiliateIdSet.add(order.Affiliate__c);
+            AffiliateIdSet.put(order.Id,order.Affiliate__c);
         }
         List<OrderItem> otherItemList =   [SELECT Id,product2Id,
                                         PriceBookEntryId,
@@ -146,7 +147,7 @@ public class OrderCancelOrItemDeleteController {
                                         FROM OrderItem 
                                         WHERE product2Id IN: productIdSet 
                                         AND Id NOT IN: triggerOld
-                                        AND Order.Affiliate__c IN: AffiliateIdSet
+                                        AND Order.Affiliate__c IN: AffiliateIdSet.values()
                                         //AND Schedule_Pick_Date__c <=: maxReturnDate
                                         //AND Schedule_Return_Date__c >=: minPickDate
                                         //AND LastModifiedDate <: lastModifieddateList[lastModifieddateList.size()-1]
@@ -172,9 +173,10 @@ public class OrderCancelOrItemDeleteController {
         set<Id> productIds = new Set<Id>();
         for(OrderItem item: triggerOld){
             system.debug(item);
-            if(affiliateToproductIdToItemListMap.containsKey(item.Order.Affiliate__c)){
-                system.debug(affiliateToproductIdToItemListMap.get(item.Order.Affiliate__c).get(item.product2Id));
-                List<OrderItem> itemList = affiliateToproductIdToItemListMap.get(item.Order.Affiliate__c).get(item.product2Id);
+            
+            if(AffiliateIdSet.containsKey(item.OrderId) && affiliateToproductIdToItemListMap.containsKey(AffiliateIdSet.get(item.OrderId))){
+                system.debug(affiliateToproductIdToItemListMap.get(AffiliateIdSet.get(item.OrderId)).get(item.product2Id));
+                List<OrderItem> itemList = affiliateToproductIdToItemListMap.get(AffiliateIdSet.get(item.OrderId)).get(item.product2Id);
                 if(item.Reserved_Quantity__c >0)
                     lowestQuantityItemDate(item,itemList);
 

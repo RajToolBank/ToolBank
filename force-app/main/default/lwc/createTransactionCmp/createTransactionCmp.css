@@ -1,0 +1,7 @@
+.custom-footer{
+    bottom: 155px;
+    left: 0;
+    position: fixed;
+    right: 0px;
+    z-index: 99;
+}

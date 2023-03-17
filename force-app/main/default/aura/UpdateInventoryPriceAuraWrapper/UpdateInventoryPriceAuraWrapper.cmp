@@ -1,0 +1,5 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader">
+    
+    <c:updatePriceToInventory></c:updatePriceToInventory>
+
+</aura:component>	

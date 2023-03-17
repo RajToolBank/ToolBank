@@ -8,5 +8,16 @@ public class EnableContactAsCommunityUserTest {
         Account acc = TestDataFactory.createAccount('test',recordTypeid);
         Contact con = TestDataFactory.createContact(acc.id);
         EnableContactAsCommunityUser.createCommuinityUser(con.id);
+        EnableContactAsCommunityUser.resetPassword(con.id);
+    }
+    
+     @isTest
+    private static void unitTest_2(){
+        String recordTypeid  = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Member Agency').getRecordTypeId();
+        Account acc = TestDataFactory.createAccount('test',recordTypeid);
+        Contact con = TestDataFactory.createContact(acc.id);
+        EnableContactAsCommunityUser.createCommuinityUser(con.id);
+        EnableContactAsCommunityUser.disableContact(con.id);
+        EnableContactAsCommunityUser.disableContactFlag(con.id);
     }
 }

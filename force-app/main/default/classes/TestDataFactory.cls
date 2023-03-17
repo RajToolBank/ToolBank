@@ -67,8 +67,10 @@ public class TestDataFactory {
         ordItem.PricebookEntryId =pbeId;
         ordItem.Inventory_Tool__c = assetid;
         ordItem.unitPrice = 10;
+        ordItem.Affiliate_Handling_Fee__c = 3;
         ordItem.status__c = 'Unconfirmed';
         ordItem.Quantity = 5;
+        ordItem.reserved_quantity__c = 5;
         ordItem.Schedule_Pick_Date__c = Date.today();
         ordItem.Schedule_return_date__c = Date.today().addDays(7);
         insert ordItem;
@@ -96,14 +98,14 @@ public class TestDataFactory {
         return payment;
     }
     
-    @future
-    public static void createCustomerUser(String conId, String profId) {
+    //@future
+    public static User createCustomerUser(contact con, profile prof) {
         UserRole r = new UserRole(DeveloperName = 'MyCustomRole', Name = 'My Role');
-        insert r;
+        //insert r;
         User user1 = new User(
             Username = 'test12345@test.com',
-            ContactId = conId,
-            ProfileId = profId,
+            ContactId = con.Id,
+            ProfileId = prof.Id,
             Alias = 'test123',
             Email = 'test12345@test.com',
             EmailEncodingKey = 'UTF-8',
@@ -111,10 +113,11 @@ public class TestDataFactory {
             CommunityNickname = 'test12345',
             TimeZoneSidKey = 'America/Los_Angeles',
             LocaleSidKey = 'en_US',
-            LanguageLocaleKey = 'en_US',
-            UserRoleId = r.Id
+            LanguageLocaleKey = 'en_US'
+            //UserRoleId = r.Id
         );
         insert user1;
+        return user1;
     }
     
     public static Affiliate_Account__c createAffiliateAccount(Id accId) {

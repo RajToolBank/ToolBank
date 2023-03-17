@@ -1,0 +1,5 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader">
+    <aura:attribute name="recordId" type="String" />
+    <c:orderDeleteCmp recordId="{!v.recordId}"></c:orderDeleteCmp>
+
+</aura:component>	

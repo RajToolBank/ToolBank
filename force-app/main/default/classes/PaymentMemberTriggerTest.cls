@@ -20,8 +20,11 @@ public class PaymentMemberTriggerTest {
         update asset;
         Order ord = TestDataFactory.createOrder(acc.Id,con.Id,Affiliate.Id);
         orderItem ordItem = TestDataFactory.createOrderItem(ord.Id,toolpbe.Id,asset.id);
+        orderItem ordItem2 = TestDataFactory.createOrderItem(ord.Id,pbeAdd.Id,Null);
+        system.debug([SELECT Id, Amount_Owed__c FROM Order]);
+        Test.StartTest();
         Payments_TB__c payment = TestDataFactory.createpayment(ord);
-
+        Test.StopTest();
         delete payment;
     }
 }

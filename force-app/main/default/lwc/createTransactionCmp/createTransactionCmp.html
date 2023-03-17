@@ -1,0 +1,42 @@
+<template>
+    <template if:true={isRecordType}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+            >
+            <div >
+                
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">New Transaction</h1>
+                </div>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1"
+                    style="overflow: initial;">
+                    <lightning-combobox required data-id="recordType" options={recordTypes} value={selectedRecordType}
+                        onchange={selectRecordType}></lightning-combobox>
+                </div>
+                <div class="slds-modal__footer custom-footer">
+                    <button class="slds-button slds-button_brand" type="submit" onclick={saveAndNext}>Save &amp; Next</button>
+                </div>
+            </div>
+        </section>
+    </template>
+    <template if:false={isRecordType}>
+        <div class="slds-modal__header">
+            <h1  class="slds-modal__title slds-hyphenate">New Transaction</h1>
+        </div>
+        <div class="slds-modal__content slds-p-around_medium"  style="overflow: initial;">
+        <c-dependent-picklist-Cmp 
+        data-id="subtype"
+        object-api-name="Transaction__c"
+        object-record-type-id={selectedRecordType}
+        dependent-field-api-name="Sub_Type__c"
+        dependent-field-label="Sub Type"
+        onselecttype={selectsubType}
+        ></c-dependent-picklist-Cmp>
+
+        <lightning-input type="number" data-id="qty" label="Quantity" required></lightning-input>
+        <lightning-input type="text" data-id="note" label="Note" ></lightning-input>
+        </div>
+        <div class="slds-modal__footer custom-footer">
+            <button class="slds-button slds-button_brand" onclick={saveTransaction}>Save</button>
+        </div>
+    </template>
+</template>

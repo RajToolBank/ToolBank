@@ -51,7 +51,8 @@ export default class AdditinalChargesRelatedListCmp extends LightningElement {
     getOrder({data,error}){
         if(data){
             console.log(data);
-            this.membershipFee = data.Affiliate__r.Membership_Fees_Amount__c;
+            if(data.Affiliate__r)
+                this.membershipFee = data.Affiliate__r.Membership_Fees_Amount__c;
         }else if(error){
 
         }

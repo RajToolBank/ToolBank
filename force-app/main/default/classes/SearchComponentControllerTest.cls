@@ -16,6 +16,9 @@ public class SearchComponentControllerTest {
         List<String> fields = new List<String>{'Name', 'ParentId'};
             String searchTerm = 'Test';
         SearchComponentController.search(objectName, fields, searchTerm);
+        SearchComponentController.search2('contact', new List<String>{'Name', 'email'}, searchTerm,acc.id);
+        SearchComponentController.search3('contact', new List<String>{'Name', 'email'}, searchTerm,acc.id);
+        SearchComponentController.search3('Account', new List<String>{'Name', 'AccountNumber'}, searchTerm,acc.id);
         SearchComponentController.search(objectName, fields, '');
         SearchComponentController.getRecentlyCreatedRecord(acc.Id, fields, objectName);
     }

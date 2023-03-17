@@ -14,7 +14,7 @@ public class ReturnOrderController {
             orderDetail.returnOrderItems = new List<OrderItemDetails>();
             for(Order ord: [SELECT Id, name,Account.Name,Desired_Pickup_Date__c,
                     Desired_Pickup_Time__c,OrderNumber,CreatedDate,EffectiveDate,
-                    Scheduled_Pickup_Time__c,Schedule_Return_Date__c,EndDate, 
+                    Scheduled_Pickup_Time__c,Schedule_Return_Date__c,EndDate,Status,
                     (SELECT Id,
                     Product2.Name,
                     Tool_Handling_Fee_Per_Item__c,
@@ -40,6 +40,9 @@ public class ReturnOrderController {
                     ORDER BY Product2.Name ) 
                     FROM ORDER WHERE Id =: orderId]){
                 orderDetail.order = ord;
+                if( !'Fulfilled'.equalsIgnoreCase(ord.status) && !'Partially Returned'.equalsIgnoreCase(ord.status) && !'Overdue'.equalsIgnoreCase(ord.status)){
+                    orderDetail.readOnly = true;
+                }
                 for(OrderItem item: ord.OrderItems){
                     OrderItemDetails orditem = new OrderItemDetails();
                     orditem.orderitem = item;
@@ -73,20 +76,25 @@ public class ReturnOrderController {
             system.debug(itemsList);
             List<Object> ordItemList = (List<Object>) json.deserializeUntyped(itemsList);
             list<OrderItem> orderItemList = new List<orderItem>();
+            list<Date> orderItemReturnDateList = new List<Date>();
             String returnedBy;
             String orderid;
+            Set<String> orderToolIdsSet = new Set<String>();
+            
             for(Object obj:ordItemList){
                 Map<String, Object> item = (Map<String, Object>)obj;
                 OrderItem orderItem = new OrderItem();
                 String itemId = (string)item.get('Id');
                 returnedBy = (String)item.get('returnedBy');
+                orderid = (string)item.get('orderid');
+                orderToolIdsSet.add(itemId);
                 if(itemId != '2'){
                     orderItem.id = itemId;
                 }else{
                     orderItem.Inventory_Tool__c  =(string)item.get('assetid');   
                     orderItem.unitPrice =Decimal.valueOf((String)item.get('unitPrice'));
                     //product2id:product2id,
-                    orderid = (string)item.get('orderid');
+                    
                     orderitem.orderid = (string)item.get('orderid');
                     orderItem.pricebookEntryId = (string)item.get('pbeid');
                     orderItem.Affiliate_Handling_Fee__c = Decimal.valueOf((String)item.get('affiliatefee'));
@@ -113,9 +121,11 @@ public class ReturnOrderController {
                 orderItem.Requested_Borrowing_Period__c = (string)item.get('borrowedPeriod');
 
                 orderItem.status__c = (String)item.get('status');
+
                 if(OrderItem.status__c == 'Returned')
                     orderItem.Actual_Return_Date__c = system.today();
                 orderItem.Schedule_Return_Date__c = Date.valueOf((String)item.get('returnDate'));
+                orderItemReturnDateList.add(orderItem.Schedule_Return_Date__c);
                 orderItem.Schedule_Pick_Date__c = Date.valueOf((String)item.get('EffectiveDate'));
                 //basefee:basefee,
                 Decimal borrowed = Decimal.valueOf((Integer)item.get('borrowed'));
@@ -124,12 +134,20 @@ public class ReturnOrderController {
 
                 orderItemList.add(orderitem);
             }
-            system.debug(orderItemList);
+            
 
-            if(String.isNotBlank(orderid) && String.isNotBlank(returnedBy)){
-                update new order( id=orderid, Tools_Returned_By__c=returnedBy);
+            if(String.isNotBlank(orderid) ){
+                Order order = new order( id=orderid);
+                if( String.isNotBlank(returnedBy))
+                    order.Tools_Returned_By__c=returnedBy;
+                if(orderItemReturnDateList.size()>0){
+                    orderItemReturnDateList.sort();
+                    order.EndDate = orderItemReturnDateList[0];
+                }
+                ByPassValidations.ordStatusValidation = true;
+                update order;
             }
-
+            ByPassValidations.ordItemPriceAndQtyValidation = true;
             if(!orderItemList.isEmpty())
                 upsert orderItemList;
 
@@ -140,6 +158,8 @@ public class ReturnOrderController {
 
         @AuraEnabled
         public Order order;
+        @AuraEnabled
+        public Boolean readOnly;
         @AuraEnabled
         public List<OrderItemDetails> orderItems;
         @AuraEnabled

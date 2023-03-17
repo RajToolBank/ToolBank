@@ -1,5 +1,5 @@
 import { LightningElement, api, track, wire } from 'lwc';
-import search2 from '@salesforce/apex/SearchComponentController.search2';
+import search3 from '@salesforce/apex/SearchComponentController.search3';
 import getRecentlyCreatedRecord from '@salesforce/apex/SearchComponentController.getRecentlyCreatedRecord';
 const DELAY = 10;
 
@@ -107,7 +107,7 @@ export default class SearchComponent extends NavigationMixin(LightningElement) {
         //this.isLoading = true;
         this.delayTimeout = setTimeout(() => {
             //if(searchKey.length >= 2){
-                search2({
+                search3({
                     objectName : this.objName,
                     fields     : this.fields,
                     searchTerm : searchKey,

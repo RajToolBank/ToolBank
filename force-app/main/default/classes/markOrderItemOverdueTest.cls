@@ -29,5 +29,11 @@ public class markOrderItemOverdueTest {
 
         markOrderItemOverdue obj = new markOrderItemOverdue();
         Database.executeBatch(obj,200);
+
+        Test.startTest();
+        markOrderItemOverdue sh1 = new markOrderItemOverdue();
+        String sch = '0 0 1 * * ?'; 
+        system.schedule('Orders overdue', sch, sh1);
+        Test.stopTest();
     }
 }

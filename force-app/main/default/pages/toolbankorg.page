@@ -1,0 +1,49 @@
+<apex:page showHeader="false" sidebar="fasle" controller="EndpageController">
+    
+<style>
+    p {
+margin: 0 0 20px; font-size:14px;
+}
+    ol li {     line-height: 1.5; font-size:20px; margin-bottom:10px;  margin-top:10px; }
+    .img-responsive
+{  display: block;
+max-width: 38%;margin-top: 75px;
+height: auto;
+}
+.container {  width: 970px;
+
+padding-right: 15px;
+padding-left: 15px;
+margin-right: auto;
+margin-left: auto;
+}
+h1 {
+font-size: 75px;
+}
+p {
+margin: 0px 45px 20px;font-size:20px;
+}
+ol{
+text-align: justify;
+}
+        .tempName{ color: black;font-size: 75px; } 
+        .stylefontcls { font-size : 18px;font-style: Arial;text-align: justify;padding-left: 24px;
+padding-right: 16px;}
+.heading{ font-size : 18px;}
+.letterName{
+font-size: 30px;
+}    
+    </style>
+    <div class="container">
+        <center><img src="{!pageUrl}" class="img-responsive"/></center>
+        <br/><br/>
+          
+          
+         <br/>
+         
+         <br/>
+         <p class="letterName">Thank you. Your application has been submitted. <br/> A ToolBank employee will contact you in 1-2 business days. </p>
+        
+         
+         </div>
+</apex:page>

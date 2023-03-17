@@ -1,4 +1,4 @@
-<apex:page controller="show_AccountsinCommunityCtrl" lightningStylesheets="true">
+<apex:page controller="show_AccountsinCommunityCtrl" lightningStylesheets="true" Id="page">
   <script src="http://code.jquery.com/jquery-latest.min.js" />
   <style>
     .slds-scope .slds-table th,
@@ -104,6 +104,23 @@ float: left;*/
   <apex:slds />
   <div class="slds-scope ">
     <apex:form >
+      <apex:outputpanel rendered="{!!showAccount}">
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!affiliateAccList}" var="o" rendered="{!affiliateAccList.size>0}">
+                    <apex:column headerValue="Name" value="{!o.Name}"/>
+                        
+                    <apex:column value="{!o.Phone }"  />
+                    <apex:column value="{!o.BillingStreet}"/>
+                    <apex:column value="{!o.billingCity}"/>
+                    <apex:column value="{!o.billingState}"/>
+                    <apex:column value="{!o.billingPostalCode}"/>
+                    <apex:column value="{!o.billingCountry}"/>
+                    
+                    
+                </apex:pageBlockTable>
+              </apex:pageBlock>
+      </apex:outputpanel>
+      <apex:outputpanel rendered="{!showAccount}">
       <article class="slds-card">
         <header class="slds-media slds-media_center slds-has-flexi-truncate" style="float:left;">
           <span class="slds-icon_container slds-icon-action-new-account">
@@ -148,6 +165,9 @@ float: left;*/
               WareHouse Manager Phone :<apex:outputText value="{!warehouseManagerPhone}" /-->
             </apex:pageBlocksection>
           </apex:outputpanel>
+
+          
+
           <apex:outputpanel rendered="{!hideAccount}">
             <apex:pageBlockSection columns="4"> Agency Name : <apex:outputText value="{!name }" styleClass="slds-input form-col-left" style="width: 75%; margin-left: -95px; position: relative; right: -49px;"></apex:outputText> Agency Phone : <apex:outputText value="{!Phone}" styleClass="slds-input pho form-col-right" style="width: 179%; margin-left: -123px; position: relative; right: -49px;">
                 <!--  <span class="error2" style="display:none; color:red">Please Enter at least 10 digits.</span> -->
@@ -229,13 +249,21 @@ float: left;*/
             <apex:pageBlockSection columns="2" title="Edit">
               <apex:outputField value="{!getcont.Firstname}" />
               <apex:outputField value="{!getcont.Lastname}" />
-              <apex:inputField value="{!getcont.Executive_Home_Phone__c}" onblur="formatPhone(this);" styleClass="pho">
+              <apex:inputField value="{!getcont.phone}" onblur="formatPhone(this);" styleClass="pho">
                 <span class="error2" style="display:none; color:red">Please Enter at least 10 digits.</span>
               </apex:inputField>
               <apex:outputField value="{!getcont.Email}" />
-              <apex:inputField value="{!getcont.Primary_Contact__c}" />
-              <apex:inputField value="{!getcont.Executive_Contact__c}" />
-              <apex:inputField value="{!getcont.Unsubscribe_Notifications__c}" />
+
+              <apex:inputField value="{!getcont.Primary_Contact__c}" onclick="checkPrimary(this,'{!getcont.Id}')" >
+                <span Id="prmCheck" style="display:none; color:red">At least one contact must be selected as the Primary Contact.</span>
+              </apex:inputField> 
+              <apex:inputField value="{!getcont.Executive_Contact__c}" onclick="checkExecutive(this,'{!getcont.Id}')" >
+                <span Id="exeCheck" style="display:none; color:red">At least one contact must be selected as the Executive Contact.</span>
+              </apex:inputField>
+              
+              
+              <apex:inputField value="{!getcont.HasOptedOutOfEmail}" />
+              
             </apex:pageBlockSection>
             <apex:actionRegion >
               <apex:commandButton value="Save" action="{!updateContact}" styleclass="slds-button slds-button_brand" style="margin-left: 321px;" status="searchStatus" />&nbsp;
@@ -248,15 +276,17 @@ float: left;*/
             <apex:pageBlockSection columns="2">
               <apex:inputField value="{!getcontc.Firstname}" required="true" />
               <apex:inputField value="{!getcontc.Lastname}" />
-              <apex:inputField value="{!getcontc.Executive_Home_Phone__c}" onblur="formatPhone(this);" styleClass="pho1" required="true">
+              <apex:inputField value="{!getcontc.phone}" onblur="formatPhone(this);" styleClass="pho1" required="true">
                 <span id="error2" style="display:none; color:red">Please Enter at least 10 digits.</span>
               </apex:inputField>
               <apex:inputField value="{!getcontc.Email}" onblur="checkEmail(this.value)" required="true">
                 <span id="error3" style="display:none; color:red">Please Enter valid Email .</span>
               </apex:inputField>
+              
               <apex:inputField value="{!getcontc.Primary_Contact__c}" />
-              <apex:inputField value="{!getcontc.Executive_Contact__c}" />
-              <apex:inputField value="{!getcontc.Unsubscribe_Notifications__c}" />
+              <apex:inputField value="{!getcontc.Executive_Contact__c}"  />
+
+              <apex:inputField value="{!getcontc.HasOptedOutOfEmail}" />
               <apex:inputHidden value="{!getcontc.AccountId}" />
             </apex:pageBlockSection>
             <apex:actionRegion >
@@ -295,11 +325,11 @@ float: left;*/
               </apex:column>
               <!--apex:column styleclass="slds-truncate" value="{!c.Status__c}" /-->
               <apex:column styleclass="slds-truncate" value="{!c.Name}" />
-              <apex:column styleclass="slds-truncate" value="{!c.Executive_Home_Phone__c}" />
+              <apex:column styleclass="slds-truncate" value="{!c.phone}" />
               <apex:column styleclass="slds-truncate" value="{!c.email}" />
               <apex:column styleclass="slds-truncate" value="{!c.Primary_Contact__c}" />
               <apex:column styleclass="slds-truncate" value="{!c.Executive_Contact__c}" />
-              <apex:column styleclass="slds-truncate" value="{!c.Unsubscribe_Notifications__c}" />
+              <apex:column styleclass="slds-truncate" value="{!c.HasOptedOutOfEmail}" />
               <apex:column styleclass="slds-truncate" headerValue="Login Name">
                 <apex:pageBlockTable value="{!c.users}" var="us" rendered="{!If(c.users.size>0,true,false)}">
                   <apex:column styleclass="custdd">
@@ -337,6 +367,43 @@ float: left;*/
           <br /> Membership Status <apex:outputText value="{!memberStatus}" styleClass="slds-input" style=" width: 195px;margin-left: 83px;"></apex:outputText>
         </apex:pageblock>
       </article>
+      <div style="display:none" id="modaldivPrimary">
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_small">
+          <div class="slds-modal__container">
+            
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+              <p>
+                A Member Agency can only have 1 user of this type.  By clicking 'Save' this Contact will be updated as the only Primary contact. 
+                Please click 'Cancel' if you do not wish to make this change.
+              </p>
+            </div>
+            <div class="slds-modal__footer">
+              <input type="button" onclick="cancelPrimary()" class="slds-button slds-button_neutral" aria-label="Cancel and close" value="Cancel"/>
+              <input type="button" onclick="save()" class="slds-button slds-button_brand" value="Save"/>
+            </div>
+          </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+      </div>
+      <div style="display:none" id="modaldivExecutive">
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_small">
+          <div class="slds-modal__container">
+            
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+              <p>
+                A Member Agency can only have 1 user of this type.  By clicking 'Save' this Contact will be updated as the only Executive contact. 
+                Please click 'Cancel' if you do not wish to make this change.
+              </p>
+            </div>
+            <div class="slds-modal__footer">
+              <input type="button" onclick="cancelExecutive()" class="slds-button slds-button_neutral" aria-label="Cancel and close" value="Cancel"/>
+              <input type="button" onclick="save()" class="slds-button slds-button_brand" value="Save"/>
+            </div>
+          </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+      </div>
+      </apex:outputpanel>
     </apex:form>
   </div>
   <script>
@@ -345,6 +412,64 @@ float: left;*/
         $(this).val($(this).val().replace(/[^0-9]/g, ''));
       });
     });
+    var primaryCmp, executiveCmp;
+    function updatePrimary(cmp){
+      var modal = document.getElementById("modaldivPrimary");
+      primaryCmp = cmp;
+      if({!allReadyprimaryId} && cmp.checked)
+        modal.style.display = "block";
+
+    }
+
+    function updateExecutive(cmp){
+      var modal = document.getElementById("modaldivExecutive");
+      executiveCmp = cmp;
+      if({!allReadyExecutivecontactId} && cmp.checked)
+        modal.style.display = "block";
+
+    }
+
+    function cancelPrimary(){
+      primaryCmp.checked = false;
+      var modal = document.getElementById("modaldivPrimary");
+      modal.style.display = "none";
+
+    }
+    function cancelExecutive(){
+      executiveCmp.checked = false;
+      var modal = document.getElementById("modaldivExecutive");
+      modal.style.display = "none";
+
+    }
+
+    function save(){
+      var modal1 = document.getElementById("modaldivExecutive");
+      modal1.style.display = "none";
+      var modal2 = document.getElementById("modaldivPrimary");
+      modal2.style.display = "none";
+
+    }
+
+    function checkPrimary(cmp,conId){ 
+      var modal1 = document.getElementById("prmCheck");
+      
+      if("{!onlyPrimary}" == conId){
+        modal1.style.display = "block";
+        cmp.checked = true;
+      }else{
+        modal1.style.display = "none";
+      }
+    }
+
+    function checkExecutive(cmp,conId){
+      var modal1 = document.getElementById("exeCheck");
+      if("{!onlyExecutive}" == conId){
+        modal1.style.display = "block";
+        cmp.checked = true;
+      }else{
+        modal1.style.display = "none";
+      }
+    }
 
     function formatPhone(obj) {
       var numbers = obj.value.replace(/\D/g, ''),

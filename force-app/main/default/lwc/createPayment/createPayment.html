@@ -5,6 +5,7 @@
                 <h1 class="slds-modal__title slds-hyphenate">Make Payment for {order.Name}-{order.OrderNumber}</h1>
             </div>
             <div class="slds-modal__footer slds-text-align_right custom-footer"><!--slds-align_absolute-center slds-size_12-of-12-->
+                <lightning-button variant="brand" class="slds-m-left_small" type="submit" label="Save and New" onclick={makePaymentAndNew}></lightning-button>
                 <lightning-button variant="brand" class="slds-m-left_small" type="submit" label="Save and Close" onclick={makePayment}></lightning-button>
                 <lightning-button variant="brand" class="slds-m-left_small" type="submit" onclick={cancel} label="Cancel"></lightning-button>
                 </div><br/><br/><br/>

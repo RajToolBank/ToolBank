@@ -17,6 +17,7 @@ public without Sharing class PlaceOrderController {
         if(con != null &&  con.npsp__Primary_Affiliation__c != Null)
             accid = con.npsp__Primary_Affiliation__r.parentId;
         else if(con != null) accid = con.Account.parentId;
+
         if(String.isBlank(accId)){
             List<Affiliate_Account__c> aff = [SELECT Id, Affiliate__c,Affiliate__r.Name FROM Affiliate_Account__c WHERE User__c =:UserInfo.getUserId()];
             if(aff != null && aff.size() >0 && aff.size() == 1)
@@ -25,11 +26,37 @@ public without Sharing class PlaceOrderController {
         return accId;
     }
     
-    @AuraEnabled(cacheable = true)
-    public static User getAgencyContact(){
+    @AuraEnabled//(cacheable = true)
+    public static UserClass getAgencyContact(String recordId){
         User user = [SELECT Id,contactId,UserType, Contact.Email,contact.npsp__Primary_Affiliation__c, contact.npsp__Primary_Affiliation__r.name, Contact.AccountId,Contact.Name,contact.Account.Name FROM User WHERE Id =: UserInfo.getUserId()];
         
-        return user;
+        UserClass userCus = new UserClass();
+        userCus.Id = user.Id;
+        userCus.UserType = user.UserType; 
+        
+        if(String.isNotBlank(recordId) && recordId.startsWith('001')){
+            Account acc = [SELECT Id,Name FROM Account WHERE Id=:recordId];
+            List<npe5__Affiliation__c> affCon = [SELECT Id,npe5__Contact__c,npe5__Contact__r.Name,npe5__Contact__r.Email FROM npe5__Affiliation__c WHERE npe5__Organization__c =: acc.Id AND npe5__Contact__r.Primary_Contact__c = true LIMIT 1];
+            if(affCon != null && affCon.size() >0){
+                userCus.contactId = affCon[0].npe5__Contact__c;
+                userCus.contactEmail = affCon[0].npe5__Contact__r.Email;
+                userCus.contactName = affCon[0].npe5__Contact__r.Name;
+            }
+            userCus.contactAccountId = acc.Id; 
+            userCus.contactAccountName = acc.Name; 
+        }else if(user.contactId != null){
+            userCus.contactId = user.contactId;
+            userCus.contactEmail = user.Contact.Email;
+            userCus.contactName = user.Contact.Name; 
+            if(user.contact.npsp__Primary_Affiliation__c != Null){
+                userCus.contactAccountId = user.contact.npsp__Primary_Affiliation__c;
+                userCus.contactAccountName = user.contact.npsp__Primary_Affiliation__r.name;
+            }else{
+                userCus.contactAccountId = user.Contact.AccountId; 
+                userCus.contactAccountName = user.contact.Account.Name; 
+            }
+        } 
+        return userCus;
     }
     
     @AuraEnabled(cacheable = true)
@@ -60,6 +87,7 @@ public without Sharing class PlaceOrderController {
             if(String.isBlank(searchString)){
                 assetList=  [SELECT Id,
                              Affiliate_Handling_Fee__c,
+                             Product2.Description,
                              Product2Id,
                              Product2.spanish_name__c,
                              Product2.Job_Type__c,
@@ -83,6 +111,7 @@ public without Sharing class PlaceOrderController {
                 assetList=  [SELECT Id,Affiliate_Handling_Fee__c,
                              Product2Id,
                              Product2.spanish_name__c,
+                             Product2.Description,
                              Product2.Job_Type__c,
                              Product2.Highlights__c,
                              Product2.Name,
@@ -120,7 +149,8 @@ public without Sharing class PlaceOrderController {
                                          tool.asset = productIdAssetMap.get(pbe.product2Id);
                                          tool.pbe = pbe;
                                          tool.hanlingFee = (pbe.unitPrice*tool.asset.Affiliate_Handling_Fee__c/100).setScale(2);
-                                         
+                                         tool.note = 'Note: '+productIdAssetMap.get(pbe.product2Id).Product2.Tool_Note__c
+                                         +'Description: '+productIdAssetMap.get(pbe.product2Id).Product2.Description;
                                          tools.add(tool);
                                      }
             
@@ -224,7 +254,9 @@ public without Sharing class PlaceOrderController {
                     list<String> temp = timeString.split(':');
                     Integer hour = temp != Null && temp.size() >0?Integer.valueOf(temp[0].trim()):0;
                     Integer min = temp != Null && temp.size() >=1?Integer.valueOf(temp[1].trim()):0;
+                    if(hour != 12)
                     pickTime = Time.newInstance(hour+12,min,0,0);
+                    else pickTime = Time.newInstance(hour,min,0,0);
                 }
                 ord.Scheduled_Pickup_Time__c = pickTime;
             }
@@ -246,6 +278,8 @@ public without Sharing class PlaceOrderController {
             ord.People_Indirectly_Impacted__c = String.isBlank(peopleimpact)?null: Decimal.valueOf(peopleimpact);
             ord.Staff_on_this_Project__c = String.isBlank(staff)?null: Decimal.valueOf(staff);
             ord.Total_Project_Volunteer_Hours__c = String.isBlank(totalVol)?null: Decimal.valueOf(totalVol);
+
+            ByPassValidations.ordStatusValidation = true;
             insert ord;
             
             if(zipCodes != null){
@@ -311,6 +345,8 @@ public without Sharing class PlaceOrderController {
         public PriceBookEntry pbe;
         @AuraEnabled
         public Decimal hanlingFee;
+        @AuraEnabled
+        public String note;
     }
 
     public class HelpText{
@@ -320,6 +356,23 @@ public without Sharing class PlaceOrderController {
         public String label;
         @AuraEnabled
         public String helpText;
+    }
+
+    public class UserClass{
+        @AuraEnabled
+        public String id;
+        @AuraEnabled
+        public String contactId;
+        @AuraEnabled
+        public String userType;
+        @AuraEnabled
+        public String contactEmail;
+        @AuraEnabled
+        public String contactAccountId;
+        @AuraEnabled
+        public String contactName;
+        @AuraEnabled
+        public String contactAccountName;
     }
     
 }

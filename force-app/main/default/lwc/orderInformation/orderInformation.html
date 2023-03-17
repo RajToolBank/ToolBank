@@ -76,6 +76,7 @@
                                 create-record=false
                                 parent-a-p-i-name="ParentId"
                                 obj-name="Account"
+                                parent-id ={affiliateId}
                                 display-fields="Name, AccountNumber"
                                 fields = {fields}
                                 value-id={accountId}
@@ -92,6 +93,7 @@
                                 fields-to-create={fieldsToCreate}
                                 create-record=false
                                 parent-a-p-i-name="ParentId"
+                                parent-id ={affiliateId}
                                 obj-name="Account"
                                 display-fields="Name, AccountNumber"
                                 fields = {fields}
@@ -184,7 +186,7 @@
                         <span>Desired Pickup Date:</span>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                         <Span><lightning-input onchange={handleWeekChange}  data-id="pickupDate" style="margin-top: -5%;" type="date" ></lightning-input></Span>
+                         <Span><lightning-input onchange={handleWeekChange} timezone={timeZone}  data-id="pickupDate" style="margin-top: -5%;" type="date" ></lightning-input></Span>
                          <span style="color: red;font-style: italic;" data-id="pickDateerror"></span>
                     </div><br/><br/>
                 </div>

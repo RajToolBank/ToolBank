@@ -33,7 +33,7 @@ public class TransactionTriggerHandlerTest {
         Order ord = TestDataFactory.createOrder(acc.Id,con.Id,affiliate.id);
         orderItem ordItem = TestDataFactory.createOrderItem(ord.Id,toolpbe.Id,asset[0].id);
         
-        Transaction__c tran = TestDataFactory.createTransaction(asset[0].id, BACK_IN_SERVICE, 'Other');
+        Transaction__c tran = TestDataFactory.createTransaction(asset[0].id, BACK_IN_SERVICE, 'Damaged');
         Transaction__c tran2 = TestDataFactory.createTransaction(asset[0].id, INTERNAL_AUDIT, 'Increase');
         Transaction__c tran2A = TestDataFactory.createTransaction(asset[0].id, INTERNAL_AUDIT, 'Decrease');
         Transaction__c tran3 = TestDataFactory.createTransaction(asset[0].id, DONATION, 'Corporate Donation');

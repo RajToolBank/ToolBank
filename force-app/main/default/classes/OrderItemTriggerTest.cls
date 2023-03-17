@@ -6,7 +6,7 @@ public class OrderItemTriggerTest {
         String recordTypeid  = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Member Agency').getRecordTypeId();
         Account acc = TestDataFactory.createAccount('test',recordTypeid);
         String recordTypeid2  = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Affiliate').getRecordTypeId();
-        
+         
         contact con = TestDataFactory.createContact(acc.Id);
         Product2 tool = TestDataFactory.createProduct('Tool');
         Product2 addCharges = TestDataFactory.createProduct('Additional Charges');
@@ -34,7 +34,15 @@ public class OrderItemTriggerTest {
         update ordItem;
 
         OrderItemHelperClass.recursion = false;
+        ordItem.Schedule_Return_Date__c = Date.today().addDays(11);
+        update ordItem;
+        
+        OrderItemHelperClass.recursion = false;
         ordItem.Status__c = 'Fulfilled';
+        update ordItem;
+        
+        OrderItemHelperClass.recursion = false;
+        ordItem.Schedule_Return_Date__c = Date.today().addDays(9);
         update ordItem;
 
         OrderItemHelperClass.recursion = false;
@@ -60,6 +68,9 @@ public class OrderItemTriggerTest {
         OrderItemHelperClass.recursion = false;
         ordItem.Status__c = 'Partially Returned';
         update ordItem;
+        
+        OrderItemHelperClass.recursion = false;
+        delete ordItem;
 
     }
 }

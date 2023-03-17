@@ -1,7 +1,8 @@
-import { LightningElement,wire } from 'lwc';
+import { api, LightningElement,wire } from 'lwc';
 import accid from '@salesforce/apex/PlaceOrderController.accid';
 
 export default class CreateOrder extends LightningElement {
+    @api recordId;
     orderInfo;
     orderTools;
     totalRetailCostOrder;
@@ -10,14 +11,13 @@ export default class CreateOrder extends LightningElement {
     loaded = true;
     
     connectedCallback(){
-        this.loaded = false;          
+        this.loaded = false;         
     }
 
     @wire(accid) getaccid({data,error}){
         if(data){
-            
             this.affiliateId = data;
-            console.log(data);
+            console.log(data); 
         }
     };
 

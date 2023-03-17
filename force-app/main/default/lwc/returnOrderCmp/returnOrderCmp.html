@@ -49,7 +49,7 @@
 
             <div class="slds-modal__footer slds-text-align_right custom-footer"><!--slds-align_absolute-center slds-size_12-of-12-->
                 
-                <lightning-button variant="brand" class="slds-m-left_small" type="submit" onclick={handleReturnAndSave}  label="Save and Close"></lightning-button>
+                <lightning-button variant="brand" disabled={readOnly} class="slds-m-left_small" type="submit" onclick={handleReturnAndSave}  label="Save and Close"></lightning-button>
                 <lightning-button variant="brand" class="slds-m-left_small" type="submit" onclick={handleCancel} label="Cancel"></lightning-button>
             </div>
 
@@ -72,10 +72,10 @@
                     </lightning-combobox >
                 </div>
                 <div class="slds-col slds-large-size_8-of-12 slds-small-size_6-of-12 slds-p-top_medium slds-text-align_right">
-                    <lightning-button variant="brand" type="submit" onclick={openModal} label="Change Return Date"></lightning-button>
-                    <lightning-button variant="brand" class="slds-m-left_small" data-title="Return" onclick={handleReturnButton}  label="Return"></lightning-button>
-                    <lightning-button variant="brand" class="slds-m-left_small" onclick={handleSave}  label="Quick Save"></lightning-button>
-                    <lightning-button variant="brand" class="slds-m-left_small" onclick={handleUndo}  label="Undo"></lightning-button>
+                    <lightning-button variant="brand" disabled={readOnly} type="submit" onclick={openModal} label="Change Return Date"></lightning-button>
+                    <lightning-button variant="brand" disabled={readOnly} class="slds-m-left_small" data-title="Return" onclick={handleReturnButton}  label="Return"></lightning-button>
+                    <lightning-button variant="brand" disabled={readOnly} class="slds-m-left_small" onclick={handleSave}  label="Quick Save"></lightning-button>
+                    <lightning-button variant="brand" disabled={readOnly} class="slds-m-left_small" onclick={handleUndo}  label="Undo"></lightning-button>
                     
                 </div>
             </div>
@@ -428,7 +428,7 @@
                     </div>
                     <div class="slds-modal__footer">
                         <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={closeOpenModal}>Cancel</button>
-                        <button class="slds-button slds-button_brand" onclick={handleModalOk}>Ok</button>
+                        <button disabled={readOnly} class="slds-button slds-button_brand" onclick={handleModalOk}>Ok</button>
                     </div>
                     </div>
                 </section>
