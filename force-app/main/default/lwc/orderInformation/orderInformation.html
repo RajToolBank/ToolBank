@@ -1,4 +1,9 @@
 <template>
+    <template if:true={loaded}>
+        <div class="backgroundInverse">
+            <lightning-spinner alternative-text="Loading" variant="inverse"></lightning-spinner>
+        </div>
+    </template>
     <template if:true={fieldsInfo}>
     <div class="slds-path">
         <div class="slds-grid slds-path__track">
@@ -186,8 +191,14 @@
                         <span>Desired Pickup Date:</span>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                         <Span><lightning-input onchange={handleWeekChange} timezone={timeZone}  data-id="pickupDate" style="margin-top: -5%;" type="date" ></lightning-input></Span>
-                         <span style="color: red;font-style: italic;" data-id="pickDateerror"></span>
+                         <Span style="width:100%">
+                            <!--lightning-input onchange={handleWeekChange} timezone={timeZone}  data-id="pickupDate" style="margin-top: -5%;" type="date" class={disabledWeekendsClass} ></lightning-input >
+                            <input type="date" onchange={handleWeekChange} id="pickupDate" data-id="pickupDate" style="margin-top: -5%;" class="datepicker"/-->
+                            <template if:true={businessHours}>
+                                <c-datepicker business-hours={businessHours} ondateselect={onPickDateSelect} ></c-datepicker>
+                            </template>
+                        </Span>
+                         <span  style="color: red;font-style: italic;" data-id="pickDateerror"></span>
                     </div><br/><br/>
                 </div>
                 
@@ -225,7 +236,12 @@
                         <span>Desired Return Date:</span>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                         <Span> <lightning-input value={returndate} data-id="returnDate" style="margin-top: -5%;" type="date" onchange={handleWeekChange}></lightning-input></Span>
+                         <Span style="width:100%"> 
+                            <!--lightning-input value={returneddate} data-id="returnDate" style="margin-top: -5%;" type="date" onchange={handleWeekChange}></lightning-input-->
+                            <template if:true={businessHours}>
+                                <c-datepicker data-id="returnDate" business-hours={businessHours} ondateselect={handleWeekChange}></c-datepicker>
+                            </template>
+                        </Span>
                          <span style="color: red;font-style: italic;" data-id="returnerror"></span>
                     </div><br/><br/>
                 </div>
@@ -251,7 +267,7 @@
                   <div class="slds-box slds-box_x-small slds-text-align_left slds-m-around_x-small">
                     <div class="slds-grid slds-wrap">
                         <div  class="slds-col slds-size_1-of-2">
-                            <span>Order Name:</span>
+                            <span>Order Name:<lightning-helptext class="customIcon" content="Please give your order a short name (not your personal or organization name)."></lightning-helptext></span>
                         </div>
                         <div class="slds-col slds-size_1-of-2">
                              <Span><input class="slds-input" data-id="orderName"  type="text" ></input></Span>
@@ -381,6 +397,7 @@
             </div>
             <div class="slds-card__body slds-card__body_inner slds-text-align_left">
                 <!--fieldset class="slds-form-element"-->
+                <template if:true={projectType} >
                 <template if:true={projectType} for:each={projectType} for:item="record" for:index="index">
                     
                     <div  class="slds-checkbox slds-size--1-of-1" key={record.value}>
@@ -395,6 +412,7 @@
                             </label><br/><br/>
                     </div> 
                         
+                </template>
                 </template>
                 <template if:true={specialEvents}>
                     <div  class="slds-col slds-size_1-of-2">
@@ -426,6 +444,7 @@
             </div>
             <div class="slds-card__body slds-card__body_inner slds-text-align_left">
                 <fieldset class="slds-form-element">
+                    <template if:true={areasImpacted}>
                     <template if:true={areasImpacted} for:each={areasImpacted} for:item="record" for:index="index">
                         <div class="slds-checkbox slds-size--1-of-1" key={record.value}>
                             <input type="checkbox" name="options" onchange={handleAreaImpact} id={record.label} data-id={record.label} value={record.label} />&nbsp;&nbsp;
@@ -439,6 +458,7 @@
                             </label><br /><br />
                         </div>
                     </template>
+                </template>
                 </fieldset>
             </div>
         </article>
@@ -456,6 +476,7 @@
                     
                     </div>
                     <fieldset class="slds-form-element">
+                        <template if:true={projectVenue}>
                         <template if:true={projectVenue} for:each={projectVenue} for:item="record" for:index="index">
                             <div class="slds-checkbox slds-size--1-of-1" key={record.value}>
                                 <input type="checkbox" name="options" onchange={handleProjectVanue} id={record.label} data-id={record.label} value={record.value} />&nbsp;&nbsp;
@@ -469,6 +490,7 @@
                                 </label><br /><br />
                             </div>
                         </template>
+                    </template>
                     </fieldset>
                     <template if:true={home}>
                         <div  class="slds-col slds-size_1-of-2">
@@ -489,6 +511,7 @@
                     </header><br/>
                     </div>
                     <fieldset class="slds-form-element">
+                        <template if:true={serving}>
                         <template if:true={serving} for:each={serving} for:item="record" for:index="index">
                             
                             <div class="slds-form-element__control" key={record.value}>
@@ -505,6 +528,7 @@
                                 </span><br/>
                             </div>
                         </template>
+                    </template>
                     </fieldset>
             </div>
         </article>

@@ -14,6 +14,7 @@
                 }
                 
             </style>
+            
         </head>
         
         <!--apex:outputText value="{0,date}"-->
@@ -379,7 +380,7 @@
             </tr>
             <!-- <apex:repeat value="{!arMap}" var="retDate">-->
             
-            <apex:repeat value="{!order.orderItems}" var="tl">
+            <apex:repeat value="{!orderItemList}" var="tl">
                 <!--<apex:repeat value="{!arMap[tl.Product2Id]}" var="map">-->
                 <apex:outputPanel rendered="{!tl.Status__c !='Unavailable'}" layout="none">
                     
@@ -388,7 +389,7 @@
                         <td><span style="font-size: 10px;">{!tl.product2.name}</span></td>
                         <td style="text-align:right"><span style="font-size: 10px;"><apex:outputField value="{!tl.UnitPrice}"/></span></td>
                         <td style="text-align:center"><span style="font-size: 10px;">{!Text(tl.Check_In_Quantity__c)}</span></td>
-                        <td style="text-align:center"><span style="font-size: 10px;">{!Text(tl.Lost__c)}</span></td>
+                        <td style="text-align:center"><span style="font-size: 10px;">{!Text(If(tl.Lost__c != NULL && tl.Damaged__c != NULL, tl.Lost__c+tl.Damaged__c, If(tl.Lost__c != NULL && tl.Damaged__c == NULL, tl.Lost__c, If(tl.Lost__c == NULL && tl.Damaged__c != NULL, tl.Damaged__c, NULL))))}</span></td>
                         <td style="text-align:right"><span style="font-size: 10px;"> <apex:outputText value="{0,date,MM'/'dd'/'yyyy}" > 
                             <!--<apex:param value="{!map}"/>-->
                             <apex:param value="{!tl.Actual_Return_Date__c}"/>
@@ -429,22 +430,28 @@
         </table>
         <br/>    <br/>
         <div style="clear:all;">
-            <center>            
-                <div style="background:#003c70; width: 100%">
-                    <h5 style="font-family: 'Roboto', sans-serif; text-align: center; margin-top:10px; padding-top:5px; margin-bottom:10px; padding-bottom:5px;color:#fff;">Local Sponsors</h5>
-                </div>
-            </center>
-            <div style="position: relative; left: 30%;">
-                <apex:image value="{!$Resource.Logo_Home}"  />
-            </div>    
+            <apex:outputPanel rendered="{!imageURLList.size !=0}" >
+                <center>            
+                    <div style="background:#003c70; width: 100%">
+                        <h5 style="font-family: 'Roboto', sans-serif; text-align: center; margin-top:10px; padding-top:5px; margin-bottom:10px; padding-bottom:5px;color:#fff;">Local Sponsors</h5>
+                    </div>
+                </center>
+            </apex:outputPanel>
+            <table width="100%">
+                <tr>
+                    <td width="100%" style="text-align:center">
+                            <div class="row" style="position: relative; top: -50px; height: 50px;padding-left: 100px;">
+                                <apex:repeat value="{!imageURLList}" var="imageUrl">
+                                    <div class="column" style="font-family: 'Roboto', sans-serif; font-size: 10px;box-sizing: border-box; float:left;  width: 20%; padding: 10px; height: 100px;position: relative; top: -20px; left: 300px">
+                                        <h2>&nbsp;</h2>
+                                        <!--<apex:image value="{!imageUrl}"/>-->
+                                        <img src="{!imageUrl}" width="70" height="60"/>
+                                    </div>
+                                </apex:repeat>
+                            </div>
+                    </td>
+                </tr>
+            </table>
         </div>
-        
-        
-    </html>
-    
-    
-    
-    
-    
-    
+    </html> 
 </apex:page>

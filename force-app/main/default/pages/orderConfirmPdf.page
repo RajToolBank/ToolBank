@@ -1,4 +1,4 @@
-<apex:page standardController="Order" renderAs="pdf" title="Print Tools">
+<apex:page standardController="Order" extensions="OrderConfirmPdfController" renderAs="pdf" title="Print Tools">
     <apex:includeLightning />   
     <apex:form >
     <center>   <apex:image value="{!$Resource.Toolbank_USA}"  style="padding-top:10px;height:50%;width:30%;"/></center>
@@ -65,7 +65,7 @@
   </thead>
     
   <tbody>
-        <apex:repeat value="{!Order.orderItems}" var="tl">
+        <apex:repeat value="{!orderItemList}" var="tl">
         <apex:outputPanel layout="none" rendered="{!tl.product2.Type__c == 'Tool'}">
     <tr style="border: 1px solid #000;padding: 10px;">   
     <td style="border: 1px solid #000;padding: 5px; text-align:center;">{!tl.status__c}</td>

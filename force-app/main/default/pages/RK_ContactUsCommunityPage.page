@@ -17,7 +17,7 @@
                     </apex:pageBlockSectionItem>
                     <apex:pageBlockSectionItem >
                         <apex:outputLabel ><b style="font-size: 120%;">Affiliate Phone Number: </b></apex:outputLabel>
-                        <apex:outputText style="font-size: 130%;" value="{!account.phone}" />
+                        <apex:outputText styleclass="phone" style="font-size: 130%;" value="{!account.phone}" />
                     </apex:pageBlockSectionItem>
                     <apex:pageBlockSectionItem >
                         <apex:outputLabel ><b style="font-size: 120%;">Affiliate Address: </b></apex:outputLabel>
@@ -34,6 +34,7 @@
                         <tr>
                             <th></th>
                             <th></th>
+                            <th>&nbsp;&nbsp;&nbsp;</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -43,10 +44,11 @@
                                 <th style="font-size: 120%;" >Sunday</th>
                                 <apex:outputPanel layout="none" rendered="{!account.Sunday_Start_Time__c != null}">
                                 <td style="font-size: 120%;"><apex:outputfield value="{!account.Sunday_Start_Time__c}"> </apex:outputfield></td>
+                                <td>&nbsp;&nbsp;&nbsp;</td>
                                 <td style="font-size: 120%;"><apex:outputfield value="{!account.Sunday_End_Time__c}"> </apex:outputfield></td>
                                 </apex:outputPanel>
                                 <apex:outputPanel layout="none" rendered="{!account.Sunday_Start_Time__c = null}">
-                                <td style="text-align:center;font-size: 120%;" colspan="2" >Closed</td>
+                                <td style="text-align:center;font-size: 120%;" colspan="3" >Closed</td>
                                 
                                 </apex:outputPanel>
                             </tr>
@@ -54,10 +56,11 @@
                                 <th style="font-size: 120%;">Monday</th>
                                 <apex:outputPanel layout="none" rendered="{!account.Monday_Start_Time__c!= null}">
                                 <td style="font-size: 120%;"><apex:outputfield value="{!account.Monday_Start_Time__c}"> </apex:outputfield></td>
+                                <td>&nbsp;&nbsp;&nbsp;</td>
                                 <td style="font-size: 120%;"><apex:outputfield value="{!account.Monday_End_Time__c}"> </apex:outputfield></td>
                                 </apex:outputPanel>
                                 <apex:outputPanel layout="none" rendered="{!account.Monday_Start_Time__c= null}">
-                                <td style="text-align:center;font-size: 120%;" colspan="2" >Closed</td>
+                                <td style="text-align:center;font-size: 120%;" colspan="3" >Closed</td>
                                 
                                 </apex:outputPanel>
                             </tr>
@@ -65,10 +68,11 @@
                                 <th style="font-size: 120%;">Tuesday</th>
                                 <apex:outputPanel layout="none" rendered="{!account.Tuesday_Start_Time__c!= null}">
                                 <td style="font-size: 120%;"><apex:outputfield value="{!account.Tuesday_Start_Time__c}"> </apex:outputfield></td>
+                                <td>&nbsp;&nbsp;&nbsp;</td>
                                 <td style="font-size: 120%;"><apex:outputfield value="{!account.Tuesday_End_Time__c}"> </apex:outputfield></td>
                                 </apex:outputPanel>
                                 <apex:outputPanel layout="none" rendered="{!account.Tuesday_Start_Time__c= null}">
-                                <td style="text-align:center;font-size: 120%;" colspan="2" >Closed</td>
+                                <td style="text-align:center;font-size: 120%;" colspan="3" >Closed</td>
                                 
                                 </apex:outputPanel>
                             </tr>
@@ -76,10 +80,11 @@
                                 <th style="font-size: 120%;">Wednesday &nbsp;&nbsp;&nbsp;</th>
                                 <apex:outputPanel layout="none" rendered="{!account.Wednesday_Start_Time__c!= null}">
                                 <td style="font-size: 120%;"><apex:outputfield value="{!account.Wednesday_Start_Time__c}"> </apex:outputfield></td>
+                                <td>&nbsp;&nbsp;&nbsp;</td>
                                 <td style="font-size: 120%;"><apex:outputfield value="{!account.Wednesday_End_Time__c}"> </apex:outputfield></td>
                                 </apex:outputPanel>
                                 <apex:outputPanel layout="none" rendered="{!account.Wednesday_Start_Time__c= null}">
-                                <td style="text-align:center;font-size: 120%;" colspan="2" >Closed</td>
+                                <td style="text-align:center;font-size: 120%;" colspan="3" >Closed</td>
                                 
                                 </apex:outputPanel>
                             </tr>
@@ -87,10 +92,11 @@
                                 <th style="font-size: 120%;">Thursday</th>
                                 <apex:outputPanel layout="none" rendered="{!account.Thursday_Start_Time__c!= null}">
                                 <td style="font-size: 120%;" ><apex:outputfield value="{!account.Thursday_Start_Time__c}"> </apex:outputfield></td>
+                                <td>&nbsp;&nbsp;&nbsp;</td>
                                 <td style="font-size: 120%;" ><apex:outputfield value="{!account.Thursday_End_Time__c}"> </apex:outputfield></td>
                                 </apex:outputPanel>
                                 <apex:outputPanel layout="none" rendered="{!account.Thursday_Start_Time__c= null}">
-                                <td colspan="2" style="text-align:center;text-align:center">Closed</td>
+                                <td colspan="3" style="text-align:center;text-align:center">Closed</td>
                                 
                                 </apex:outputPanel>
                             </tr>
@@ -98,10 +104,11 @@
                                 <th style="font-size: 120%;">Friday</th>
                                 <apex:outputPanel layout="none" rendered="{!account.Friday_Start_Time__c!= null}">
                                 <td style="font-size: 120%;"><apex:outputfield value="{!account.Friday_Start_Time__c}"> </apex:outputfield></td>
+                                <td>&nbsp;&nbsp;&nbsp;</td>
                                 <td style="font-size: 120%;"><apex:outputfield style="font-size: 120%;" value="{!account.Friday_End_Time__c}"> </apex:outputfield></td>
                                 </apex:outputPanel>
                                 <apex:outputPanel layout="none" rendered="{!account.Friday_Start_Time__c= null}">
-                                <td colspan="2" style="text-align:center;text-align:center">Closed</td>
+                                <td colspan="3" style="text-align:center;text-align:center">Closed</td>
                                 
                                 </apex:outputPanel>
                             </tr>
@@ -109,10 +116,11 @@
                                 <th style="font-size: 120%;">Saturday</th>
                                 <apex:outputPanel layout="none" rendered="{!account.Saturday_Start_Time__c!= null}">
                                 <td style="font-size: 120%;"><apex:outputfield value="{!account.Saturday_Start_Time__c}"> </apex:outputfield></td>
+                                <td>&nbsp;&nbsp;&nbsp;</td>
                                 <td style="font-size: 120%;"><apex:outputfield value="{!account.Saturday_End_Time__c}"> </apex:outputfield></td>
                                 </apex:outputPanel>
                                 <apex:outputPanel layout="none" rendered="{!account.Saturday_Start_Time__c= null}">
-                                <td colspan="2" style="text-align:center;font-size: 120%;">Closed</td>
+                                <td colspan="3" style="text-align:center;font-size: 120%;">Closed</td>
                                 
                                 </apex:outputPanel>
                             </tr>

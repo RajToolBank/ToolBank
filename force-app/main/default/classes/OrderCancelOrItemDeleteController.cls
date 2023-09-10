@@ -148,6 +148,7 @@ public class OrderCancelOrItemDeleteController {
                                         WHERE product2Id IN: productIdSet 
                                         AND Id NOT IN: triggerOld
                                         AND Order.Affiliate__c IN: AffiliateIdSet.values()
+                                        AND Status__c = 'Unconfirmed'
                                         //AND Schedule_Pick_Date__c <=: maxReturnDate
                                         //AND Schedule_Return_Date__c >=: minPickDate
                                         //AND LastModifiedDate <: lastModifieddateList[lastModifieddateList.size()-1]

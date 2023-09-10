@@ -1,5 +1,6 @@
 public class OrderItemHelperClass {
     public static Boolean recursion = false;
+    public static Boolean recursionUpdate = false;
     static final String LOST = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Lost').getRecordTypeId();
     static final String RE_TURN =Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Returned').getRecordTypeId();
     static final String OUT = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Fulfilled').getRecordTypeId();
@@ -117,48 +118,57 @@ public class OrderItemHelperClass {
     }
 
 
-    public static void handleStatus(List<OrderItem> itemList){
+    public static void handleStatus(List<OrderItem> itemList,Map<Id, OrderItem> oldMap){
         recursion = true;
+        if(System.trigger.isUpdate)
+            recursionUpdate = true;
+        
         set<Id> orderIdSet = new set<Id>();
         for(orderitem item: itemList){
-            orderIdSet.add(item.orderid);
+            if(oldMap == Null || item.status__c != oldMap.get(item.Id).status__c || System.trigger.isDelete)
+                orderIdSet.add(item.orderid);
         }
 
         List<Order> orderListToUpdate = new List<Order>();
         for(Order order:    [SELECT Id,Amount_Owed__c,Amount_Paid__c,Status,
-                            (SELECT Id,Total_Fees__c,isDeleted,TotalPrice,Status__c,Product2.Type__c FROM OrderItems WHERE isDeleted = false ),
+                            (SELECT Id,Total_Fees__c,isDeleted,TotalPrice,Status__c,Product2.Type__c FROM OrderItems WHERE isDeleted = false AND Status__c != 'Unavailable' ),
                             (SELECT Id,Amount__c FROM Payments_by_Members__r)
                             FROM Order WHERE Id IN: orderIdSet AND dataloader__c = false]) //WHERE Product2.Type__c = 'Tool'
         {
-            Boolean unconfirmed=false,confirmed=false,partiallyReturned=false,fulfilled=false,cancelled=false,overdue=false,returned=false,closed=false,unpaid=false;
+            Boolean unconfirmed=false,unavailable=false,confirmed=false,partiallyReturned=false,fulfilled=false,cancelled=false,overdue=false,returned=false,closed=false,unpaid=false;
             Boolean isUpdate = false;
             String orderStatus = order.status;
             Decimal totalAmount = 0.0;
             for(OrderItem item: order.OrderItems){
                 if(item.Product2.Type__c == 'Tool'){
                         totalAmount += item.Total_Fees__c;
-                    if('Unconfirmed'.equalsIgnoreCase(item.Status__c) || 'Unavailable'.equalsIgnoreCase(item.Status__c))
+                    if('Unconfirmed'.equalsIgnoreCase(item.Status__c) || ('Unavailable'.equalsIgnoreCase(item.Status__c) && ('Unconfirmed'.equalsIgnoreCase(orderStatus) || 'confirmed'.equalsIgnoreCase(orderStatus) || 'Partially Confirmed'.equalsIgnoreCase(orderStatus)) ))
                         unconfirmed = true;
-                    if('confirmed'.equalsIgnoreCase(item.Status__c))
-                        confirmed = true;
-                    if('fulfilled'.equalsIgnoreCase(item.Status__c))
-                        fulfilled = true;
-                    if('cancelled'.equalsIgnoreCase(item.Status__c))
-                        cancelled = true;
-                    if('overdue'.equalsIgnoreCase(item.Status__c))
-                        overdue = true;
-                    if('returned'.equalsIgnoreCase(item.Status__c))
+                    else if('Unavailable'.equalsIgnoreCase(item.Status__c) && 'fulfilled'.equalsIgnoreCase(orderStatus)){
                         returned = true;
-                    if('closed'.equalsIgnoreCase(item.Status__c))
+                        unavailable=true;
+                    } else if('confirmed'.equalsIgnoreCase(item.Status__c))
+                        confirmed = true;
+                    else if('fulfilled'.equalsIgnoreCase(item.Status__c))
+                        fulfilled = true;
+                    else if('cancelled'.equalsIgnoreCase(item.Status__c))
+                        cancelled = true;
+                    else if('overdue'.equalsIgnoreCase(item.Status__c))
+                        overdue = true;
+                    else if('returned'.equalsIgnoreCase(item.Status__c))
+                        returned = true;
+                    else if('closed'.equalsIgnoreCase(item.Status__c))
                         closed = true;
-                    if('unpaid'.equalsIgnoreCase(item.Status__c))
+                    else if('unpaid'.equalsIgnoreCase(item.Status__c))
                         unpaid = true;
-                    if('Partially Returned'.equalsIgnoreCase(item.Status__c))
+                    else if('Partially Returned'.equalsIgnoreCase(item.Status__c))
                         partiallyReturned = true;
                 }else{
                     totalAmount +=item.TotalPrice;
                 }
             }
+            Order orderObje =new Order();
+            orderObje.Id = order.Id;
             Decimal amountPaid = 0.00;
             for(Payments_TB__c payment: order.Payments_by_Members__r){
                 amountPaid += payment.Amount__c;
@@ -166,53 +176,53 @@ public class OrderItemHelperClass {
 
             Decimal owedAmount = totalAmount - amountPaid;
 
-            if(unconfirmed && !confirmed && !fulfilled){
-                order.status = 'Unconfirmed';
+            if(unconfirmed && !confirmed && !fulfilled && !unavailable){
+                orderObje.status = 'Unconfirmed';
                 isUpdate = true;
             }else if(unconfirmed && confirmed){
-                order.status = 'Partially Confirmed';
+                orderObje.status = 'Partially Confirmed';
                 isUpdate = true;
             }else if(!unconfirmed && confirmed ){
-                order.status = 'Confirmed';
+                orderObje.status = 'Confirmed';
                 isUpdate = true;
             }else if(unconfirmed && fulfilled ){
-                order.status = 'Fulfilled';
+                orderObje.status = 'Fulfilled';
                 isUpdate = true;
             }else if(!unconfirmed && !confirmed && fulfilled && !cancelled && !overdue && !returned && !partiallyReturned ){
                 if( orderStatus != 'Fulfilled'){
-                    order.status = 'Fulfilled';
-                    order.Actual_Pickup_Date_Time__c = system.now();
+                    orderObje.status = 'Fulfilled';
+                    orderObje.Actual_Pickup_Date_Time__c = system.now();
                     isUpdate = true;
                 }
             }else if(!unconfirmed && !confirmed && !fulfilled && cancelled && !overdue && !returned && !partiallyReturned ){
-                order.status = 'Cancelled';
+                orderObje.status = 'Cancelled';
                 isUpdate = true;
             }else if( overdue){
-                order.status = 'Overdue';
+                orderObje.status = 'Overdue';
                 isUpdate = true;
             }else if(!unconfirmed && !confirmed && !fulfilled && !cancelled && !overdue && returned && !partiallyReturned ){
-                order.status = 'Returned';
+                orderObje.status = 'Returned';
                 if(owedAmount > 0){
-                    order.status = 'Unpaid';
+                    orderObje.status = 'Unpaid';
                 }else if(owedAmount == 0){
-                    order.status = 'Closed';
+                    orderObje.status = 'Closed';
                 }
                 isUpdate = true;
             }else if(partiallyReturned){
-                order.status = 'Partially Returned';
+                orderObje.status = 'Partially Returned';
                 isUpdate = true;
             }else if(fulfilled && (returned || partiallyReturned )){
-                order.status = 'Partially Returned';
+                orderObje.status = 'Partially Returned';
                 isUpdate = true;
             }else{
                 if(owedAmount >= 0){
-                    order.status = 'Unpaid';
+                    orderObje.status = 'Unpaid';
                     isUpdate = true;
                 }
                 
             }
             if(isUpdate)
-                orderListToUpdate.add(order);
+                orderListToUpdate.add(orderObje);
         }
 
         if(!orderListToUpdate.isEmpty()){

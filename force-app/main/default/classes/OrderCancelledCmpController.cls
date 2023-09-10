@@ -29,7 +29,7 @@ public without Sharing class OrderCancelledCmpController {
 
     @AuraEnabled
     public static string deleteOrder(String recordId){
-        try {
+       // try {
             User user = [SELECT Id, Profile.Name FROM User WHERE Id =: userinfo.getUserId()];
             if(!user.profile.Name.equalsIgnoreCase('TB Member Plus') && !user.profile.Name.equalsIgnoreCase('TB Member')){
 
@@ -50,9 +50,9 @@ public without Sharing class OrderCancelledCmpController {
                 return 'You do not have permission to delete the order.';
             }
             
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
+        //} catch (Exception e) {
+          //  throw new AuraHandledException(e.getMessage());
+        //}
         
     }
 }

@@ -21,5 +21,14 @@ public class SearchComponentControllerTest {
         SearchComponentController.search3('Account', new List<String>{'Name', 'AccountNumber'}, searchTerm,acc.id);
         SearchComponentController.search(objectName, fields, '');
         SearchComponentController.getRecentlyCreatedRecord(acc.Id, fields, objectName);
+        Profile Prof = [Select Id from Profile where Name = 'TB Members' limit 1];
+        User comunityUser = TestDataFactory.createCustomerUser(con,Prof);
+        
+        System.runAs(comunityUser) {
+           SearchComponentController.search3('contact', new List<String>{'Name', 'email'}, searchTerm,acc.id);
+        SearchComponentController.search3('Account', new List<String>{'Name', 'AccountNumber'}, searchTerm,acc.id);
+            SearchComponentController.search4('test',acc.id);
+ 
+        }
     }
 }

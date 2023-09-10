@@ -1,0 +1,19 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <template if:true={isAffiliate}>
+        <lightning-card title="Image Uploader" icon-name="standard:file">
+            <div class="slds-p-horizontal_small">
+                <lightning-file-upload
+                    label="Upload Images"
+                    name="fileUploader"
+                    accept={acceptedFormats}
+                    record-id={recordId}
+                    multiple
+                    onchange={handleFileSize}
+                    onuploadfinished={handleFileUpload}
+                >
+                </lightning-file-upload>
+            </div>
+        </lightning-card>
+    </template>
+</template>

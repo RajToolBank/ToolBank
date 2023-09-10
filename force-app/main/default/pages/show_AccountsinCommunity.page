@@ -104,22 +104,8 @@ float: left;*/
   <apex:slds />
   <div class="slds-scope ">
     <apex:form >
-      <apex:outputpanel rendered="{!!showAccount}">
-        <apex:pageBlock >
-            <apex:pageBlockTable value="{!affiliateAccList}" var="o" rendered="{!affiliateAccList.size>0}">
-                    <apex:column headerValue="Name" value="{!o.Name}"/>
-                        
-                    <apex:column value="{!o.Phone }"  />
-                    <apex:column value="{!o.BillingStreet}"/>
-                    <apex:column value="{!o.billingCity}"/>
-                    <apex:column value="{!o.billingState}"/>
-                    <apex:column value="{!o.billingPostalCode}"/>
-                    <apex:column value="{!o.billingCountry}"/>
-                    
-                    
-                </apex:pageBlockTable>
-              </apex:pageBlock>
-      </apex:outputpanel>
+      
+        
       <apex:outputpanel rendered="{!showAccount}">
       <article class="slds-card">
         <header class="slds-media slds-media_center slds-has-flexi-truncate" style="float:left;">
@@ -217,6 +203,7 @@ float: left;*/
           </apex:outputpanel>
         </apex:pageBlock>
       </article>
+      
       <apex:pagemessages />
       <article class="slds-card">
         <header class="slds-media slds-media_center slds-has-flexi-truncate">
@@ -366,6 +353,33 @@ float: left;*/
           <br />
           <br /> Membership Status <apex:outputText value="{!memberStatus}" styleClass="slds-input" style=" width: 195px;margin-left: 83px;"></apex:outputText>
         </apex:pageblock>
+      </article>
+      <article class="slds-card">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+          <span class="slds-icon_container slds-icon-action-new-group">
+            <svg aria-hidden="true" class="slds-icon  slds-icon--x-small">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/apexpages/slds/latest/assets/icons/action-sprite/svg/symbols.svg#new_account">
+              </use>
+            </svg>
+            <span class="slds-assistive-text">Priority</span>
+          </span>
+          <div class="slds-media__body">
+            <h2 class="slds-card__header-title">
+              <span>Affiliated Member Agencies</span>
+            </h2>
+          </div>
+        </header>
+      <apex:pageBlock >
+        <apex:pageBlockTable value="{!affiliateAccList}" var="o" rendered="{!affiliateAccList.size>0}">
+                <apex:column headerValue="Name" value="{!o.Name}"/>   
+                <apex:column value="{!o.Phone }"  />
+                <apex:column value="{!o.BillingStreet}"/>
+                <apex:column value="{!o.billingCity}"/>
+                <apex:column value="{!o.billingState}"/>
+                <apex:column value="{!o.billingPostalCode}"/>
+                <apex:column value="{!o.billingCountry}"/>
+          </apex:pageBlockTable>
+      </apex:pageBlock>
       </article>
       <div style="display:none" id="modaldivPrimary">
         <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_small">

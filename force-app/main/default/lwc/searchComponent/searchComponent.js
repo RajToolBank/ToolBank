@@ -1,5 +1,6 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import search3 from '@salesforce/apex/SearchComponentController.search3';
+import search4 from '@salesforce/apex/SearchComponentController.search4';
 import getRecentlyCreatedRecord from '@salesforce/apex/SearchComponentController.getRecentlyCreatedRecord';
 const DELAY = 10;
 
@@ -10,7 +11,7 @@ export default class SearchComponent extends NavigationMixin(LightningElement) {
     /* values for an existing selected record */
     @api valueId;
     @api valueName;
-
+    @api searchCmp;
     @api marginTop     = '0%';
     @api objName       = 'Account';
     @api iconName      = 'standard:account';
@@ -106,7 +107,7 @@ export default class SearchComponent extends NavigationMixin(LightningElement) {
         const searchKey = event.target.value;
         //this.isLoading = true;
         this.delayTimeout = setTimeout(() => {
-            //if(searchKey.length >= 2){
+            if(this.searchCmp !== "transaction"){
                 search3({
                     objectName : this.objName,
                     fields     : this.fields,
@@ -129,7 +130,24 @@ export default class SearchComponent extends NavigationMixin(LightningElement) {
                 .finally( ()=>{
                     this.showButton = this.createRecord;
                 });
-            //}
+            }else{
+                search4({
+                    searchTerm : searchKey,
+                    currentAffiliate:this.parentId
+                }).then(res => {
+                    console.log(res);
+                    let stringResult = JSON.stringify(res);
+                    let allResult    = JSON.parse(stringResult);
+                    allResult.forEach( record => {
+                        record.FIELD1       = record["Name"];
+                        record.FIELD2       = record[this.field1];
+                        
+                    });
+                    this.searchRecords = allResult;
+                }).catch(err => {
+
+                })
+            }
         }, DELAY);
     }
 

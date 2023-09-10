@@ -267,6 +267,7 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         let date_3 = new Date();
         let difference = date_2.getTime() - date_1.getTime();
         let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+        console.log("Total Days",TotalDays);
         //let week = 1+Math.ceil((TotalDays-8)/7);
         let week = 1+((TotalDays-8) < 0?0:Math.ceil((TotalDays-8)/7));
         let affiliateFee = parseInt(retDate.dataset.affiliatefee);
@@ -274,18 +275,19 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
         const handleFeePerTool = (((parseInt(affiliateFee)*unitprice)/100)*week*parseInt(lost + damaged + retQty)).toFixed(2);
         retDate.dataset.week = week>1?(week+" weeks"):(week+" week");
         let basefee = this.template.querySelector(`[data-basefee="`+recid+`"]`);
-        console.log(handleFeePerTool);
         basefee.innerHTML = "$ "+(handleFeePerTool);
         const lostToolFee = (unitprice * parseInt(lost)).toFixed(2);
         let lostfee = this.template.querySelector(`[data-lostfee="`+recid+`"]`);
         lostfee.innerHTML = "$ "+lostToolFee;
-
+        let offset = (date_3.getHours()*60)+date_3.getUTCMinutes()+date_3.getTimezoneOffset();
+        date_2 = new Date((date_2.getTime() + (offset*60000)));
+        
         let lateDiff = date_3.getTime() - (retDate.value?date_2.getTime():date_3.getTime());
-        let lateDays = Math.ceil(lateDiff / (1000 * 3600 * 24));
+        let lateDays = Math.floor(lateDiff / (1000 * 3600 * 24));
         let lateweek = Math.ceil(lateDays/7);
         let lateCharge =0;
         if(lateweek > 0){
-            console.log(lateDiff);
+            
             const LatehandleFeePerTool = (((parseInt(affiliateFee)*unitprice)/100)*lateweek).toFixed(2);
             let latefee = this.template.querySelector(`[data-latefee="`+recid+`"]`);
             lateCharge = (LatehandleFeePerTool * parseInt(( lost + damaged + retQty)) *2 ).toFixed(2);
@@ -448,7 +450,6 @@ export default class ReturnOrderCmp extends NavigationMixin(LightningElement)  {
                 if(event.target.checked){
                     ele.classList.add("selected");
                     let recid = ele.dataset.recid;
-                    console.log(recid);
                     let borrowed = state.template.querySelector(`[data-borrowed="`+recid+`"]`).innerHTML;
                     let retqty = state.template.querySelector(`[data-qtyid="`+recid+`"]`);
                     retqty.value = borrowed;

@@ -4,15 +4,12 @@ import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import ORDER_OBJECT from '@salesforce/schema/Order';
 import PICKUP_TIME from '@salesforce/schema/Order.Desired_Pickup_Time__c';
 import BORROWING_PERIOD from '@salesforce/schema/Order.Requested_Borrowing_Period__c';
-import PROJECT_TYPE from '@salesforce/schema/Order.Project_Type__c';
-import AREAS_IMPACT from '@salesforce/schema/Order.Areas_Of_Impact__c';
-import PROJECT_VENUE from '@salesforce/schema/Order.Project_Venue__c';
-import SERVING from '@salesforce/schema/Order.Serving_50_of_Low_Income_People__c';
 import VOLUNTEER_SRC from '@salesforce/schema/Order.Volunteer_Source__c';
 import zipCodeList from '@salesforce/apex/PlaceOrderController.zipCodes';
 import accid from '@salesforce/apex/PlaceOrderController.accid';
 import getAgencyContact from '@salesforce/apex/PlaceOrderController.getAgencyContact';
 import getPicklistValuesApex from '@salesforce/apex/PlaceOrderController.getPicklistValuesApex';
+import getBusinessHours from '@salesforce/apex/PlaceOrderController.getBusinessHours';
 import TIME_ZONE from '@salesforce/i18n/timeZone';
 export default class OrderInformation extends LightningElement {
 
@@ -33,16 +30,19 @@ export default class OrderInformation extends LightningElement {
     affiliateId;
     serv;
     volSrc;
-    returndate;
+    returneddate;
+    desiredpickupdate;
     corp = false;
     home = false;
     specialEvents = false;
     zipCodeList;
     @api
     email ="";
+    loaded = true;
+    businessHours;
 
 
-    desiredPickupTime;
+    @track desiredPickupTime;
     borrowingPeriod;
     projectType
     areasImpacted;
@@ -51,30 +51,40 @@ export default class OrderInformation extends LightningElement {
     volunteerSource;
     fieldsInfo;
     orderMetadata;
-
+    workingHours;
+    
     
     /*
 */
 
-connectedCallback(){
-
-    getAgencyContact({recordId:this.recordId})
-    .then(res=>{
-        console.log(res);
-        this.contactId = res.contactId;
-        this.contactName = res.contactName;
-        this.email = res.contactEmail;
-        this.accountId = res.contactAccountId;
-        this.accountName = res.contactAccountName;
-    }).catch(err =>{
-        console.log(err);
-    })
-}
+    connectedCallback(){
+        const acctId = (this.recordId !== null && this.recordId !==""? this.recordId:this.affiliateId);
+        console.log("connected callback:: "+acctId);
+        getAgencyContact({
+            recordId:this.recordId,
+            affiliateId:this.affiliateId
+        }).then(res=>{
+            this.loaded = false;
+            console.log(res);
+            this.contactId = res.contactId;
+            this.contactName = res.contactName;
+            this.email = res.contactEmail;
+            this.accountId = res.contactAccountId;
+            this.accountName = res.contactAccountName;
+            return getBusinessHours({affiliateId:this.affiliateId});
+        }).then(res=>{
+            this.businessHours = res;
+        }).catch(err =>{
+            console.log(err);
+        })
+    }
     @wire(accid) getaccid({data,error}){
         if(data){
             
             this.affiliateId = data;
         }
+           
+        
     };
   
     @wire(zipCodeList) zipCodesList({data,error}){
@@ -95,7 +105,8 @@ connectedCallback(){
     @wire(getPicklistValues, { recordTypeId: '$orderMetadata.data.defaultRecordTypeId',  fieldApiName: PICKUP_TIME }) 
     wireddesiredPickupTime({data, error}){
         if(data){
-            this.desiredPickupTime  = data.values;
+            this.workingHours  =data.values;
+            this.desiredPickupTime = data.values;
         }
         if(error){
 
@@ -169,11 +180,64 @@ connectedCallback(){
 
         }
     };
+
+
+    onPickDateSelect(event){
+        let selectedDate = event.detail.selectedDate;
+        const day = selectedDate.getDay();
+        let businessDays = JSON.parse(JSON.stringify(this.businessHours));
+        const saturdayStartTime = businessDays.Saturday_Start_Time__c;
+        const saturdayEndTime = businessDays.Saturday_End_Time__c;
+        const sundayStartTime = businessDays.Sunday_Start_Time__c;
+        const sundayEndTime = businessDays.Sunday_End_Time__c;
+        const mondayStartTime = businessDays.Monday_Start_Time__c;
+        const mondayEndTime = businessDays.Monday_End_Time__c;
+        const tuesdayStartTime = businessDays.Tuesday_Start_Time__c;
+        const tuesdayEndTime = businessDays.Tuesday_End_Time__c;
+        const wednesdayStartTime = businessDays.Wednesday_Start_Time__c;
+        const wednesdayEndTime = businessDays.Wednesday_End_Time__c;
+        const thursdayStartTime = businessDays.Thursday_Start_Time__c;
+        const thursdayEndTime = businessDays.Thursday_End_Time__c;
+        const fridayStartTime = businessDays.Friday_Start_Time__c;
+        const fridayEndTime = businessDays.Friday_End_Time__c;
+        let pickupOptions= [];
+        for(let i in this.workingHours){
+            const [hourString, minuteString] = this.workingHours[i].value.split(':');
+            const hour = minuteString.includes('AM')? hourString.split(' ')[0]: (parseInt(hourString.split(' ')[0]) === 12?12:(parseInt(hourString.split(' ')[0]) + 12)); // Convert to 24-hour format by adding 12
+            const minute = minuteString.includes('AM')?minuteString.split(' ')[0]:minuteString.split(' ')[0];
+            
+            const milliseconds = (hour * 60 * 60 + minute * 60) * 1000;
+           
+            if(day === 0 && milliseconds >= sundayStartTime && milliseconds <= sundayEndTime)
+                pickupOptions.push(this.workingHours[i]);
+            else if(day === 1 && milliseconds >= mondayStartTime && milliseconds <= mondayEndTime)
+                pickupOptions.push(this.workingHours[i]);
+            else if(day === 2 && milliseconds >= tuesdayStartTime && milliseconds <= tuesdayEndTime)
+                pickupOptions.push(this.workingHours[i]);
+            else if(day === 3 && milliseconds >= wednesdayStartTime && milliseconds <= wednesdayEndTime)
+                pickupOptions.push(this.workingHours[i]);
+            else if(day === 4 && milliseconds >= thursdayStartTime && milliseconds <= thursdayEndTime)
+                pickupOptions.push(this.workingHours[i]);
+            else if(day === 5 && milliseconds >= fridayStartTime && milliseconds <= fridayEndTime)
+                pickupOptions.push(this.workingHours[i]);
+            else if(day === 6 && milliseconds >= saturdayStartTime && milliseconds <= saturdayEndTime)
+                pickupOptions.push(this.workingHours[i]);
+
+        }
+
+        this.desiredPickupTime = pickupOptions;
+        this.desiredpickupdate = selectedDate;
+
+        if(this.desiredpickupdate){
+            this.handleWeekChange(event)
+        }
+
+    }
+
     handleMultiPickChange(event){
         let data = event.detail;
         this.proType = data;
     }
-
 
     handleWeekChange(event){ 
         let data = this.template.querySelector(`[data-id="Week"]`);
@@ -181,66 +245,53 @@ connectedCallback(){
         let returnerror = this.template.querySelector(`[data-id="returnerror"]`);
         let pickDate =this.template.querySelector(`[data-id="pickupDate"]`);
         let returnDate =this.template.querySelector(`[data-id="returnDate"]`);
-        console.log(pickDate.value);
-        let pickupdate = new Date(pickDate.value+" 23:59:50");
-        let todayDate = new Date(new Date().setHours(0, 0, 0, 0));
-        //const offset =  new Date().getTimezoneOffset()
-       // pickupdate = new Date(pickupdate.getTime()+offset*60000);
-       
-       console.log(todayDate);  
-       console.log(pickupdate);
-        //pickupdate = new Date(pickupdate.getTime()).toLocaleString("en-US", {timeZone: this.timeZone});
-        //todayDate = new Date(todayDate.getTime()).toLocaleString("en-US", {timeZone: this.timeZone});
-       // console.log(offset);
-        
-        //todayDate = new Date(new Date(todayDate).setHours(23,59,58,50)).toLocaleString("en-US", {timeZone: this.timeZone});
-       //  pickupdate = new Date((pickupdate.getTime()-(offset/60000)));//.toLocaleString("en-US", {timeZone: this.timeZone});
-        //pickupdate = new Date(pickupdate);
-        //todayDate = new Date(todayDate);
-        //console.log(todayDate); 
-        //console.log(pickupdate);
-        if(pickupdate < todayDate){
-            pickDateerror.innerHTML ="Pickup Date can not be in the past";
-            returnDate.value ="";
-            return;
-        }else{
-            pickDateerror.innerHTML ="";
-        }
+        console.log('desired pickup date-->',this.desiredpickupdate);
+        if(this.desiredpickupdate){
+            let pickupdate = new Date(this.desiredpickupdate.setHours(23,59,50,0));//+" 23:59:50");
+            console.log('pickup date-->',this.pickupdate);
+            let todayDate = new Date(new Date().setHours(0, 0, 0, 0));
+            if(pickupdate < todayDate){
+                pickDateerror.innerHTML ="Pickup Date can not be in the past";
+                //returnDate.value ="";
+                this.returneddate = "";
+                return;
+            }else{
+                pickDateerror.innerHTML ="";
+            }
 
-        this.borrowing = data.value;
-        if(this.borrowing){
-            
-            console.log(this.borrowing);
-            let borrow = this.borrowing.replace("weeks", "");
-            borrow = this.borrowing.replace("week", "");
-            let week = parseInt(borrow)
-            week = (week*7);
-            pickupdate.setDate(pickupdate.getDate() + week);
-            console.log(pickupdate);
-            console.log(this.timeZone);
-            pickupdate = pickupdate.toLocaleString("en-US", {timeZone: this.timeZone});
-            console.log(pickupdate);
-            pickupdate = new Date(pickupdate);
-            console.log(pickupdate);
-            let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(pickupdate);
-            let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(pickupdate);
-            let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(pickupdate);
-            const tagId = event.target.dataset.id;
-            if(tagId !== "returnDate"){
-                returnDate.value = `${ye}-${mo}-${da}`;
-                returnerror.innerHTML = "";
-            }else {
-                let retvalue = `${ye}-${mo}-${da}`;
-                let selectedValue = event.target.value;
-               
-                console.log(retvalue);
-                console.log(selectedValue);
-                const diff = (new Date(retvalue)- new Date(selectedValue))/(1000*60*60*24)
-                console.log(diff);
-                if((retvalue < selectedValue) || diff >= 7){
-                    returnerror.innerHTML = "Return date is not aligned with Pickup date and borrowing week, please fix the dates";
-                }else{
+            this.borrowing = data.value;
+            if(this.borrowing){
+                let borrow = this.borrowing.replace("weeks", "");
+                borrow = this.borrowing.replace("week", "");
+                let week = parseInt(borrow);
+                week = (week*7);
+                pickupdate.setDate(pickupdate.getDate() + week);
+                pickupdate = pickupdate.toLocaleString("en-US", {timeZone: this.timeZone});
+                pickupdate = new Date(pickupdate);
+                let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(pickupdate);
+                let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(pickupdate);
+                let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(pickupdate);
+                const tagId = event.target.dataset.id;
+                if(tagId !== "returnDate"){
+                    this.returneddate = `${ye}-${mo}-${da}`;
                     returnerror.innerHTML = "";
+                    const childComponent = this.template.querySelector('c-datepicker[data-id="returnDate"]');
+                    if (childComponent) {
+                        childComponent.handleFromParent(pickupdate);
+                    }
+                }else {
+                    let retvalue = new Date(`${ye}-${mo}-${da}`);
+                    if(retvalue){
+                        retvalue = new Date(retvalue.setHours(0,0,0,0));
+                        let selectedValue = event.detail.selectedDate;
+                        this.returneddate = selectedValue;
+                        const diff = (new Date(retvalue)- new Date(selectedValue))/(1000*60*60*24)
+                        if((retvalue < selectedValue) || diff >= 7){
+                            returnerror.innerHTML = "Return date is not aligned with Pickup date and borrowing week, please fix the dates";
+                        }else{
+                            returnerror.innerHTML = "";
+                        }
+                    }
                 }
             }
         }
@@ -512,9 +563,9 @@ connectedCallback(){
         else nameerror.innerHTML ="";
         
         
-        if(!returnDate.value){
+        if(!this.returneddate){
             returnerror.innerHTML =errormsg;
-            returnDate.focus();
+            //returnDate.focus();
         }
         else returnerror.innerHTML ="";
 
@@ -530,9 +581,9 @@ connectedCallback(){
         }
         else pickTimeerror.innerHTML ="";
 
-        if(!pickupDate.value){
+        if(!this.desiredpickupdate){
             pickDateerror.innerHTML =errormsg;
-            pickupDate.focus()
+            //pickupDate.focus()
         }
         else pickDateerror.innerHTML ="";
         
@@ -547,9 +598,9 @@ connectedCallback(){
 
         if(this.accountId 
             && this.contactId 
-            && pickupDate.value 
+            && this.desiredpickupdate
             && pickupTime.value 
-            && returnDate.value
+            && this.returneddate
             && this.borrowing
             && ordName.value
             && peopledirectlyserved.value
@@ -568,6 +619,10 @@ connectedCallback(){
             && this.impactArea.length >0
             && this.proVenue.length >0
             && this.serv){
+              
+            let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(this.desiredpickupdate);
+            let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(this.desiredpickupdate);
+            let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(this.desiredpickupdate);
             const selectEvent = new CustomEvent('orderinformation', {
             detail: { 
                         name:ordName.value,
@@ -578,9 +633,9 @@ connectedCallback(){
                         impactArea:this.impactArea,
                         accountId:this.accountId,
                         contactId:this.contactId,
-                        pickdate:pickupDate.value,
+                        pickdate:`${ye}-${mo}-${da}`,
                         pickTime:pickupTime.value,
-                        retDate:returnDate.value,
+                        retDate:this.returneddate,
                         numAttend:numAttend,
                         home:homeValue,
                         duration:this.borrowing,

@@ -67,10 +67,8 @@ public class TestDataFactory {
         ordItem.PricebookEntryId =pbeId;
         ordItem.Inventory_Tool__c = assetid;
         ordItem.unitPrice = 10;
-        ordItem.Affiliate_Handling_Fee__c = 3;
         ordItem.status__c = 'Unconfirmed';
         ordItem.Quantity = 5;
-        ordItem.reserved_quantity__c = 5;
         ordItem.Schedule_Pick_Date__c = Date.today();
         ordItem.Schedule_return_date__c = Date.today().addDays(7);
         insert ordItem;

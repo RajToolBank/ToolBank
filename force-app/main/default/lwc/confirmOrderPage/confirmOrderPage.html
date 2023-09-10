@@ -113,7 +113,7 @@
                             </th>
                             <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
                                 <div class="slds-truncate" style="white-space: pre-wrap;" title="CONFIRM ALL">
-                                    <input type="checkbox" disabled={readonlyFlag} onchange={handleSelectAll} />
+                                    <input type="checkbox" data-selectall="selectall" disabled={readonlyFlag} onchange={handleSelectAll} />
                                 </div>
                             </th>
                             <!--
@@ -281,7 +281,7 @@
                     </div>
                     <div class="slds-modal__footer">
                         <button  class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={closeEditModal}>Cancel</button>
-                        <button disabled={readonlyFlag} class="slds-button slds-button_brand" onclick={handlePickUpModalOk}>Ok</button>
+                        <button disabled={readonlyFlag} class="slds-button slds-button_brand" onclick={handlePickupDatePopUp}>Ok</button>
                     </div>
                     </div>
                 </section>
@@ -440,6 +440,29 @@
                     <div class="slds-modal__footer">
                         <button  class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={handleFulfillPopUp}>Cancel</button>
                         <button disabled={readonlyFlag} class="slds-button slds-button_brand" onclick={handleFulfil}>Fulfill</button>
+                    </div>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+            </div>
+
+            <!-- ====================================pickupdate Date popup===========================================  -->
+            <div style="display: none;" data-id="PickDateConfirmModal">
+                <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open" style="width: 40%;margin-left: 26%;height:50%;margin-top:16%;background-color: #ededed">
+                    <div class="slds-modal__container">
+                    
+                    <div class="slds-modal__header">
+                        <h1 id="modal-heading-09" class="slds-modal__title slds-hyphenate">Update pickup Date</h1>
+                        
+                    </div>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-9">
+                        <p>
+                            Changing and saving the Pickup Date will update Scheduled Return Date. If you would like to retain the original return date, select the tools and click Change Return Date.
+                        </p>
+                    </div>
+                    <div class="slds-modal__footer">
+                        <button  class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={handlePickupDatePopUp}>Cancel</button>
+                        <button disabled={readonlyFlag} class="slds-button slds-button_brand" onclick={handlePickUpModalOk}>Change</button>
                     </div>
                     </div>
                 </section>

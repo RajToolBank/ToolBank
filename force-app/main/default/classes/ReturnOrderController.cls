@@ -122,7 +122,7 @@ public class ReturnOrderController {
 
                 orderItem.status__c = (String)item.get('status');
 
-                if(OrderItem.status__c == 'Returned')
+                if('Returned'.equalsIgnoreCase(OrderItem.status__c))
                     orderItem.Actual_Return_Date__c = system.today();
                 orderItem.Schedule_Return_Date__c = Date.valueOf((String)item.get('returnDate'));
                 orderItemReturnDateList.add(orderItem.Schedule_Return_Date__c);

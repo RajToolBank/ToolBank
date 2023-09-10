@@ -7,7 +7,6 @@ export default class SelectedRecord extends LightningElement {
     @api record;
     @api index;
     @api showLabel = false;
-
     handleRemove = (event) => {
         event.preventDefault();
         const closeEvent = new CustomEvent('close', {
@@ -23,6 +22,4 @@ export default class SelectedRecord extends LightningElement {
         });
         this.dispatchEvent(closeEvent);
     }
-
-   
 }

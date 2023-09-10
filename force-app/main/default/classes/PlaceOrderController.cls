@@ -12,23 +12,47 @@ public without Sharing class PlaceOrderController {
     
     @AuraEnabled(cacheable = true)
     public static string accid(){
-        Contact con = [SELECT Id,AccountId, Contact.Account.parentId,contact.npsp__Primary_Affiliation__r.parentId FROM User WHERE Id =: UserInfo.getUserId()].Contact;
         String accid;
-        if(con != null &&  con.npsp__Primary_Affiliation__c != Null)
-            accid = con.npsp__Primary_Affiliation__r.parentId;
-        else if(con != null) accid = con.Account.parentId;
-
         if(String.isBlank(accId)){
             List<Affiliate_Account__c> aff = [SELECT Id, Affiliate__c,Affiliate__r.Name FROM Affiliate_Account__c WHERE User__c =:UserInfo.getUserId()];
             if(aff != null && aff.size() >0 && aff.size() == 1)
                 accid = aff[0].Affiliate__c;
+            else if(aff != null && aff.size() >1 ){
+                accid = null;
+            }else {
+                Contact con = [SELECT Id,AccountId, Contact.Account.parentId,contact.npsp__Primary_Affiliation__r.parentId FROM User WHERE Id =: UserInfo.getUserId()].Contact;
+        
+                if(con != null &&  con.npsp__Primary_Affiliation__c != Null)
+                    accid = con.npsp__Primary_Affiliation__r.parentId;
+                else if(con != null) accid = con.Account.parentId;
+            }
         }
+
+        
+
+        
         return accId;
+    }
+
+    @AuraEnabled
+    public static Account getBusinessHours(String affiliateId){
+        try {
+           return [ SELECT Id,Friday_End_Time__c,Friday_Start_Time__c, 
+                    Monday_End_Time__c,Monday_Start_Time__c,
+                    Saturday_End_Time__c,Saturday_Start_Time__c,
+                    Sunday_End_Time__c,Sunday_Start_Time__c,
+                    Thursday_End_Time__c,Thursday_Start_Time__c,
+                    Tuesday_End_Time__c,Tuesday_Start_Time__c,
+                    Wednesday_End_Time__c,Wednesday_Start_Time__c
+                    FROM Account WHERE Id =: affiliateId ];
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
     }
     
     @AuraEnabled//(cacheable = true)
-    public static UserClass getAgencyContact(String recordId){
-        User user = [SELECT Id,contactId,UserType, Contact.Email,contact.npsp__Primary_Affiliation__c, contact.npsp__Primary_Affiliation__r.name, Contact.AccountId,Contact.Name,contact.Account.Name FROM User WHERE Id =: UserInfo.getUserId()];
+    public static UserClass getAgencyContact(String recordId, String affiliateId){
+        User user = [SELECT Id,contactId,UserType, Contact.Email,contact.npsp__Primary_Affiliation__c, contact.npsp__Primary_Affiliation__r.name,contact.npsp__Primary_Affiliation__r.parentId, Contact.AccountId,Contact.Name,contact.Account.Name FROM User WHERE Id =: UserInfo.getUserId()];
         
         UserClass userCus = new UserClass();
         userCus.Id = user.Id;
@@ -36,15 +60,17 @@ public without Sharing class PlaceOrderController {
         
         if(String.isNotBlank(recordId) && recordId.startsWith('001')){
             Account acc = [SELECT Id,Name FROM Account WHERE Id=:recordId];
-            List<npe5__Affiliation__c> affCon = [SELECT Id,npe5__Contact__c,npe5__Contact__r.Name,npe5__Contact__r.Email FROM npe5__Affiliation__c WHERE npe5__Organization__c =: acc.Id AND npe5__Contact__r.Primary_Contact__c = true LIMIT 1];
+            List<npe5__Affiliation__c> affCon = [SELECT Id,npe5__Contact__c, npe5__Contact__r.npsp__Primary_Affiliation__c, npe5__Contact__r.npsp__Primary_Affiliation__r.name, npe5__Contact__r.Name,npe5__Contact__r.Email FROM npe5__Affiliation__c WHERE npe5__Organization__c =: acc.Id AND npe5__Contact__r.Primary_Contact__c = true LIMIT 1];
             if(affCon != null && affCon.size() >0){
                 userCus.contactId = affCon[0].npe5__Contact__c;
                 userCus.contactEmail = affCon[0].npe5__Contact__r.Email;
                 userCus.contactName = affCon[0].npe5__Contact__r.Name;
+                userCus.contactAccountId = affCon[0].npe5__Contact__r.npsp__Primary_Affiliation__c;
+                userCus.contactAccountName = affCon[0].npe5__Contact__r.npsp__Primary_Affiliation__r.name;
             }
-            userCus.contactAccountId = acc.Id; 
-            userCus.contactAccountName = acc.Name; 
-        }else if(user.contactId != null){
+        }else if(user.contactId != null && user.contact.npsp__Primary_Affiliation__c != Null && user.contact.npsp__Primary_Affiliation__r.parentId ==  affiliateId){
+
+        //}else if(user.contactId != null){
             userCus.contactId = user.contactId;
             userCus.contactEmail = user.Contact.Email;
             userCus.contactName = user.Contact.Name; 
@@ -55,7 +81,16 @@ public without Sharing class PlaceOrderController {
                 userCus.contactAccountId = user.Contact.AccountId; 
                 userCus.contactAccountName = user.contact.Account.Name; 
             }
-        } 
+        }else if(user.contactId != null && (user.contact.npsp__Primary_Affiliation__c == Null || user.contact.npsp__Primary_Affiliation__r.parentId !=  affiliateId)){
+            List<npe5__Affiliation__c> affCon = [SELECT Id,npe5__Contact__c,npe5__Organization__c,npe5__Organization__r.name , npe5__Contact__r.Name,npe5__Contact__r.Email FROM npe5__Affiliation__c WHERE npe5__Contact__c =:user.contactId AND npe5__Organization__r.parentId =: affiliateId AND npe5__Contact__r.Primary_Contact__c = true LIMIT 1];
+            if(affCon != null && affCon.size() >0){
+                userCus.contactId = affCon[0].npe5__Contact__c;
+                userCus.contactEmail = affCon[0].npe5__Contact__r.Email;
+                userCus.contactName = affCon[0].npe5__Contact__r.Name;
+                userCus.contactAccountId = affCon[0].npe5__Organization__c;
+                userCus.contactAccountName = affCon[0].npe5__Organization__r.name;
+            }
+        }
         return userCus;
     }
     
@@ -149,8 +184,8 @@ public without Sharing class PlaceOrderController {
                                          tool.asset = productIdAssetMap.get(pbe.product2Id);
                                          tool.pbe = pbe;
                                          tool.hanlingFee = (pbe.unitPrice*tool.asset.Affiliate_Handling_Fee__c/100).setScale(2);
-                                         tool.note = 'Note: '+productIdAssetMap.get(pbe.product2Id).Product2.Tool_Note__c
-                                         +'Description: '+productIdAssetMap.get(pbe.product2Id).Product2.Description;
+                                         tool.note = productIdAssetMap.get(pbe.product2Id).Product2.Tool_Note__c;
+                                         tool.description = productIdAssetMap.get(pbe.product2Id).Product2.Description;
                                          tools.add(tool);
                                      }
             
@@ -347,6 +382,8 @@ public without Sharing class PlaceOrderController {
         public Decimal hanlingFee;
         @AuraEnabled
         public String note;
+        @AuraEnabled
+        public String description;
     }
 
     public class HelpText{

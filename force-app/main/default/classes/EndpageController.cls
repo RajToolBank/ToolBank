@@ -9,7 +9,6 @@ public with sharing class EndpageController {
             
             pageUrl = URL.getSalesforceBaseUrl().toExternalForm()+''+PageReference.forResource('Toolbank_USA').getUrl();
         }
-        //https://toolbank.my.site.com/agency/resource/1663178135000/Toolbank_Atlanta
         System.debug('pageUrl '+pageUrl);
     }
 }

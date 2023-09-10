@@ -51,6 +51,7 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
     extendDays;
     matchingDate;
     //timeZone;
+
     enablefulfill = true;
     filters =[
         {label:"All", value:"All"},
@@ -265,14 +266,25 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         }
 
     }
+    handlePickupDatePopUp(event){
+        let pickDateModal = this.template.querySelector(`[data-id="PickDateConfirmModal"]`);
+        if(pickDateModal.style.display === "none"){
+            pickDateModal.style.display = "flex";
+        }else{
+            pickDateModal.style.display = "none";
+        }
+
+    }
 
     handlePickUpModalOk(event){
         this.loaded = true;
-        
         let template = this;
         let tempOrder = JSON.parse(JSON.stringify(this.order));
         let schpickDate = this.template.querySelector(`[data-id="scheduleDate"]`);
         let schepickTime = this.template.querySelector(`[data-id="scheduleTime"]`);
+        let pickDateModal = this.template.querySelector(`[data-id="PickDateConfirmModal"]`);
+        pickDateModal.style.display = "none";
+
         if(schpickDate.value && schepickTime.value){
             this.isEditModalOpen = false;
             let myArray;
@@ -392,7 +404,14 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         else if(filter == "All")
             button.disabled = true;
 
-        
+        let selectall = state.querySelector(`[data-selectall="selectall"]`);
+        selectall.checked = false;
+        let getAllToolsSelected = state.querySelectorAll(`.filtered`);
+
+        getAllToolsSelected.forEach(function(ele){
+                ele.checked = false;
+                ele.classList.remove("selected");
+        });
 
             getAllTools.forEach(function(ele){
                 if(filter == "Deleted" ){
@@ -621,12 +640,19 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         let addTools=[];
         let addAllTools=[];
         let itemIds = [];
-        let returnDate = new Date(this.order.EffectiveDate);
+        let returnDate = new Date(this.order.EffectiveDate.replace(/-/g, "/"));
         let week = this.order.Requested_Borrowing_Period__c;
         if(week){
             week = week.replace("weeks","");
             week = week.replace("week","");
         }
+        
+        
+
+        let fulfillButton = this.template.querySelector(`[data-id="fulfill"]`);
+        console.log(fulfillButton);
+        fulfillButton.disabled = true;
+        this.enablefulfill = true;
         week = week?(parseInt(week)*7):1;
         console.log(returnDate);
         returnDate.setDate(returnDate.getDate() + week+1);
@@ -657,6 +683,7 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
             event.detail.tools = [];
         }
 
+        console.log(" itemIds :: ",itemIds);
       
         if(itemIds.length >0){
             massDateChangeLowest({orderItems:JSON.stringify(itemIds)}).then(res=>{
@@ -665,11 +692,12 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                     const lowest =  res[itemIds[i].id];
                     row.innerHTML = lowest;
                     let returnDateEle = this.template.querySelector(`[data-return="`+itemIds[i].id+`"]`);
-                    
-                    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(new Date(itemIds[i].retDate));
-                    let mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(new Date(itemIds[i].retDate));
-                    let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(new Date(itemIds[i].retDate));
-                    returnDateEle.value = `${ye}-${mo}-${da}`;
+                    console.log(itemIds[i].retDate);
+                    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(new Date(itemIds[i].retDate.replace(/-/g, "/")));
+                    let mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(new Date(itemIds[i].retDate.replace(/-/g, "/")));
+                    let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(new Date(itemIds[i].retDate.replace(/-/g, "/")));
+                    returnDateEle.value = `${ye}/${mo}/${da}`;
+                    console.log(returnDateEle.value);
                 }
                 this.loaded = false;
             }).catch(error =>{
@@ -766,7 +794,13 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                 
                 location.reload();
             }).catch(error=>{
-
+                console.log(error);
+                const evt = new ShowToastEvent({
+                    title: "Confirm/Fulfill",
+                    message: error.body.message,
+                    variant: "error",
+                });
+                this.dispatchEvent(evt);
             });
         }else{
            // alert("Please fix the Quantity issue.");
@@ -882,7 +916,13 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                     }
 
                 }).catch(error=>{
-
+                    console.log(error);
+                    const evt = new ShowToastEvent({
+                        title: "Confirm/Fulfill",
+                        message: error.body.message,
+                        variant: "error",
+                    });
+                    this.dispatchEvent(evt);
             });
         
 
@@ -928,6 +968,12 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
 
             }).catch(error =>{
                     console.log(error);
+                    const evt = new ShowToastEvent({
+                        title: "Confirm/Fulfill",
+                        message: error.body.message,
+                        variant: "error",
+                    });
+                    this.dispatchEvent(evt);
                 });
 
     }
@@ -1093,6 +1139,12 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                 location.reload();
             }).catch(error=>{
                 console.log(error);
+                const evt = new ShowToastEvent({
+                    title: "Confirm/Fulfill",
+                    message: error.body.message,
+                    variant: "error",
+                });
+                this.dispatchEvent(evt);
             });
             
 

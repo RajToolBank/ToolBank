@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <description>This screen flow will create a Loan / Debt Disclosure record.</description>
+    <interviewLabel>Create Loan / Debt Disclosure Records {!$Flow.CurrentDateTime}</interviewLabel>
+    <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
+    <label>Create Loan / Debt Disclosure Records</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Loan_Debt_Disclosure_Record</name>
+        <label>Create Loan / Debt Disclosure Record</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <inputAssignments>
+            <field>Amount__c</field>
+            <value>
+                <elementReference>Amount</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Purpose__c</field>
+            <value>
+                <elementReference>Purpose</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Terms__c</field>
+            <value>
+                <elementReference>Terms</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Loan_Debt_Disclosure__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <screens>
+        <name>Loan_Debt_Disclosure_Form</name>
+        <label>Loan / Debt Disclosure Form</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Loan_Debt_Disclosure_Record</targetReference>
+        </connector>
+        <fields>
+            <name>Amount</name>
+            <dataType>Currency</dataType>
+            <fieldText>Amount</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>&lt;p&gt;Insert the amount of the debt / loan.&lt;/p&gt;</helpText>
+            <isRequired>true</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>Terms</name>
+            <fieldText>Terms</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <helpText>&lt;p&gt;What are the terms for the loan / debt?&lt;/p&gt;</helpText>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Purpose</name>
+            <fieldText>Purpose</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <helpText>&lt;p&gt;What is the purpose of the loan / debt?&lt;/p&gt;</helpText>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Loan_Debt_Disclosure_Form</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+    <variables>
+        <name>TB_Affiliate_Audit_Record_lookup</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>TB_Affiliate_Audit__c</objectType>
+    </variables>
+    <variables>
+        <name>TBAffiliateAudit</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>TB_Affiliate_Audit__c</objectType>
+    </variables>
+</Flow>

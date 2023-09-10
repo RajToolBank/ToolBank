@@ -1,25 +1,60 @@
-import { api, LightningElement, track } from 'lwc';
+import { api,wire, LightningElement, track } from 'lwc';
 import createTransaction from '@salesforce/apex/CreateTransaction.createTransaction'
 import getRecordType from '@salesforce/apex/CreateTransaction.getRecordType'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { CloseActionScreenEvent } from 'lightning/actions';
+import { getRecord } from 'lightning/uiRecordApi';
+import { getObjectInfo } from 'lightning/uiObjectInfoApi';
+import ACCOUNT_Name_FIELD from '@salesforce/schema/Asset.Account.Name';
+import ACCOUNT_Id_FIELD from '@salesforce/schema/Asset.Account.Id';
+//import { CloseActionScreenEvent } from 'lightni ng/actions';
 
 export default class CreateTransactionCmp extends LightningElement {
     @api recordId;
-   
+    accountName;
+    accountId;
+    transferRecordTypeId;
+    @wire(getObjectInfo, {objectApiName:'Transaction__c'})
+    getObjectData({data,error}){
+      if(data){
+        const recordTypeInfos = data.recordTypeInfos;
+        for (const recordTypeId in recordTypeInfos) {
+          if (recordTypeInfos.hasOwnProperty(recordTypeId)) {
+              const recordTypeInfo = recordTypeInfos[recordTypeId];
+              if (recordTypeInfo.name === 'Transfer') {
+                  this.transferRecordTypeId = recordTypeInfo.recordTypeId;
+                  break;
+              }
+          }
+      }
+        
+      }
+      if(error){
+
+      }
+    }
+
+    @wire(getRecord, { recordId: '$recordId', fields: [ACCOUNT_Name_FIELD,ACCOUNT_Id_FIELD] })
+    account({data,error}){
+      if(data){
+        //console.log(data);
+        this.accountName = data.fields.Account.displayValue;
+        this.accountId = data.fields.Account.value.id;
+      }
+    }
 
     recordTypes=[];
     @track
     selectedRecordType;
     isRecordType = true;
+    isTransferType;
     subTypes=[];
     subType;
+    transferToId;
 
 
     connectedCallback() {
 
         getRecordType({}).then(res =>{
-            console.log(res);
             this.recordTypes = res;
         }).catch(err=>{
             console.log(err);
@@ -27,9 +62,15 @@ export default class CreateTransactionCmp extends LightningElement {
 
       }
 
-      selectRecordType(event){
+      handleLookup(event){
+        this.transferToId =event.detail.data.recordId;
+      }
 
+      selectRecordType(event){
         this.selectedRecordType = event.target.value;
+        if(this.selectedRecordType === this.transferRecordTypeId){
+          this.isTransferType = true;
+        }
       }
       saveAndNext(event){
         
@@ -53,10 +94,18 @@ export default class CreateTransactionCmp extends LightningElement {
 
       saveTransaction(event){
         let qty = this.template.querySelector(`[data-id="qty"]`);
-        if(!this.subType){
+        if(!this.subType && !this.isTransferType){
           const evt = new ShowToastEvent({
             title: "Transaction",
             message: 'Pleaes select the sub type',
+            variant: "error",
+          });
+          this.dispatchEvent(evt);
+          return;
+        }else if(this.isTransferType && !this.transferToId){
+          const evt = new ShowToastEvent({
+            title: "Transaction",
+            message: 'Pleaes select the transfer to',
             variant: "error",
           });
           this.dispatchEvent(evt);
@@ -72,15 +121,16 @@ export default class CreateTransactionCmp extends LightningElement {
         }
         
         let note = this.template.querySelector(`[data-id="note"]`);
-        createTransaction({inventoryId:this.recordId,recordTypeId:this.selectedRecordType,subType:this.subType,qty:qty.value,note:note.value})
+        createTransaction({inventoryId:this.recordId,recordTypeId:this.selectedRecordType,subType:this.subType,qty:qty.value,note:note.value,affiliateId:this.transferToId})
         .then(res =>{
             const evt = new ShowToastEvent({
                 title: "Transaction Created",
                 message: res,
-                variant: "success",
+                variant: (res !=="Successfull"?"error":"success"),
             });
             this.dispatchEvent(evt);
-            location.reload();
+            if(res ==="Successfull")
+              location.reload();
         }).catch(err =>{
           console.log(err);
             const evt = new ShowToastEvent({

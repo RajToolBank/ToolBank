@@ -110,5 +110,17 @@ public without sharing class SearchComponentController {
         return sobjList;
     }
 
+    @AuraEnabled
+    public static List<sObject> search4(String searchTerm, String currentAffiliate){
+        searchTerm = '%'+searchTerm+'%';
+        list<Account> accList = new List<Account>();
+        for(Affiliate_Account__c afa : [SELECT Id,Affiliate__r.id,Affiliate__r.Name FROM Affiliate_Account__c WHERE Affiliate__r.Name like: searchTerm AND Affiliate__r.RecordType.Name='Affiliate' AND Affiliate__c !=: currentAffiliate AND User__c =: UserInfo.getUserId()]){
+            accList.add(afa.Affiliate__r);
+        }
+        // if(accList.size() == 0){
+        //     return [SELECT Id, Name FROM Account WHERE Name like: searchTerm AND RecordType.Name='Affiliate' AND Id !=: currentAffiliate];
+        // }
+        return accList;
+    }
 
 }

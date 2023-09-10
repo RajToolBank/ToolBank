@@ -5,7 +5,8 @@ public class TransactionTriggerHandler {
         LOST = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Lost').getRecordTypeId(),
         PURCHASED = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Purchased').getRecordTypeId(),
         BACK_IN_SERVICE = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Back_In_Service').getRecordTypeId(),
-        RETIRE = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Retired').getRecordTypeId();
+        RETIRE = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Retired').getRecordTypeId(),
+        TRANSFER = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Transfer').getRecordTypeId();
     
     public static void updqteQuantity(List<Transaction__c> transList){
 
@@ -64,10 +65,18 @@ public class TransactionTriggerHandler {
                     
                     if('Increase'.equals(tran.sub_type__c)){
                         total += quantity;
+                        his +=quantity;
                     }else if('Decrease'.equals(tran.sub_type__c)){
                         total -= quantity;
                     }
                     
+                }else if(TRANSFER.equals(RecordTypeId)){
+                    if('Increase'.equals(tran.sub_type__c)){
+                        total += quantity;
+                        his +=quantity;
+                    }else if('Decrease'.equals(tran.sub_type__c)){
+                        total -= quantity;
+                    }
                 }
             }
             

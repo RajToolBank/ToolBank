@@ -1,0 +1,21 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader">
+    <aura:attribute name="recordId" type="String" />
+    <c:activateDeactivateSponserLogo recordId="{!v.recordId}"></c:activateDeactivateSponserLogo>
+    <aura:html tag="style">
+        .slds-modal__container{
+        <!-- height : auto; -->
+        max-width: 36% !important;
+        width: %35!important;
+        }
+        .slds-modal__content{
+            height: 50% !important;
+            max-height: inherit !important;
+        }
+
+        .modal-body{
+            <!-- height :650px !important;
+            max-height :650px !important; -->
+        }
+
+    </aura:html>
+</aura:component>

@@ -2,4 +2,4 @@
     
     <c:updatePriceToInventory></c:updatePriceToInventory>
 
-</aura:component>	
+</aura:component>

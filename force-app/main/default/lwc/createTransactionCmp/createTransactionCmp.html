@@ -23,15 +23,31 @@
             <h1  class="slds-modal__title slds-hyphenate">New Transaction</h1>
         </div>
         <div class="slds-modal__content slds-p-around_medium"  style="overflow: initial;">
-        <c-dependent-picklist-Cmp 
-        data-id="subtype"
-        object-api-name="Transaction__c"
-        object-record-type-id={selectedRecordType}
-        dependent-field-api-name="Sub_Type__c"
-        dependent-field-label="Sub Type"
-        onselecttype={selectsubType}
-        ></c-dependent-picklist-Cmp>
-
+        <template if:false={isTransferType}>
+            <c-dependent-picklist-Cmp 
+            data-id="subtype"
+            object-api-name="Transaction__c"
+            object-record-type-id={selectedRecordType}
+            dependent-field-api-name="Sub_Type__c"
+            dependent-field-label="Sub Type"
+            onselecttype={selectsubType}
+            ></c-dependent-picklist-Cmp>
+        </template>
+        <template if:true={isTransferType}>
+            <label class="slds-form-element__label" for="combobox-id-1"><b>Transfer From</b></label><br/>
+            {accountName}
+            <c-search-component
+                data-id="affiliateSearch"
+                onlookup={handleLookup}
+                search-cmp="transaction"
+                create-record=false
+                obj-name="Account"
+                display-fields="Name"
+                label-name="Transfer To"
+                show-label=true
+                parent-id={accountId}>
+            </c-search-component>
+        </template>
         <lightning-input type="number" data-id="qty" label="Quantity" required></lightning-input>
         <lightning-input type="text" data-id="note" label="Note" ></lightning-input>
         </div>

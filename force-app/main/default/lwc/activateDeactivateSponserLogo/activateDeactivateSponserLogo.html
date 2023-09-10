@@ -1,0 +1,30 @@
+<template>
+    <lightning-card title="File List">
+        
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered" >
+            <tr class="slds-line-height_reset">
+                <th><div class="slds-truncate">Name</div></th>
+                <th><div class="slds-truncate">Active/Deactive</div></th>
+            </tr>
+            <template for:each={files} for:item="file">
+                <tr key={file.Id} class="slds-hint-parent"> 
+                    <td>
+                        <div class="slds-truncate">
+                            {file.Title}
+                        </div>
+                    </td>  
+                    <td>                 
+                        <div class="slds-truncate">
+                            <lightning-input type="checkbox" data-fileid={file.Id} checked={file.Active__c} onchange={handleCheckboxChange}></lightning-input>
+                        </div>
+                    </td>
+                </tr>
+            </template>
+            </table>
+            <br/><br/>
+            <center>
+                <button class="slds-button slds-button_brand"  onclick={handleSave}>Save</button>
+            </center>
+        
+      </lightning-card>
+</template>

@@ -1,10 +1,4 @@
 public class LowestQuantityCalculateClasss {
-    
-/*
-List<Order> orderList = [SELECT Id FROM Order WHERE Id='80102000001cpN6AAI'];
-LowestQuantityCalculateClasss.lowestQuantityOrder2(orderList);
-
-*/
 
 public static void lowestQuantityOrder2(List<Order> orderList){
     List<OrderItem> newOrderItemList = lowestQuantityOrder3( orderList);
@@ -75,9 +69,9 @@ public static void lowestQuantityOrder2(List<Order> orderList){
                                             AND Schedule_Return_Date__c >=: minPickDate
                                             AND Product2.Type__c = 'Tool'
                                             AND Status__c != 'Returned'
+                                            AND Status__c != 'Cancelled'
                                             ORDER BY LastModifiedDate ASC];
             
-        // Map<id, List<OrderItem>> productIdToItemListMap = new Map<Id, List<OrderItem>>();
             Map<Id,Map<id, List<OrderItem>>> affiliateToproductIdToItemListMap = new Map<Id,Map<Id, List<OrderItem>>>();
 
             for(OrderItem item: oldItemList){
@@ -133,11 +127,7 @@ public static void lowestQuantityOrder2(List<Order> orderList){
                                         ORDER BY LastModifiedDate ASC];
         Map<Id, OrderItem> itemMap = new Map<Id, OrderItem>(allItemList);
 
-        orderItem orderItem = itemMap.remove(itemId);
-        orderItem.Schedule_Pick_Date__c = pickupDate;
-        orderItem.Schedule_Return_Date__c = returnDate;
-        system.debug('orderItem :: '+orderItem);
-        system.debug('itemMap :: '+itemMap);
+        orderItem orderItem = itemMap.remove(itemId);orderItem.Schedule_Pick_Date__c = pickupDate;orderItem.Schedule_Return_Date__c = returnDate;
 
         return lowestQuantityItemDate(orderItem, DateTime.now(), itemMap.values());
     }
@@ -150,22 +140,14 @@ public static void lowestQuantityOrder2(List<Order> orderList){
         List<Decimal> qtyList = new List<Decimal>();
         
             for(Date dt=orderItem.Schedule_Pick_Date__c;dt<=orderItem.Schedule_Return_Date__c;dt = dt.addDays(1)){
-                system.debug('Date ::: '+ dt);
                 Decimal reservedQuantity =0;
                 Decimal currentInventory = orderItem.Inventory_Tool__r.Current_Inventory_F__c;
                 if(existingOrderItems != Null){
                     for(OrderItem item: existingOrderItems){
 
-                        if(//item.LastModifiedDate <= OrderItem.LastModifiedDate 
-                            //&&
-                            //orderItem.Schedule_Pick_Date__c <= item.Schedule_Return_Date__c 
-                        // && orderItem.Schedule_Return_Date__c >= item.Schedule_Pick_Date__c 
-                        dt <= item.Schedule_Return_Date__c 
-                        && dt >= item.Schedule_Pick_Date__c 
-                        ) 
+                        if(dt <= item.Schedule_Return_Date__c && dt >= item.Schedule_Pick_Date__c ) 
                         {
-                                reservedQuantity += item.Reserved_Quantity__c!= Null?item.Reserved_Quantity__c:0;
-                                //Decimal itemReservedQuantity = item.Reserved_Quantity__c!= Null?item.Reserved_Quantity__c:0;    
+                                reservedQuantity += item.Reserved_Quantity__c!= Null?item.Reserved_Quantity__c:0;   
                                 
                         }
                     }
@@ -178,7 +160,6 @@ public static void lowestQuantityOrder2(List<Order> orderList){
 
         qtyList.sort();
 
-        //Decimal lowestAvailableQuantity = orderItem.Inventory_Tool__r.Current_Inventory_F__c - reservedQuantity;
         Decimal lowestAvailableQuantity = (qtyList != Null && qtyList.size() >0)?qtyList[0]:0;
 
         return lowestAvailableQuantity;
@@ -188,34 +169,7 @@ public static void lowestQuantityOrder2(List<Order> orderList){
     public static Decimal lowestQuantityItemDate(orderItem orderItem, DateTime lastmodified, List<orderItem> existingOrderItems){
 
        
-       /* List<Decimal> qtyList = new List<Decimal>();
-        
-            for(Date dt=orderItem.Schedule_Pick_Date__c;dt<=orderItem.Schedule_Return_Date__c;dt = dt.addDays(1)){
-                Decimal currentInventory = orderItem.Inventory_Tool__r.Current_Inventory_F__c;
-                Decimal reservedQuantity = 0;
-                if(existingOrderItems != Null){
-                    for(OrderItem item: existingOrderItems){
-
-                        if(//item.LastModifiedDate <= lastmodified && 
-                            //orderItem.Schedule_Pick_Date__c <= item.Schedule_Return_Date__c && 
-                            //orderItem.Schedule_Return_Date__c >= item.Schedule_Pick_Date__c 
-                            dt <= item.Schedule_Return_Date__c 
-                        && dt >= item.Schedule_Pick_Date__c) {
-                                Decimal itemReservedQuantity = item.Reserved_Quantity__c!= Null?item.Reserved_Quantity__c:0;
-                                if(item.quantity >= itemReservedQuantity){
-                                    reservedQuantity += currentInventory - item.quantity > 0? item.quantity:currentInventory;
-                                }
-                                
-                        }
-                        
-                    }
-            }
-            currentInventory = currentInventory - reservedQuantity;
-            qtyList.add(currentInventory);
-        }
-        qtyList.sort();
-        //Decimal lowestAvailableQuantity = orderItem.Inventory_Tool__r.Current_Inventory_F__c - reservedQuantity;
-        //Decimal lowestAvailableQuantity = (qtyList != Null && qtyList.size() >0)?qtyList[0]:0;*/
+       
         Decimal lowestAvailableQuantity = lowestQuantityItemDate(orderItem,existingOrderItems);
 
         return lowestAvailableQuantity <0 ?0:lowestAvailableQuantity;
@@ -226,9 +180,7 @@ public static void lowestQuantityOrder2(List<Order> orderList){
         Decimal reservedQuantity = 0;
         for(OrderItem item: existingOrderItems){
 
-            if(item.LastModifiedDate <= OrderItem.LastModifiedDate ) {
-                    reservedQuantity += item.quantity;
-            }
+            if(item.LastModifiedDate <= OrderItem.LastModifiedDate ) { reservedQuantity += item.quantity;}
         }
 
         Decimal lowestAvailableQuantity = orderItem.Inventory_Tool__r.Current_Inventory_F__c - reservedQuantity;

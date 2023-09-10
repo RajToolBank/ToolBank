@@ -22,18 +22,51 @@ public without sharing class CreateTransaction {
     }
 
     @AuraEnabled
-    public static String createTransaction(String inventoryId, String recordTypeId, String subType, Integer qty, String note){
-
-       
-        Transaction__c trans = new Transaction__c();
-        trans.inventory__c = inventoryId;
-        trans.recordTypeId = recordTypeId;
-        trans.quantity__c = qty;
-        trans.sub_type__c = subType;
-        trans.note__c = note;
-
-        insert trans;
-
+    public static String createTransaction(String inventoryId, String recordTypeId, String subType, Integer qty, String note, String affiliateId){
+        String recordTypeName = [Select Id, Name, DeveloperName FROM RecordType WHERE Id = :recordTypeId LIMIT 1].DeveloperName;
+        Asset inv1 = [SELECT id, On_Shelf_Quantity_F__c,product2Id FROM Asset WHERE Id =: inventoryId];
+        if(qty > 0) {
+            if(recordTypeName == 'Out_Of_Service' || recordTypeName == 'Transfer' || subType == 'Decrease' || subType == 'Lost from Inventory' || recordTypeName == 'Retired') {
+                if(qty <= inv1.On_Shelf_Quantity_F__c) {
+                    if(recordTypeName == 'Transfer') {
+                        Asset inv = [SELECT Id FROM Asset WHERE AccountId =: affiliateId AND product2Id =:inv1.product2Id];
+                        Transaction__c trans = new Transaction__c();
+                        trans.sub_type__c = 'Decrease';
+                        trans.inventory__c = inventoryId;
+                        trans.recordTypeId = recordTypeId;
+                        trans.quantity__c = qty;
+                        trans.note__c = note;
+                        Transaction__c trans2 = new Transaction__c();
+                        trans2.sub_type__c = 'Increase';
+                        trans2.inventory__c = inv.Id;
+                        trans2.recordTypeId = recordTypeId;
+                        trans2.quantity__c = qty;
+                        trans2.note__c = note;
+                        insert new list<Transaction__c>{trans,trans2};
+                            } else {
+                                Transaction__c trans = new Transaction__c();
+                                trans.sub_type__c = subType;
+                                trans.inventory__c = inventoryId;
+                                trans.recordTypeId = recordTypeId;
+                                trans.quantity__c = qty;
+                                trans.note__c = note;
+                                insert trans;
+                            }
+                } else {
+                    return 'The Quantity entered exceeds the On Shelf Quantity for this tool';
+                }
+            } else {
+                Transaction__c trans = new Transaction__c();
+                trans.sub_type__c = subType;
+                trans.inventory__c = inventoryId;
+                trans.recordTypeId = recordTypeId;
+                trans.quantity__c = qty;
+                trans.note__c = note;
+                insert trans;
+            }
+        } else {
+            return 'The Quantity entered must be greater than 0';
+        }
         return 'Successfull';
     }
 
@@ -94,7 +127,9 @@ public without sharing class CreateTransaction {
                 Map<String,object> temp = (Map<String,object>)obj;
                 sub.label = (String)temp.get('label');
                 sub.value = (String)temp.get('value');
-                subtypeList.add(sub);
+                if(sub.value != 'Lost - Return') {
+                    subtypeList.add(sub);
+                }
             }
         }
         return subtypeList;

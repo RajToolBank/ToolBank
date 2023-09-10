@@ -104,8 +104,7 @@ public without Sharing class show_AccountsinCommunityCtrl {
             affiliateAccList.add(aff.npe5__Organization__r);
             
         }
-        if(affiliateAccList.size() >1)
-        showAccount= false;
+        
         accDetails  =   [SELECT id,Name,Affiliate_Email__c,Affiliate_Phone__c,owner.name, 
                         Warehouse_Manager__c,Warehouse_Manager__r.name, 
                         Warehouse_Manager_Email__c,Warehouse_Manager_Phone__c,

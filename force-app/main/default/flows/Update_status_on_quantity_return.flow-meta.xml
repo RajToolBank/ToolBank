@@ -108,6 +108,7 @@
             <label>check in less the check out</label>
         </rules>
     </decisions>
+    <environments>Default</environments>
     <formulas>
         <name>Total_Check_In</name>
         <dataType>Number</dataType>
@@ -167,6 +168,7 @@
         <connector>
             <targetReference>Check_the_return</targetReference>
         </connector>
+        <filterFormula>ISCHANGED({!$Record.Lost__c}) ||  ISCHANGED({!$Record.Damaged__c}) || ISCHANGED({!$Record.Check_In_Quantity__c})</filterFormula>
         <object>OrderItem</object>
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>

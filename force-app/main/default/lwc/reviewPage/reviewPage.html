@@ -81,24 +81,31 @@
                                 <div class="slds-truncate" title="Tool Name">Tool Name</div>
                             </th>
                             <th class="" scope="col">
-                                <div class="slds-truncate" title="Tool Note">Tool Note</div>
-                            </th>
-                            <th class="" scope="col">
                                 <div class="slds-truncate" title="Retail Value">Retail Value</div>
                             </th>
                             <th></th>
                             <th class="" scope="col">
-                                <div class="slds-truncate" title="Handlin Fees">Handling Fees</div>
+                                <div class="slds-truncate" title="Quantity">Quantity</div>
                             </th>
                             <th class="" scope="col">
-                                <div class="slds-truncate" title="Quantity">Quantity</div>
+                                <div class="slds-truncate" title="Weekly Handling Fee">Weekly Handling Fee</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Handling Fees">Total Fees</div>
                             </th>
                             <th class="" scope="col">
                                 <div class="slds-truncate" title="Picture">Picture</div>
                             </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Description">Description</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Tool Note">Tool Note</div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
+                        <template if:true={orderTools}>
                         <template if:true={orderTools} for:each={orderTools} for:item="record" for:index="index">
 
                             <tr class="slds-hint-parent" key={record.product2Id}  >
@@ -111,34 +118,35 @@
                                 <td class="slds-cell-wrap" data-label="name">
                                     <div class="slds-truncate" >{record.toolName}</div>
                                 </td>
-                                <td class="slds-cell-wrap" data-label="Note">
-                                    <div class="slds-truncate" >
-                                        <lightning-helptext content={record.toolNote}></lightning-helptext>
-                                    </div>
-                                </td>
+                                
                                 <td class="slds-cell-wrap" data-label="Amount">
                                     <div class="slds-truncate" >$
                                         <lightning-formatted-number value={record.retailPrice} minimum-fraction-digits="2"></lightning-formatted-number>
                                     </div>
                                 </td>
                                 <td></td>
+                                <td class="slds-cell-wrap" data-label="Quantity">
+                                    <div class="slds-truncate" title="Quantity">
+                                        {record.quantity}
+                                    </div>
+                                </td><td class="slds-cell-wrap" data-label="weekly Amount">
+                                    <div class="slds-truncate" >$
+                                        <lightning-formatted-number value={record.weeklyhanlingFee} minimum-fraction-digits="2"></lightning-formatted-number>
+                                    </div>
+                                </td>
                                 <td class="slds-cell-wrap" data-label="Amount">
                                     <div class="slds-truncate" >$
                                         <lightning-formatted-number value={record.hanlingFee} minimum-fraction-digits="2"></lightning-formatted-number>
                                     </div>
                                 </td>
-                                <td class="slds-cell-wrap" data-label="Quantity">
-                                    <div class="slds-truncate" title="Quantity">
-                                        {record.quantity}
-                                    </div>
-                                </td>
-                                <td class="slds-cell-wrap" data-label="link">
+                                <td class="slds-cell-wrap" data-label="link" align="center">
                                     <div class="pictureContainer">
-                                        <div class="photoIcon">
+                                        <template if:true={record.picture}>
+                                        <div class="photoIcon" style="margin-left: 20%;">
                                             <lightning-icon icon-name="utility:photo" size="x-small" alternative-text="Utility image" title="Image"></lightning-icon>
                                         </div>
 
-                                        <template if:true={record.picture}>
+                                        
                                             <div class="slds-popover slds-popover_tooltip slds-nubbin_bottom-right" role="tooltip" id={record.product2Id}>
                                                 <div class="slds-popover__body">
                                                     <lightning-formatted-rich-text
@@ -149,10 +157,25 @@
                                         </template>
                                     </div>
                                 </td>
+                                <td class="slds-cell-wrap" data-label="Description" align="center">
+                                    <div class="slds-truncate" style="margin-left:27%;">
+                                        <template if:true={record.tooldescription}>
+                                            <lightning-helptext  content={record.tooldescription}></lightning-helptext>
+                                        </template>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="Note" align="center">
+                                    <div class="slds-truncate" style="margin-left:27%;">
+                                        <template if:true={record.toolNote}>
+                                            <lightning-helptext icon-name="utility:custom_apps" content={record.toolNote}></lightning-helptext>
+                                        </template>
+                                    </div>
+                                </td>
                             </tr>
                         </template>
+                    </template>
                         <tr>
-                            <td colspan="3" style="text-align: center;">
+                            <td colspan="2" style="text-align: center;">
                                 <b>Loan Duration:&nbsp; <template if:true={orderDetails}>
                                     {orderDetails.duration}
                                 </template></b>
@@ -161,12 +184,12 @@
                             <td>
                                 <b>
                                     $<lightning-formatted-number value={totalRetailCostOrder} minimum-fraction-digits="2" ></lightning-formatted-number></b>
-                            </td>
+                            </td><td></td><td></td>
                             <td style="text-align: right;"><b>Total Tool Handling Fees:</b></td>
                             <td>
                                 <b>
                                     $<lightning-formatted-number value={totalToolHandlingFees} minimum-fraction-digits="2" ></lightning-formatted-number></b>
-                            </td><td></td><td></td>
+                            </td><td></td><td></td><td></td>
                         </tr>
                     </tbody>
                 </table>

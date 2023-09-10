@@ -39,17 +39,14 @@ public class ConfirmOrderPageController {
                     availablesorting.put(diff, new list<OrderItem>());
                     
                 availablesorting.get(diff).add(item);
-                system.debug(item);
             }
-        system.debug(availablesorting);
             sortList.sort();
            
             OrderDetails.orderItemList = new List<OrderItem>();
             for(Decimal diff: sortList){
                 OrderDetails.orderItemList.addAll(availablesorting.get(diff));
             }
-            system.debug(OrderDetails.orderItemList.size());
-
+            
         }
             return OrderDetails;
         
@@ -57,10 +54,8 @@ public class ConfirmOrderPageController {
 
     @AuraEnabled(cacheable=true)
     public static List<AvailableProducts> getTools(List<String> toolIds, String accid, String searchString,String category){
-        system.debug(toolIds);
         //String accid = [SELECT Id, Contact.Account.parentId FROM User WHERE Id =: UserInfo.getUserId()].Contact.Account.parentId;
-        system.debug(accId);
-
+        
 
         List<Asset> assetList;
         if(String.isBlank(searchString) && String.isBlank(category)){
@@ -171,7 +166,8 @@ public class ConfirmOrderPageController {
                                         Product2.Family 
                                         FROM PriceBookEntry 
                                         WHERE Product2Id IN: productidSet
-                                        AND Pricebook2Id =: label.pricebookid]){
+                                        AND Pricebook2Id =: label.pricebookid
+                                        AND Product2.isactive = true]){
             AvailableProducts availableProduct = new AvailableProducts();
             availableProduct.Id = pbe.id;
             availableProduct.Product2Id =pbe.Product2Id;
@@ -271,17 +267,15 @@ public class ConfirmOrderPageController {
                                         WHERE product2Id IN: productIdSet 
                                         AND Order.Affiliate__c =: accountId
                                         AND status__c != 'Returned'
-                                        AND (Id  IN: itemIdList
-                                        OR (Schedule_Pick_Date__c <=: maxReturnDate
-                                        AND Schedule_Return_Date__c >=: minPickDate))
+                                        AND Schedule_Pick_Date__c <=: maxReturnDate
+                                        AND Schedule_Return_Date__c >=: minPickDate
                                         ORDER BY LastModifiedDate ASC];
             Map<Id, OrderItem> orderItemMap = new Map<Id, OrderItem>(orderItemList);
             Map<id, List<OrderItem>> productIdToItemListMap =  new Map<Id, List<OrderItem>>();
             for(OrderItem item: orderItemList){
-                if(!itemIdList.contains(item.id)){
+                if(!itemIdList.contains(item.id)) {
                     if(!productIdToItemListMap.containsKey(item.product2Id))
                         productIdToItemListMap.put(item.product2Id, new List<OrderItem>());
-
                     productIdToItemListMap.get(item.product2Id).add(item);
                 }
             }
@@ -295,7 +289,6 @@ public class ConfirmOrderPageController {
                 map<string, object> itemap = (map<string, object>)item;
                 List<OrderItem> orderItemss = productIdToItemListMap.get((String)itemap.get('product2Id'));
                 OrderItem orderItem;
-                system.debug(productIdToAssetMap.get((String)itemap.get('product2Id')));
                 if((String.valueOf(itemap.get('id')) instanceof Id) && orderItemMap.containsKey(String.valueOf(itemap.get('id'))))
                     orderItem = orderItemMap.get((String)itemap.get('id'));//instanceof
                 if(orderItem == Null){
@@ -303,8 +296,6 @@ public class ConfirmOrderPageController {
                     //orderItem.Id = (String)itemap.get('id');
                     orderItem.Inventory_Tool__r = productIdToAssetMap.get((String)itemap.get('product2Id'));
                 }
-                system.debug(orderItem);
-                system.debug(orderItemss);
                 orderItem.Schedule_Pick_Date__c = Date.valueOf((String)itemap.get('pickupDate'));
                 orderItem.Schedule_Return_Date__c = Date.valueOf((String)itemap.get('retDate'));
                 Decimal lowest = LowestQuantityCalculateClasss.lowestQuantityItemDate(orderItem, DateTime.now(), orderItemss);
@@ -372,92 +363,102 @@ public class ConfirmOrderPageController {
     @AuraEnabled
     public static string saveOrder(String orderNitemsDetails, String orderItemToDelete){
         system.debug(orderNitemsDetails);
-        Map<String, object> orderAndItemDetails = (Map<String, object>)JSON.deserializeUntyped(orderNitemsDetails);
-        Map<String, Object> order = (Map<String, Object>)orderAndItemDetails.get('order');
-        
-        if(String.isNotBlank(orderItemToDelete)){
-            List<object> ItemToDelete = (List<object>)JSON.deserializeUntyped(orderItemToDelete);
-            List<OrderItem> toolsToDelete = new List<OrderItem>();
-            for(Object obj: ItemToDelete){
-                String id = (String)obj;
-                if(id.startsWith('802')){
-                    toolsToDelete.add(new OrderItem(Id=id));
+            try{
+                Map<String, object> orderAndItemDetails = (Map<String, object>)JSON.deserializeUntyped(orderNitemsDetails);
+                Map<String, Object> order = (Map<String, Object>)orderAndItemDetails.get('order');
+                
+                if(String.isNotBlank(orderItemToDelete)){
+                    List<object> ItemToDelete = (List<object>)JSON.deserializeUntyped(orderItemToDelete);
+                    List<OrderItem> toolsToDelete = new List<OrderItem>();
+                    for(Object obj: ItemToDelete){
+                        String id = (String)obj;
+                        if(id.startsWith('802')){
+                            toolsToDelete.add(new OrderItem(Id=id));
+                        }
+                    }
+                    if(!toolsToDelete.isEmpty())
+                        delete toolsToDelete;
                 }
+        system.debug(order.get('Scheduled_Pickup_Time__c'));
+        Time pickTime;
+        if(order.get('Scheduled_Pickup_Time__c') != null && String.isNotBlank(((String)order.get('Scheduled_Pickup_Time__c')).trim())){
+            List<String> timeString = Test.isRunningTest()?'02:45 PM'.split(':'):((String)order.get('Scheduled_Pickup_Time__c')).split(':');
+            system.debug(timeString);
+            if(timeString != null && timeString.size() >0){
+                Integer hour = Integer.valueOf(timeString[0]);
+                Integer minutes = Integer.valueOf(timeString[1].split(' ')[0]);
+                system.debug(minutes);
+                String AMPM = timeString[1].split(' ')[1];
+                system.debug(AMPM);
+                if(AMPM == 'AM' && hour == 12)
+                    hour = hour-12;
+                else if(AMPM == 'PM' && hour != 12)
+                    hour = hour+12;
+            system.debug(hour+':'+minutes);
+            pickTime = Time.newInstance(hour,minutes,0,0);
             }
-            if(!toolsToDelete.isEmpty())
-                delete toolsToDelete;
         }
-system.debug(order.get('Scheduled_Pickup_Time__c'));
-Time pickTime;
-if(order.get('Scheduled_Pickup_Time__c') != null && String.isNotBlank(((String)order.get('Scheduled_Pickup_Time__c')).trim())){
-    List<String> timeString = Test.isRunningTest()?'02:45 PM'.split(':'):((String)order.get('Scheduled_Pickup_Time__c')).split(':');
-    system.debug(timeString);
-    if(timeString != null && timeString.size() >0){
-        Integer hour = Integer.valueOf(timeString[0]);
-        Integer minutes = Integer.valueOf(timeString[1].split(' ')[0]);
-        system.debug(minutes);
-        String AMPM = timeString[1].split(' ')[1];
-        system.debug(AMPM);
-        if(AMPM == 'AM' && hour == 12)
-            hour = hour-12;
-        else if(AMPM == 'PM' && hour != 12)
-            hour = hour+12;
-    system.debug(hour+':'+minutes);
-    pickTime = Time.newInstance(hour,minutes,0,0);
-    }
-}
-        Order updateOrder =  new order(
-            id= (Id)order.get('Id'),
-            EffectiveDate = Date.valueOf((String)order.get('EffectiveDate')),
-            Tools_Picked_Up_By__c = (String)order.get('Tools_Picked_Up_By__c'),
-            Scheduled_Pickup_Time__c = pickTime,
-            EndDate =  Date.valueOf((String)order.get('EndDate')),
-            name =  (String)order.get('Name'),
-            status = (String)order.get('Status'),
-            pricebook2Id = label.pricebookid
-        );
-        if((String)order.get('Status') == 'Fulfilled')
-        updateOrder.Actual_Pickup_Date_Time__c = system.now();
-        
-        list<Date> orderItemReturnDateList = new List<Date>();
-        list<OrderItem> orderitems = new List<OrderItem>();
-        for(object obj: (List<Object>)orderAndItemDetails.get('orderItems')){
-            Map<String, object> item = (Map<String, object>)obj;
-            system.debug(item);
-            OrderItem orderitem = new OrderItem();
-            if(((String) item.get('Id')).startsWith('802')){
-                orderItem.id = (String) item.get('Id');
-            }else{
-                orderItem.orderid= (String)order.get('Id');
-                orderItem.PricebookEntryId = (String)item.get('pbeId');
-                orderitem.UnitPrice = Decimal.valueOf((String)item.get('unitprice'));
-                orderItem.Inventory_Tool__c = (String)item.get('assetid');
-            }
-            orderItem.quantity =Decimal.valueOf((String) item.get('quantity'));
-            orderItem.Affiliate_Handling_Fee__c =Decimal.valueOf((String) item.get('affiliateFee'));
-            orderItem.Requested_Borrowing_Period__c = (String) item.get('week');
-            orderItem.Reserved_Quantity__c=Decimal.valueOf((String) item.get('reserv'));
-            orderItem.Schedule_return_Date__c = Date.valueOf((String)item.get('retDate'));
-            orderItem.Schedule_Pick_Date__c = Date.valueOf((String)item.get('pickdate'));
-            orderItem.Status__c = (String) item.get('status');
-            orderItemReturnDateList.add(orderItem.Schedule_Return_Date__c);
-            system.debug(orderitem);
-            if((String) item.get('status') == 'Fulfilled')
-                orderItem.Check_Out_Quantity__c=Decimal.valueOf((String) item.get('reserv'));
+                Order updateOrder =  new order(
+                    id= (Id)order.get('Id'),
+                    EffectiveDate = Date.valueOf((String)order.get('EffectiveDate')),
+                    Tools_Picked_Up_By__c = (String)order.get('Tools_Picked_Up_By__c'),
+                    Scheduled_Pickup_Time__c = pickTime,
+                    name =  (String)order.get('Name'),
+                    status = (String)order.get('Status'),
+                    pricebook2Id = label.pricebookid
+                );
+                String orderEndDate =  (String)order.get('EndDate');
+                    if(orderEndDate.contains('/')){
+                        orderEndDate = orderEndDate.replaceAll('/','-');
+                    }
+                updateOrder.EndDate =  Date.valueOf(orderEndDate);
+                if((String)order.get('Status') == 'Fulfilled')
+                    updateOrder.Actual_Pickup_Date_Time__c = system.now();
+                
+                list<Date> orderItemReturnDateList = new List<Date>();
+                list<OrderItem> orderitems = new List<OrderItem>();
+                for(object obj: (List<Object>)orderAndItemDetails.get('orderItems')){
+                    Map<String, object> item = (Map<String, object>)obj;
+                    OrderItem orderitem = new OrderItem();
+                    if(((String) item.get('Id')).startsWith('802')){
+                        orderItem.id = (String) item.get('Id');
+                    }else{
+                        orderItem.orderid= (String)order.get('Id');
+                        orderItem.PricebookEntryId = (String)item.get('pbeId');
+                        orderitem.UnitPrice = Decimal.valueOf((String)item.get('unitprice'));
+                        orderItem.Inventory_Tool__c = (String)item.get('assetid');
+                    }
+                    orderItem.quantity =Decimal.valueOf((String) item.get('quantity'));
+                    orderItem.Affiliate_Handling_Fee__c =Decimal.valueOf((String) item.get('affiliateFee'));
+                    orderItem.Requested_Borrowing_Period__c = (String) item.get('week');
+                    orderItem.Reserved_Quantity__c=Decimal.valueOf((String) item.get('reserv'));
+                    String returnDateString = (String)item.get('retDate');
+                    if(returnDateString.contains('/')){
+                        returnDateString = returnDateString.replaceAll('/','-');
+                    }
+                    orderItem.Schedule_return_Date__c = Date.valueOf(returnDateString);
+                    orderItem.Schedule_Pick_Date__c = Date.valueOf((String)item.get('pickdate'));
+                    orderItem.Status__c = (String) item.get('status');
+                    orderItemReturnDateList.add(orderItem.Schedule_Return_Date__c);
+                    if((String) item.get('status') == 'Fulfilled')
+                        orderItem.Check_Out_Quantity__c=Decimal.valueOf((String) item.get('reserv'));
 
-            orderitems.add(orderitem);
+                    orderitems.add(orderitem);
+                }
+
+                if(orderItemReturnDateList.size()>0){
+                    orderItemReturnDateList.sort();
+                    updateOrder.EndDate = orderItemReturnDateList[0];
+                }
+                ByPassValidations.ordStatusValidation = true;
+                update updateOrder;
+
+                ByPassValidations.ordItemPriceAndQtyValidation = true;
+                OrderItemHelperClass.recursion = false;
+                upsert orderitems;
+            }catch(Exception e){
+                throw new AuraHandledException(e.getMessage());
         }
-
-        if(orderItemReturnDateList.size()>0){
-            orderItemReturnDateList.sort();
-            updateOrder.EndDate = orderItemReturnDateList[0];
-        }
-
-        ByPassValidations.ordStatusValidation = true;
-        update updateOrder;
-
-        ByPassValidations.ordItemPriceAndQtyValidation = true;
-        upsert orderitems;
 
         return 'success';
     }

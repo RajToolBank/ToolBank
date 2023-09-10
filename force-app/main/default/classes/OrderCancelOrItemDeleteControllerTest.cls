@@ -23,7 +23,7 @@ public class OrderCancelOrItemDeleteControllerTest {
         TestDataFactory.createOrderItem(ord.Id,pbeAdd.Id,Null);
         
         ord.status = 'Cancelled';
-        
+        OrderCancelOrItemDeleteController.orderRecursion = false;
         update ord;
     }
     

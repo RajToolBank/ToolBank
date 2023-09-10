@@ -1,6 +1,6 @@
 @isTest
 public class PlaceOrderControllerTest {
-	@isTest
+    @isTest
     private static void testPlaceOrder() {
         String recordTypeid  = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Member Agency').getRecordTypeId();
         String recordTypeid2  = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Affiliate').getRecordTypeId();
@@ -27,7 +27,7 @@ public class PlaceOrderControllerTest {
         Order ord = TestDataFactory.createOrder(acc.Id,con.Id,affiliate.id);
         orderItem ordItem = TestDataFactory.createOrderItem(ord.Id,toolpbe.Id,asset[0].id);
         Order ord2 = TestDataFactory.createOrder(acc.Id,con.Id,affiliate.id);
-        orderItem ordItem2 = TestDataFactory.createOrderItem(ord2.Id,toolpbe.Id,asset[0].id);
+        orderItem ordItem2 = TestDataFactory.createOrderItem(ord2.Id,toolpbe.Id,asset[0].id); 
         
         String ordDetailJson = '{"name": "Test Order",'+
             '"zip": "14522",'+
@@ -53,7 +53,7 @@ public class PlaceOrderControllerTest {
             '"volunteersource": "General Community Volunteers",'+
             '"corpname": "Test Corporation"}';
         
-        String ordToolJson = '['+
+        String ordToolJson = '['+ 
             '{"quantity": "2",'+
             '"retailPrice": "11.5",'+
             '"affiliatefee": "5.5",'+
@@ -74,11 +74,12 @@ public class PlaceOrderControllerTest {
             Test.startTest();
             PlaceOrderController.getFlag();
             String accId = PlaceOrderController.accid();
-            User us = PlaceOrderController.getAgencyContact();
+            PlaceOrderController.UserClass us = PlaceOrderController.getAgencyContact('',accId);
             List<Account> accList = PlaceOrderController.getAffiliate();
             PlaceOrderController.returnAssets('',affiliate.Id);
             List<String> zipcodes = PlaceOrderController.zipCodes();
             PlaceOrderController.placeOrder(ordJson);
+            PlaceOrderController.getBusinessHours(affiliate.Id);
             Test.stopTest();
         }
     }
@@ -106,10 +107,11 @@ public class PlaceOrderControllerTest {
         
         Test.startTest();
         PlaceOrderController.accid();
-        PlaceOrderController.getAgencyContact();
+        PlaceOrderController.getAgencyContact(acc.Id,affiliate.Id);
         PlaceOrderController.getAffiliate();
         PlaceOrderController.returnAssets('te',affiliate.Id);
         PlaceOrderController.zipCodes();
+        PlaceOrderController.getPicklistValuesApex('Project_Type__c');
         Test.stopTest();
     }
 }

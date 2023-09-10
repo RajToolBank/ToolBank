@@ -13,19 +13,24 @@ public class CreateTransactionTest implements HttpCalloutMock {
         Product2 tool2 = TestDataFactory.createProduct('Tool');
         PricebookEntry toolpbe = TestDataFactory.createPricebookEntry(tool.Id);
         PricebookEntry toolpbe2 = TestDataFactory.createPricebookEntry(tool2.Id);
-        Account affiliate = TestDataFactory.createAccount('test2',recordTypeid2);
-        acc.parentId = affiliate.Id;
+        Account affiliate1 = TestDataFactory.createAccount('test1',recordTypeid2);
+        Account affiliate2 = TestDataFactory.createAccount('test2',recordTypeid2);
+        acc.parentId = affiliate2.Id;
         update acc;
-        affiliate.Affiliate_Handling_Fee__c = 3;
-        update affiliate;
-        List<Asset> asset = [Select Id FROM Asset];
+        affiliate2.Affiliate_Handling_Fee__c = 3;
+        update affiliate2;
+        Asset ast = new Asset(Name = 'test', Product2Id = tool.Id, AccountId = affiliate1.Id, Quantity = 10);
+        insert ast;
+        //List<Asset> asset = [Select Id FROM Asset];
 
         List<CreateTransaction.PickListOption> recordTypeOptionList = CreateTransaction.getRecordType();
-        String recordTypeid3  = Schema.SObjectType.Transaction__c.getRecordTypeInfosByName().get('Donation').getRecordTypeId();
+        String recordTypeid3  = Schema.SObjectType.Transaction__c.getRecordTypeInfosByName().get('Transfer').getRecordTypeId();
+        String recordTypeid4  = Schema.SObjectType.Transaction__c.getRecordTypeInfosByName().get('Inventory Audit').getRecordTypeId();
         Test.setMock(HttpCalloutMock.class, new CreateTransactionTest());
         Test.startTest();
         CreateTransaction.getValues('Transaction__C', recordTypeid3, 'Sub_type__c');
-        CreateTransaction.CreateTransaction(asset[0].Id, recordTypeid3, 'Corporate Donation', 3, 'test');
+        CreateTransaction.CreateTransaction(ast.Id, recordTypeid3, 'Decrease', 3, 'test',affiliate2.Id);
+        CreateTransaction.CreateTransaction(ast.Id, recordTypeid4, 'Increase', 3, 'test',affiliate2.Id);
         Test.stopTest();
     }
 

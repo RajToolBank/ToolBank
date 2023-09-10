@@ -1,0 +1,22 @@
+<template>
+    <!--lightning-card>
+        <div class="slds-p-around_medium"-->
+          <div class="datepicker">
+                <lightning-icon icon-name="utility:date_input" alternative-text="Calendar"></lightning-icon>
+                <input type="text" onclick={handleInputClick} class="slds-input datepicker-input slds-border_left slds-border_right slds-border_top slds-border_bottom" readonly placeholder="Select a Date" value={selectedDate}>
+            <div class="calendar-popup" if:true={showCalendar}>
+              <div class="calendar-header">
+                <button class="prev-month-btn" onclick={goToPrevMonth}>&lt;</button>
+                <span class="current-month">{currentMonth}</span>
+                <button class="next-month-btn" onclick={goToNextMonth}>&gt;</button>
+              </div>
+              <div class="calendar-grid">
+                <template for:each={calendarDays} for:item="day">
+                  <div key={day.number} class={day.className} onclick={handleDateClick} data-date={day.date}  >{day.number}</div>
+                </template>
+              </div>
+            </div>
+          </div>
+        <!--/div>
+      </lightning-card-->
+</template>

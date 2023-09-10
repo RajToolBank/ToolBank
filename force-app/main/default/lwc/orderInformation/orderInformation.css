@@ -1,0 +1,10 @@
+.datepicker::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Invert the color to make the icon invisible */
+  pointer-events: none; /* Disable pointer events to make the icon unclickable */
+}
+
+.datepicker::-webkit-datetime-edit-day-field,
+.datepicker::-webkit-datetime-edit-month-field,
+.datepicker::-webkit-datetime-edit-year-field {
+  color: transparent; /* Hide the day, month, and year fields */
+}

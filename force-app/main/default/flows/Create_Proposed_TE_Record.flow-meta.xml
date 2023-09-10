@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
+    <decisions>
+        <name>Tool_Exchange_Requirements</name>
+        <label>Tool Exchange Requirements</label>
+        <locationX>507</locationX>
+        <locationY>113</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Approved_TE_Record</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Approval_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Approved</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordTypeId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Tool Exchange</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_TE_Records_for_Proposed_Tool_Exchange</targetReference>
+            </connector>
+            <label>Approved TE Record</label>
+        </rules>
+    </decisions>
+    <interviewLabel>Create Proposed TE Record {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Create Proposed TE Record</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_TE_Records_for_Proposed_Tool_Exchange</name>
+        <label>Create TE Records for Proposed Tool Exchange</label>
+        <locationX>763</locationX>
+        <locationY>111</locationY>
+        <assignRecordIdToReference>$Record.Id</assignRecordIdToReference>
+        <inputAssignments>
+            <field>Approval_Status__c</field>
+            <value>
+                <stringValue>Approved</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Not_Shipped__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Quantity_Exchange__c</field>
+            <value>
+                <elementReference>$Record.Quantity_Requested__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Quantity_Requested__c</field>
+            <value>
+                <elementReference>$Record.Quantity_Exchange__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <stringValue>Tool Exchange</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Shipping_Covered__c</field>
+            <value>
+                <elementReference>$Record.Shipping_Covered__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Tool_Exchanged__c</field>
+            <value>
+                <elementReference>$Record.Proposed_Tool_Exchange__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Who_s_Covering_Shipping__c</field>
+            <value>
+                <elementReference>$Record.Who_s_Covering_Shipping__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Tool_Exchange__c</object>
+    </recordCreates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Tool_Exchange_Requirements</targetReference>
+        </connector>
+        <object>Tool_Exchange__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+</Flow>

@@ -6,13 +6,16 @@ public class PaymentReceipt_Ctrl {
     public Decimal totalpaid {get;set;}
     public Decimal totalOrderFees {get;set;}
     String orderId;
+    public List<OrderItem> orderItemList{get;set;}
+    public String accountId {get;set;}
+    public List<String> imageURLList {get; set;}
     public Double offset{get{
         TimeZone tz = UserInfo.getTimeZone();
         //Milliseconds to Day
         return  tz.getOffset(DateTime.now()) / (1000 * 3600 * 24.00);
     }}
 
-    public PaymentReceipt_Ctrl(Apexpages.StandardController sc){
+    public PaymentReceipt_Ctrl(Apexpages.StandardController sc) {
         totalOrderFees = 0.00;
         getData= Toolbank_Help_Page__mdt.getAll().values();
         orderId = sc.getId();
@@ -35,21 +38,122 @@ public class PaymentReceipt_Ctrl {
             }
             totalpaid += payment.Amount__c;
         }
-    }
-
+        for(Order ord :[Select Id, Affiliate__c From Order where Id =: orderId limit 1]) {
+            system.debug('accountId-->'+ord.Affiliate__c);
+            accountId = ord.Affiliate__c;
+        }
+		imageURLList = getImageList();
+        orderItemList = [SELECT Id,product2.Type__c,
+                        Tool_Handling_Fee_Per_Item__c,
+                        Total_Handling_Fee__c,Late_Fee__c,
+                        Lost_Fee__c,Total_Fees__c,
+                        Actual_Return_Date__c,
+                        Requested_Borrowing_Period__c,
+                        Late_Weeks__c,
+                        UnitPrice,
+                        Check_In_Quantity__c,
+                        Lost__c,
+                        Damaged__c,
+                        status__c,
+                        product2.name,
+                        Quantity,
+                        Reserved_Quantity__c 
+                        FROM OrderItem 
+                        WHERE OrderId =: orderId 
+                        ORDER BY product2.name ASC];
+	}
     public void updateOrder(){
        
             PageReference PDf =  Page.PaymentReceipt;//Replace attachmentPDf with the page you have rendered as PDF
             PDf.getParameters().put('Id',orderId);
             PDf.setRedirect(true);
-            Attachment attach = new Attachment();
-            Blob b ;
-            b = PDf.getContentAsPDF();
-            attach.Body = b;
-            attach.Name = 'Payment_Receipt_'+Date.today().format()+'.pdf';
-            attach.IsPrivate = false;
-            attach.ParentId = orderId;
-            insert attach;
+
+            ContentVersion conVer = new ContentVersion();
+            conVer.ContentLocation = 'S';
+            conVer.PathOnClient = 'Payment_Receipt_'+Date.today().format()+'.pdf';
+            conVer.Title = 'Payment_Receipt_'+Date.today().format()+'.pdf';
+            if(!Test.isRunningTest())
+                conVer.VersionData = pdf.getContentAsPDF();
+            else conVer.VersionData = EncodingUtil.base64Decode('blob');
+            insert conVer; 
+
+
+            Id conDoc = [SELECT ContentDocumentId FROM ContentVersion WHERE Id =:conVer.Id].ContentDocumentId;
+      
+            ContentDocumentLink conDocLink = New ContentDocumentLink();
+            conDocLink.LinkedEntityId = orderId;
+            conDocLink.ContentDocumentId = conDoc;  //ContentDocumentId Id from ContentVersion
+            conDocLink.shareType = 'V';
+            insert conDocLink;
         
+    }
+    public List<String> getImageList() {
+        // Fetch the Account and its related files
+        List<String> imageURLList = new List<String>();
+        Set<Id> cDocIds = new Set<Id>();
+        system.debug('accountId-->'+accountId);
+        system.debug('usertype-->'+userinfo.getUserType());
+        String userType = userinfo.getUserType();
+        for(ContentDocumentLink cdl :[SELECT ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId = :accountId]) {
+            cDocIds.add(cdl.ContentDocumentId);
+        }
+        system.debug('cDocIds-->'+cDocIds);
+        for(ContentVersion cvfile :[SELECT Id, VersionData, Title, FileType, ContentBodyId, Active__c FROM ContentVersion WHERE Active__c = true AND ContentDocumentId IN :cDocIds AND Title like '%_sponsored']) {
+            String imageUrl = '';
+            String cvId15Disgit = String.valueOf(cvfile.Id).length() == 18?String.valueOf(cvfile.Id).subString(0,15):cvfile.Id;
+            String cvBodyId15Disgit = String.valueOf(cvfile.ContentBodyId).length() == 18?String.valueOf(cvfile.ContentBodyId).subString(0,15):cvfile.ContentBodyId;
+            if(userType == 'PowerPartner')
+            	imageUrl = Label.AffilateCommunityURLforFiles+'sfc/servlet.shepherd/version/renditionDownload?rendition='+cvfile.FileType+'&versionId='+cvId15Disgit+'&operationContext=CHATTER&contentId='+cvBodyId15Disgit+'&page=1';
+            else 
+                imageUrl = Label.DomainURLforFiles+'sfc/servlet.shepherd/version/renditionDownload?rendition='+cvfile.FileType+'&versionId='+cvId15Disgit+'&operationContext=CHATTER&contentId='+cvBodyId15Disgit+'&page=1';
+            system.debug('imageUrl-->'+imageUrl);
+            imageURLList.add(imageUrl);
+        }
+        return imageURLList;
+    }
+    @AuraEnabled
+    public static void uploadFiles(String files) {
+        //system.debug('accountId-->'+accountId);
+        system.debug('files-->'+files);
+        List<Object> fileUpload = (List<Object>)JSON.deserializeUntyped(files);
+        system.debug('fileUpload-->'+fileUpload);
+        Set<String> contentBodyIds = new Set<String>();
+        List<ContentVersion> cvListUpdate = new List<ContentVersion>();
+        List<ContentDocumentLink> cdlListUpdate = new List<ContentDocumentLink>();
+        for (Object file : fileUpload) {
+            Map<String,Object> mapFileUpload = (Map<String,Object>)file;
+            String cvName = (String)mapFileUpload.get('name');
+            cvName = cvName+'_sponsored';
+            String contentVersionId = (String)mapFileUpload.get('contentVersionId');
+            String documentId = (String)mapFileUpload.get('documentId');
+            contentBodyIds.add(documentId);
+            ContentVersion cv = new ContentVersion(Id = contentVersionId, Title = cvName, Active__c = true);
+            cvListUpdate.add(cv);
+        }
+        system.debug('cvListUpdate-->'+cvListUpdate);
+        if(!cvListUpdate.isEmpty()) {
+            update cvListUpdate;
+        }
+        if(!contentBodyIds.isEmpty()) {
+            for(ContentDocumentLink cdl :[SELECT Id, Visibility, ContentDocumentId FROM ContentDocumentLink WHERE ContentDocumentId IN :contentBodyIds]) {
+                cdl.Visibility = 'AllUsers';
+                cdl.shareType = 'I';
+                cdlListUpdate.add(cdl);
+            }
+        }
+        system.debug('cvListUpdate-->'+cvListUpdate);
+        if(!cdlListUpdate.isEmpty()) {
+            update cdlListUpdate;
+        }
+    }
+    @AuraEnabled(cacheable=true)
+    public static Boolean checkAffiliate(String accountId) {
+        System.debug('accountId-->'+accountId);
+        Account acc = [Select Id, RecordType.DeveloperName From Account Where Id = :accountId];
+        system.debug('recordtype-->'+acc.RecordType.DeveloperName);
+        if(acc.RecordType.DeveloperName == 'Affiliate')
+            return true;
+        else
+            return false;
     }
 }

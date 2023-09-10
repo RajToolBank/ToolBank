@@ -2,4 +2,4 @@
     <aura:attribute name="recordId" type="String" />
     <c:orderDeleteCmp recordId="{!v.recordId}"></c:orderDeleteCmp>
 
-</aura:component>	
+</aura:component>

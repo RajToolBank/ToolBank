@@ -43,7 +43,7 @@ public class ConfirmOrderPageControllerTest {
 
 
 
-        ConfirmOrderPageController.singleItemLowestQuantity(ordItem.id,tool.id,Date.today(),Date.today().addDays(7));
+        ConfirmOrderPageController.singleItemLowestQuantity((String)ordItem.id,(String)tool.id,Date.today(),Date.today().addDays(7),(String)affiliate.Id,(Integer)ordItem.reserved_quantity__c);
         orderitemClass orderitem = new orderitemClass();
         
         orderitem.id = ordItem.id;
