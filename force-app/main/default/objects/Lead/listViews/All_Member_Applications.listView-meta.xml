@@ -9,11 +9,7 @@
     <columns>LEAD.UNREAD</columns>
     <columns>LEAD.CREATED_DATE</columns>
     <columns>CORE.USERS.ALIAS</columns>
+    <columns>ToolBank_Location__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>LEAD.CREATED_DATE</field>
-        <operation>greaterThan</operation>
-        <value>1/1/2001 12:00 AM</value>
-    </filters>
     <label>All Member Applications</label>
 </ListView>

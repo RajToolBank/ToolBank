@@ -7,7 +7,6 @@
     <inlineHelpText>The oldest Close Date of a won Opportunity with amount greater than zero related to this Contact by primary Opportunity Contact Role.</inlineHelpText>
     <label>First Gift Date</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Date</type>
 </CustomField>

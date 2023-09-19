@@ -6,7 +6,6 @@
     <description>Indicates the address is undeliverable.</description>
     <externalId>false</externalId>
     <label>Undeliverable Billing Address</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

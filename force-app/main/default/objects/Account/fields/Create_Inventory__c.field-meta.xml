@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
     <label>Create Inventory</label>
-    <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Checkbox</type>
 </CustomField>

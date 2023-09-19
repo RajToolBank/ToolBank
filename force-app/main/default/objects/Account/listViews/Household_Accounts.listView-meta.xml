@@ -15,4 +15,7 @@
         <value>Account.HH_Account</value>
     </filters>
     <label>Household Accounts</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
 </ListView>

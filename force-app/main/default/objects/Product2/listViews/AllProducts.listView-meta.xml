@@ -2,6 +2,19 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AllProducts</fullName>
     <columns>PRODUCT2.NAME</columns>
+    <columns>Old_Tool_Name__c</columns>
+    <columns>Sort_Category__c</columns>
+    <columns>PRODUCT2.FAMILY</columns>
+    <columns>Sub_Category__c</columns>
+    <columns>PRODUCT2.DESCRIPTION</columns>
+    <columns>PRODUCT2.LAST_UPDATE</columns>
+    <columns>PRODUCT2.CREATED_DATE</columns>
+    <columns>Product_Image__c</columns>
     <filterScope>Everything</filterScope>
-    <label>All Products</label>
+    <filters>
+        <field>PRODUCT2.ACTIVE</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>All Tools</label>
 </ListView>

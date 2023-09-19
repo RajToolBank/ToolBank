@@ -6,7 +6,6 @@
     <inlineHelpText>Select the affiliate to which the contact is most closely connected.  Go to www.toolbank.org/citycodes to view a city code list.</inlineHelpText>
     <label>Affiliate</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

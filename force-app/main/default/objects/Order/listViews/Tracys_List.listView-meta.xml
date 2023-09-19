@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tracys_List</fullName>
+    <columns>Affiliate__c</columns>
+    <columns>ORDER.NAME</columns>
+    <columns>SALES.ACCOUNT.NAME</columns>
+    <columns>ORDERS.STATUS</columns>
+    <columns>ORDERS.ORDER_NUMBER</columns>
+    <columns>Amount_Owed__c</columns>
+    <columns>Late_Fee__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ORDER.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Order.Standard</value>
+    </filters>
+    <filters>
+        <field>ORDERS.STATUS</field>
+        <operation>equals</operation>
+        <value>Closed</value>
+    </filters>
+    <filters>
+        <field>Amount_Owed__c</field>
+        <operation>lessThan</operation>
+        <value>0</value>
+    </filters>
+    <label>Overpaid Late Fees</label>
+    <sharedTo>
+        <allPartnerUsers></allPartnerUsers>
+        <group>Admins</group>
+    </sharedTo>
+</ListView>

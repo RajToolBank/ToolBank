@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Account_Balance__c</fullName>
     <externalId>false</externalId>
-    <formula>IMAGE(&quot;/resource/AccountBalance&quot;, &quot;red&quot;, 30,148)</formula>
+    <formula>IMAGE(&quot;https://toolbank.my.site.com/agency/resource/1663178134000/AccountBalance&quot;, &quot;red&quot;, 30,148)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>_________</label>
     <required>false</required>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payment_can_not_be_more_than_owed</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISNEW()&amp;&amp; (Amount__c &gt; Order__r.Amount_Owed__c)</errorConditionFormula>
+    <errorMessage>Payment amount can not be greater than owed amount.</errorMessage>
+</ValidationRule>

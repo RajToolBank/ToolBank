@@ -2,12 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Staff_on_this_Project__c</fullName>
     <externalId>false</externalId>
-    <inlineHelpText>Number of people estimated to be indirectly impacted within the next year.</inlineHelpText>
+    <inlineHelpText>Number of your organization&apos;s staff that will be working on this project.</inlineHelpText>
     <label>Staff on this Project</label>
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Number</type>
     <unique>false</unique>

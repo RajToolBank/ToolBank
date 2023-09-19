@@ -4,6 +4,7 @@
     <fields>Product2Id</fields>
     <fields>UnitPrice</fields>
     <fields>Quantity</fields>
+    <fields>Reserved_Quantity__c</fields>
     <fields>Tool_Handling_Fee_Per_Item__c</fields>
     <fields>Total_Handling_Fee__c</fields>
     <label>Compact Order Tool layout</label>

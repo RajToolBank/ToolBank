@@ -5,7 +5,6 @@
     <description>Check this box if contact wants no notifications, requests or other via mail or email.</description>
     <externalId>false</externalId>
     <label>DO NOT MAIL</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

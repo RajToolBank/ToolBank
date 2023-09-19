@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_change_Amount_field</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISCHANGED(Amount__c )</errorConditionFormula>
+    <errorMessage>Credit Amount cannot be updated. It can be inactivated or expired. If you require further assistance, please submit a case.</errorMessage>
+</ValidationRule>

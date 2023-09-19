@@ -6,7 +6,6 @@
     <label>Twitter Username</label>
     <length>50</length>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

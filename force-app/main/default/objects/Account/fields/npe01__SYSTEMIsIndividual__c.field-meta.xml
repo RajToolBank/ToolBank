@@ -6,7 +6,6 @@
     <description>Hidden system field: do not change.  Updated by automatic processes.</description>
     <externalId>false</externalId>
     <label>_SYSTEM: IsIndividual</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

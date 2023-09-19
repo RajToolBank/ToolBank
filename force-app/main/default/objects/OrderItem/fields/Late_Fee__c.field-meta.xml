@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Late_Fee__c</fullName>
     <externalId>false</externalId>
-    <formula>2*Late_Weeks__c * UnitPrice * Quantity * Affiliate_Handling_Fee__c</formula>
+    <formula>2*Late_Weeks__c * UnitPrice *  Reserved_Quantity__c * Affiliate_Handling_Fee__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Late Fee</label>
     <precision>18</precision>

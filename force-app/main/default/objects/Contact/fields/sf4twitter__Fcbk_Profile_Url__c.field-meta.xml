@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>Facebook Profile Url</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Url</type>
 </CustomField>

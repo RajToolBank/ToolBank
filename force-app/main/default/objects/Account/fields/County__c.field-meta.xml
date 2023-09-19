@@ -4,7 +4,6 @@
     <externalId>false</externalId>
     <label>County</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>TextArea</type>
 </CustomField>

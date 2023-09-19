@@ -4,6 +4,5 @@
     <externalId>false</externalId>
     <label>How did you hear about the ToolBank?</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <type>TextArea</type>
 </CustomField>

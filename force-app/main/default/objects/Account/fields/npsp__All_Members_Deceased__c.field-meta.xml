@@ -7,7 +7,6 @@
     <externalId>false</externalId>
     <inlineHelpText>If selected, all members of this household are deceased. Do not update this field manually. It&apos;s updated automatically by NPSP as a result of updates to the Deceased checkbox on household member Contacts.</inlineHelpText>
     <label>All Household Members Deceased</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

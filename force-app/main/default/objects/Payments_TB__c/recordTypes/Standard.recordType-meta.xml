@@ -18,7 +18,15 @@
             <default>true</default>
         </values>
         <values>
+            <fullName>Online Payment</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Organizational Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Waiver - Disaster Related Event</fullName>
             <default>false</default>
         </values>
         <values>

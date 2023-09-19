@@ -3,7 +3,16 @@
     <fullName>Inventory_Tool__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
-    <label>Inventory Tool</label>
+    <label>Inventory</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Asset.Product2.IsActive</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
     <referenceTo>Asset</referenceTo>
     <relationshipLabel>Order Tool</relationshipLabel>
     <relationshipName>Order_Tools</relationshipName>

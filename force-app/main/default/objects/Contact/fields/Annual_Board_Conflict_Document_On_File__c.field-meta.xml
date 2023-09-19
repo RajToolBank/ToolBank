@@ -5,7 +5,6 @@
     <description>Check if Board Member has signed their annual conflict of interest form.</description>
     <externalId>false</externalId>
     <label>Annual Board Conflict Document On File</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

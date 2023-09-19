@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
     <label>Primary Org Contact</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

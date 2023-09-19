@@ -7,7 +7,6 @@
     <inlineHelpText>The general program area(s) that this organization funds.</inlineHelpText>
     <label>Funding Focus</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>MultiselectPicklist</type>
     <valueSet>

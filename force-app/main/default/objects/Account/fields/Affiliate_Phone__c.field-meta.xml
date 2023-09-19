@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Affiliate_Phone__c</fullName>
     <externalId>false</externalId>
-    <formula>Owner.Phone</formula>
+    <formula>&quot;(&quot; &amp; LEFT(Parent.Phone, 3) &amp; &quot;) &quot; &amp; LEFT(RIGHT(Parent.Phone, 7), 3) &amp; &quot;-&quot; &amp; RIGHT(Parent.Phone, 4)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Affiliate Phone</label>
     <required>false</required>

@@ -6,7 +6,6 @@
     <inlineHelpText>The email for the Contact&apos;s Assistant</inlineHelpText>
     <label>Assistant Email</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Email</type>
     <unique>false</unique>

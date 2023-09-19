@@ -7,7 +7,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates that this company offers Matching Gifts.</inlineHelpText>
     <label>Matching Gift Company</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

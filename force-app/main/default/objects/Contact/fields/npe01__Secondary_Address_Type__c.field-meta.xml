@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <label>Secondary Address Type</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

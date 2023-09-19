@@ -5,7 +5,6 @@
     <label>Contact Phone Legacy</label>
     <length>25</length>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

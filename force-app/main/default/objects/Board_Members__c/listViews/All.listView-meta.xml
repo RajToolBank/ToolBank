@@ -9,5 +9,10 @@
     <columns>Annual_Board_Conflict_Document_On_File__c</columns>
     <columns>Annual_Board_Pledge_Document_On_File__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>Calendar_Year__c</field>
+        <operation>equals</operation>
+        <value>2022</value>
+    </filters>
     <label>All</label>
 </ListView>

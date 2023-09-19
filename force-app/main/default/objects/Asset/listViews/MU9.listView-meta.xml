@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MU9</fullName>
+    <columns>ASSET.NAME</columns>
+    <columns>PRODUCT2.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>ASSET.QUANTITY</columns>
+    <columns>On_Shelf_Quantity_F__c</columns>
+    <columns>Out_no_0_adj__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT.NAME</field>
+        <operation>contains</operation>
+        <value>MU9</value>
+    </filters>
+    <label>MU9</label>
+    <sharedTo>
+        <group>TDS_MU10</group>
+    </sharedTo>
+</ListView>

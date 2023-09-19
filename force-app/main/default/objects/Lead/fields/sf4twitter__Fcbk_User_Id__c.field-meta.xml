@@ -7,7 +7,6 @@
     <label>Facebook User Id</label>
     <length>255</length>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <type>Text</type>
     <unique>true</unique>
 </CustomField>

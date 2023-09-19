@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Only Used for the completion of the NPSP  Household Conversion project</inlineHelpText>
     <label>OK to Delete</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

@@ -7,7 +7,6 @@
     <inlineHelpText>The most recent Close Date of a won Membership Opportunity (by Record Type) related to this Account.</inlineHelpText>
     <label>Last Membership Date</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Date</type>
 </CustomField>

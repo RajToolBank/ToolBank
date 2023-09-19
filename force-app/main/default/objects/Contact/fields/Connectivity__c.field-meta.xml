@@ -5,7 +5,6 @@
     <inlineHelpText>Select cities where the contact has connections that might be useful in creating new affiliates.</inlineHelpText>
     <label>Connectivity</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>MultiselectPicklist</type>
     <valueSet>

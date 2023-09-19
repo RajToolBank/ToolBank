@@ -6,7 +6,6 @@
     <inlineHelpText>The date of this Contact&apos;s most recent online volunteer signup. This field is automatically populated from the web signup form. Used to trigger workflow for notification and thank you emails.</inlineHelpText>
     <label>Volunteer Last Web Signup Date</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Date</type>
 </CustomField>

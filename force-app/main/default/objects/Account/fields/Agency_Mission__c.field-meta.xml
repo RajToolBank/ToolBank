@@ -4,68 +4,12 @@
     <externalId>false</externalId>
     <label>Agency Mission</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
-            <value>
-                <fullName>Community improvement</fullName>
-                <default>false</default>
-                <label>Community improvement</label>
-            </value>
-            <value>
-                <fullName>Environmental quality/protection</fullName>
-                <default>false</default>
-                <label>Environmental quality/protection</label>
-            </value>
-            <value>
-                <fullName>Housing</fullName>
-                <default>false</default>
-                <label>Housing</label>
-            </value>
-            <value>
-                <fullName>Human &amp; Community Services</fullName>
-                <default>false</default>
-                <label>Human &amp; Community Services</label>
-            </value>
-            <value>
-                <fullName>International/foreign affairs</fullName>
-                <default>false</default>
-                <label>International/foreign affairs</label>
-            </value>
-            <value>
-                <fullName>Low income housing provider</fullName>
-                <default>false</default>
-                <label>Low income housing provider</label>
-            </value>
-            <value>
-                <fullName>Non-profit improvement</fullName>
-                <default>false</default>
-                <label>Non-profit improvement</label>
-            </value>
-            <value>
-                <fullName>Social services</fullName>
-                <default>false</default>
-                <label>Social services</label>
-            </value>
-            <value>
-                <fullName>Youth development</fullName>
-                <default>false</default>
-                <label>Youth development</label>
-            </value>
-            <value>
-                <fullName>Other</fullName>
-                <default>false</default>
-                <label>Other</label>
-            </value>
-            <value>
-                <fullName>Veterans services</fullName>
-                <default>false</default>
-                <label>Veterans services</label>
-            </value>
             <value>
                 <fullName>Animal Welfare</fullName>
                 <default>false</default>
@@ -122,9 +66,64 @@
                 <label>Public, Societal Benefit</label>
             </value>
             <value>
+                <fullName>Veterans services</fullName>
+                <default>false</default>
+                <label>Veterans services</label>
+            </value>
+            <value>
                 <fullName>Youth and Children</fullName>
                 <default>false</default>
                 <label>Youth and Children</label>
+            </value>
+            <value>
+                <fullName>Community improvement</fullName>
+                <default>false</default>
+                <label>Community improvement</label>
+            </value>
+            <value>
+                <fullName>Environmental quality/protection</fullName>
+                <default>false</default>
+                <label>Environmental quality/protection</label>
+            </value>
+            <value>
+                <fullName>Housing</fullName>
+                <default>false</default>
+                <label>Housing</label>
+            </value>
+            <value>
+                <fullName>Human &amp; Community Services</fullName>
+                <default>false</default>
+                <label>Human &amp; Community Services</label>
+            </value>
+            <value>
+                <fullName>International/foreign affairs</fullName>
+                <default>false</default>
+                <label>International/foreign affairs</label>
+            </value>
+            <value>
+                <fullName>Low income housing provider</fullName>
+                <default>false</default>
+                <label>Low income housing provider</label>
+            </value>
+            <value>
+                <fullName>Non-profit improvement</fullName>
+                <default>false</default>
+                <label>Non-profit improvement</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Social services</fullName>
+                <default>false</default>
+                <label>Social services</label>
+            </value>
+            <value>
+                <fullName>Youth development</fullName>
+                <default>false</default>
+                <label>Youth development</label>
             </value>
             <value>
                 <fullName>Arts, Culture, Humanities</fullName>

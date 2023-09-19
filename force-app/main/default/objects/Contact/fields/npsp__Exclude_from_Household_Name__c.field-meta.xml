@@ -7,7 +7,6 @@
     <externalId>false</externalId>
     <inlineHelpText>When selected, NPSP excludes this Contact from the Household Name (set in NPSP Settings | People | Households).</inlineHelpText>
     <label>Exclude from Household Name</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

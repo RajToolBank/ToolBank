@@ -21,7 +21,6 @@
     <relationshipLabel>Contacts (Current Address)</relationshipLabel>
     <relationshipName>Contacts1</relationshipName>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>
 </CustomField>

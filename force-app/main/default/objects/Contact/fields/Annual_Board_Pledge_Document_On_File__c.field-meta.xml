@@ -5,7 +5,6 @@
     <description>Check this box if Board Member has submitted their annual board pledge.</description>
     <externalId>false</externalId>
     <label>Annual Board Pledge Document On File</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

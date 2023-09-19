@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MU7_On_Shelf</fullName>
+    <columns>ASSET.NAME</columns>
+    <columns>ASSET.QUANTITY</columns>
+    <columns>On_Shelf_Quantity_F__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT.NAME</field>
+        <operation>contains</operation>
+        <value>MU7</value>
+    </filters>
+    <filters>
+        <field>ASSET.QUANTITY</field>
+        <operation>greaterThan</operation>
+        <value>0</value>
+    </filters>
+    <label>MU7 - On Shelf</label>
+    <sharedTo>
+        <group>Admins</group>
+        <group>TDS_MU7</group>
+        <group>TDS_New_Orleans_ToolBank</group>
+    </sharedTo>
+</ListView>

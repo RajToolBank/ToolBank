@@ -7,7 +7,6 @@
     <inlineHelpText>The phone number of the company&apos;s Matching Gift administrator.</inlineHelpText>
     <label>Matching Gift Phone</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Phone</type>
 </CustomField>

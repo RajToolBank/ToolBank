@@ -1,0 +1,65 @@
+.cCenterPanel{
+    height: 95px;
+    margin-top:0 !important;
+    min-width: 273px !important;
+}
+.salesforceIdentityLoginBody2 > .cCenterPanel > .siteforceSldsOneColLayout{
+    margin-left: -2%;
+    margin-top: -26%;    
+    width: 237px;
+}
+
+.communityLogo{
+    height: 80% !important;
+    margin-left: 1% !important;
+    width: 100% !important;
+}
+.salesforceIdentityLoginForm2{
+    margin-top: -7% !important;
+    margin-left: 11%;
+}
+.ui-widget{
+    background: white;
+}
+#LoginNew > .cCenterPanel > .siteforceSldsOneColLayout > .contentRegion > div:first-child{
+    width: 133%; 
+}
+.salesforceIdentityCommunityLogo2{
+    height: 63px;
+    margin-left: 9%;
+    width: 224px;
+}
+
+.inputContainer{
+    height: 41px;
+    width: 224px;
+}
+.uiInput{
+    margin-top: -3%;
+    width: 260px;
+}
+.inputIcon{
+        margin-top: -1%;
+}
+.loginButton{
+    height: 30px;
+    margin-bottom: 6px !important;
+    width: 224px !important;
+}
+.bBody{
+    margin-top: -4%;
+}
+.inverseTextColor{
+    color: black !important;
+}
+.uiOutputRichText{
+    display:block;
+}
+.salesforceIdentityForgotPassword2{
+        margin-left: 9%;
+}
+
+.salesforceIdentityForgotPassword2 > div > .inputBox{
+    margin-top: -3px !important;
+}
+:root { --dxp-c-section-columns-max-width: 1170px; }

@@ -7,7 +7,6 @@
     <inlineHelpText>The most recent Close Date of a won Opportunity related to this Account with amount greater than zero.</inlineHelpText>
     <label>Last Gift Date</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Date</type>
 </CustomField>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Disaster_Services</fullName>
-    <active>true</active>
+    <active>false</active>
     <label>Disaster Services</label>
     <picklistValues>
         <picklist>AccountSource</picklist>
@@ -63,10 +63,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Community improvement</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Disaster Relief and Recovery</fullName>
             <default>false</default>
         </values>
@@ -76,10 +72,6 @@
         </values>
         <values>
             <fullName>Environment and Greenspace</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Environmental quality%2Fprotection</fullName>
             <default>false</default>
         </values>
         <values>
@@ -362,27 +354,11 @@
     <picklistValues>
         <picklist>Membership_Status__c</picklist>
         <values>
-            <fullName>Approved</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Denied</fullName>
+            <fullName>Active</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Expired</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Inactive</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Pending Approval</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Rejected</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -412,7 +388,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Disaster Response</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disaster Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Education%2Ftrades training</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Emergency Management</fullName>
             <default>false</default>
         </values>
         <values>
@@ -503,41 +491,32 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Trailer_Size__c</picklist>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>24</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>53</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Type</picklist>
         <values>
-            <fullName>Business</fullName>
+            <fullName>TDS - Site</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Family or Private Foundation</fullName>
+            <fullName>TDS - Trailer</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Foundation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Government Agency</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Individual</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Nonprofit %28Schools%2C religious%2C community%2C associations%2C etc%2E%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ToolBank Affiliate</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Vendor</fullName>
+            <fullName>ToolBank Hub</fullName>
             <default>false</default>
         </values>
     </picklistValues>

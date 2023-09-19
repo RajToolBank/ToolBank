@@ -147,6 +147,45 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Disaster_Name__c</picklist>
+        <values>
+            <fullName>Caldor Fire - Grizzly Flats</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dixie Fire - Plumas County MU11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hurricane Ian</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hurricane Ida</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hurricane Idalia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hurricane Maria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hurricane Michael</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oak Fire - Mariposa County MU5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Order_Paid__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -307,6 +346,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Cancelled_original</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Closed</fullName>
             <default>false</default>
         </values>
@@ -319,15 +362,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Overdue</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Partially Confirmed</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Partially Returned</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Returned</fullName>
             <default>false</default>
         </values>
         <values>

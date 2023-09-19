@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Affiliation_req_Exec_Primary_Con</fullName>
+    <active>true</active>
+    <description>Requires the Primary Affiliation field to be populated before adding the Primary and Exec checkboxes</description>
+    <errorConditionFormula>AND(
+ RecordTypeId = &apos;0124R000001ZC8iQAG&apos;,
+ISBLANK(  npsp__Primary_Affiliation__c ),
+Executive_Contact__c = TRUE
+)</errorConditionFormula>
+    <errorMessage>Primary Affiliation is required to check Executive Contact OR Primary Contact</errorMessage>
+</ValidationRule>

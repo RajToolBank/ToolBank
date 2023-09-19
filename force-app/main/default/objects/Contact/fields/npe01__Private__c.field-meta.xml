@@ -6,7 +6,6 @@
     <description>Excludes this Contact from any Individual Account processing. If you leave the Account field blank, it will remain blank.</description>
     <externalId>false</externalId>
     <label>Private</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

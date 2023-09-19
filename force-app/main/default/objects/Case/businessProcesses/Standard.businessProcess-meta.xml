@@ -7,12 +7,24 @@
         <default>false</default>
     </values>
     <values>
-        <fullName>Escalated</fullName>
+        <fullName>Enhancement</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>More Info Requested</fullName>
         <default>false</default>
     </values>
     <values>
         <fullName>New</fullName>
         <default>true</default>
+    </values>
+    <values>
+        <fullName>Not Possible</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Resolved</fullName>
+        <default>false</default>
     </values>
     <values>
         <fullName>Working</fullName>

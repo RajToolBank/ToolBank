@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sacramento_Global_tool_list</fullName>
+    <columns>ASSET.NAME</columns>
+    <columns>ASSET.PRICE</columns>
+    <columns>PRODUCT2.FAMILY_ENUM</columns>
+    <columns>Sub_Category__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Current_Inventory_F__c</columns>
+    <columns>ASSET.INSTALL_DATE</columns>
+    <columns>PRODUCT2.CUSTOMER_PRODUCT_ID</columns>
+    <columns>Spanish_Name__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT.NAME</field>
+        <operation>equals</operation>
+        <value>TDS Hub-West Territory</value>
+    </filters>
+    <label>Sacramento Global tool list</label>
+    <sharedTo>
+        <group>Admins</group>
+        <group>TDS_Sacramento</group>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Open</fullName>
+    <columns>NAME</columns>
+    <columns>System__c</columns>
+    <columns>Screen_Feature__c</columns>
+    <columns>Priority__c</columns>
+    <columns>Projected_Production_Date__c</columns>
+    <columns>Status__c</columns>
+    <columns>Case__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Estimate__c</columns>
+    <columns>Total_Time__c</columns>
+    <columns>Estimated_Time_to_Complete__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Design,Closed,Closed - Not Possible,Estimate Complete</value>
+    </filters>
+    <label>All Open</label>
+</ListView>

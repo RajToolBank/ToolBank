@@ -7,7 +7,6 @@
     <label>Ext.</label>
     <length>6</length>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Time__c</fullName>
+    <externalId>false</externalId>
+    <label>Total Time</label>
+    <summarizedField>System_Request__c.Total_Time__c</summarizedField>
+    <summaryForeignKey>System_Request__c.Case__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

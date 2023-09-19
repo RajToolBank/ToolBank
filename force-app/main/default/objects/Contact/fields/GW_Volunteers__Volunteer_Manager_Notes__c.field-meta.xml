@@ -6,7 +6,6 @@
     <inlineHelpText>Internal notes about the volunteer from your organizational staff.</inlineHelpText>
     <label>Volunteer Manager Notes</label>
     <length>32000</length>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

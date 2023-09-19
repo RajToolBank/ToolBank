@@ -7,7 +7,6 @@
     <inlineHelpText>The date you last updated the Matching Gift information.</inlineHelpText>
     <label>Matching Gift Info Updated</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Date</type>
 </CustomField>

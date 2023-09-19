@@ -7,7 +7,7 @@
     <summaryFilterItems>
         <field>Transaction__c.RecordTypeId</field>
         <operation>equals</operation>
-        <value>Out</value>
+        <value>Fulfilled</value>
     </summaryFilterItems>
     <summaryForeignKey>Transaction__c.Inventory__c</summaryForeignKey>
     <summaryOperation>sum</summaryOperation>

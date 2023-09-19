@@ -77,11 +77,6 @@
                 <label>Damaged</label>
             </value>
             <value>
-                <fullName>Other</fullName>
-                <default>false</default>
-                <label>Other</label>
-            </value>
-            <value>
                 <fullName>Destroyed</fullName>
                 <default>false</default>
                 <label>Destroyed</label>
@@ -95,6 +90,16 @@
                 <fullName>Decrease</fullName>
                 <default>false</default>
                 <label>Decrease</label>
+            </value>
+            <value>
+                <fullName>Lost - Return</fullName>
+                <default>false</default>
+                <label>Lost - Return</label>
+            </value>
+            <value>
+                <fullName>Lost from Inventory</fullName>
+                <default>false</default>
+                <label>Lost from Inventory</label>
             </value>
             <value>
                 <fullName>Allocated</fullName>
@@ -119,6 +124,12 @@
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>Lost</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Other</label>
             </value>
             <value>
                 <fullName>Purchased</fullName>

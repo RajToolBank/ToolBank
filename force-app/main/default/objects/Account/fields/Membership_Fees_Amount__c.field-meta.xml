@@ -5,8 +5,7 @@
     <label>Membership Fees Amount</label>
     <precision>18</precision>
     <required>false</required>
-    <scale>0</scale>
-    <trackFeedHistory>false</trackFeedHistory>
+    <scale>2</scale>
     <trackHistory>false</trackHistory>
     <type>Currency</type>
 </CustomField>

@@ -7,7 +7,6 @@
     <inlineHelpText>The date of this Contact&apos;s earliest soft credit.</inlineHelpText>
     <label>First Soft Credit Date</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Date</type>
 </CustomField>

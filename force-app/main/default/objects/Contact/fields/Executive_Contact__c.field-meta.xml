@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Is this contact an executive at their organization?</inlineHelpText>
     <label>Executive Contact</label>
-    <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Checkbox</type>
 </CustomField>

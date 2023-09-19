@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ToolBank_Affiliate_Phone__c</fullName>
+    <externalId>false</externalId>
+    <formula>&quot;(&quot; &amp; LEFT(ToolBank_Location__r.Phone, 3) &amp; &quot;) &quot; &amp; LEFT(RIGHT(ToolBank_Location__r.Phone, 7), 3) &amp; &quot;-&quot; &amp; RIGHT(ToolBank_Location__r.Phone, 4)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>ToolBank Affiliate Phone</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

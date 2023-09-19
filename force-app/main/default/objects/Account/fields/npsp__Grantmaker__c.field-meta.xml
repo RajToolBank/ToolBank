@@ -7,7 +7,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Indicates that this organization is a grantmaking organization.</inlineHelpText>
     <label>Grantmaker</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

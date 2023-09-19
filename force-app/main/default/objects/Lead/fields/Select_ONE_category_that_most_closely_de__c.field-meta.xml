@@ -4,7 +4,6 @@
     <externalId>false</externalId>
     <label>Agency Mission</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
@@ -76,15 +75,22 @@
                 <label>Youth and Children</label>
             </value>
             <value>
-                <fullName>Other</fullName>
+                <fullName>Animal Welfare;Arts, Culture, and Humanities;Community Revitalization;Disaster Relief and Recovery;Education;Faith-based;Health;Health;Housing and Homelessness;Human Services;Public, Societal Benefit;Veterans Services;Youth and Children</fullName>
                 <default>false</default>
-                <label>Other</label>
+                <isActive>false</isActive>
+                <label>Animal Welfare;Arts, Culture, and Humanities;Community Revitalization;Disaster Relief and Recovery;Education;Faith-based;Health;Health;Housing and Homelessness;Human Services;Public, Societal Benefit;Veterans Services;Youth and Children</label>
             </value>
             <value>
                 <fullName>Disaster Relief and Recovery&lt;</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>Disaster Relief and Recovery&lt;</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Other</label>
             </value>
         </valueSetDefinition>
     </valueSet>

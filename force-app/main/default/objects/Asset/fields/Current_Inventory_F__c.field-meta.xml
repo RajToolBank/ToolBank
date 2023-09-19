@@ -2,13 +2,13 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Current_Inventory_F__c</fullName>
     <externalId>false</externalId>
-    <formula>Quantity -( Damaged_R__c  +  Maintenance_R__c + Other_R__c +  Rebranding_R__c  )</formula>
+    <formula>Quantity -( Damaged_F__c  +  Maintenance_F__c + Other_R__c +  Rebranding_F__c  )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>This field includes On Shelf and Out but not including Rebranding/Maintenance, Damaged, Other.</inlineHelpText>
     <label>Current Inventory</label>
     <precision>18</precision>
     <required>false</required>
-    <scale>2</scale>
+    <scale>0</scale>
     <trackHistory>false</trackHistory>
     <type>Number</type>
     <unique>false</unique>

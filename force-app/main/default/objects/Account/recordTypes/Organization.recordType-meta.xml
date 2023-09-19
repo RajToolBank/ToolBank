@@ -65,10 +65,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Community improvement</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Disaster Relief and Recovery</fullName>
             <default>false</default>
         </values>
@@ -78,10 +74,6 @@
         </values>
         <values>
             <fullName>Environment and Greenspace</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Environmental quality%2Fprotection</fullName>
             <default>false</default>
         </values>
         <values>
@@ -364,27 +356,11 @@
     <picklistValues>
         <picklist>Membership_Status__c</picklist>
         <values>
-            <fullName>Approved</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Denied</fullName>
+            <fullName>Active</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Expired</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Inactive</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Pending Approval</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Rejected</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -414,7 +390,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Disaster Response</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disaster Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Education%2Ftrades training</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Emergency Management</fullName>
             <default>false</default>
         </values>
         <values>
@@ -501,6 +489,21 @@
         </values>
         <values>
             <fullName>Warm</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Trailer_Size__c</picklist>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>24</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>53</fullName>
             <default>false</default>
         </values>
     </picklistValues>

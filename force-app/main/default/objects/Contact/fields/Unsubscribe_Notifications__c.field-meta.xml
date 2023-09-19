@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
     <label>Turn Off Notifications</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

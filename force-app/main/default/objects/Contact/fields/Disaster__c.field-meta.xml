@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Contact is related to TBUSA Disaster Services</inlineHelpText>
     <label>Disaster?</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

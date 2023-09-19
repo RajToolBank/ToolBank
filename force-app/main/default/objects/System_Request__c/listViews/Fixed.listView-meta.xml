@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fixed</fullName>
+    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+    <columns>NAME</columns>
+    <columns>System__c</columns>
+    <columns>Screen_Feature__c</columns>
+    <columns>Priority__c</columns>
+    <columns>Projected_Production_Date__c</columns>
+    <columns>Status__c</columns>
+    <columns>Case__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Fixed,Deployed</value>
+    </filters>
+    <filters>
+        <field>Deployed_Date__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>Closed,Closed - Not Possible</value>
+    </filters>
+    <label>Fixed</label>
+</ListView>

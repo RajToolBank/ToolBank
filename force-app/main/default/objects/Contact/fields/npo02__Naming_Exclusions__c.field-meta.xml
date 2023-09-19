@@ -7,7 +7,6 @@
     <inlineHelpText>Select to exclude this Contact&apos;s name from various generated Household names.</inlineHelpText>
     <label>Naming Exclusions</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>MultiselectPicklist</type>
     <valueSet>

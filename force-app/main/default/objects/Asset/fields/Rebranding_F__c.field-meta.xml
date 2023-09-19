@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rebranding_F__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Rebranding_Returned_R__c = Rebranding_R__c , Rebranding_R__c, IF(Rebranding_Returned_R__c &lt; Rebranding_R__c, Rebranding_R__c - Rebranding_Returned_R__c,Rebranding_R__c))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>This field denotes the number of tools that are in rebranding condition.</inlineHelpText>
+    <label>Rebranding</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -5,6 +5,5 @@
     <externalId>false</externalId>
     <label>Facebook Image Url</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <type>Url</type>
 </CustomField>

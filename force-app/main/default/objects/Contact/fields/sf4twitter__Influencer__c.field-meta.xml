@@ -6,7 +6,6 @@
     <inlineHelpText>Is this Contact an Influencer (ie Reporter?)</inlineHelpText>
     <label>Influencer</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

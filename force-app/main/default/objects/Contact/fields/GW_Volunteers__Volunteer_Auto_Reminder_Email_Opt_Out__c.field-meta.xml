@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <inlineHelpText>If selected, this Contact will not receive automatic reminder emails about their upcoming Volunteer Shifts.</inlineHelpText>
     <label>Volunteer Auto-Reminder Email Opt Out</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

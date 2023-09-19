@@ -6,7 +6,6 @@
     <inlineHelpText>Notes from the volunteer. If the volunteer included comments in the web signup form, those comments will be appended here.</inlineHelpText>
     <label>Volunteer Notes</label>
     <length>32000</length>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>

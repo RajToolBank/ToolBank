@@ -5,6 +5,5 @@
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Followed</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>
 </CustomField>

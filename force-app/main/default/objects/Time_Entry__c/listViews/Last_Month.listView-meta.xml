@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Last_Month</fullName>
+    <columns>NAME</columns>
+    <columns>Date_Incurred__c</columns>
+    <columns>Duration__c</columns>
+    <columns>Description__c</columns>
+    <columns>System_Request__c</columns>
+    <columns>Case_Type__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Date_Incurred__c</field>
+        <operation>equals</operation>
+        <value>LAST_MONTH</value>
+    </filters>
+    <label>Last Month</label>
+    <sharedTo>
+        <group>Admins</group>
+    </sharedTo>
+</ListView>

@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Is this contact a volunteer?  If so, select the box.</inlineHelpText>
     <label>Volunteer-deprecated</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

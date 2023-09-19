@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Is this contact on payroll at the ToolBank?  Includes FT and PT; dones not include interns or AmeriCorps.</inlineHelpText>
     <label>AFF staff?</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

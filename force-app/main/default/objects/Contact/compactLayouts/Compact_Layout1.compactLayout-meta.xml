@@ -5,6 +5,6 @@
     <fields>Name</fields>
     <fields>Phone</fields>
     <fields>Email</fields>
-    <fields>Primary_Org_Contact__c</fields>
+    <fields>Primary_Contact__c</fields>
     <label>Compact Layout1</label>
 </CompactLayout>

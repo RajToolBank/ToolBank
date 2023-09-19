@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Panama_City_Inventory</fullName>
+    <columns>ASSET.NAME</columns>
+    <columns>PRODUCT2.NAME</columns>
+    <columns>ASSET.QUANTITY</columns>
+    <columns>On_Shelf_Quantity_F__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT.NAME</field>
+        <operation>equals</operation>
+        <value>TDS-Panama City Site</value>
+    </filters>
+    <label>Panama City - Inventory</label>
+    <sharedTo>
+        <group>Admins</group>
+        <group>TDS_except_PR_and_NO</group>
+    </sharedTo>
+</ListView>

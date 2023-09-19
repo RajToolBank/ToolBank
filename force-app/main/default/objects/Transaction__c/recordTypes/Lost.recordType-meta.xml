@@ -6,6 +6,14 @@
     <picklistValues>
         <picklist>Sub_Type__c</picklist>
         <values>
+            <fullName>Lost - Return</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost from Inventory</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>None</fullName>
             <default>true</default>
         </values>

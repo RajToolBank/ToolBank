@@ -7,7 +7,6 @@
     <externalId>false</externalId>
     <inlineHelpText>When selected, NPSP excludes this Contact from the Household Informal Greeting (set in NPSP Settings | People | Households).</inlineHelpText>
     <label>Exclude from Household Informal Greeting</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

@@ -6,7 +6,6 @@
     <inlineHelpText>Select the date that this person joined the board of  directors.</inlineHelpText>
     <label>Join Date</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Date</type>
 </CustomField>

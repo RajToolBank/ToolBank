@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MU8_Punta_Gorda_FL_Lead</fullName>
+    <filterScope>Queue</filterScope>
+    <label>MU8 Queue</label>
+    <queue>MU8_Queue</queue>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

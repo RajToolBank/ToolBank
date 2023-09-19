@@ -5,6 +5,5 @@
     <errorConditionFormula>(ISPICKVAL( Payment_Method__c , &quot;Waiver - External Sponsor&quot;)|| 
 ISPICKVAL(Payment_Method__c , &quot;Waiver - Internal Promotion&quot;)||
 ISPICKVAL(Payment_Method__c , &quot;Waiver - Forgiven&quot;)) &amp;&amp;   ISBLANK( Comment__c )</errorConditionFormula>
-    <errorDisplayField>Comment__c</errorDisplayField>
     <errorMessage>Comments are mandate</errorMessage>
 </ValidationRule>

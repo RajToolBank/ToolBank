@@ -7,7 +7,6 @@
     <inlineHelpText>Membership start date from most recent (by Close Date) won Membership Opportunity (by Record Type) related to this Account.</inlineHelpText>
     <label>Membership Join Date</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Date</type>
 </CustomField>

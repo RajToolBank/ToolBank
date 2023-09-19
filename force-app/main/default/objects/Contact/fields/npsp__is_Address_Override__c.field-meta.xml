@@ -7,7 +7,6 @@
     <externalId>false</externalId>
     <inlineHelpText>When selected, NPSP will not sync this Contact&apos;s address with the Household Default or Seasonal Address. Use this to maintain a separate Mailing Address for this particular Contact.</inlineHelpText>
     <label>Address Override</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

@@ -7,6 +7,5 @@
     <externalId>false</externalId>
     <inlineHelpText>It is  Point of Contact(For Eg - Billing contact, Executive).</inlineHelpText>
     <label>Primary contact</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>
 </CustomField>

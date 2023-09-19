@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>Volunteer Availability</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <type>MultiselectPicklist</type>
     <valueSet>
         <valueSetDefinition>

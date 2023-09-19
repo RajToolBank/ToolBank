@@ -7,7 +7,6 @@
     <externalId>false</externalId>
     <inlineHelpText>When checked, Customizable Rollups will always use &apos;Skew Mode&apos; to rollup Hard Credit and Soft Credits for this record.</inlineHelpText>
     <label>Customizable Rollups: Force Skew Mode</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

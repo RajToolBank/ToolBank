@@ -184,12 +184,17 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <type>Default</type>
+        <comment>Action override updated by Lightning App Builder during activation.</comment>
+        <content>Organization_Record_Page1</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <formFactor>Large</formFactor>
-        <type>Default</type>
+        <content>npe01__accountViewOverride</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
@@ -225,242 +230,21 @@
         <type>Default</type>
     </actionOverrides>
     <compactLayoutAssignment>Org_Compact_Layout</compactLayoutAssignment>
-    <enableFeeds>true</enableFeeds>
+    <enableFeeds>false</enableFeeds>
     <enableHistory>true</enableHistory>
     <externalSharingModel>Private</externalSharingModel>
     <profileSearchLayouts>
         <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
         <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Partner Community User</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Customer Community Login User</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Cloned Customer Community Profile</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>TB CEO</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Minimum Access - Salesforce</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Partner User - Atlanta Profile</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Guest License User</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Chatter Free User</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Identity User</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Marketing User</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>NP User 2015</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Office Manager</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Solution Manager</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Contract Manager</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Agency Member Profile</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Standard User</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Read Only</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>TB Members</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>TB Disaster Service</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>TB Affiliate Volunteer</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>TB National Administrators</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
+        <fields>ACCOUNT.ADDRESS1_STREET</fields>
+        <fields>ACCOUNT.ADDRESS1_CITY</fields>
+        <fields>ACCOUNT.ADDRESS1_ZIP</fields>
+        <fields>ACCOUNT.TYPE</fields>
+        <fields>CORE.USERS.ALIAS</fields>
+        <fields>CORE.USERS.FIRST_NAME</fields>
+        <fields>CORE.USERS.LAST_NAME</fields>
         <profileName>System Administrator</profileName>
     </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>System Admin for Content</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>TB Exec Director Affiliate</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Customer Community User</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Chatter External User</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>Chatter Moderator User</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>ToolBank Community Profile</profileName>
-    </profileSearchLayouts>
-    <profileSearchLayouts>
-        <fields>ACCOUNT.NAME</fields>
-        <fields>ACCOUNT.ADDRESS1_STATE</fields>
-        <fields>ACCOUNT.PHONE1</fields>
-        <fields>ACCOUNT.RECORDTYPE</fields>
-        <fields>PARENT_NAME</fields>
-        <profileName>TB Warehouse Manager</profileName>
-    </profileSearchLayouts>
-    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
     <recordTypeTrackHistory>true</recordTypeTrackHistory>
     <searchLayouts>
         <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
@@ -486,10 +270,12 @@
         <massQuickActions>npsp__New_Affiliation</massQuickActions>
         <massQuickActions>npsp__New_Address</massQuickActions>
         <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>ACCOUNT.ADDRESS1_STATE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ACCOUNT.PHONE1</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>ACCOUNT.RECORDTYPE</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>PARENT_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.ADDRESS1_STREET</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.ADDRESS1_CITY</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.ADDRESS1_ZIP</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ACCOUNT.TYPE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

@@ -10,5 +10,10 @@
     <columns>OPPORTUNITY.CLOSED</columns>
     <columns>CORE.USERS.FULL_NAME</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>npsp__Primary_Contact__c</field>
+        <operation>contains</operation>
+        <value>flory</value>
+    </filters>
     <label>All Donations</label>
 </ListView>

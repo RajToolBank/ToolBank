@@ -6,7 +6,6 @@
     <inlineHelpText>A generic email address for the organization, or a department email that isn&apos;t addressed to a specific Contact</inlineHelpText>
     <label>Generic Org Email</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Email</type>
     <unique>false</unique>

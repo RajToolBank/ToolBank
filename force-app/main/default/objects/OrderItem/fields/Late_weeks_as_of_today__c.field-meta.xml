@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Late_weeks_as_of_today__c</fullName>
+    <externalId>false</externalId>
+    <formula>if(
+        CEILING((  TODAY()   - Schedule_Return_Date__c)/7) &lt;0 &amp;&amp;  ISNULL(Actual_Return_Date__c  ) ,
+         0, 
+          CEILING((  TODAY() - Schedule_Return_Date__c)/7)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Late weeks as of today</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

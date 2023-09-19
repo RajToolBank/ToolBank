@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Is this Contact a current or past member?</inlineHelpText>
     <label>Board Member</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

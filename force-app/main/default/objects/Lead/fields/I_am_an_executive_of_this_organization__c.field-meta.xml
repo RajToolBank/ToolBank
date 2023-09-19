@@ -6,6 +6,5 @@
     <description>Field is checked whenever the executive email is filled - we can just look at that field and know that it&apos;s filled. This checkbox isn&apos;t referenced elsewhere.</description>
     <externalId>false</externalId>
     <label>Executive Contact</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <type>Checkbox</type>
 </CustomField>

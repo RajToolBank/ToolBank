@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Denial_Details_is_required</fullName>
+    <active>false</active>
+    <errorConditionFormula>ISPICKVAL( Reason_for_Denial__c , &quot;Other&quot;) &amp;&amp;  ISBLANK( Denial_Details__c )</errorConditionFormula>
+    <errorMessage>Denial Details are Required</errorMessage>
+</ValidationRule>

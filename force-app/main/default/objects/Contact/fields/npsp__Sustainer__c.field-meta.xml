@@ -7,7 +7,6 @@
     <inlineHelpText>Indicates if this Contact is an active, lapsed, or former recurring donor. The value is based on the Status of the related Recurring Donations.</inlineHelpText>
     <label>Sustainer</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>

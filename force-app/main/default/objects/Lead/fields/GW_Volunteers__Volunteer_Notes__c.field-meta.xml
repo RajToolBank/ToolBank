@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>Volunteer Notes</label>
     <length>32000</length>
-    <trackFeedHistory>false</trackFeedHistory>
     <type>LongTextArea</type>
     <visibleLines>5</visibleLines>
 </CustomField>

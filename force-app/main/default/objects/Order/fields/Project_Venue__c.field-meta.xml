@@ -4,7 +4,6 @@
     <externalId>false</externalId>
     <label>Project Venue</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>MultiselectPicklist</type>
     <valueSet>

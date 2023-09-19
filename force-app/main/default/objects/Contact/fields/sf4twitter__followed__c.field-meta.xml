@@ -6,7 +6,6 @@
     <description>Checked if the user is being followed by any account</description>
     <externalId>false</externalId>
     <label>Followed</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

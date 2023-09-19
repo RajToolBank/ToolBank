@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cannot_update_From_Organizational_Credit</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT (ISPICKVAL(PRIORVALUE(Payment_Method__c),&quot;Organizational Credit&quot;))&amp;&amp; ISPICKVAL(Payment_Method__c,&quot;Organizational Credit&quot;)</errorConditionFormula>
+    <errorMessage>Changing the Payment method to or from &quot;Organizational Credit&quot; must be completed by your System Administrator.  Please enter a case to have this adjusted.</errorMessage>
+</ValidationRule>
