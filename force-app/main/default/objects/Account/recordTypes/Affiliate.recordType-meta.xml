@@ -84,15 +84,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Housing</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Housing and Homelessness</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Human %26 Community Services</fullName>
             <default>false</default>
         </values>
         <values>
@@ -100,27 +92,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>International%2Fforeign affairs</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Low income housing provider</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Non-profit improvement</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Public%2C Societal Benefit</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Social services</fullName>
             <default>false</default>
         </values>
         <values>
@@ -129,10 +101,6 @@
         </values>
         <values>
             <fullName>Youth and Children</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Youth development</fullName>
             <default>false</default>
         </values>
     </picklistValues>

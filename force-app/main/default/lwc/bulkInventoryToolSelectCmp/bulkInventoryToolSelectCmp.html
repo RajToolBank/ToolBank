@@ -1,0 +1,103 @@
+<template>
+        
+    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+        <div class="slds-size_1-of-2">
+          <div >
+            <b style="font-size: 13px;">Non-Selected Tooltypes:</b>&nbsp;&nbsp;
+            <lightning-input style="width: 50%;" placeholder="search using tool name,note or alternate name" data-id="searchTool" type="text" onchange={handleSearch}></lightning-input>                </div>
+        </div>
+        <div class="slds-size_1-of-2">
+          <div >
+            <span>Category:</span>
+            <Span><lightning-combobox 
+                    style="width: 50%;"
+                    data-id="CategoryFilter"
+                    options={categories}
+                    onchange={handleSearch}>
+                </lightning-combobox > 
+            </Span>
+            </div>
+        </div>
+        
+        
+      </div>
+      <br/><br/>
+      <div  style="text-align: right;margin-top: -9%;padding-bottom: 8%;">
+        <lightning-button variant="brand"  type="submit" onclick={onAddselectedTool} label="Next">
+        </lightning-button>&nbsp;&nbsp;
+        <lightning-button variant="destructive"  type="submit" onclick={handleCancel} label="Cancel">
+        </lightning-button>
+    </div>
+
+<div class="demo-only demo-only--sizing  slds-grid slds-wrap slds-scrollable">
+
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable" >
+        <thead>
+            <tr class="slds-line-height_reset"  >
+                <th  scope="col" style="text-align: center;">
+                    <div class="slds-truncate" title="Select">Select</div>
+                </th>
+                
+                <th  scope="col" style="text-align: left;">
+                    <div class="slds-truncate" title="TOOL NAME">Tool Name</div>
+                </th>
+                <th  scope="col" style="text-align: center;">
+                    <div class="slds-truncate" title="Note">Quantity</div>
+                </th>
+                <th  scope="col" style="text-align: center;">
+                    <div class="slds-truncate" title="Note">On Shelf Quantity</div>
+                </th>
+                <th  scope="col" style="text-align: left;">
+                    <div class="slds-truncate" title="Note">Note</div>
+                </th>
+                <th  scope="col" style="text-align: center;">
+                    <div class="slds-truncate" title="Category">Category</div>
+                </th>
+                <th  scope="col" style="text-align: center;">
+                    <div class="slds-truncate" title="Sub-Category">Sub-Category</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <template if:true={toolList} for:each={toolList} for:item="record" for:index="index">
+                <tr class="slds-hint-parent" key={record.Id} data-id="dataid" data-rowid={record.AssetId} data-label="lable" title="title" style="text-align: center;">
+                    <td class="slds-cell-wrap" data-label="Select" scope="row" style="text-align: left;">
+                        <div class="slds-checkbox">
+                            <input type="checkbox" name="options" data-id={record.AssetId} id={record.Id} value={record.AssetId} onchange={selectTool}  />
+                            <label class="slds-checkbox__label" for={record.Id}>
+                              <span class="slds-checkbox_faux"></span>
+                              <span class="slds-form-element__label"></span>
+                            </label>
+                          </div>
+                    </td>
+                    <td class="slds-cell-wrap" data-label="Tool Name" scope="row" style="text-align: left;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" data-name={record.Name} data-prod2id={record.Product2Id} data-onshelf={record.onShelfQty} data-assetid={record.AssetId} title="Tool Name">{record.Name}</div>
+                    </td>
+                    <td class="slds-cell-wrap" data-label="qty" scope="row" style="width: 10%;text-align: center;">
+                        <div class="slds-truncate" title="qty">
+                            <input type="number" data-qtyid={record.AssetId} onchange={handleQuantity} class="slds-input" min="0" value={record.qty}/>
+                        </div>
+                    </td>
+                    <td class="slds-cell-wrap" data-label="qty" scope="row" style="width: 10%;text-align: center;">
+                        <div class="slds-truncate" title="qty">
+                            <input disabled type="number" class="slds-input" min="0" value={record.onShelfQty}/>
+                        </div>
+                    </td>
+                    <td class="slds-cell-wrap" data-label="Note" scope="row" style="text-align: left;">
+                        <div class="slds-truncate" style="white-space: pre-wrap;" title="Note">{record.ToolNote}</div>
+                    </td>
+                    
+                    <td class="slds-cell-wrap" data-label="Category" style="text-align: center;">
+                        <div class="slds-truncate" title="Category">{record.Family}</div>
+                    </td>
+                    <td class="slds-cell-wrap" data-label="Sub-Category" style="text-align: center;">
+                        <div class="slds-truncate" title="Sub-Category">
+                            {record.SubCategory}
+                        </div>
+                    </td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+    </div>
+</template>

@@ -1,0 +1,31 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><br></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Agency:</b> {!Account.Name}<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Membership expires on: </b>{!Account.Membership_End_Date__c}<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>ToolBank Member Agency since:</b>{!Account.Membership_Join_Date__c}<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-size: 12pt;">&nbsp;</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN">Your organization’s membership at the
+{!Account.Parent} ToolBank will expire on {!Account.Membership_End_Date__c}. <o:p></o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal" style=""><span lang="EN" style=""><font face="arial" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-size: 12pt;">Did you know that the&nbsp;</span></font><font face="arial" style=""><span style="font-size: 12pt;">{!Account.Parent}&nbsp;ToolBank has provided your agency </span>{!Account.Yearly_Retail_Amount__c}<span style="font-size: 12pt;">&nbsp;worth of tools in the
+past 12 months? </span></font><font face="arial" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-size: 12pt;">Please renew your membership today to ensure uninterrupted access to the vast
+inventory of the ToolBank, and the technical expertise of our staff.<o:p></o:p></span></font></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><br></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN">Renewing your ToolBank membership is as simple as updating your agency’s contact information.</span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-size: 12pt;">&nbsp;</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-size: 12pt;">Log in to renew your membership online.</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN">If you have any questions about your membership,
+please call the {!Account.Parent} ToolBank at {!Account.Affiliate_Phone__c}</span><span style="font-size: 12pt;">.</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN">We look forward to serving you without
+interruption. See you at the ToolBank!<o:p></o:p></span></p>]]></td>
+</tr>
+</table>

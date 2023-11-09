@@ -11,10 +11,5 @@
     <columns>PRODUCT2.CREATED_DATE</columns>
     <columns>Product_Image__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>PRODUCT2.ACTIVE</field>
-        <operation>equals</operation>
-        <value>1</value>
-    </filters>
     <label>All Tools</label>
 </ListView>

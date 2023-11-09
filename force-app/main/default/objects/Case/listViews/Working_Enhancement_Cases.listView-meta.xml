@@ -13,9 +13,29 @@
     <columns>Estimate_Roll_Up__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>Working_Enhancement__c</field>
+        <field>CASES.STATUS</field>
         <operation>equals</operation>
-        <value>1</value>
+        <value>More Info Requested</value>
+    </filters>
+    <filters>
+        <field>Case_Type__c</field>
+        <operation>equals</operation>
+        <value>Enhancement</value>
+    </filters>
+    <filters>
+        <field>Dev_Service_Requests__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>Test_System_Requests__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Standard</value>
     </filters>
     <label>Working Enhancement Cases</label>
     <sharedTo>

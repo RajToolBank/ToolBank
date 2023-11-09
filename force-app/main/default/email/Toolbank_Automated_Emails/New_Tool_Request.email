@@ -1,0 +1,3 @@
+Tool Name: {!New_Tool_Request__c.Name}
+Submitted by: {!New_Tool_Request__c.CreatedBy}
+Link to request: {!New_Tool_Request__c.Link}

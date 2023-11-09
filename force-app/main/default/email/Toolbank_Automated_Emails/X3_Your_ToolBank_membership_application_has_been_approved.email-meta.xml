@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>External: Share that membership was approved - EC and POC</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Tool_Bank_Original</letterhead>
+    <name>3)  Your ToolBank membership application has been approved</name>
+    <style>freeForm</style>
+    <subject>Your ToolBank membership application has been approved</subject>
+    <textOnly>Agency: {!Lead.Company}
+Organization Executive: {!Lead.Name}
+Approval date: {!Lead.Approval_Date__c}
+
+Congratulations! Your application for membership at the {!Lead.ToolBank_Location__c} ToolBank has been approved. The information below will help you get the most out of your membership. Please share this information with any staff who will be borrowing from the ToolBank.
+
+Here are a few quick tips on how to maximize your ToolBank membership:
+
+Know the Rules: In your application, you agreed to abide by the ToolBank Membership Agreement and Service Policy. We rely on our member agencies to respect the rules of tool lending and to be accountable. Please read both attached documents carefully, and share them with your staff.  Following the rules of tool lending will keep your costs as low as possible.
+
+
+
+Add Users: You may log in to add additional users to your ToolBank account. This feature empowers your staff to borrow ToolBank tools on behalf of your agency with 100% accountability.
+
+Take a Tour: You are invited to tour the {!Lead.ToolBank_Location__c}  ToolBank, meet the staff, and learn how the ToolBank can best serve your agency.  Please call {!Lead.ToolBank_Affiliate_Phone__c} to set up an appointment for a tour today.
+
+
+We look forward to helping your organization achieve its most ambitious goals. See you at the ToolBank!</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

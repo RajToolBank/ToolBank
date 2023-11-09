@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Community/neighborhood cleanup days</fullName>
+        <default>false</default>
+        <label>Community/neighborhood cleanup days</label>
+    </customValue>
+    <customValue>
+        <fullName>Education/trades training</fullName>
+        <default>false</default>
+        <label>Education/trades training</label>
+    </customValue>
+    <customValue>
+        <fullName>Emergency Management</fullName>
+        <default>false</default>
+        <label>Emergency Management</label>
+    </customValue>
+    <customValue>
+        <fullName>Environment conservation</fullName>
+        <default>false</default>
+        <label>Environment conservation</label>
+    </customValue>
+    <customValue>
+        <fullName>Facility maintenance/improvements</fullName>
+        <default>false</default>
+        <label>Facility maintenance/improvements</label>
+    </customValue>
+    <customValue>
+        <fullName>Groundskeeping</fullName>
+        <default>false</default>
+        <label>Groundskeeping</label>
+    </customValue>
+    <customValue>
+        <fullName>Home rebuilding</fullName>
+        <default>false</default>
+        <label>Home rebuilding</label>
+    </customValue>
+    <customValue>
+        <fullName>Home repairs</fullName>
+        <default>false</default>
+        <label>Home repairs</label>
+    </customValue>
+    <customValue>
+        <fullName>Landscaping/beautification/planting</fullName>
+        <default>false</default>
+        <label>Landscaping/beautification/planting</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
+    <customValue>
+        <fullName>Refreshing Veterans Memorial Park</fullName>
+        <default>false</default>
+        <label>Refreshing Veterans Memorial Park</label>
+    </customValue>
+    <customValue>
+        <fullName>Senior assistance/retrofitting</fullName>
+        <default>false</default>
+        <label>Senior assistance/retrofitting</label>
+    </customValue>
+    <customValue>
+        <fullName>Special events/fundrasiers</fullName>
+        <default>false</default>
+        <label>Special events/fundrasiers</label>
+    </customValue>
+    <customValue>
+        <fullName>Disaster Response</fullName>
+        <default>false</default>
+        <label>Disaster Response</label>
+    </customValue>
+    <customValue>
+        <fullName>Disaster Services</fullName>
+        <default>false</default>
+        <label>Disaster Services</label>
+    </customValue>
+    <masterLabel>Project Types</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

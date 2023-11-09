@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Houston ToolBank</fullName>
+        <default>false</default>
+        <label>Houston ToolBank</label>
+    </customValue>
+    <customValue>
+        <fullName>City Center Hub – Pines Presbyterian Church</fullName>
+        <default>false</default>
+        <label>City Center Hub – Pines Presbyterian Church</label>
+    </customValue>
+    <customValue>
+        <fullName>Conroe Hub – TAC Mission Center</fullName>
+        <default>false</default>
+        <label>Conroe Hub – TAC Mission Center</label>
+    </customValue>
+    <customValue>
+        <fullName>Richmond-Rosenberg Hub – Jones Creek Ranch Park</fullName>
+        <default>false</default>
+        <label>Richmond-Rosenberg Hub – Jones Creek Ranch Park</label>
+    </customValue>
+    <customValue>
+        <fullName>Texas City Hub – 4B Disaster Response</fullName>
+        <default>false</default>
+        <label>Texas City Hub – 4B Disaster Response</label>
+    </customValue>
+    <customValue>
+        <fullName>Galveston Delivery – Free on the 2nd and 4th Wednesday</fullName>
+        <default>false</default>
+        <label>Galveston Delivery – Free on the 2nd and 4th Wednesday</label>
+    </customValue>
+    <customValue>
+        <fullName>Direct Delivery ($75)</fullName>
+        <default>false</default>
+        <label>Direct Delivery ($75)</label>
+    </customValue>
+    <masterLabel>Pickup/Delivery</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

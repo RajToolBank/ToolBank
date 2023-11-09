@@ -1,0 +1,6 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<b style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">Agency:</b><font face="arial" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span style="font-size: 12pt;">&nbsp;{!Account.Name}</span></font><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><br></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font face="arial">Your ToolBank account has been flagged - this may be because of outstanding fees, extensively overdue tools, or another reason. Your account has been temporarily suspended pending resolution.</font></div><div style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><font face="arial"><br></font></div><div style=""><font face="arial" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">Please contact your ToolBank by phone as soon as possible at the following number:&nbsp;</font><font face="arial">{!Account.Affiliate_Phone__c}</font><span style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">.</span></div>]]></td>
+</tr>
+</table>

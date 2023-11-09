@@ -136,6 +136,61 @@ public without sharing class CreateTransaction {
         
     }
 
+    @AuraEnabled
+    public static String createBulkTransaction(String toolList, String recordTypeId, String subType, String affiliateId){
+        System.debug('toolList :: '+toolList);
+        List<Object> invItemList = (List<Object>) json.deserializeUntyped(toolList);
+        String recordTypeName = [Select Id, Name, DeveloperName FROM RecordType WHERE Id = :recordTypeId LIMIT 1].DeveloperName;
+        
+        List<String> productIdList = new List<String>();
+        Map<String,Asset> productIdToAssetMap = new Map<String, Asset>();
+        for(Object obj: invItemList){
+            System.debug(obj);
+            Map<String, Object> tool = (Map<String, Object>)obj;
+            productIdList.add((String)tool.get('Product2Id'));
+        }
+        for(Asset asset: [SELECT Id, Product2Id FROM Asset WHERE AccountId =: affiliateId AND product2Id IN: productIdList]){
+            productIdToAssetMap.put(asset.product2Id,asset);
+        }
+
+        list<Transaction__c> transactionToInsert = new List<Transaction__c>();
+        for(Object obj: invItemList){
+            Map<String, Object> tool = (Map<String, Object>)obj;
+            if(recordTypeName == 'Transfer') {
+                
+                Transaction__c trans = new Transaction__c();
+                trans.sub_type__c = 'Decrease';
+                trans.inventory__c = (String)tool.get('InventoryId');
+                trans.recordTypeId = recordTypeId;
+                trans.quantity__c = Decimal.valueOf((String)tool.get('Quantity'));
+                trans.note__c = (String)tool.get('Note');
+                Transaction__c trans2 = new Transaction__c();
+                trans2.sub_type__c = 'Increase';
+                trans2.inventory__c = productIdToAssetMap.get((String)tool.get('Product2Id')).Id;
+                trans2.recordTypeId = recordTypeId;
+                trans2.quantity__c = Decimal.valueOf((String)tool.get('Quantity'));
+                trans2.note__c = (String)tool.get('Note');
+                transactionToInsert.add(trans);
+                transactionToInsert.add(trans2);
+            } else {
+                    Transaction__c trans = new Transaction__c();
+                    trans.sub_type__c = subType;
+                    trans.inventory__c = (String)tool.get('InventoryId');
+                    trans.recordTypeId = recordTypeId;
+                    trans.quantity__c = Decimal.valueOf((String)tool.get('Quantity'));
+                    trans.note__c = (String)tool.get('Note');
+                    trans.donating_company__c = (String)tool.get('DonationCompany');
+                    transactionToInsert.add(trans);
+                }
+        }
+
+        if(transactionToInsert.size() >0){
+            insert transactionToInsert;
+        }
+
+        return 'Success';
+    }
+
     public class PickListOption{
         @AuraEnabled
         public String value;

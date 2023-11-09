@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Atlanta ToolBank</fullName>
+        <default>false</default>
+        <label>Atlanta ToolBank</label>
+    </customValue>
+    <customValue>
+        <fullName>Baltimore ToolBank</fullName>
+        <default>false</default>
+        <label>Baltimore ToolBank</label>
+    </customValue>
+    <customValue>
+        <fullName>Charlotte ToolBank</fullName>
+        <default>false</default>
+        <label>Charlotte ToolBank</label>
+    </customValue>
+    <customValue>
+        <fullName>Cincinnati ToolBank</fullName>
+        <default>false</default>
+        <label>Cincinnati ToolBank</label>
+    </customValue>
+    <customValue>
+        <fullName>Houston ToolBank</fullName>
+        <default>false</default>
+        <label>Houston ToolBank</label>
+    </customValue>
+    <customValue>
+        <fullName>Phoenix ToolBank</fullName>
+        <default>false</default>
+        <label>Phoenix ToolBank</label>
+    </customValue>
+    <customValue>
+        <fullName>Richmond ToolBank</fullName>
+        <default>false</default>
+        <label>Richmond ToolBank</label>
+    </customValue>
+    <customValue>
+        <fullName>ToolBank USA</fullName>
+        <default>false</default>
+        <label>ToolBank USA</label>
+    </customValue>
+    <masterLabel>ToolBank Affiliates</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

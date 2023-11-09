@@ -1,0 +1,11 @@
+Dear {!Case.CreatedBy},
+
+This is to notify you that I have received your case.  Your case will be reviewed according to assessed priority.
+
+Thank you,
+
+
+
+
+
+Do NOT Delete:{!Case.Email_Thread}

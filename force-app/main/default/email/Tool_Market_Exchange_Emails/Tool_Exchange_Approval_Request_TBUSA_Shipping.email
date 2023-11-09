@@ -1,0 +1,7 @@
+Hello {!ApprovalRequest.Process_Approver},
+
+{!Approval_Requesting_User.Name} of {!Tool_Exchange__c.New_ToolBank_Owner__c} wants to take {!Tool_Exchange__c.Quantity_Requested__c} of {!Tool_Market__c.OwnerFullName}'s {!Tool_Exchange__c.Tool_Exchanged__c} and is requesting that ToolBank USA covers shipping.  Click the link below to see details and approve/reject the request.
+
+{!ApprovalRequest.Internal_URL}
+
+Tool Market Exchange

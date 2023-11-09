@@ -34,6 +34,34 @@ public class CreateTransactionTest implements HttpCalloutMock {
         Test.stopTest();
     }
 
+    @isTest
+    static void createBulkTransactionTest(){
+        String recordTypeid2  = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Affiliate').getRecordTypeId();
+        Account affiliate1 = TestDataFactory.createAccount('test1',recordTypeid2);
+        Account affiliate2 = TestDataFactory.createAccount('test2',recordTypeid2);
+        Product2 tool = TestDataFactory.createProduct('Tool');
+        PricebookEntry toolpbe = TestDataFactory.createPricebookEntry(tool.Id);
+        Asset ast = new Asset(Name = 'test', Product2Id = tool.Id, AccountId = affiliate1.Id, Quantity = 10);
+        insert ast;
+
+        Asset ast2 = new Asset(Name = 'test', Product2Id = tool.Id, AccountId = affiliate2.Id, Quantity = 10);
+        insert ast2;
+
+        String recordTypeid3  = Schema.SObjectType.Transaction__c.getRecordTypeInfosByName().get('Transfer').getRecordTypeId();
+        String recordTypeid4  = Schema.SObjectType.Transaction__c.getRecordTypeInfosByName().get('Inventory Audit').getRecordTypeId();
+        String toolList = '[{'
+                            +'"Quantity":"10",'
+                            +'"Note":"test",'
+                            +'"DonationCompany":"test",'
+                            +'"InventoryId":"'+ast.id+'",'
+                            +'"Product2Id":"'+tool.id+'"'
+        +'}]';
+
+        CreateTransaction.createBulkTransaction(toolList, recordTypeid4, 'Increase', affiliate1.Id);
+
+        CreateTransaction.createBulkTransaction(toolList, recordTypeid3, '', affiliate2.Id);
+    }
+
     public HTTPResponse respond(HTTPRequest req) {
         
         HTTPResponse res = new HTTPResponse();

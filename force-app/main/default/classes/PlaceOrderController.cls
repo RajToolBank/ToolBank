@@ -34,6 +34,12 @@ public without Sharing class PlaceOrderController {
         return accId;
     }
 
+    @AuraEnabled(cacheable = true)
+    public static List<Pickup_Delivery_Location__c> getAvailableLocations(String affiliateId){
+
+        return [SELECT Id,Name,Type__c FROM Pickup_Delivery_Location__c WHERE Affiliate__c =:affiliateId AND Active__c=true];
+    }
+
     @AuraEnabled
     public static Account getBusinessHours(String affiliateId){
         try {
@@ -273,6 +279,9 @@ public without Sharing class PlaceOrderController {
             if((String)orderObj.get('numAttend') != null)
                 ord.Number_of_Attendees__c = Decimal.valueOf((String)orderObj.get('numAttend'));
             
+            if((String)orderObj.get('disasterName') != null)
+                ord.Disaster_Name__c = (String)orderObj.get('disasterName');
+            
             ord.EffectiveDate =ord.Desired_Pickup_Date__c;
             
             if((String)orderObj.get('pickTime') != Null){
@@ -304,6 +313,10 @@ public without Sharing class PlaceOrderController {
             String staff= (String)orderObj.get('staff');
             String totalVol= (String)orderObj.get('projectVolunteerHr');
             String peopleimpact= (String)orderObj.get('peopleImImpacted');
+            String orderType= (String)orderObj.get('orderType');
+            String pickupLocation= (String)orderObj.get('pickupLocation');
+            String deliveryLocation= (String)orderObj.get('deliveryLocation');
+            String deliveryAddress= (String)orderObj.get('deliveryAddress');
             ord.Volunteer_Source__c = (String)orderObj.get('volunteersource');
             
             ord.People_Directly_Served__c = String.isBlank(peopleserved)?null: Decimal.valueOf(peopleserved);
@@ -313,6 +326,11 @@ public without Sharing class PlaceOrderController {
             ord.People_Indirectly_Impacted__c = String.isBlank(peopleimpact)?null: Decimal.valueOf(peopleimpact);
             ord.Staff_on_this_Project__c = String.isBlank(staff)?null: Decimal.valueOf(staff);
             ord.Total_Project_Volunteer_Hours__c = String.isBlank(totalVol)?null: Decimal.valueOf(totalVol);
+
+            ord.Type = orderType;
+            ord.Pickup_Delivery_Location__c = String.isNotBlank(pickupLocation)?pickupLocation:deliveryLocation;
+            ord.Delivery_Address__c = deliveryAddress;
+
 
             ByPassValidations.ordStatusValidation = true;
             insert ord;

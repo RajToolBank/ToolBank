@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This template will be used for denied Tool Exchange approval requests.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Denied Tool Exchange Request</name>
+    <style>none</style>
+    <subject>Your Tool Exchange Request was Denied</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

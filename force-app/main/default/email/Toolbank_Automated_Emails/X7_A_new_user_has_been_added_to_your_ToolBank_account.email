@@ -1,0 +1,6 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[Agency:&nbsp;{!Contact.npsp__Primary_Affiliation__c}<div>Contact:&nbsp;{!Contact.FirstName}&nbsp;{!Contact.LastName}</div><div><br></div><div>A new Contact has been added to your ToolBank account.&nbsp; The Contact will be enabled to use TOM for ordering in 1 - 2 days.&nbsp;&nbsp;</div><div><br></div><div>To review a list of your Contacts and TOM users, login at <a href="https://toolbank.my.site.com/agency/s/login">https://toolbank.my.site.com/agency/s/login</a> and click 'View All' in the Contact section of the homepage.&nbsp; Any Contact that has a login name populated will have access to place and review orders.</div><div><br></div><div>If you need any of your Contacts enabled or disabled as users, please contact the&nbsp;{!Contact.Affiliate_Name__c} at&nbsp;{!Contact.Affiliate_Phone__c}</div><div><div><br></div></div>]]></td>
+</tr>
+</table>

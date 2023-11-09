@@ -1,0 +1,33 @@
+<messaging:emailTemplate subject="A new user has been added to your ToolBank account" recipientType="Contact" relatedToType="order">
+ <messaging:htmlEmailBody >
+ <center>
+ <apex:image id="Logo" value="https://toolbankusa--pro--c.documentforce.com/servlet/servlet.ImageServer?id=015K0000002LXgo&oid=00DK000000XGz8s&lastMod=1643746859000" /><br/><br/>
+</center>
+<p>
+<strong>Agency:</strong> {!relatedTo.Account.name}</p>
+<p>A new user has been added to the {!relatedTo.Account.name} Toolbank account.</p>
+<p>Here is a list of all the users active on your account. These users can all place tool orders and make payments on behalf of your organization.</p>
+
+<center>
+<table border = "2" cellspacing = "5" >
+        <tr>
+            <td style="font-weight:bold">User Name</td>
+            <td style="font-weight:bold">User Email</td>                
+        </tr>
+       
+<apex:repeat var="ox" value="{!relatedTo.OrderItems}">
+<tr>
+
+<th style="font-weight:normal">{!ox.pricebookentry.product2.name}</th>
+<th style="font-weight:normal">{!ox.Quantity}</th>
+
+</tr>
+</apex:repeat>      
+    </table>
+    </center>
+
+<p>Log in to your account to add or remove users.</p>
+
+
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

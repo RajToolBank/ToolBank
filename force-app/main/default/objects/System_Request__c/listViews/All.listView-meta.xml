@@ -7,8 +7,10 @@
     <columns>Priority__c</columns>
     <columns>Projected_Production_Date__c</columns>
     <columns>Status__c</columns>
+    <columns>Developer__c</columns>
     <columns>Case__c</columns>
     <columns>CREATED_DATE</columns>
+    <columns>Total_Time__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Affiliates with membership dues - Sent to end-users when membership is 30 days from expiration</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Toolbank_USA_No_Location</letterhead>
+    <name>6a) Membership Expires 30 Days Fee</name>
+    <style>freeForm</style>
+    <subject>Your ToolBank membership expires in 30 days</subject>
+    <textOnly>Agency: {!Account.Name}
+
+Membership expires on: {!Account.Membership_End_Date__c}
+
+ToolBank Member Agency since:{!Account.Membership_Join_Date__c}
+
+Phone: {!Account.Affiliate_Phone__c}
+
+
+Your organization’s membership at the {!Account.ToolBank_Affiliate_Name__c} ToolBank will expire on {!Account.Membership_End_Date__c}.
+
+
+Did you know that the {!Account.ToolBank_Affiliate_Name__c} ToolBank has provided your agency {!Account.Yearly_Retail_Amount__c} worth of tools in the past 12 months? Please renew your membership today to ensure uninterrupted access to the vast inventory of the ToolBank, and the technical expertise of our staff.
+
+
+
+To continue your membership, please call the {!Account.ToolBank_Affiliate_Name__c} ToolBank at {!Account.Affiliate_Phone__c} to pay the annual membership fee.
+
+
+We look forward to serving you without interruption. See you at the ToolBank!</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

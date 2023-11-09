@@ -339,9 +339,9 @@
         <customTabListAdditionalFields>CONTACT.ADDRESS2_STREET</customTabListAdditionalFields>
         <customTabListAdditionalFields>CONTACT.ADDRESS2_CITY</customTabListAdditionalFields>
         <customTabListAdditionalFields>CONTACT.ADDRESS2_STATE</customTabListAdditionalFields>
+        <excludedStandardButtons>OpenListInQuip</excludedStandardButtons>
         <excludedStandardButtons>AddToCampaign</excludedStandardButtons>
         <excludedStandardButtons>MassCreateCallList</excludedStandardButtons>
-        <excludedStandardButtons>OpenListInQuip</excludedStandardButtons>
         <lookupDialogsAdditionalFields>FULL_NAME</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>CONTACT.PHONE4</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>CONTACT.PHONE1</lookupDialogsAdditionalFields>

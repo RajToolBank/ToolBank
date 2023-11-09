@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Internal: Notifies Executive Director and Warehouse Mgr that a new Contact needs to be enabled</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Tool_Bank_Original</letterhead>
+    <name>8)  New contact needs to be enabled</name>
+    <style>freeForm</style>
+    <subject>New contact created - enable contact</subject>
+    <textOnly>Hi,
+
+A new Affiliated Contact has been added to an agency and is waiting for access to the Member website.  Click the link to enable the Contact.
+
+Contact Name: {!Contact.FirstName} {!Contact.LastName}
+Contact: https://toolbank.my.site.com/affiliate/s/detail/{!Contact.Id}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

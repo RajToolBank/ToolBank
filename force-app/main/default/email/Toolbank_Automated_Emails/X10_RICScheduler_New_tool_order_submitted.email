@@ -1,0 +1,27 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; bEditID:r3st1; color:#000000; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal" style=""><span lang="EN" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;">Agency:</b><font face="arial"><span style="font-size: 12pt;">&nbsp;</span></font></span><font face="arial">{!Order.Order_Org_Email__c}</font></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Tool Order: </b>{!Order.Name}</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Order ID:</b> {!Order.OrderNumber}</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b style="font-size: 12pt;">Requested return date:</b><span style="font-size: 12pt;"> {!Order.Schedule_Return_Date__c}</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Contact:</b> {!Order.Agency_Contact_Merge__c}</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN">We have received your tool request! ToolBank
+staff will review your order within two business days, and you will receive a
+confirmation by phone or by email. Your order is not guaranteed until it has
+been confirmed.<a name="_GoBack"></a></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b><br></b></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN">While ToolBank staff reviews your order, please schedule your pickup time by <a href="https://www.richmondtoolbank.org/borrow-tools">visiting our scheduling page</a> and clicking 'Schedule Orders'.&nbsp;</span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN">Thank you so much for choosing the ToolBank to
+empower your project! We look forward to working with you to strengthen and
+celebrate our shared community.</span></p>]]></td>
+</tr>
+</table>

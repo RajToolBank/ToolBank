@@ -71,6 +71,7 @@ public class ConfirmOrderPageControllerTest {
         orderNitemClass orderNitemClass = new orderNitemClass();
         orderNitemClass.order = ord;
         orderNitemClass.orderItems = new list<itemClass>{itemcls};
+        ConfirmOrderPageController.getConflictedItems(ordItem.Id,affiliate.id,tool.id,Date.today().addDays(3),Date.today().addDays(10));
         ConfirmOrderPageController.saveOrder(JSON.serialize(orderNitemClass),JSON.serialize(new List<String>{ordItem.id}));
     }
 

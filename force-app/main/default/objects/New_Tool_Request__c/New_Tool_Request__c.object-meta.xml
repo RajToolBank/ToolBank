@@ -162,8 +162,8 @@
     <pluralLabel>New Tool Requests</pluralLabel>
     <searchLayouts>
         <excludedStandardButtons>OpenListInQuip</excludedStandardButtons>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
         <excludedStandardButtons>NewFromDocument</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

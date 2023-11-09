@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Assembling</fullName>
+        <default>false</default>
+        <label>Assembling</label>
+    </customValue>
+    <customValue>
+        <fullName>Cement</fullName>
+        <default>false</default>
+        <label>Cement</label>
+    </customValue>
+    <customValue>
+        <fullName>Demolition</fullName>
+        <default>false</default>
+        <label>Demolition</label>
+    </customValue>
+    <customValue>
+        <fullName>Ditching/Digging</fullName>
+        <default>false</default>
+        <label>Ditching/Digging</label>
+    </customValue>
+    <customValue>
+        <fullName>Festivals and Races</fullName>
+        <default>false</default>
+        <label>Festivals and Races</label>
+    </customValue>
+    <customValue>
+        <fullName>Framing</fullName>
+        <default>false</default>
+        <label>Framing</label>
+    </customValue>
+    <customValue>
+        <fullName>Gatherings</fullName>
+        <default>false</default>
+        <label>Gatherings</label>
+    </customValue>
+    <customValue>
+        <fullName>Outdoor Cleanup</fullName>
+        <default>false</default>
+        <label>Outdoor Cleanup</label>
+    </customValue>
+    <customValue>
+        <fullName>Painting</fullName>
+        <default>false</default>
+        <label>Painting</label>
+    </customValue>
+    <customValue>
+        <fullName>Planting/Beautification</fullName>
+        <default>false</default>
+        <label>Planting/Beautification</label>
+    </customValue>
+    <customValue>
+        <fullName>Playground build</fullName>
+        <default>false</default>
+        <label>Playground build</label>
+    </customValue>
+    <customValue>
+        <fullName>Sheetrock/Drywall</fullName>
+        <default>false</default>
+        <label>Sheetrock/Drywall</label>
+    </customValue>
+    <masterLabel>Job Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

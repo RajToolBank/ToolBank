@@ -1,0 +1,7 @@
+Hello {!Tool_Market__c.OwnerFirstName},
+
+{!Tool_Exchange__c.CreatedBy} from {!Tool_Exchange__c.New_ToolBank_Owner__c} is requesting approval to take {!Tool_Exchange__c.Quantity_Requested__c} of your {!Tool_Exchange__c.Tool_Exchanged__c}.  Click the link below to see details and approve/reject the exchange.
+
+{!ApprovalRequest.Internal_URL}
+
+Tool Market Exchange

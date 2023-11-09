@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Update_Board_Member_Checkbox</fullName>
+        <description>This will update the &quot;Board Member&quot; checkbox field to TRUE</description>
+        <field>Board_Member__c</field>
+        <literalValue>1</literalValue>
+        <name>Update &quot;Board Member&quot; Checkbox</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+        <targetObject>Contact__c</targetObject>
+    </fieldUpdates>
+    <rules>
+        <fullName>Contact is Board Member</fullName>
+        <actions>
+            <name>Update_Board_Member_Checkbox</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>false</active>
+        <formula>NOT(  ISBLANK(Contact__c)  )</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

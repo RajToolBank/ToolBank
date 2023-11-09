@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>This_Month</fullName>
+    <columns>NAME</columns>
+    <columns>Date_Incurred__c</columns>
+    <columns>Duration__c</columns>
+    <columns>Description__c</columns>
+    <columns>System_Request__c</columns>
+    <columns>Case_Type__c</columns>
+    <columns>Incurred_By__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Date_Incurred__c</field>
+        <operation>equals</operation>
+        <value>THIS_MONTH</value>
+    </filters>
+    <label>This Month</label>
+    <sharedTo>
+        <group>Admins</group>
+    </sharedTo>
+</ListView>

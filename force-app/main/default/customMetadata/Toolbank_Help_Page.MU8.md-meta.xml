@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>MU8</label>
+    <protected>false</protected>
+    <values>
+        <field>Affiliate_Account_Id__c</field>
+        <value xsi:type="xsd:string">0014R00003M9m0lQAB</value>
+    </values>
+    <values>
+        <field>Affiliate_Address__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Affiliate_Email__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Affiliate_Phone_number__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Affiliate_Queue_Id__c</field>
+        <value xsi:type="xsd:string">00G4R000006vMtn</value>
+    </values>
+    <values>
+        <field>Note_to_the_Agency__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Remaining_Address__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Street__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Website__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

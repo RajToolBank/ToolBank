@@ -1,0 +1,16 @@
+<template>
+    
+    <template if:false={showHide}>
+        <c-bulk-inventory-tool-select-cmp onselecttool={onselecttool} selected-tools={tools} record-id={recordId} product-records={productIds} ></c-bulk-inventory-tool-select-cmp>
+    </template>
+    <template if:true={showHide}>
+        <c-bulk-inventory-tool-transaction-cmp 
+        onprevious={transactionPrevious} 
+        record-id={recordId} 
+        tools={tools}
+        selected-record-type={selectedRecordType}
+        sub-type={subType}
+        note={note}
+        donating-company={donatingCompany}></c-bulk-inventory-tool-transaction-cmp>
+    </template>
+</template>

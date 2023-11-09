@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>households__HardDeleted__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>If this box is checked, users will be unable to undelete the record from the recyling bin.  It is checked during account merges.</description>
+    <externalId>false</externalId>
+    <label>Hard Deleted</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

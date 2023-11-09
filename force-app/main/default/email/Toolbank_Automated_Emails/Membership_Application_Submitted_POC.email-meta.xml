@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>External: Confirms membership application to POC</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Tool_Bank_Original</letterhead>
+    <name>1)  ToolBank membership application submitted</name>
+    <style>freeForm</style>
+    <subject>ToolBank Membership application submitted</subject>
+    <textOnly>AGENCY: {!Lead.Company}
+
+EXECUTIVE CONTACT: {!Lead.First_Name__c} {!Lead.Last_Name__c}
+
+Thank you for applying for ToolBank membership! A staff member at the {!Lead.ToolBank_Location__c} ToolBank will contact you within two business days to follow up on your application.
+
+IMPORTANT: Please email your supporting documents to {!Lead.ToolBank_Affiliate_Email__c} at your earliest convenience. Providing your supporting documents will expedite your application. Applications will not be approved unless and until the appropriate supporting documents are provided.
+
+If your application is approved, you will receive a second email with next steps on how to make the most of your ToolBank membership. You will not be able to login to your account or place tool orders until your application is approved by the staff of the {!Lead.ToolBank_Location__c} ToolBank.
+
+Questions or concerns?  Please call {!Lead.ToolBank_Affiliate_Phone__c}.
+
+
+
+Thanks again - we look forward to serving you!</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

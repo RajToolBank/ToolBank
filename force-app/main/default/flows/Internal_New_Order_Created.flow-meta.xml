@@ -76,11 +76,11 @@
         </inputParameters>
     </actionCalls>
     <actionCalls>
-        <name>MU7_New_Order</name>
-        <label>MU7 New Order</label>
-        <locationX>3482</locationX>
+        <name>HSC_HRM</name>
+        <label>HSC-HRM</label>
+        <locationX>3218</locationX>
         <locationY>431</locationY>
-        <actionName>Order.MU7_INT_Order_Submit</actionName>
+        <actionName>Order.HSC_HRM_INT_Order_Submit</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -93,7 +93,7 @@
     <actionCalls>
         <name>NO_New_Order</name>
         <label>NO New Order</label>
-        <locationX>1370</locationX>
+        <locationX>2162</locationX>
         <locationY>431</locationY>
         <actionName>Order.NO_INT_Order_Submit</actionName>
         <actionType>emailAlert</actionType>
@@ -108,7 +108,7 @@
     <actionCalls>
         <name>PHX_New_Order</name>
         <label>PHX New Order</label>
-        <locationX>1634</locationX>
+        <locationX>1370</locationX>
         <locationY>431</locationY>
         <actionName>Order.PHX_INT_Order_Submit</actionName>
         <actionType>emailAlert</actionType>
@@ -123,7 +123,7 @@
     <actionCalls>
         <name>PR_New_Order</name>
         <label>PR New Order</label>
-        <locationX>1898</locationX>
+        <locationX>2426</locationX>
         <locationY>431</locationY>
         <actionName>Order.PR_INT_Order_Submit</actionName>
         <actionType>emailAlert</actionType>
@@ -138,7 +138,7 @@
     <actionCalls>
         <name>RIC_New_Order</name>
         <label>RIC New Order</label>
-        <locationX>2162</locationX>
+        <locationX>1634</locationX>
         <locationY>431</locationY>
         <actionName>Order.RIC_INT_Order_Submit</actionName>
         <actionType>emailAlert</actionType>
@@ -151,9 +151,24 @@
         </inputParameters>
     </actionCalls>
     <actionCalls>
+        <name>SITE_ATL_HMW_New_Order</name>
+        <label>SITE_ATL_HMW_New_Order</label>
+        <locationX>2690</locationX>
+        <locationY>431</locationY>
+        <actionName>Order.SITE_ATL_INT_Order_Submit</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
         <name>SMF_New_Order</name>
         <label>SMF New Order</label>
-        <locationX>2426</locationX>
+        <locationX>3482</locationX>
         <locationY>431</locationY>
         <actionName>Order.SMF_INT_Order_Submit</actionName>
         <actionType>emailAlert</actionType>
@@ -168,7 +183,7 @@
     <actionCalls>
         <name>TDS_New_Order</name>
         <label>TDS New Order</label>
-        <locationX>2690</locationX>
+        <locationX>2954</locationX>
         <locationY>431</locationY>
         <actionName>Order.TDS_except_NO_and_PR_INT_Order_Submit</actionName>
         <actionType>emailAlert</actionType>
@@ -183,7 +198,7 @@
     <actionCalls>
         <name>Training_New_Order</name>
         <label>Training New Order</label>
-        <locationX>2954</locationX>
+        <locationX>3746</locationX>
         <locationY>431</locationY>
         <actionName>Order.Training_INT_Order_Submit</actionName>
         <actionType>emailAlert</actionType>
@@ -198,7 +213,7 @@
     <actionCalls>
         <name>Windy_City_New_Order</name>
         <label>Windy City New Order</label>
-        <locationX>3218</locationX>
+        <locationX>1898</locationX>
         <locationY>431</locationY>
         <actionName>Order.WCity_INT_Order_Submit</actionName>
         <actionType>emailAlert</actionType>
@@ -214,7 +229,7 @@
     <decisions>
         <name>Check_ToolBank_Location</name>
         <label>Check ToolBank Location</label>
-        <locationX>1898</locationX>
+        <locationX>2030</locationX>
         <locationY>323</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -328,28 +343,6 @@
             <label>Houston</label>
         </rules>
         <rules>
-            <name>New_Orleans</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>0014R00003M9m0oQAB</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>TB Members Plus</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>NO_New_Order</targetReference>
-            </connector>
-            <label>New Orleans</label>
-        </rules>
-        <rules>
             <name>Phoenix</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
@@ -370,6 +363,72 @@
                 <targetReference>PHX_New_Order</targetReference>
             </connector>
             <label>Phoenix</label>
+        </rules>
+        <rules>
+            <name>Richmond</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>TB Members Plus</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>001G000000iGfsAIAS</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>RIC_New_Order</targetReference>
+            </connector>
+            <label>Richmond</label>
+        </rules>
+        <rules>
+            <name>Windy_City</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>TB Members Plus</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0014R00003Mvkm7QAB</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Windy_City_New_Order</targetReference>
+            </connector>
+            <label>Windy City</label>
+        </rules>
+        <rules>
+            <name>New_Orleans</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0014R00003M9m0oQAB</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>TB Members Plus</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>NO_New_Order</targetReference>
+            </connector>
+            <label>New Orleans</label>
         </rules>
         <rules>
             <name>Puerto_Rico</name>
@@ -401,8 +460,8 @@
             <label>Puerto Rico</label>
         </rules>
         <rules>
-            <name>Richmond</name>
-            <conditionLogic>and</conditionLogic>
+            <name>Site_ATL_HMW</name>
+            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
                 <operator>EqualTo</operator>
@@ -414,13 +473,92 @@
                 <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>001G000000iGfsAIAS</stringValue>
+                    <stringValue>0014R00003OCG0UQAX</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Parent.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0014R00003UeXMVQA3</stringValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>RIC_New_Order</targetReference>
+                <targetReference>SITE_ATL_HMW_New_Order</targetReference>
             </connector>
-            <label>Richmond</label>
+            <label>Site ATL-HMW</label>
+        </rules>
+        <rules>
+            <name>TDS_PC_HSE_HNE_MU1</name>
+            <conditionLogic>(1 OR 2 OR 3 OR 4) AND 5</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0014R00003M9m0gQAB</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0014R00003MvknGQAR</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0014R00003UeXHqQAN</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0014R00003UeXMgQAN</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>TB Members Plus</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>TDS_New_Order</targetReference>
+            </connector>
+            <label>TDS PC-HSE-HNE-MU1</label>
+        </rules>
+        <rules>
+            <name>HRM_HSC</name>
+            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>TB Member Plus</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Parent.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0014R00003UeXFyQAN</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Parent.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0014R00003OCG26QAH</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>HSC_HRM</targetReference>
+            </connector>
+            <label>HRM-HSC</label>
         </rules>
         <rules>
             <name>Sacramento</name>
@@ -439,28 +577,6 @@
                     <stringValue>0014R00003OCG1EQAX</stringValue>
                 </rightValue>
             </conditions>
-            <connector>
-                <targetReference>SMF_New_Order</targetReference>
-            </connector>
-            <label>Sacramento</label>
-        </rules>
-        <rules>
-            <name>TDS_Not_PR_or_NO</name>
-            <conditionLogic>(1 OR 2 OR 3) AND 4</conditionLogic>
-            <conditions>
-                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>0014R00003M9m0gQAB</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>0014R00003M9m0kQAB</stringValue>
-                </rightValue>
-            </conditions>
             <conditions>
                 <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
                 <operator>EqualTo</operator>
@@ -468,17 +584,10 @@
                     <stringValue>0014R00003M9m0lQAB</stringValue>
                 </rightValue>
             </conditions>
-            <conditions>
-                <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>TB Members Plus</stringValue>
-                </rightValue>
-            </conditions>
             <connector>
-                <targetReference>TDS_New_Order</targetReference>
+                <targetReference>SMF_New_Order</targetReference>
             </connector>
-            <label>TDS Not PR or NO</label>
+            <label>HW-MU8</label>
         </rules>
         <rules>
             <name>ToolBank_Training</name>
@@ -502,52 +611,8 @@
             </connector>
             <label>ToolBank Training</label>
         </rules>
-        <rules>
-            <name>Windy_City</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>TB Members Plus</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>0014R00003Mvkm7QAB</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Windy_City_New_Order</targetReference>
-            </connector>
-            <label>Windy City</label>
-        </rules>
-        <rules>
-            <name>MU7</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>TB Members Plus</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>0014R00003M9m0kQAB</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>MU7_New_Order</targetReference>
-            </connector>
-            <label>MU7</label>
-        </rules>
     </decisions>
-    <description>Added MU7</description>
+    <description>Reorganized for communications updates.</description>
     <environments>Default</environments>
     <interviewLabel>Internal New Order Created {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Internal New Order Created</label>
@@ -571,7 +636,7 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>1772</locationX>
+        <locationX>1904</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Check_ToolBank_Location</targetReference>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>External: Confirm new tool order with end user w/ scheduler link</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Tool_Bank_Original</letterhead>
+    <name>10)  RICScheduler New tool order submitted</name>
+    <style>freeForm</style>
+    <subject>New tool order submitted</subject>
+    <textOnly>Agency: {!Order.Order_Org_Email__c}
+
+Tool Order: {!Order.Name}
+
+Order ID: {!Order.OrderNumber}
+
+Requested return date: {!Order.Schedule_Return_Date__c}
+
+Contact: {!Order.Agency_Contact_Merge__c}
+
+
+We have received your tool request! ToolBank staff will review your order within two business days, and you will receive a confirmation by phone or by email. Your order is not guaranteed until it has been confirmed.
+
+
+
+While ToolBank staff reviews your order, please schedule your pickup time by visiting our scheduling page and clicking &apos;Schedule Orders&apos;:
+
+
+Thank you so much for choosing the ToolBank to empower your project! We look forward to working with you to strengthen and celebrate our shared community.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

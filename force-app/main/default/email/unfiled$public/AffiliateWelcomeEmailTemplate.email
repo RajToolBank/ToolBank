@@ -1,0 +1,9 @@
+Hi, ToolBanker!
+
+Welcome to the ToolBank Tool Order Manager (TOM). Here is your username:  {!Receiving_User.Username} Click on the link below to create password:
+
+{!Community_Url}
+
+Once you have created a password and logged in for the first time, you will be able to access your staff account at this URL:
+
+https://toolbank.my.site.com/affiliate/s/

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Time Slot</fullName>
+        <default>false</default>
+        <label>Time Slot</label>
+    </customValue>
+    <customValue>
+        <fullName>1:00 PM - 1:30 PM</fullName>
+        <default>false</default>
+        <label>1:00 PM - 1:30 PM</label>
+    </customValue>
+    <customValue>
+        <fullName>1:30 PM - 2:00 PM</fullName>
+        <default>false</default>
+        <label>1:30 PM - 2:00 PM</label>
+    </customValue>
+    <customValue>
+        <fullName>10:00 AM - 10:30 AM</fullName>
+        <default>false</default>
+        <label>10:00 AM - 10:30 AM</label>
+    </customValue>
+    <customValue>
+        <fullName>10:30 AM - 11:00 AM</fullName>
+        <default>false</default>
+        <label>10:30 AM - 11:00 AM</label>
+    </customValue>
+    <customValue>
+        <fullName>11:00 AM - 11:30 AM</fullName>
+        <default>false</default>
+        <label>11:00 AM - 11:30 AM</label>
+    </customValue>
+    <customValue>
+        <fullName>11:30 AM - 12:00 PM</fullName>
+        <default>false</default>
+        <label>11:30 AM - 12:00 PM</label>
+    </customValue>
+    <customValue>
+        <fullName>12:00 PM - 12:30 PM</fullName>
+        <default>false</default>
+        <label>12:00 PM - 12:30 PM</label>
+    </customValue>
+    <customValue>
+        <fullName>12:30 PM - 1:00 PM</fullName>
+        <default>false</default>
+        <label>12:30 PM - 1:00 PM</label>
+    </customValue>
+    <customValue>
+        <fullName>2:00</fullName>
+        <default>false</default>
+        <label>2:00</label>
+    </customValue>
+    <customValue>
+        <fullName>2:00 PM - 2:30 PM</fullName>
+        <default>false</default>
+        <label>2:00 PM - 2:30 PM</label>
+    </customValue>
+    <customValue>
+        <fullName>2:30 PM - 3:00 PM</fullName>
+        <default>false</default>
+        <label>2:30 PM - 3:00 PM</label>
+    </customValue>
+    <customValue>
+        <fullName>3:00 PM - 3:30 PM</fullName>
+        <default>false</default>
+        <label>3:00 PM - 3:30 PM</label>
+    </customValue>
+    <customValue>
+        <fullName>3:30 PM - 4:00 PM</fullName>
+        <default>false</default>
+        <label>3:30 PM - 4:00 PM</label>
+    </customValue>
+    <customValue>
+        <fullName>4:00 PM - 4:30 PM</fullName>
+        <default>false</default>
+        <label>4:00 PM - 4:30 PM</label>
+    </customValue>
+    <customValue>
+        <fullName>4:30 PM - 5:00 PM</fullName>
+        <default>false</default>
+        <label>4:30 PM - 5:00 PM</label>
+    </customValue>
+    <customValue>
+        <fullName>5:00 PM - 5:30 PM</fullName>
+        <default>false</default>
+        <label>5:00 PM - 5:30 PM</label>
+    </customValue>
+    <customValue>
+        <fullName>5:30 PM - 6:00 PM</fullName>
+        <default>false</default>
+        <label>5:30 PM - 6:00 PM</label>
+    </customValue>
+    <customValue>
+        <fullName>6:00 PM - 6:30 PM</fullName>
+        <default>false</default>
+        <label>6:00 PM - 6:30 PM</label>
+    </customValue>
+    <customValue>
+        <fullName>6:30 PM - 7:00 PM</fullName>
+        <default>false</default>
+        <label>6:30 PM - 7:00 PM</label>
+    </customValue>
+    <customValue>
+        <fullName>7:00 AM - 7:30 AM</fullName>
+        <default>false</default>
+        <label>7:00 AM - 7:30 AM</label>
+    </customValue>
+    <customValue>
+        <fullName>7:30 AM - 8:00 AM</fullName>
+        <default>false</default>
+        <label>7:30 AM - 8:00 AM</label>
+    </customValue>
+    <customValue>
+        <fullName>8:00 AM - 8:30 AM</fullName>
+        <default>false</default>
+        <label>8:00 AM - 8:30 AM</label>
+    </customValue>
+    <customValue>
+        <fullName>8:30 AM - 9:00 AM</fullName>
+        <default>false</default>
+        <label>8:30 AM - 9:00 AM</label>
+    </customValue>
+    <customValue>
+        <fullName>8:45 AM - 9:00 AM</fullName>
+        <default>false</default>
+        <label>8:45 AM - 9:00 AM</label>
+    </customValue>
+    <customValue>
+        <fullName>9:00 AM - 9:30 AM</fullName>
+        <default>false</default>
+        <label>9:00 AM - 9:30 AM</label>
+    </customValue>
+    <customValue>
+        <fullName>9:15 AM - 9:30 AM</fullName>
+        <default>false</default>
+        <label>9:15 AM - 9:30 AM</label>
+    </customValue>
+    <customValue>
+        <fullName>9:30 AM - 10:00 AM</fullName>
+        <default>false</default>
+        <label>9:30 AM - 10:00 AM</label>
+    </customValue>
+    <masterLabel>Time Slot</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

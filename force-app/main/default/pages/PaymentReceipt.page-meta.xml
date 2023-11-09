@@ -4,4 +4,9 @@
     <availableInTouch>false</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
     <label>PaymentReceipt</label>
+    <packageVersions>
+        <majorNumber>4</majorNumber>
+        <minorNumber>16</minorNumber>
+        <namespace>signature</namespace>
+    </packageVersions>
 </ApexPage>

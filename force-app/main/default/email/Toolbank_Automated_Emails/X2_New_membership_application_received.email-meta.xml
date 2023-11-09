@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Internal: Notifies TB staff that a new membership has been submitted</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Tool_Bank_Original</letterhead>
+    <name>2)  New membership application received</name>
+    <style>freeForm</style>
+    <subject>New membership application received</subject>
+    <textOnly>Agency: {!Lead.Company}
+
+Executive Contact: {!Lead.FirstName} {!Lead.LastName}
+
+Phone: {!Lead.Phone}
+
+Email: {!Lead.Email}
+
+
+
+Go to Application  {!Lead.Link}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

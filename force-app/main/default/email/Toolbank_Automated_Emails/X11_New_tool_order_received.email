@@ -1,0 +1,16 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400" >
+<tr valign="top" height="400" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Agency:</b> {!Order.Agency_Name_Merge__c} <o:p></o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Project: </b>{!Order.Name}<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Desired Pickup:</b> {!Order.Desired_Pickup_Date__c} at&nbsp;{!Order.Desired_Pickup_Time__c}<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Contact:</b> {!Order.Agency_Contact_Merge__c}<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Phone:</b> {!Order.Contact_Phone__c}<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><b>Email:</b> {!Order.Contact_Email__c}<o:p></o:p></span></p><p class="MsoNormal" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><span lang="EN"><br></span></p><p class="MsoNormal" style=""><span lang="EN" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><b>Go to Tool Order:</b>&nbsp;</span><u style="font-size: 12pt; color: rgb(1, 91, 167); font-family: Arial, Helvetica, sans-serif;">https://toolbank.my.site.com/affiliate/s/detail/{!Order.Id}</u></p><p class="MsoNormal" style=""><span lang="EN" style="color: rgb(0, 0, 0); font-family: arial; font-size: 12pt;"><br></span></p>]]></td>
+</tr>
+</table>

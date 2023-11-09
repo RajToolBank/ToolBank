@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Tool_Bank_Original</letterhead>
+    <name>7)  A new user has been added to your ToolBank account</name>
+    <style>freeForm</style>
+    <subject>A new contact has been added to your ToolBank account</subject>
+    <textOnly>Agency: {!Contact.npsp__Primary_Affiliation__c}
+Contact: {!Contact.FirstName} {!Contact.LastName}
+
+A new Contact has been added to your ToolBank account.  The Contact will be enabled to use TOM for ordering in 1 - 2 days.
+
+To review a list of your Contacts and TOM users, login at https://toolbank.my.site.com/agency/s/login and click &apos;View All&apos; in the Contact section of the homepage.  Any Contact that has a login name populated will have access to place and review orders.
+
+If you need any of your Contacts enabled or disabled as users, please contact the {!Contact.Affiliate_Name__c} at {!Contact.Affiliate_Phone__c}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

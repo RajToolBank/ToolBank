@@ -2,7 +2,7 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MU1_Queue_Task</fullName>
     <filterScope>Queue</filterScope>
-    <label>MU1 Queue</label>
+    <label>Hub Southeast and MU1 Queue</label>
     <queue>MU1_Queue</queue>
     <sharedTo>
         <allInternalUsers></allInternalUsers>

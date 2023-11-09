@@ -37,7 +37,7 @@ public class ReturnOrderController {
                     FROM OrderItems 
                     WHERE Product2.Type__c ='Tool'
                     AND Status__c != 'Unavailable'
-                    ORDER BY Product2.Name ) 
+                    ORDER BY Product2.Name ASC) 
                     FROM ORDER WHERE Id =: orderId]){
                 orderDetail.order = ord;
                 if( !'Fulfilled'.equalsIgnoreCase(ord.status) && !'Partially Returned'.equalsIgnoreCase(ord.status) && !'Overdue'.equalsIgnoreCase(ord.status)){

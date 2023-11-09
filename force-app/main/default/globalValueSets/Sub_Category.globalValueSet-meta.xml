@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>A-frame</fullName>
+        <default>false</default>
+        <label>A-frame</label>
+    </customValue>
+    <customValue>
+        <fullName>Agriculture</fullName>
+        <default>false</default>
+        <label>Agriculture</label>
+    </customValue>
+    <customValue>
+        <fullName>Augers</fullName>
+        <default>false</default>
+        <label>Augers</label>
+    </customValue>
+    <customValue>
+        <fullName>Batteries</fullName>
+        <default>false</default>
+        <label>Batteries</label>
+    </customValue>
+    <customValue>
+        <fullName>Blowers</fullName>
+        <default>false</default>
+        <label>Blowers</label>
+    </customValue>
+    <customValue>
+        <fullName>Brush clearing/chainsaws</fullName>
+        <default>false</default>
+        <label>Brush clearing/chainsaws</label>
+    </customValue>
+    <customValue>
+        <fullName>Buckets</fullName>
+        <default>false</default>
+        <label>Buckets</label>
+    </customValue>
+    <customValue>
+        <fullName>Carts</fullName>
+        <default>false</default>
+        <label>Carts</label>
+    </customValue>
+    <customValue>
+        <fullName>Cleaning</fullName>
+        <default>false</default>
+        <label>Cleaning</label>
+    </customValue>
+    <customValue>
+        <fullName>Construction</fullName>
+        <default>false</default>
+        <label>Construction</label>
+    </customValue>
+    <customValue>
+        <fullName>Cutting</fullName>
+        <default>false</default>
+        <label>Cutting</label>
+    </customValue>
+    <customValue>
+        <fullName>Decorations &amp; Lighting</fullName>
+        <default>false</default>
+        <label>Decorations &amp; Lighting</label>
+    </customValue>
+    <customValue>
+        <fullName>Demolition</fullName>
+        <default>false</default>
+        <label>Demolition</label>
+    </customValue>
+    <customValue>
+        <fullName>Dental</fullName>
+        <default>false</default>
+        <label>Dental</label>
+    </customValue>
+    <customValue>
+        <fullName>Digging</fullName>
+        <default>false</default>
+        <label>Digging</label>
+    </customValue>
+    <customValue>
+        <fullName>Dolly/Hand Trucks</fullName>
+        <default>false</default>
+        <label>Dolly/Hand Trucks</label>
+    </customValue>
+    <customValue>
+        <fullName>Drills</fullName>
+        <default>false</default>
+        <label>Drills</label>
+    </customValue>
+    <customValue>
+        <fullName>Drywall &amp; Masonry</fullName>
+        <default>false</default>
+        <label>Drywall &amp; Masonry</label>
+    </customValue>
+    <customValue>
+        <fullName>Electronics</fullName>
+        <default>false</default>
+        <label>Electronics</label>
+    </customValue>
+    <customValue>
+        <fullName>Extension</fullName>
+        <default>false</default>
+        <label>Extension</label>
+    </customValue>
+    <customValue>
+        <fullName>Fans &amp; Heaters</fullName>
+        <default>false</default>
+        <label>Fans &amp; Heaters</label>
+    </customValue>
+    <customValue>
+        <fullName>Food &amp; Beverage</fullName>
+        <default>false</default>
+        <label>Food &amp; Beverage</label>
+    </customValue>
+    <customValue>
+        <fullName>Forks</fullName>
+        <default>false</default>
+        <label>Forks</label>
+    </customValue>
+    <customValue>
+        <fullName>Games &amp; Recreation</fullName>
+        <default>false</default>
+        <label>Games &amp; Recreation</label>
+    </customValue>
+    <customValue>
+        <fullName>Generators</fullName>
+        <default>false</default>
+        <label>Generators</label>
+    </customValue>
+    <customValue>
+        <fullName>Gloves</fullName>
+        <default>false</default>
+        <label>Gloves</label>
+    </customValue>
+    <customValue>
+        <fullName>Hammers &amp; Chisels</fullName>
+        <default>false</default>
+        <label>Hammers &amp; Chisels</label>
+    </customValue>
+    <customValue>
+        <fullName>Hoses</fullName>
+        <default>false</default>
+        <label>Hoses</label>
+    </customValue>
+    <customValue>
+        <fullName>Invasive removal</fullName>
+        <default>false</default>
+        <label>Invasive removal</label>
+    </customValue>
+    <customValue>
+        <fullName>Jacks</fullName>
+        <default>false</default>
+        <label>Jacks</label>
+    </customValue>
+    <customValue>
+        <fullName>Lawn mowers</fullName>
+        <default>false</default>
+        <label>Lawn mowers</label>
+    </customValue>
+    <customValue>
+        <fullName>Lighting</fullName>
+        <default>false</default>
+        <label>Lighting</label>
+    </customValue>
+    <customValue>
+        <fullName>Measuring/Marking</fullName>
+        <default>false</default>
+        <label>Measuring/Marking</label>
+    </customValue>
+    <customValue>
+        <fullName>Misc</fullName>
+        <default>false</default>
+        <label>Misc</label>
+    </customValue>
+    <customValue>
+        <fullName>Multipurpose</fullName>
+        <default>false</default>
+        <label>Multipurpose</label>
+    </customValue>
+    <customValue>
+        <fullName>Nailers</fullName>
+        <default>false</default>
+        <label>Nailers</label>
+    </customValue>
+    <customValue>
+        <fullName>Office</fullName>
+        <default>false</default>
+        <label>Office</label>
+    </customValue>
+    <customValue>
+        <fullName>Orchard</fullName>
+        <default>false</default>
+        <label>Orchard</label>
+    </customValue>
+    <customValue>
+        <fullName>Painting</fullName>
+        <default>false</default>
+        <label>Painting</label>
+    </customValue>
+    <customValue>
+        <fullName>Pallets</fullName>
+        <default>false</default>
+        <label>Pallets</label>
+    </customValue>
+    <customValue>
+        <fullName>Personal Protective Equipment</fullName>
+        <default>false</default>
+        <label>Personal Protective Equipment</label>
+    </customValue>
+    <customValue>
+        <fullName>Platform</fullName>
+        <default>false</default>
+        <label>Platform</label>
+    </customValue>
+    <customValue>
+        <fullName>Pliers</fullName>
+        <default>false</default>
+        <label>Pliers</label>
+    </customValue>
+    <customValue>
+        <fullName>Power Cords</fullName>
+        <default>false</default>
+        <label>Power Cords</label>
+    </customValue>
+    <customValue>
+        <fullName>Presentations &amp; Ceremonies</fullName>
+        <default>false</default>
+        <label>Presentations &amp; Ceremonies</label>
+    </customValue>
+    <customValue>
+        <fullName>Pressure Washers</fullName>
+        <default>false</default>
+        <label>Pressure Washers</label>
+    </customValue>
+    <customValue>
+        <fullName>Public Health (Covid)</fullName>
+        <default>false</default>
+        <label>Public Health (Covid)</label>
+    </customValue>
+    <customValue>
+        <fullName>Rakes</fullName>
+        <default>false</default>
+        <label>Rakes</label>
+    </customValue>
+    <customValue>
+        <fullName>Sanders</fullName>
+        <default>false</default>
+        <label>Sanders</label>
+    </customValue>
+    <customValue>
+        <fullName>Saws &amp; Cutting</fullName>
+        <default>false</default>
+        <label>Saws &amp; Cutting</label>
+    </customValue>
+    <customValue>
+        <fullName>Scissor Lift</fullName>
+        <default>false</default>
+        <label>Scissor Lift</label>
+    </customValue>
+    <customValue>
+        <fullName>Screwdrivers</fullName>
+        <default>false</default>
+        <label>Screwdrivers</label>
+    </customValue>
+    <customValue>
+        <fullName>Seating</fullName>
+        <default>false</default>
+        <label>Seating</label>
+    </customValue>
+    <customValue>
+        <fullName>Signage</fullName>
+        <default>false</default>
+        <label>Signage</label>
+    </customValue>
+    <customValue>
+        <fullName>Staplers</fullName>
+        <default>false</default>
+        <label>Staplers</label>
+    </customValue>
+    <customValue>
+        <fullName>Storage</fullName>
+        <default>false</default>
+        <label>Storage</label>
+    </customValue>
+    <customValue>
+        <fullName>String trimmers</fullName>
+        <default>false</default>
+        <label>String trimmers</label>
+    </customValue>
+    <customValue>
+        <fullName>Sweeping</fullName>
+        <default>false</default>
+        <label>Sweeping</label>
+    </customValue>
+    <customValue>
+        <fullName>Tables</fullName>
+        <default>false</default>
+        <label>Tables</label>
+    </customValue>
+    <customValue>
+        <fullName>Tents</fullName>
+        <default>false</default>
+        <label>Tents</label>
+    </customValue>
+    <customValue>
+        <fullName>Trailers</fullName>
+        <default>false</default>
+        <label>Trailers</label>
+    </customValue>
+    <customValue>
+        <fullName>Trash/Recycling</fullName>
+        <default>false</default>
+        <label>Trash/Recycling</label>
+    </customValue>
+    <customValue>
+        <fullName>Vacuums/Pumps</fullName>
+        <default>false</default>
+        <label>Vacuums/Pumps</label>
+    </customValue>
+    <customValue>
+        <fullName>Wheelbarrows</fullName>
+        <default>false</default>
+        <label>Wheelbarrows</label>
+    </customValue>
+    <customValue>
+        <fullName>Wrenches</fullName>
+        <default>false</default>
+        <label>Wrenches</label>
+    </customValue>
+    <customValue>
+        <fullName>Pneumatics</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Pneumatics</label>
+    </customValue>
+    <customValue>
+        <fullName>Lawnmowers</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Lawnmowers</label>
+    </customValue>
+    <customValue>
+        <fullName>Landscaping</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Landscaping</label>
+    </customValue>
+    <customValue>
+        <fullName>Heavy Equipment</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Heavy Equipment</label>
+    </customValue>
+    <customValue>
+        <fullName>Hand Tools</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Hand Tools</label>
+    </customValue>
+    <customValue>
+        <fullName>Hammers</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Hammers</label>
+    </customValue>
+    <customValue>
+        <fullName>Yard Sign</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Yard Sign</label>
+    </customValue>
+    <customValue>
+        <fullName>Coolers</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Coolers</label>
+    </customValue>
+    <customValue>
+        <fullName>Chisels</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Chisels</label>
+    </customValue>
+    <customValue>
+        <fullName>Chainsaws</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Chainsaws</label>
+    </customValue>
+    <customValue>
+        <fullName>Ceremonies</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Ceremonies</label>
+    </customValue>
+    <customValue>
+        <fullName>Brush clearing</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Brush clearing</label>
+    </customValue>
+    <customValue>
+        <fullName>Food Preparation</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Food Preparation</label>
+    </customValue>
+    <customValue>
+        <fullName>Vacuums</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Vacuums</label>
+    </customValue>
+    <customValue>
+        <fullName>Trailer</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Trailer</label>
+    </customValue>
+    <customValue>
+        <fullName>Special Events</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Special Events</label>
+    </customValue>
+    <customValue>
+        <fullName>SmartBoxs</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>SmartBoxs</label>
+    </customValue>
+    <customValue>
+        <fullName>SmartBox</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>SmartBox</label>
+    </customValue>
+    <customValue>
+        <fullName>Safety</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Safety</label>
+    </customValue>
+    <customValue>
+        <fullName>Recreation</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Recreation</label>
+    </customValue>
+    <customValue>
+        <fullName>Presentations</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Presentations</label>
+    </customValue>
+    <customValue>
+        <fullName>Power Tools</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Power Tools</label>
+    </customValue>
+    <masterLabel>Sub-Category</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

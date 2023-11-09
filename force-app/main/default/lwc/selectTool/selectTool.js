@@ -56,13 +56,22 @@ export default class SelectTool extends LightningElement {
 
     handleSearchInternal(event){
         
-        const searchString =this.template.querySelector(`[data-id="searchbar"]`).value;
+        let searchString =this.template.querySelector(`[data-id="searchbar"]`).value;
+        searchString = searchString?searchString.toLowerCase():undefined;
         //table = this.getElementById("datatable~");
         let rows = this.template.querySelectorAll(`[data-row="data"]`);
 
         $(rows).show().filter(function() {
-            var text = $(this)[0].innerText.toLowerCase();
-            return !~text.indexOf(searchString.toLowerCase());
+            let text = $(this)[0].innerText.toLowerCase();
+            let alternatename =  $(this)[0].dataset.productcodetr;
+            let toolnote =  $(this)[0].dataset.toolnotetr;
+            let spanish =  $(this)[0].dataset.spanishtr;
+            alternatename = alternatename?alternatename.toLowerCase():"";
+            toolnote = toolnote?toolnote.toLowerCase():"";
+            spanish = spanish?spanish.toLowerCase():"";
+            if(searchString)
+                return ((!~text.indexOf(searchString)) && (!~alternatename.indexOf(searchString)) && (!~toolnote.indexOf(searchString)) && (!~spanish.indexOf(searchString))) ;
+            else true;
         }).hide();
     }
 

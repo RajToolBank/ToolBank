@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Credit Card</fullName>
+        <default>true</default>
+        <label>Credit Card</label>
+    </customValue>
+    <customValue>
+        <fullName>Check</fullName>
+        <default>false</default>
+        <label>Check</label>
+    </customValue>
+    <customValue>
+        <fullName>Cash</fullName>
+        <default>false</default>
+        <label>Cash</label>
+    </customValue>
+    <customValue>
+        <fullName>Online Payment</fullName>
+        <default>false</default>
+        <label>Online Payment</label>
+    </customValue>
+    <customValue>
+        <fullName>Organizational Credit</fullName>
+        <default>false</default>
+        <label>Organizational Credit</label>
+    </customValue>
+    <customValue>
+        <fullName>Waiver - Disaster Related Event</fullName>
+        <default>false</default>
+        <label>Waiver - Disaster Related Event</label>
+    </customValue>
+    <customValue>
+        <fullName>Waiver - External Sponsor</fullName>
+        <default>false</default>
+        <label>Waiver - External Sponsor</label>
+    </customValue>
+    <customValue>
+        <fullName>Waiver - Forgiven</fullName>
+        <default>false</default>
+        <label>Waiver - Forgiven</label>
+    </customValue>
+    <customValue>
+        <fullName>Waiver - Internal Promotion</fullName>
+        <default>false</default>
+        <label>Waiver - Internal Promotion</label>
+    </customValue>
+    <masterLabel>Payment Method</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

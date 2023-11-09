@@ -1,0 +1,21 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader">
+    <aura:attribute name="recordId" type="String" />
+    <c:bulkInventoryUpdate recordId="{!v.recordId}"></c:bulkInventoryUpdate>
+    <aura:html tag="style">
+        .slds-modal__container{
+        <!-- height : auto; -->
+        max-width: 70% !important;
+        width: 70%!important;
+        }
+        .slds-modal__content{
+            height: 70% !important;
+            max-height: inherit !important;
+        }
+
+        .modal-body{
+            <!-- height :650px !important;
+            max-height :650px !important; -->
+        }
+
+    </aura:html>
+</aura:component>

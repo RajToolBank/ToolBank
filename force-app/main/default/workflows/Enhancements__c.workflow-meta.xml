@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Enhancement_Complete_v2</fullName>
+        <description>EM: Enhancement Complete</description>
+        <protected>false</protected>
+        <recipients>
+            <type>creator</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>System_Requests/System_Request_Completed</template>
+    </alerts>
+    <alerts>
+        <fullName>System_Request_Critical</fullName>
+        <description>EM: Enhancement Critical</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Assigned_To__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>System_Requests/CRITICAL_System_Request</template>
+    </alerts>
+    <alerts>
+        <fullName>System_Request_ReqSupport</fullName>
+        <description>EM: Enhancement Request Support</description>
+        <protected>false</protected>
+        <recipients>
+            <field>Assigned_To__c</field>
+            <type>userLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>System_Requests/SupportRequest</template>
+    </alerts>
+</Workflow>

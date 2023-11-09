@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Individual_Picklist_Type</fullName>
+        <description>Update the Record Type picklist value to &quot;Individual&quot; when Individual Org is created</description>
+        <field>Type</field>
+        <literalValue>Individual</literalValue>
+        <name>Individual Picklist Type</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Record_Type_Individual</fullName>
+        <field>RecordTypeId</field>
+        <lookupValue>Individual</lookupValue>
+        <lookupValueType>RecordType</lookupValueType>
+        <name>Record Type = Individual</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>LookupValue</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Individual Org Type</fullName>
+        <actions>
+            <name>Individual_Picklist_Type</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <actions>
+            <name>Record_Type_Individual</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Individual</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Account.npe01__SYSTEMIsIndividual__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <description>Selects the picklist value &quot;Individual&quot; when Org Type is Individual and updates Record Type to &quot;Individual&quot; if isIndividual = TRUE</description>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+</Workflow>

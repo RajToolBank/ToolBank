@@ -1,0 +1,10 @@
+Hello {!Tool_Exchange__c.CreatedBy},
+
+Unfortunately, your Tool Exchange approval request for {!Tool_Exchange__c.Name} was denied.  See the comments below to understand why:
+
+{!ApprovalRequest.Comments}
+
+If you wish to continue with the Tool Exchange, please make the necessary changes to the record and resubmit the record for approval.
+
+
+Tool Market Exchange

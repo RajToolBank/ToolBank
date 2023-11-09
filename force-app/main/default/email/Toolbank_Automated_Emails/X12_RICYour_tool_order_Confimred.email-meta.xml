@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>45.0</apiVersion>
+    <available>true</available>
+    <description>External: Share order confirmation details with end-user Richmond Scheduler</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>12)  RICYour tool order Confimred</name>
+    <style>none</style>
+    <subject>Your tool order has been confirmed</subject>
+    <type>visualforce</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

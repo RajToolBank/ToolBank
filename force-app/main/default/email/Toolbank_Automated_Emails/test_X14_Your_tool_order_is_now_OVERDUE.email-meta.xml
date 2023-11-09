@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <available>true</available>
+    <description>External: Share that tool order is overdue with end user</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>test 14)  Your tool order is now OVERDUE</name>
+    <style>none</style>
+    <subject>Your tool order is now OVERDUE</subject>
+    <type>visualforce</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

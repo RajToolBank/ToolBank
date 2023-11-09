@@ -108,28 +108,24 @@
                 <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable" >
                     <thead>
                         <tr class="slds-line-height_reset">
-                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                            <th  scope="col" class="slds-is-resizable" style="width: 3%;text-align: left;">
                                 
                             </th>
-                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                            <th  scope="col" class="slds-is-resizable" style="width: 3%;text-align: left;">
                                 <div class="slds-truncate" style="white-space: pre-wrap;" title="CONFIRM ALL">
                                     <input type="checkbox" data-selectall="selectall" disabled={readonlyFlag} onchange={handleSelectAll} />
                                 </div>
                             </th>
-                            <!--
-                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
-                                <div class="slds-truncate" style="white-space: pre-wrap;" title="Delete">DELETE</div>
-                            </th>
-                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
-                                <div class="slds-truncate" style="white-space: pre-wrap;" title="Note">NOTE</div>
-                            </th>-->
                             <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
                                 <div class="slds-truncate" style="white-space: pre-wrap;" title="TOOL NAME">TOOL NAME
                                     <lightning-helptext content="Hover over the tool name for Tool Note"></lightning-helptext>
                                 </div>
                             </th>
                             <th  scope="col" class="slds-is-resizable" style="width: 15%;text-align: center;">
-                                <div class="slds-truncate slds-align_absolute-center" style="white-space: pre-wrap;" title="AVAILABLE FOR THIS ORDER">AVAILABLE FOR THIS ORDER</div>
+                                <div class="slds-truncate slds-align_absolute-center" style="white-space: pre-wrap;" title="ON SHELF AMOUNT">ON SHELF AMOUNT</div>
+                            </th>
+                            <th  scope="col" class="slds-is-resizable" style="width: 15%;text-align: center;">
+                                <div class="slds-truncate slds-align_absolute-center" style="white-space: pre-wrap;" title="SCHEDULED AVAILABLE">SCHEDULED AVAILABLE</div>
                             </th>
                             <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
                                 <div class="slds-truncate" style="white-space: pre-wrap;" title="REQUESTED QUANTITY">REQUESTED QUANTITY</div>
@@ -160,31 +156,25 @@
                     <tbody>
                         <template if:true={orderItems} for:each={orderItems} for:item="record" for:index="index">
                             <tr class="slds-hint-parent" key={record.Id} data-status={record.Status__c} data-rowid={record.Id} data-id="dataid" data-label="lable" title="title" >
-                                <td class="slds-cell-wrap"  scope="row" style="width: 9%;text-align: left;">
+                                <td class="slds-cell-wrap"  scope="row" style="width: 3%;text-align: left;">
                                     <div class="slds-truncate"   >
                                         <lightning-helptext onclick={openConflictModal} data-itemid={record.Id} ></lightning-helptext>
                                     </div>
                                 </td>
-                                <td class="slds-cell-wrap" data-label="SELECT" scope="row" style="width: 9%;text-align: center;">
+                                <td class="slds-cell-wrap" data-label="SELECT" scope="row" style="width: 3%;text-align: left;">
                                     <div class="slds-truncate" title="SELECT">
                                         <input class="filtered" type="checkbox" disabled={readonlyFlag} data-check="checkbox" data-prod2id={record.Product2Id} onchange={handleSelectCheck} data-recid={record.Id}/>
                                     </div>
                                 </td>
-                                <!--
-                                <td class="slds-cell-wrap" data-label="Delete" scope="row" style="width: 9%;text-align: center;">
-                                    <div class="slds-truncate" title="Delete">
-                                        <lightning-button-icon icon-name="utility:delete"  alternative-text="Delete row" title="Delete"></lightning-button-icon>
-                                    </div>
-                                </td> 
-                                <td class="slds-cell-wrap" data-label="Note" scope="row" style="width: 9%;text-align: center;">
-                                    <div class="slds-truncate" title="Note">{record.Product2.Tool_Note__c}</div>
-                                </td>-->
                                 <td class="slds-cell-wrap" data-label="TOOL NAME" scope="row" style="width: 9%;text-align: left;">
                                     <div class="slds-truncate"  title={record.Product2.Tool_Note__c}  >{record.Product2.Name}
                                     </div>
                                 </td>
-                                <td class="slds-cell-wrap" data-label="AVAILABLE FOR THIS ORDER" style="width: 15%;text-align: center;">
-                                    <div class="slds-truncate" title="AVAILABLE FOR THIS ORDER"><span data-lowest={record.Id}>{record.Lowest_Available_Quantity_For_this_Item__c}</span></div>
+                                <td class="slds-cell-wrap" data-label="ON SHELF AMOUNT" style="width: 15%;text-align: center;">
+                                    <div class="slds-truncate" title="ON SHELF AMOUNT"><span >{record.Inventory_Tool__r.On_Shelf_Quantity_F__c}</span></div>
+                                </td>
+                                <td class="slds-cell-wrap" data-label="SCHEDULED AVAILABLE" style="width: 15%;text-align: center;">
+                                    <div class="slds-truncate" title="SCHEDULED AVAILABLE"><span data-lowest={record.Id}>{record.Lowest_Available_Quantity_For_this_Item__c}</span></div>
                                 </td>
                                 <td class="slds-cell-wrap" data-label="REQUESTED QUANTITY" style="width: 9%;text-align: center;">
                                     <div class="slds-truncate" title="REQUESTED QUANTITY">

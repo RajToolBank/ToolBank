@@ -22,9 +22,16 @@ export default class ToolListToSelectCmp extends LightningElement {
         tools({data,error}){
             if(data){
                 this.toolList = data;
+                console.log(this.toolList)
             }
             else if(error){
-                alert(error);
+                console(error);
+                const evt = new ShowToastEvent({
+                    title: "Tools",
+                    message: error,
+                    variant: "error",
+                });
+                this.dispatchEvent(evt);
             }
         };
 
@@ -128,6 +135,9 @@ export default class ToolListToSelectCmp extends LightningElement {
                                 Tool_Note__c:ele.dataset.note,
                                 Id:ele.dataset.prod2id
                              },
+                    Inventory_Tool__r:{
+                                        On_Shelf_Quantity_F__c:ele.dataset.onshelfqty
+                                    },
                     Product2Id:ele.dataset.prod2id,
                     Lowest_Available_Quantity_For_this_Item__c:"",
                     Quantity:ele.value,

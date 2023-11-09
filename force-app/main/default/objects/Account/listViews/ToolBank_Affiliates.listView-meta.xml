@@ -4,12 +4,12 @@
     <columns>ACCOUNT.NAME</columns>
     <columns>ACCOUNT.TYPE</columns>
     <columns>Trailer_Size__c</columns>
+    <columns>MU_Location__c</columns>
     <columns>Generic_Org_Email__c</columns>
     <columns>ACCOUNT.ADDRESS1_CITY</columns>
     <columns>ACCOUNT.ADDRESS1_STATE</columns>
     <columns>ACCOUNT.PHONE1</columns>
     <columns>Affiliate_Handling_Fee__c</columns>
-    <columns>PARENT_NAME</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>ACCOUNT.RECORDTYPE</field>

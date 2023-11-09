@@ -7,6 +7,7 @@
     <columns>Description__c</columns>
     <columns>System_Request__c</columns>
     <columns>Case_Type__c</columns>
+    <columns>Incurred_By__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Date_Incurred__c</field>

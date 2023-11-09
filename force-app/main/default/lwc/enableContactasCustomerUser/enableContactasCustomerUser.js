@@ -18,16 +18,25 @@ export default class EnableContactasCustomerUser extends LightningElement {
             this._interval = setInterval(() => {
                 this.progress = this.progress === 100 ? 0 : this.progress + 1;
             }, 200);
-        
+
         createCommuinityUser({recordId:this.recordId}).then(res =>{
             if(res){
                 this.progress = 100;
-                const evt = new ShowToastEvent({
-                    title: "Enable Contact as user",
-                    message: "User Enabled Success",
-                    variant: "success",
-                });
-                this.dispatchEvent(evt);
+                if(res === "Success"){
+                    const evt = new ShowToastEvent({
+                        title: "Enable Contact as user",
+                        message: "User Enabled Success",
+                        variant: "success",
+                    });
+                    this.dispatchEvent(evt);
+                }else{
+                    const evt = new ShowToastEvent({
+                        title: "Enable Contact as user",
+                        message: res,
+                        variant: "error",
+                    });
+                    this.dispatchEvent(evt);
+                }
                 if (this.isProgressing) {
                     // stop
                     this.isProgressing = false;

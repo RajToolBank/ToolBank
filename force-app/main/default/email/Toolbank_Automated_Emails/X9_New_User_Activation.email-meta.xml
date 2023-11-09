@@ -6,14 +6,19 @@
     <letterhead>Tool_Bank_Original</letterhead>
     <name>9) New User Activation</name>
     <style>freeForm</style>
-    <subject>Please Activate Your Toolbank User Account</subject>
+    <subject>New ToolBank Order System Login Information for {!Receiving_User.ToolBank_Affiliate_of_Agency__c}</subject>
     <textOnly>Hi {!Receiving_User.FirstName},
 
-Sent from: The {!User.Location__c} ToolBank
+You are receiving this notification because your email is registered with the {!User.Location__c} ToolBank on behalf of {!User.CompanyName}.
 
-You have been invited to use the ToolBank on behalf of {!User.CompanyName}.
+If you have any questions or issues, please reach out to your {!User.Location__c} ToolBank staff directly.  If you no longer need access to the ToolBank, please email us at XXXX (affiliate email address) so we can remove you from our system. Replies to this e-mail address are not monitored.
 
-Click here {!Community_Url} to create a password and sign in to your account. Your username is {!Receiving_User.Username}
+You will receive an email with the subject, &quot;Your New {!User.Location__c} ToolBank Password.&quot; Please click the link in this email to create a password and log in. 
+
+In the future, use this link, your username and your created password to log in to the ToolBank.
+
+Login Link: https://toolbank.my.site.com/agency/s/ 
+Username: {!Receiving_User.Username}
 
 We look forward to serving you!</textOnly>
     <type>html</type>

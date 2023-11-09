@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>External: Confirms Membership Renewal Complete</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Tool_Bank_Original</letterhead>
+    <name>5)  Your membership has been renewed</name>
+    <style>freeForm</style>
+    <subject>Your membership has been renewed</subject>
+    <textOnly>Agency: {!Account.Name}
+ToolBank Member Agency since: {!Account.Membership_Join_Date__c}
+
+Your ToolBank Membership has been renewed!
+
+New membership expiration date: {!Account.Membership_End_Date__c}
+
+We look forward to working with you on your next project. See you at the ToolBank!</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

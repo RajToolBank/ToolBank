@@ -1,0 +1,6 @@
+Hello {!Tool_Exchange__c.CreatedBy},
+
+Congratulations! Your request to take {!Tool_Exchange__c.Quantity_Requested__c} of {!Tool_Market__c.OwnerFullName}'s {!Tool_Exchange__c.Tool_Exchanged__c} has been approved.  Reach out to {!Tool_Exchange__c.Original_ToolBank_Owner__c} to confirm shipping arrangements.
+
+
+Tool Market Exchange

@@ -1,4 +1,11 @@
 public class OrderItemHelperClass {
+    public static String userId = UserInfo.getUserId();
+    public static String className = 'OrderCancelOrItemDeleteController';
+    public static String methodName;
+    public static String logLineNumber;
+    public static String debugLog;
+    public static String recordId;
+
     public static Boolean recursion = false;
     public static Boolean recursionUpdate = false;
     static final String LOST = Schema.SObjectType.Transaction__c.getRecordTypeInfosByDeveloperName().get('Lost').getRecordTypeId();
@@ -119,6 +126,7 @@ public class OrderItemHelperClass {
 
 
     public static void handleStatus(List<OrderItem> itemList,Map<Id, OrderItem> oldMap){
+        methodName = 'handleStatus';
         recursion = true;
         if(System.trigger.isUpdate)
             recursionUpdate = true;
@@ -226,6 +234,11 @@ public class OrderItemHelperClass {
         }
 
         if(!orderListToUpdate.isEmpty()){
+            DebugLogUtil debugLogger = new DebugLogUtil();
+            logLineNumber = '238';
+            debugLog = JSON.serialize(orderListToUpdate);
+            recordId = JSON.serialize(orderIdSet);
+            debugLogger.publishDebugLog(debugLog, className, methodName, logLineNumber, recordId, userId);
             ByPassValidations.ordStatusValidation = true;
             update orderListToUpdate;
         }
@@ -235,6 +248,10 @@ public class OrderItemHelperClass {
     public static void quantityAndPriceValidation(List<OrderItem> itemList, Map<Id, OrderItem> oldMap){
 
         for(OrderItem item: itemList){
+            String newStatus = item.Status__c;
+            String oldStatus = oldMap.get(item.Id).Status__c;
+            if(newStatus != oldStatus && 'Return'.equalsIgnoreCase(newStatus))
+                item.Actual_Return_Date__c = Date.today();
             Decimal newQty = item.quantity;
             Decimal oldQty = oldMap.get(item.Id).quantity;
             Decimal newPrice = item.UnitPrice;

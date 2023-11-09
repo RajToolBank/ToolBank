@@ -1,8 +1,15 @@
 public class OrderCancelOrItemDeleteController {
     
+    public static String userId = UserInfo.getUserId();
+    public static String className = 'OrderCancelOrItemDeleteController';
+    public static String methodName;
+    public static String logLineNumber;
+    public static String debugLog;
+    public static String recordId;
     public static Boolean orderRecursion = false;
 
     public static void orderCancelled(List<Order> triggerNew){
+        methodName = 'orderCancelled';
         orderRecursion = true;
         List<Order> cancelledOrderList = new List<Order>();
         set<Id> AffiliateIdSet = new set<Id>();
@@ -80,6 +87,11 @@ public class OrderCancelOrItemDeleteController {
                 ListToUpdate.add(item);
             
             }
+            DebugLogUtil debugLogger = new DebugLogUtil();
+            logLineNumber = '91';
+            debugLog = JSON.serialize(ListToUpdate);
+            recordId = JSON.serialize(cancelledOrderList);
+            debugLogger.publishDebugLog(debugLog, className, methodName, logLineNumber, recordId, userId);
             if(!ListToUpdate.isEmpty())
                 Update ListToUpdate;
         }
@@ -87,7 +99,7 @@ public class OrderCancelOrItemDeleteController {
 
 
     public static void lowestQuantityItemDate(orderItem orderItem, List<orderItem> existingOrderItems){
-
+        methodName = 'lowestQuantityItemDate';
         Decimal reservedQuantity = orderItem.Reserved_Quantity__c;
         if(existingOrderItems != Null){
             for(OrderItem item: existingOrderItems){
@@ -103,6 +115,11 @@ public class OrderCancelOrItemDeleteController {
                         reservedQuantity = reservedQuantity - adjusted;
                 }
             }
+            DebugLogUtil debugLogger = new DebugLogUtil();
+            logLineNumber = '114';
+            debugLog = JSON.serialize(existingOrderItems);
+            recordId = orderItem.OrderId;
+            debugLogger.publishDebugLog(debugLog, className, methodName, logLineNumber, recordId, userId);
             if(!System.trigger.isExecuting || !System.trigger.isDelete)
                 orderItem.Reserved_Quantity__c =0;
         }
@@ -112,6 +129,7 @@ public class OrderCancelOrItemDeleteController {
     }
 
     public static void orderItemDelete(List<OrderItem> triggerOld){
+        methodName = 'lowestQuantityItemDate';
         Set<Id> productIdSet = new set<Id>();
         List<Date> dateList = new List<Date>();
         List<Date> lastModifieddateList = new List<Date>();
@@ -187,6 +205,11 @@ public class OrderCancelOrItemDeleteController {
                 }
             }
         }
+        DebugLogUtil debugLogger = new DebugLogUtil();
+        logLineNumber = '199';
+        debugLog = JSON.serialize(ListToUpdate);
+        recordId = JSON.serialize(orderIdSet);
+        debugLogger.publishDebugLog(debugLog, className, methodName, logLineNumber, recordId, userId);
         if(!ListToUpdate.isEmpty())
             Update ListToUpdate;
     }

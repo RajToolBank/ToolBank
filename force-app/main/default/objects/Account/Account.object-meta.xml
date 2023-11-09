@@ -184,17 +184,17 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
+        <content>npe01__accountViewOverride</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
         <comment>Action override updated by Lightning App Builder during activation.</comment>
         <content>Organization_Record_Page1</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <content>npe01__accountViewOverride</content>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Visualforce</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
@@ -258,8 +258,8 @@
         <customTabListAdditionalFields>ACCOUNT.ADDRESS2_STATE</customTabListAdditionalFields>
         <customTabListAdditionalFields>ACCOUNT.ADDRESS2_ZIP</customTabListAdditionalFields>
         <excludedStandardButtons>OpenListInQuip</excludedStandardButtons>
-        <excludedStandardButtons>DiscoveryGetAccountsAction</excludedStandardButtons>
         <excludedStandardButtons>DataDotComGetAccountsMultiAddAction</excludedStandardButtons>
+        <excludedStandardButtons>DiscoveryGetAccountsAction</excludedStandardButtons>
         <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>CORE.USERS.ALIAS</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ACCOUNT.TYPE</lookupDialogsAdditionalFields>

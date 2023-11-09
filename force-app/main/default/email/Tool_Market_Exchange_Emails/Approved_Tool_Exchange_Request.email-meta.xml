@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This template will be used for approved Tool Exchange requests.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Approved Tool Exchange Request</name>
+    <style>none</style>
+    <subject>Your Tool Exchange Request was Approved</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

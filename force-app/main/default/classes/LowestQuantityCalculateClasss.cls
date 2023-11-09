@@ -17,6 +17,7 @@ public static void lowestQuantityOrder2(List<Order> orderList){
                                             Reserved_Quantity__c,
                                             Affiliate_Handling_Fee__c,
                                             Inventory_Tool__r.Current_Inventory_F__c,
+                                            Inventory_Tool__r.On_Shelf_Quantity_F__c,
                                             product2Id,
                                             PriceBookEntryId,
                                             Inventory_Tool__c,
@@ -34,7 +35,7 @@ public static void lowestQuantityOrder2(List<Order> orderList){
                                             WHERE OrderId IN:orderList
                                             AND Product2.type__c = 'Tool' 
                                             AND Status__c != 'Returned'
-                                            ORDER BY product2.Name];
+                                            ORDER BY product2.Name ASC];
         if(newOrderItemList != null && newOrderItemList.size()>0){
             Set<Id> productIdSet = new set<Id>();
 
@@ -62,14 +63,14 @@ public static void lowestQuantityOrder2(List<Order> orderList){
                                             Schedule_Pick_Date__c,
                                             Schedule_Return_Date__c 
                                             FROM OrderItem 
-                                            WHERE product2Id IN: productIdSet 
-                                            AND Id NOT IN: newOrderItemList
-                                            AND Order.Affiliate__c =: orderList[0].Affiliate__c
-                                            AND Schedule_Pick_Date__c <=: maxReturnDate
-                                            AND Schedule_Return_Date__c >=: minPickDate
-                                            AND Product2.Type__c = 'Tool'
+                                            WHERE Product2.Type__c = 'Tool'
                                             AND Status__c != 'Returned'
                                             AND Status__c != 'Cancelled'
+                                            AND Order.Affiliate__c =: orderList[0].Affiliate__c
+                                            AND product2Id IN: productIdSet 
+                                            AND Id NOT IN: newOrderItemList
+                                            AND Schedule_Pick_Date__c <=: maxReturnDate
+                                            AND Schedule_Return_Date__c >=: minPickDate
                                             ORDER BY LastModifiedDate ASC];
             
             Map<Id,Map<id, List<OrderItem>>> affiliateToproductIdToItemListMap = new Map<Id,Map<Id, List<OrderItem>>>();

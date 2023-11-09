@@ -18,19 +18,24 @@
     <columns>CREATEDBY_USER.ALIAS</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>CASES.CLOSED</field>
-        <operation>equals</operation>
-        <value>0</value>
-    </filters>
-    <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
         <value>Case.Standard</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
     </filters>
     <filters>
         <field>CASES.STATUS</field>
         <operation>equals</operation>
         <value>New,Working,More Info Requested,Resolved</value>
     </filters>
-    <label>All Open Cases</label>
+    <filters>
+        <field>CASES.REASON</field>
+        <operation>notEqual</operation>
+        <value>Duplicate</value>
+    </filters>
+    <label>In Progress Cases</label>
 </ListView>

@@ -3,6 +3,7 @@
     <fullName>All</fullName>
     <columns>NAME</columns>
     <columns>Date_Incurred__c</columns>
+    <columns>Incurred_By__c</columns>
     <columns>Duration__c</columns>
     <columns>Description__c</columns>
     <columns>System_Request__c</columns>

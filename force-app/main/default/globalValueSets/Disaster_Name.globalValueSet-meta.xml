@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Caldor Fire - Grizzly Flats</fullName>
+        <default>false</default>
+        <label>Caldor Fire - Grizzly Flats</label>
+    </customValue>
+    <customValue>
+        <fullName>Dixie Fire - Plumas County MU11</fullName>
+        <default>false</default>
+        <label>Dixie Fire - Plumas County MU11</label>
+    </customValue>
+    <customValue>
+        <fullName>Hurricane Ian</fullName>
+        <default>false</default>
+        <label>Hurricane Ian</label>
+    </customValue>
+    <customValue>
+        <fullName>Hurricane Ida</fullName>
+        <default>false</default>
+        <label>Hurricane Ida</label>
+    </customValue>
+    <customValue>
+        <fullName>Hurricane Idalia</fullName>
+        <default>false</default>
+        <label>Hurricane Idalia</label>
+    </customValue>
+    <customValue>
+        <fullName>Hurricane Maria</fullName>
+        <default>false</default>
+        <label>Hurricane Maria</label>
+    </customValue>
+    <customValue>
+        <fullName>Hurricane Michael</fullName>
+        <default>false</default>
+        <label>Hurricane Michael</label>
+    </customValue>
+    <customValue>
+        <fullName>Oak Fire - Mariposa County MU5</fullName>
+        <default>false</default>
+        <label>Oak Fire - Mariposa County MU5</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
+    <masterLabel>Disaster Name</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

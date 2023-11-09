@@ -1,0 +1,10 @@
+Dear {!Contact.CreatedBy},
+
+{!Case.Resolution__c}
+
+Thank you,
+
+{!User.Name}
+
+
+{!Case.Description}

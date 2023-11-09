@@ -2,7 +2,7 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>New_Orleans_Queue_Task</fullName>
     <filterScope>Queue</filterScope>
-    <label>New Orleans Queue</label>
+    <label>Site New Orleans</label>
     <queue>New_Orleans_Queue</queue>
     <sharedTo>
         <allInternalUsers></allInternalUsers>

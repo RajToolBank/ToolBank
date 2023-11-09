@@ -1,0 +1,12 @@
+Hi {!Receiving_User.FirstName},
+
+You are receiving this notification because your email is registered with the {!Receiving_User.ToolBank_Affiliate_of_Agency__c} on behalf of {!Receiving_User.Primary_Agency__c}.
+
+If you have any questions or issues, please reach out to your {!Receiving_User.ToolBank_Affiliate_of_Agency__c} ToolBank staff directly.  If you no longer need access to the ToolBank, please call us at {!Receiving_User.Affiliate_Phone__c} so we can remove you from our system. Replies to this e-mail address are not monitored.
+
+You will receive an email with the subject, "Your New {!Receiving_User.ToolBank_Affiliate_of_Agency__c} Password." Please click the link in this email to create a password and log in. 
+
+In the future, use this link, your username and your created password to log in to the ToolBank.
+
+Login Link: https://toolbank.my.site.com/agency/s/ 
+Username: {!Receiving_User.Username}

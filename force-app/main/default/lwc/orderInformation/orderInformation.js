@@ -5,11 +5,13 @@ import ORDER_OBJECT from '@salesforce/schema/Order';
 import PICKUP_TIME from '@salesforce/schema/Order.Desired_Pickup_Time__c';
 import BORROWING_PERIOD from '@salesforce/schema/Order.Requested_Borrowing_Period__c';
 import VOLUNTEER_SRC from '@salesforce/schema/Order.Volunteer_Source__c';
+import DISASTER_NAME from '@salesforce/schema/Order.Disaster_Name__c';
 import zipCodeList from '@salesforce/apex/PlaceOrderController.zipCodes';
 import accid from '@salesforce/apex/PlaceOrderController.accid';
 import getAgencyContact from '@salesforce/apex/PlaceOrderController.getAgencyContact';
 import getPicklistValuesApex from '@salesforce/apex/PlaceOrderController.getPicklistValuesApex';
 import getBusinessHours from '@salesforce/apex/PlaceOrderController.getBusinessHours';
+import getLocations from '@salesforce/apex/PlaceOrderController.getAvailableLocations';
 import TIME_ZONE from '@salesforce/i18n/timeZone';
 export default class OrderInformation extends LightningElement {
 
@@ -26,8 +28,7 @@ export default class OrderInformation extends LightningElement {
     @api contactId;
     @api accountName;
     @api contactName;
-    @api
-    affiliateId;
+    @api affiliateId;
     serv;
     volSrc;
     returneddate;
@@ -35,11 +36,14 @@ export default class OrderInformation extends LightningElement {
     corp = false;
     home = false;
     specialEvents = false;
+    disasterRecoverResponse = false;
+    disasterOptions;
+    disasterName;
     zipCodeList;
-    @api
-    email ="";
+    @api email ="";
     loaded = true;
     businessHours;
+    orderTypeOptions;
 
 
     @track desiredPickupTime;
@@ -52,6 +56,13 @@ export default class OrderInformation extends LightningElement {
     fieldsInfo;
     orderMetadata;
     workingHours;
+    showOrderType = false;
+    isPickup = false;
+    orderType = 'Delivery';
+    orderPickUpOptions
+    orderPickuplocation;
+    orderDeliveryOptions;
+    orderDeliveryOption;
     
     
     /*
@@ -86,6 +97,49 @@ export default class OrderInformation extends LightningElement {
            
         
     };
+
+    @wire(getLocations, { affiliateId: "$affiliateId" })  getAvailableLocations({data,error}){
+        if(data){
+
+            console.log("available location :: ",data);
+            let pLocations = [];
+            let dLocations = [];
+            let ispickLoc =false;
+            let isDelvLoc =false;
+            for(let i in data){
+                this.showOrderType = true;
+                if(data[i].Type__c === "Pickup"){
+                    pLocations.push({"label":data[i].Name,"value":data[i].Id});
+                    ispickLoc = true;
+                }else{
+                    isDelvLoc = true;
+                    dLocations.push({"label":data[i].Name,"value":data[i].Id});
+                }
+            }
+            this.orderDeliveryOptions = dLocations;
+            this.orderPickUpOptions = pLocations;
+            let orderTypeOptionsTemp = [];
+            if(isDelvLoc)
+                orderTypeOptionsTemp.push({"label":"Delivery","value":"Delivery"});
+
+            if(ispickLoc)
+            orderTypeOptionsTemp.push( {"label":"Pickup","value":"Pickup"});
+        
+            this.orderTypeOptions = orderTypeOptionsTemp;
+
+            if(isDelvLoc && ispickLoc){
+                this.isPickup = false;
+                this.orderType = "Delivery";
+            }
+            else if(isDelvLoc){
+                this.isPickup = false;
+                this.orderType = "Delivery";
+            }else if(ispickLoc){
+                this.isPickup = true;
+                this.orderType = "Pickup";
+            }
+        }
+    }
   
     @wire(zipCodeList) zipCodesList({data,error}){
         if(data){
@@ -175,6 +229,16 @@ export default class OrderInformation extends LightningElement {
     wiredVolSrc({data, error}){
         if(data){
             this.volunteerSource  = data.values;
+        }
+        if(error){
+
+        }
+    };
+
+    @wire(getPicklistValues, { recordTypeId: '$orderMetadata.data.defaultRecordTypeId',  fieldApiName: DISASTER_NAME }) 
+    wiredDisasterName({data, error}){
+        if(data){
+            this.disasterOptions  = data.values;
         }
         if(error){
 
@@ -297,13 +361,37 @@ export default class OrderInformation extends LightningElement {
         }
         
     }
-
+    
+    handlePickupLocChange(event){
+        this.orderPickuplocation = event.detail.value;
+        
+    }
+    handleDeliveryOpChange(event){
+        this.orderDeliveryOption = event.detail.value;
+    }
+    
+    handleTypeChange(event){
+        this.orderType = event.detail.value;
+        if(this.orderType === 'Pickup'){
+            this.isPickup = true;
+            this.orderDeliveryOption = "";
+        }else {
+            this.isPickup = false;
+            this.orderPickuplocation = "";
+        }
+        
+    }
     handleVolSrcChange(event){
         let data = event.detail.value;
         this.volSrc = data;
         if(data == 'Corporate Volunteers')
-            this.corp = true
+            this.corp = true;
         else this.corp = false;
+    }
+
+    handleDisasterOptionsChange(event){
+        let data = event.detail.value;
+        this.disasterName = data;
     }
 
     handleLookup = (event) => {
@@ -346,10 +434,14 @@ export default class OrderInformation extends LightningElement {
             this.proType.push(event.target.value);
             if(event.target.value === "Special Events/Fundraisers")
                 this.specialEvents = true;
+            else if(event.target.value === "Disaster Recovery/Response")
+                this.disasterRecoverResponse = true;
         }else{
             this.proType.pop(event.target.value);
             if(event.target.value === "Special Events/Fundraisers")
                 this.specialEvents = false;
+            else if(event.target.value === "Disaster Recovery/Response")
+                this.disasterRecoverResponse = false;
         }
     }
 
@@ -428,6 +520,15 @@ export default class OrderInformation extends LightningElement {
         let homeerror = this.template.querySelector(`[data-id="homeerror"]`);
         let specialEvents = this.template.querySelector(`[data-id="specialEvents"]`);
         let specialEventserror = this.template.querySelector(`[data-id="specialEventserror"]`);
+        let disasterRecoverResponseerror = this.template.querySelector(`[data-id="disasterRecoverResponseerror"]`);
+
+        let pickupLocatoin = this.template.querySelector(`[data-id="pickupLocation"]`);
+        let pickupLocatoinError = this.template.querySelector(`[data-id="pickupLocerror"]`);
+
+        let deliverLocatoin = this.template.querySelector(`[data-id="orderDlvLocation"]`);
+        let deliverLocatoinError = this.template.querySelector(`[data-id="dlverror"]`);
+        let deliveryoperror = this.template.querySelector(`[data-id="deliveryoperror"]`);
+
         let errormsg = "This Field is Required"
         let errormsgList = "Please Select at least One Option"
 
@@ -444,6 +545,14 @@ export default class OrderInformation extends LightningElement {
         }else if(this.specialEvents) { 
             specialEventserror.innerHTML = "";
             numAttend = specialEvents.value;
+        }
+
+        
+        if(this.disasterRecoverResponse && !this.disasterName){
+            disasterRecoverResponseerror.innerHTML = errormsg;  
+            disasterRecoverResponse.focus();         
+        }else if(this.disasterRecoverResponse) { 
+            disasterRecoverResponseerror.innerHTML = "";
         }
 
         let homeValue;
@@ -536,6 +645,23 @@ export default class OrderInformation extends LightningElement {
             corporationName = corpname.value;
         }
         
+        if(this.isPickup && !this.orderPickuplocation){
+            pickupLocatoinError.innerHTML = errormsg;
+            pickupLocatoin.focus();
+        }else if(!this.isPickup && deliverLocatoin && !deliverLocatoin.value){
+            deliverLocatoinError.innerHTML = errormsg;
+            deliverLocatoin.focus();
+        }else if(!this.isPickup && !this.orderDeliveryOption && deliveryoperror){
+            deliveryoperror.innerHTML = errormsg;
+        }else {
+            if(pickupLocatoinError)
+                pickupLocatoinError.innerHTML = "";
+            if(deliverLocatoinError)
+                deliverLocatoinError.innerHTML = "";
+            if(deliveryoperror)
+                deliveryoperror.innerHTML = "";
+        }
+
         if(!this.volSrc){
             sourceerror.innerHTML =errormsg;
             volunteersource.focus();
@@ -609,6 +735,8 @@ export default class OrderInformation extends LightningElement {
             && (!this.corp || (this.corp && corporationName))
             && (!this.home || (this.home && home.value))
             && (!this.specialEvents || (this.specialEvents && specialEvents.value))
+            && (!this.disasterRecoverResponse || (this.disasterRecoverResponse && this.disasterName))
+            && ((this.isPickup && this.orderPickuplocation) || (!this.isPickup && deliverLocatoin && deliverLocatoin.value && this.orderDeliveryOption) || !this.showOrderType)
             && onsitehours.value
             && volunteersnumber.value
             && peopleImImpacted.value
@@ -648,7 +776,12 @@ export default class OrderInformation extends LightningElement {
                         staff:staff.value,
                         projectVolunteerHr:projectVolunteerHr.value,
                         volunteersource:this.volSrc,
-                        corpname:corporationName
+                        corpname:corporationName,
+                        disasterName:this.disasterName,
+                        orderType:this.orderType,
+                        pickupLocation:this.orderPickuplocation,
+                        deliveryAddress:deliverLocatoin?deliverLocatoin.value:"",
+                        deliveryLocation:this.orderDeliveryOption
 
                     }
             });

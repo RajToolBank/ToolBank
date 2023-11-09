@@ -1,5 +1,5 @@
 .datepicker::-webkit-calendar-picker-indicator {
-  filter: invert(1); /* Invert the color to make the icon invisible */
+  filter: invert("1"); /* Invert the color to make the icon invisible */
   pointer-events: none; /* Disable pointer events to make the icon unclickable */
 }
 

@@ -1,0 +1,15 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" >
+	<aura:attribute name="recordId" type="String" /> 
+	<aura:html tag="style">
+        .slds-modal__container{
+        <!-- height : auto; -->
+        max-width: 100% !important;
+        width: 95% !important;
+        }
+
+
+    </aura:html>
+    <iframe src="{! '/apex/PaymentReceipt?isLight=yes&amp;Id=' + v.recordId }" width="100%"  frameBorder="0" height="500px"/> 
+    <br /><br /><br />
+	<signature:SignatureFormConnector recordId="{!v.recordId}" ExperienceID="a0k4R00000QAfVx"/>
+</aura:component>

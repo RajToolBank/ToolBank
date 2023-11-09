@@ -1,0 +1,44 @@
+<messaging:emailTemplate subject="Your tool order is due in 3 days" recipientType="Contact" relatedToType="order">
+ <messaging:htmlEmailBody >
+ <center>
+ <apex:image id="Logo" value="https://toolbankusa--pro--c.documentforce.com/servlet/servlet.ImageServer?id=015K0000002LXgo&oid=00DK000000XGz8s&lastMod=1643746859000" /><br/><br/>
+</center>
+<strong>Agency:</strong> {!relatedTo.Account.name}<br/>
+<strong>Tool Order:</strong> {!relatedTo.Name}<br/>
+<strong>Order ID:</strong> {!relatedTo.OrderNumber}<br/>
+<strong>Contact:</strong> {!relatedTo.BillToContact.name}<br/>
+
+<p> The following tools are due back at the ToolBank in three days:</p>
+<center>
+<table border = "2" cellspacing = "5" ><thead>
+        <tr>
+            <th>Tool Name</th>
+            <th>Quantity</th>                
+        </tr>
+       </thead>
+<apex:repeat var="ox" value="{!relatedTo.OrderItems}">
+<tr>
+
+<td>{!ox.pricebookentry.product2.name}</td>
+<td style="text-align:center;">
+<apex:outputText id="Connections" value="{0, number, integer}">
+    <apex:param value="{!ox.Reserved_Quantity__c}" />
+</apex:outputText>
+ </td>
+
+</tr>
+</apex:repeat>      
+    </table>
+    </center>
+    
+<p> Late fees on unreturned tools accure at twice the weekly fee and are totally avoidable!  Call {!relatedTo.Affiliate_Phone__c} to schedule an appointment to return these 
+tools at your earliest convenience. </p>
+
+<p> <strong>Please Note: </strong> </p>
+<ul>
+<li> If a tool is broken during use, return all of its parts to the ToolBank to avoid replacements fees.</li>
+<li> All ToolBank visitation is appointment only. Call {!relatedTo.Affiliate_Phone__c} to schedule an appointment.</li>
+</ul>
+<p>Thank You!</p>
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

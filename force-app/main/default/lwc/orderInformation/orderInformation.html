@@ -265,6 +265,68 @@
             <div class="demo-only demo-only--sizing slds-grid slds-wrap">
                 <div class="slds-size_1-of-2">
                   <div class="slds-box slds-box_x-small slds-text-align_left slds-m-around_x-small">
+                    <template if:true={showOrderType}>
+                        <div class="slds-grid slds-wrap">
+                            <div  class="slds-col slds-size_1-of-2">
+                                <span>Order Type:<lightning-helptext class="customIcon" content="Please select your prefence if you want to pickup or get a delivery of order."></lightning-helptext></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <Span class="orderRadio"><lightning-radio-group name="radioGroup"
+                                    variant="label-hidden"
+                                    options={orderTypeOptions}
+                                    value={orderType}
+                                    onchange={handleTypeChange}
+                                    type="button"></lightning-radio-group></Span>
+                                <span style="color: red;font-style: italic;" data-id="typeerror"></span>
+                            </div><br/><br/>
+                        </div>
+                        <template if:true={isPickup}>
+                            <div class="slds-grid slds-wrap">
+                                <div  class="slds-col slds-size_1-of-2">
+                                    <span>Pickup Location:<lightning-helptext class="customIcon" content="Please select the pickup location."></lightning-helptext></span>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <Span><lightning-combobox 
+                                        variant="label-hidden"
+                                        options={orderPickUpOptions}
+                                        data-id="pickupLocation"
+                                        value={orderPickuplocation}
+                                        onchange={handlePickupLocChange}
+                                        ></lightning-combobox ></Span>
+                                    <span style="color: red;font-style: italic;" data-id="pickupLocerror"></span>
+                                </div><br/><br/>
+                            </div>
+                        </template>
+
+                        <template if:false={isPickup}>
+                            <div class="slds-grid slds-wrap">
+                                <div  class="slds-col slds-size_1-of-2">
+                                    <span>Delivery Location:<lightning-helptext class="customIcon" content="Please select the delivery Location."></lightning-helptext></span>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <Span><lightning-combobox 
+                                        variant="label-hidden"
+                                        options={orderDeliveryOptions}
+                                        data-id="deliveryOption"
+                                        value={orderDeliveryOption}
+                                        onchange={handleDeliveryOpChange}
+                                        ></lightning-combobox ></Span>
+                                    <span style="color: red;font-style: italic;" data-id="deliveryoperror"></span>
+                                </div><br/><br/>
+                            </div>
+
+                            <div class="slds-grid slds-wrap">
+                                <div  class="slds-col slds-size_1-of-2">
+                                    <span>Delivery Address:<lightning-helptext class="customIcon" data-id="deliverLocatoin" content="Please enter the complete delivery address."></lightning-helptext></span>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <Span><textarea  class="slds-input" data-id="orderDlvLocation"  type="text" ></textarea ></Span>
+                                    <span style="color: red;font-style: italic;" data-id="dlverror"></span>
+                                </div><br/><br/>
+                            </div>
+                        </template>
+                    </template>
+
                     <div class="slds-grid slds-wrap">
                         <div  class="slds-col slds-size_1-of-2">
                             <span>Order Name:<lightning-helptext class="customIcon" content="Please give your order a short name (not your personal or organization name)."></lightning-helptext></span>
@@ -413,6 +475,20 @@
                     </div> 
                         
                 </template>
+                </template>
+                <template if:true={disasterRecoverResponse}>
+                    <div  class="slds-col slds-size_1-of-2">
+                        <span>Disaster Name?</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                         <Span><lightning-combobox 
+                            style="margin-top: -5%;"
+                            data-id="disasterRecoverResponse"
+                            options={disasterOptions}
+                            onchange={handleDisasterOptionsChange}
+                            ></lightning-combobox > </Span>
+                         <span style="color: red;font-style: italic;" data-id="disasterRecoverResponseerror"></span>
+                    </div><br/>
                 </template>
                 <template if:true={specialEvents}>
                     <div  class="slds-col slds-size_1-of-2">

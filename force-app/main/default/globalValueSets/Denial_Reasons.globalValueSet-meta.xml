@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Documents Incomplete</fullName>
+        <default>false</default>
+        <label>Documents Incomplete</label>
+    </customValue>
+    <customValue>
+        <fullName>Not a Charitable Org</fullName>
+        <default>false</default>
+        <label>Not a Charitable Org</label>
+    </customValue>
+    <customValue>
+        <fullName>Individual Banned</fullName>
+        <default>false</default>
+        <label>Individual Banned</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
+    <masterLabel>Denial Reasons</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

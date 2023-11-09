@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This template will be used for Tool Exchange Approval Requests for TBUSA to cover shipping.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Tool Exchange Approval Request - TBUSA Shipping</name>
+    <style>none</style>
+    <subject>Someone would like you to cover shipping!</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

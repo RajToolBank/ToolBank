@@ -1,0 +1,50 @@
+<messaging:emailTemplate subject="Your tool order has been confirmed" recipientType="Contact" relatedToType="order">
+ <messaging:htmlEmailBody >
+ <center>
+ <apex:image id="Logo" value="https://toolbankusa--pro--c.documentforce.com/servlet/servlet.ImageServer?id=015K0000002LXgo&oid=00DK000000XGz8s&lastMod=1643746859000" /><br/><br/>
+</center>
+<strong>Agency:</strong> {!relatedTo.Account.name}<br/>
+<strong>Tool Order:</strong> {!relatedTo.Name}<br/>
+<strong>Order ID:</strong> {!relatedTo.OrderNumber}<br/>
+<strong>Pickup Appointment:</strong> {!MONTH(relatedTo.effectiveDate)}/{!day(relatedTo.effectiveDate)}/{!year(relatedTo.effectiveDate)} at {!If(MOD(hour(relatedTo.Scheduled_Pickup_Time__c),12)=0,12,MOD(hour(relatedTo.Scheduled_Pickup_Time__c),12))}:{! RPAD(TEXT(Minute(relatedTo.Scheduled_Pickup_Time__c)),2,"0")} {!If( relatedTo.Scheduled_Pickup_Time__c != NUll && hour(relatedTo.Scheduled_Pickup_Time__c)>=12,"PM","AM")}<br/>
+
+<strong>Initial Tool Handling Fees:</strong> ${!relatedTo.Total_Handling_Fees__c}<br/>
+<strong>Scheduled Return Date:</strong> {!MONTH(relatedTo.EndDate)}/{!day(relatedTo.EndDate)}/{!year(relatedTo.EndDate)}<br/>
+<strong>Order Agency Contact:</strong> {!relatedTo.BillToContact.name}<br/>
+
+<p>Your appointment for tool pickup has been confirmed! Here are the tools that you have reserved:</p><br/>
+ <center>
+<table border = "2" cellspacing = "5" ><thead>
+        <tr>
+            <th>Tool Name</th>
+            <th>Confirmed Quantity</th>                
+        </tr>
+       </thead>
+<apex:repeat var="ox" value="{!relatedTo.OrderItems}">
+<tr>
+
+<td>{!ox.pricebookentry.product2.name}</td>
+<td style="text-align:center;">
+<apex:outputText id="Connections" value="{0, number, integer}">
+    <apex:param value="{!ox.Reserved_Quantity__c}" />
+</apex:outputText>
+ </td>
+</tr>
+</apex:repeat>      
+    </table>
+    </center>
+
+<p>Here are some tips to help your tool order run smoothly:</p>
+
+<p>Call us with any questions. Need to change your appointment? Add some more tools? Reach out at {!relatedTo.Affiliate_Phone__c}</p>
+
+<p>Please don’t drop by without an appointment! Chances are, you’ll be showing up during someone else’s slot and we’ll have to ask you to come back. </p>
+
+<p>Prepare your method of payment ahead of time. We accept check or credit card. For information on payment give us a call at: {!relatedTo.Affiliate_Phone__c}.</p>
+
+<p>Please be on time! If you run into a snag along the way, call us directly so that we can see if it’s possible to fit you in at another time. </p>
+
+<p>Thank you so much for choosing the ToolBank to empower your project! We look forward to working with you to strengthen and celebrate our shared community.</p>
+
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>

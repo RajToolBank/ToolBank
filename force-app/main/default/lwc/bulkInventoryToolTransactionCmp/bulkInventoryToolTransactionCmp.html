@@ -1,0 +1,133 @@
+<template>
+
+    <template if:true={loaded}>
+        <div class="backgroundInverse">
+            <lightning-spinner alternative-text="Loading" variant="inverse"></lightning-spinner>
+        </div>
+    </template>
+
+    <div class="demo-only demo-only--sizing slds-grid slds-wrap" style="padding-top: 2%;">
+        <div class="slds-size_1-of-2">
+            <!--span>We want to apply the same value for the entire transaction?</span-->
+        </div>
+        <div class="slds-size_1-of-2" style="text-align: right;">
+            <lightning-button variant="brand"  type="submit" onclick={handlePrevious} label="Previous">
+            </lightning-button>&nbsp;&nbsp;
+            <lightning-button variant="brand"  type="submit" onclick={createTransactions} label="Save">
+            </lightning-button>&nbsp;&nbsp;
+            <lightning-button variant="destructive"  type="submit" onclick={handleCancel} label="Cancel">
+            </lightning-button>
+        </div>
+    </div>
+    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+        <div class="slds-size_1-of-4">
+            <div style="width:47%">
+                
+                <lightning-combobox label="Select Type" data-id="recordType" options={recordTypes} value={selectedRecordType}
+                        onchange={selectRecordType}></lightning-combobox>
+            </div>
+        </div>
+        <div class="slds-size_1-of-4">
+          
+            <template if:true={isSubtype}>
+                <div style="width: 67%;">
+                    <c-dependent-picklist-Cmp 
+                    data-id="subtype"
+                    object-api-name="Transaction__c"
+                    object-record-type-id={selectedRecordType}
+                    dependent-field-api-name="Sub_Type__c"
+                    dependent-field-label="Sub Type"
+                    onselecttype={selectsubType}
+                    selected-value={subType}
+                    ></c-dependent-picklist-Cmp>
+                </div>
+            </template>
+            <template if:true={isTransferType}>
+                <div style="width: 70%;">
+                    <label class="slds-form-element__label" for="combobox-id-1"><b>Transfer From</b></label><br/>
+                    {accountName}
+                    <c-search-component
+                        data-id="affiliateSearch"
+                        onlookup={handleLookup}
+                        search-cmp="transaction"
+                        create-record=false
+                        obj-name="Account"
+                        display-fields="Name"
+                        label-name="Transfer To"
+                        show-label=true
+                        parent-id={accountId}>
+                    </c-search-component>
+                </div>
+            </template>
+        </div>  
+        <div class="slds-size_1-of-4">
+            
+            <div style="width: 80%;">
+                <label class="slds-form-element__label" for="inputbox-id-4"  >Note</label><br/>
+                <input label="Note" class="slds-input" onchange={enterNotes}  type="text"  value={note}></input>
+            </div>
+        
+    </div>   
+        <div class="slds-size_1-of-4">
+            <template if:true={isCoporationDonation}>
+                <div >
+                    <label class="slds-form-element__label" for="inputbox-id-2"  >Donating Company</label><br/>
+                    <input label="Donating Company" class="slds-input"  type="text" onchange={enterDonatingCompany} value={donatingCompany}></input>
+                </div>
+            </template>
+        </div>   
+       
+      </div>
+
+      <br/><br/>
+     
+
+    <template if:true={tools}>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable" >
+            <thead>
+                <tr class="slds-line-height_reset"  >
+                    <th  scope="col" style="text-align: left;">
+                        <div class="slds-truncate" title="TOOL NAME">Tool Name</div>
+                    </th>
+                    <th  scope="col" style="text-align: center;">
+                        <div class="slds-truncate" title="Quantity">Quantity</div>
+                    </th>
+                    <th  scope="col" style="text-align: center;">
+                        <div class="slds-truncate" title="On Shelf Quantity">On Shelf Quantity</div>
+                    </th>
+                    <!--th  scope="col" style="text-align: center;">
+                        <div class="slds-truncate" title="Note">Note</div>
+                    </th-->
+                </tr>
+            </thead>
+            <tbody>
+                <template if:true={tools} for:each={tools} for:item="record" for:index="index">
+                    <tr class="slds-hint-parent" key={record.InventoryId} data-id="dataid" data-rowid={record.InventoryId} data-label="lable" title="title" style="text-align: center;">
+                        <td class="slds-cell-wrap" data-label="Tool Name" scope="row" style="text-align: left;">
+                            <div class="slds-truncate" style="white-space: pre-wrap;" data-name={record.Name} data-prod2id={record.Product2Id} data-assetid={record.InventoryId} title="Tool Name">{record.Name}</div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="qty" scope="row" style="width: 20%;text-align: center;">
+                            <div class="slds-truncate" title="qty">
+                                <input type="number" class="slds-input" min="0"
+                                data-qty={record.InventoryId} 
+                                data-prod2id={record.Product2Id}
+                                title="Quantity"
+                                onchange={handleQuantity}
+                                value={record.Quantity} />
+                            </div>
+                        </td>
+                        <td class="slds-cell-wrap" data-label="On Shelf Quantity" scope="row" style="text-align: left;">
+                            <input readonly type="number" class="slds-truncate" style="white-space: pre-wrap;" data-onshelf={record.InventoryId}  title="On Shelf Quantity" value={record.OnshelfQty} />
+                        </td>
+                        <!--td class="slds-cell-wrap">
+                            <input class="slds-input" data-note={record.InventoryId} type="text" data-id="note" ></input>
+                        </td-->
+                        <td class="slds-cell-wrap">
+                            <lightning-button-icon icon-name="utility:delete"  data-deleteindex={record.InventoryId}  onclick={handleDelete}  alternative-text="Delete"   class="test slds-m-left_xx-small" title="Delete"></lightning-button-icon>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </template>
+</template>

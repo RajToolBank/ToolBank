@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Add Credit</fullName>
+        <default>false</default>
+        <label>Add Credit</label>
+    </customValue>
+    <customValue>
+        <fullName>Add Payment</fullName>
+        <default>false</default>
+        <label>Add Payment</label>
+    </customValue>
+    <customValue>
+        <fullName>Confirm/Fulfill</fullName>
+        <default>false</default>
+        <label>Confirm/Fulfill</label>
+    </customValue>
+    <customValue>
+        <fullName>Contact</fullName>
+        <default>false</default>
+        <label>Contact</label>
+    </customValue>
+    <customValue>
+        <fullName>Create Order Info</fullName>
+        <default>false</default>
+        <label>Create Order Info</label>
+    </customValue>
+    <customValue>
+        <fullName>Create Order Review</fullName>
+        <default>false</default>
+        <label>Create Order Review</label>
+    </customValue>
+    <customValue>
+        <fullName>Create Order Tool Select</fullName>
+        <default>false</default>
+        <label>Create Order Tool Select</label>
+    </customValue>
+    <customValue>
+        <fullName>Dashboards</fullName>
+        <default>false</default>
+        <label>Dashboards</label>
+    </customValue>
+    <customValue>
+        <fullName>Emails</fullName>
+        <default>false</default>
+        <label>Emails</label>
+    </customValue>
+    <customValue>
+        <fullName>Events</fullName>
+        <default>false</default>
+        <label>Events</label>
+    </customValue>
+    <customValue>
+        <fullName>Inventory</fullName>
+        <default>false</default>
+        <label>Inventory</label>
+    </customValue>
+    <customValue>
+        <fullName>Member Application</fullName>
+        <default>false</default>
+        <label>Member Application</label>
+    </customValue>
+    <customValue>
+        <fullName>Order</fullName>
+        <default>false</default>
+        <label>Order</label>
+    </customValue>
+    <customValue>
+        <fullName>Order Tool</fullName>
+        <default>false</default>
+        <label>Order Tool</label>
+    </customValue>
+    <customValue>
+        <fullName>Organization</fullName>
+        <default>false</default>
+        <label>Organization</label>
+    </customValue>
+    <customValue>
+        <fullName>Payment Receipt</fullName>
+        <default>false</default>
+        <label>Payment Receipt</label>
+    </customValue>
+    <customValue>
+        <fullName>Picksheet</fullName>
+        <default>false</default>
+        <label>Picksheet</label>
+    </customValue>
+    <customValue>
+        <fullName>Reports</fullName>
+        <default>false</default>
+        <label>Reports</label>
+    </customValue>
+    <customValue>
+        <fullName>Return</fullName>
+        <default>false</default>
+        <label>Return</label>
+    </customValue>
+    <customValue>
+        <fullName>Tasks</fullName>
+        <default>false</default>
+        <label>Tasks</label>
+    </customValue>
+    <customValue>
+        <fullName>Tool</fullName>
+        <default>false</default>
+        <label>Tool</label>
+    </customValue>
+    <customValue>
+        <fullName>Transaction</fullName>
+        <default>false</default>
+        <label>Transaction</label>
+    </customValue>
+    <customValue>
+        <fullName>Users</fullName>
+        <default>false</default>
+        <label>Users</label>
+    </customValue>
+    <masterLabel>Screen/Feature</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

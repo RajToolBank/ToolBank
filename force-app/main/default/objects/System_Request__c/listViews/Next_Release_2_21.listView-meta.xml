@@ -10,14 +10,9 @@
     <columns>Case__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>Projected_Production_Date__c</field>
+        <field>Deployed_Date__c</field>
         <operation>equals</operation>
-        <value>3/14/2023</value>
-    </filters>
-    <filters>
-        <field>Status__c</field>
-        <operation>notEqual</operation>
-        <value>Closed,Closed - Not Possible</value>
+        <value>10/10/2023</value>
     </filters>
     <label>Next Release 3/14</label>
 </ListView>

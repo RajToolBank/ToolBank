@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>55.0</apiVersion>
+    <description>Correcting Join Date to the correct fields in formula</description>
     <environments>Default</environments>
     <formulas>
         <name>EndDate</name>
@@ -37,7 +38,7 @@
         <name>update_membership_Dates_on_Approval</name>
         <label>update membership Dates on Approval</label>
         <locationX>176</locationX>
-        <locationY>311</locationY>
+        <locationY>287</locationY>
         <inputAssignments>
             <field>Last_Membership_Date__c</field>
             <value>

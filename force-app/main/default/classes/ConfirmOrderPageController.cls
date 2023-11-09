@@ -1,4 +1,4 @@
-public class ConfirmOrderPageController {
+public without Sharing class ConfirmOrderPageController {
     
     @AuraEnabled(cacheable=true)
     public static OrderDetails getOrderDetails(String recordId){
@@ -24,7 +24,8 @@ public class ConfirmOrderPageController {
         Long hours = minutes / 60;
         OrderDetails.readOnly = (hours) >=2; 
         List<OrderItem> OrderItemList =LowestQuantityCalculateClasss.lowestQuantityOrder3(order);
-        if(OrderItemList != Null && OrderItemList.size()>0){
+        OrderDetails.orderItemList =OrderItemList;
+        /*if(OrderItemList != Null && OrderItemList.size()>0){
             
             Map<Decimal, list<OrderItem>> availablesorting = new map<Decimal, list<OrderItem>>();
             List<Decimal> sortList = new List<Decimal>();
@@ -47,7 +48,7 @@ public class ConfirmOrderPageController {
                 OrderDetails.orderItemList.addAll(availablesorting.get(diff));
             }
             
-        }
+        }*/
             return OrderDetails;
         
     }
@@ -61,20 +62,21 @@ public class ConfirmOrderPageController {
         if(String.isBlank(searchString) && String.isBlank(category)){
             assetList = [SELECT Id,Affiliate_Handling_Fee__c,
                         Product2Id,
+                        On_Shelf_Quantity_F__c,
                         price 
                         FROM Asset 
                         WHERE AccountId =: accid
                         AND Unlisted_Item__c = false
                         AND Product2Id  NOT IN: toolIds
                         AND Product2.Type__c = 'Tool'
-                        AND (Quantity != Null 
-                        OR Quantity != 0)];
+                        AND Quantity > 0];
         }else{
             if(String.isNotBlank(searchString))
                 searchString = '%'+searchString+'%';
             if(String.isBlank(category) && String.isNotBlank(searchString)){
                 assetList = [SELECT Id,Affiliate_Handling_Fee__c,
                             Product2Id,
+                            On_Shelf_Quantity_F__c,
                             price 
                             FROM Asset 
                             WHERE AccountId =: accid
@@ -84,24 +86,24 @@ public class ConfirmOrderPageController {
                             OR Product2.Tool_Note__c like:searchString)
                             AND Product2Id  NOT IN: toolIds
                             AND Product2.Type__c = 'Tool'
-                            AND (Quantity != Null 
-                            OR Quantity != 0)];
+                            AND Quantity > 0];
             }
             else if(String.isNotBlank(category) && String.isBlank(searchString)){
                 if(category == 'All'){
                     assetList = [SELECT Id,Affiliate_Handling_Fee__c,
                     Product2Id,
+                    On_Shelf_Quantity_F__c,
                     price 
                     FROM Asset 
                     WHERE AccountId =: accid
                     AND Unlisted_Item__c = false
                     AND Product2Id  NOT IN: toolIds
                     AND Product2.Type__c = 'Tool'
-                    AND (Quantity != Null 
-                    OR Quantity != 0)];
+                    AND Quantity > 0];
                 }else{
                     assetList = [SELECT Id,Affiliate_Handling_Fee__c,
                             Product2Id,
+                            On_Shelf_Quantity_F__c,
                             price 
                             FROM Asset 
                             WHERE AccountId =: accid
@@ -109,8 +111,7 @@ public class ConfirmOrderPageController {
                             AND Unlisted_Item__c = false
                             AND Product2Id  NOT IN: toolIds
                             AND Product2.Type__c = 'Tool'
-                            AND (Quantity != Null 
-                            OR Quantity != 0)];
+                            AND Quantity > 0];
                 }
                 
             }
@@ -119,6 +120,7 @@ public class ConfirmOrderPageController {
                 if(category == 'All'){
                     assetList = [SELECT Id,Affiliate_Handling_Fee__c,
                     Product2Id,
+                    On_Shelf_Quantity_F__c,
                     price 
                     FROM Asset 
                     WHERE AccountId =: accid
@@ -128,11 +130,11 @@ public class ConfirmOrderPageController {
                     OR Product2.Tool_Note__c like:searchString)
                     AND Product2Id  NOT IN: toolIds
                     AND Product2.Type__c = 'Tool'
-                    AND (Quantity != Null 
-                    OR Quantity != 0)];
+                    AND Quantity > 0];
                 }else{
                 assetList = [SELECT Id,Affiliate_Handling_Fee__c,
                             Product2Id,
+                            On_Shelf_Quantity_F__c,
                             price 
                             FROM Asset 
                             WHERE AccountId =: accid
@@ -143,8 +145,7 @@ public class ConfirmOrderPageController {
                             AND product2.Family =: category
                             AND Product2Id  NOT IN: toolIds
                             AND Product2.Type__c = 'Tool'
-                            AND (Quantity != Null 
-                            OR Quantity != 0)];
+                            AND Quantity > 0];
                 }
             }
         }
@@ -178,6 +179,7 @@ public class ConfirmOrderPageController {
             availableProduct.Family= pbe.Product2.Family;
             availableProduct.handlingFee = productIdToAssetMap.get(pbe.product2Id).Affiliate_Handling_Fee__c;
             availableProduct.AssetId = productIdToAssetMap.get(pbe.product2Id).Id;
+            availableProduct.onShelfQty = productIdToAssetMap.get(pbe.product2Id).On_Shelf_Quantity_F__c;
             availableProducts.add(availableProduct);
         }
                                         
@@ -310,7 +312,7 @@ public class ConfirmOrderPageController {
     @AuraEnabled
     public static List<OrderItem> getConflictedItems(String itemId, String affilliateId, String product2Id, Date pickupDate, Date returnDate){
 
-        List<String> orderstatus = new List<String>{'Unconfirmed','Partially Confirmed','Confirmed','Fulfilled','Partially Returned' };
+        List<String> orderstatus = new List<String>{'Unconfirmed','Partially Confirmed','Confirmed','Fulfilled','Partially Returned','Overdue' };
          
         Map<String, OrderItem> orderToItemMap = new Map<String, OrderItem>();
         for(OrderItem item: [SELECT Id,product2Id,
@@ -491,6 +493,9 @@ public class ConfirmOrderPageController {
         public String AssetId;  
         @AuraEnabled 
         public Decimal handlingFee;
-
+        @AuraEnabled 
+        public Decimal onShelfQty;
+        @AuraEnabled 
+        public Decimal qty;
     }
 }
