@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <groupingStringEnum>OrderStatusCode</groupingStringEnum>
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Unconfirmed</fullName>
+        <default>false</default>
+        <label>Unconfirmed</label>
+        <groupingString>Draft</groupingString>
+    </standardValue>
+    <standardValue>
+        <fullName>Partially Confirmed</fullName>
+        <default>false</default>
+        <label>Partially Confirmed</label>
+        <groupingString>Draft</groupingString>
+    </standardValue>
+    <standardValue>
+        <fullName>Confirmed</fullName>
+        <default>false</default>
+        <label>Confirmed</label>
+        <groupingString>Draft</groupingString>
+    </standardValue>
+    <standardValue>
+        <fullName>Fulfilled</fullName>
+        <default>false</default>
+        <label>Fulfilled</label>
+        <groupingString>Draft</groupingString>
+    </standardValue>
+    <standardValue>
+        <fullName>Partially Returned</fullName>
+        <default>false</default>
+        <label>Partially Returned</label>
+        <groupingString>Draft</groupingString>
+    </standardValue>
+    <standardValue>
+        <fullName>Unpaid</fullName>
+        <default>false</default>
+        <label>Unpaid</label>
+        <groupingString>Draft</groupingString>
+    </standardValue>
+    <standardValue>
+        <fullName>Overdue</fullName>
+        <default>false</default>
+        <label>Overdue</label>
+        <groupingString>Draft</groupingString>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed</fullName>
+        <default>false</default>
+        <label>Closed</label>
+        <groupingString>Draft</groupingString>
+    </standardValue>
+    <standardValue>
+        <fullName>Cancelled</fullName>
+        <default>false</default>
+        <label>Cancelled</label>
+        <groupingString>Draft</groupingString>
+    </standardValue>
+    <standardValue>
+        <fullName>Cancelled_original</fullName>
+        <default>false</default>
+        <label>Cancelled_orginal</label>
+        <groupingString>Activated</groupingString>
+    </standardValue>
+</StandardValueSet>

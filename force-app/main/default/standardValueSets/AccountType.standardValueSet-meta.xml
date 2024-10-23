@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Business</fullName>
+        <default>false</default>
+        <label>Business</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Foundation</fullName>
+        <default>false</default>
+        <label>Corporate Foundation</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Family or Private Foundation</fullName>
+        <default>false</default>
+        <label>Family or Private Foundation</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Individual</fullName>
+        <default>false</default>
+        <label>Individual</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Nonprofit (Schools, religious, community, associations, etc.)</fullName>
+        <default>false</default>
+        <label>Nonprofit (Schools, religious, community, associations, etc.)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Government Agency</fullName>
+        <default>false</default>
+        <label>Government Agency</label>
+    </standardValue>
+    <standardValue>
+        <fullName>ToolBank Affiliate</fullName>
+        <default>false</default>
+        <label>ToolBank Affiliate</label>
+    </standardValue>
+    <standardValue>
+        <fullName>ToolBank Hub</fullName>
+        <default>false</default>
+        <label>ToolBank Hub</label>
+    </standardValue>
+    <standardValue>
+        <fullName>TDS - Trailer</fullName>
+        <default>false</default>
+        <label>TDS - Trailer</label>
+    </standardValue>
+    <standardValue>
+        <fullName>TDS - Site</fullName>
+        <default>false</default>
+        <label>TDS - Site</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Vendor</fullName>
+        <default>false</default>
+        <label>Vendor</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Intake - Warehouse</fullName>
+        <default>false</default>
+        <label>Intake - Warehouse</label>
+    </standardValue>
+</StandardValueSet>

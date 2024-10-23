@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Add Credit</fullName>
+        <default>false</default>
+        <label>Add Credit</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Add Payment</fullName>
+        <default>false</default>
+        <label>Add Payment</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Affiliated Contact</fullName>
+        <default>false</default>
+        <label>Affiliated Contact</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Change Pickup</fullName>
+        <default>false</default>
+        <label>Change Pickup</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Change Return Date</fullName>
+        <default>false</default>
+        <label>Change Return Date</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Confirm/Fulfill</fullName>
+        <default>false</default>
+        <label>Confirm/Fulfill</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Contact</fullName>
+        <default>false</default>
+        <label>Contact</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Create Order - Demographic Info</fullName>
+        <default>false</default>
+        <label>Create Order - Demographic Info</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Create Order - Select Tools</fullName>
+        <default>false</default>
+        <label>Create Order - Select Tools</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Create Order - Review Order</fullName>
+        <default>false</default>
+        <label>Create Order - Review Order</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Create Order - Confirmation</fullName>
+        <default>false</default>
+        <label>Create Order - Confirmation</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Dashboards</fullName>
+        <default>false</default>
+        <label>Dashboards</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Emails</fullName>
+        <default>false</default>
+        <label>Emails</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Inventory</fullName>
+        <default>false</default>
+        <label>Inventory</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Member Agency</fullName>
+        <default>false</default>
+        <label>Member Agency</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Member Applications</fullName>
+        <default>false</default>
+        <label>Member Applications</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Order</fullName>
+        <default>false</default>
+        <label>Order</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Order Tool</fullName>
+        <default>false</default>
+        <label>Order Tool</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Payment Receipt</fullName>
+        <default>false</default>
+        <label>Payment Receipt</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Picksheet</fullName>
+        <default>false</default>
+        <label>Picksheet</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Reports</fullName>
+        <default>false</default>
+        <label>Reports</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Return</fullName>
+        <default>false</default>
+        <label>Return</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Tasks</fullName>
+        <default>false</default>
+        <label>Tasks</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Tool</fullName>
+        <default>false</default>
+        <label>Tool</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Transaction (Inventory)</fullName>
+        <default>false</default>
+        <label>Transaction (Inventory)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Users</fullName>
+        <default>false</default>
+        <label>Users</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </standardValue>
+</StandardValueSet>
