@@ -11,6 +11,7 @@ public class TransactionTriggerHandler {
     public static void updqteQuantity(List<Transaction__c> transList){
 
         for (Transaction__c tran : transList) {
+            tran.Created_Date__c = System.now();
             String RecordTypeId = tran.RecordTypeId;
             String subType = tran.sub_type__c;
             if(BACK_IN_SERVICE.equals(RecordTypeId)){ // Back in service

@@ -19,9 +19,19 @@
                 <label>Design</label>
             </value>
             <value>
-                <fullName>Discussion Required</fullName>
+                <fullName>More Info Requested</fullName>
                 <default>false</default>
-                <label>Discussion Required</label>
+                <label>More Info Requested</label>
+            </value>
+            <value>
+                <fullName>Estimate Requested</fullName>
+                <default>false</default>
+                <label>Estimate Requested</label>
+            </value>
+            <value>
+                <fullName>Estimate Complete</fullName>
+                <default>false</default>
+                <label>Estimate Complete</label>
             </value>
             <value>
                 <fullName>Ready for Dev</fullName>
@@ -59,19 +69,14 @@
                 <label>Closed</label>
             </value>
             <value>
-                <fullName>Closed - Not Possible</fullName>
+                <fullName>Platform Limitation - Not Possible</fullName>
                 <default>false</default>
-                <label>Closed - Not Possible</label>
+                <label>Platform Limitation - Not Possible</label>
             </value>
             <value>
-                <fullName>Estimate Requested</fullName>
+                <fullName>On Hold</fullName>
                 <default>false</default>
-                <label>Estimate Requested</label>
-            </value>
-            <value>
-                <fullName>Estimate Complete</fullName>
-                <default>false</default>
-                <label>Estimate Complete</label>
+                <label>On Hold</label>
             </value>
         </valueSetDefinition>
     </valueSet>

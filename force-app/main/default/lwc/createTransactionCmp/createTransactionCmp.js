@@ -78,7 +78,7 @@ export default class CreateTransactionCmp extends LightningElement {
         if(!recordType.value){
           const evt = new ShowToastEvent({
             title: "Transaction",
-            message: 'Pleaes select the record type',
+            message: 'Please select the record type',
             variant: "error",
         });
         this.dispatchEvent(evt);
@@ -97,7 +97,7 @@ export default class CreateTransactionCmp extends LightningElement {
         if(!this.subType && !this.isTransferType){
           const evt = new ShowToastEvent({
             title: "Transaction",
-            message: 'Pleaes select the sub type',
+            message: 'Please select the sub type',
             variant: "error",
           });
           this.dispatchEvent(evt);
@@ -105,7 +105,7 @@ export default class CreateTransactionCmp extends LightningElement {
         }else if(this.isTransferType && !this.transferToId){
           const evt = new ShowToastEvent({
             title: "Transaction",
-            message: 'Pleaes select the transfer to',
+            message: 'Please select the transfer to',
             variant: "error",
           });
           this.dispatchEvent(evt);
@@ -113,7 +113,7 @@ export default class CreateTransactionCmp extends LightningElement {
         }else if(!qty.value){
           const evt = new ShowToastEvent({
             title: "Transaction",
-            message: 'Pleaes add quantity',
+            message: 'Please add quantity',
             variant: "error",
           });
           this.dispatchEvent(evt);
@@ -121,6 +121,17 @@ export default class CreateTransactionCmp extends LightningElement {
         }
         
         let note = this.template.querySelector(`[data-id="note"]`);
+
+        if(!note.value){
+          const evt = new ShowToastEvent({
+            title: "Transaction",
+            message: 'Please enter the note',
+            variant: "error",
+          });
+          this.dispatchEvent(evt);
+          return;
+        }
+
         createTransaction({inventoryId:this.recordId,recordTypeId:this.selectedRecordType,subType:this.subType,qty:qty.value,note:note.value,affiliateId:this.transferToId})
         .then(res =>{
             const evt = new ShowToastEvent({

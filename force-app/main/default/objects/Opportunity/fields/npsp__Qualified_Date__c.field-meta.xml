@@ -7,7 +7,6 @@
     <inlineHelpText>The date your organization identified this donor as qualifying for this Donation.</inlineHelpText>
     <label>Qualified Date</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>

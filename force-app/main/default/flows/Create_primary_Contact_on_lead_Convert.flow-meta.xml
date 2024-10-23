@@ -5,7 +5,7 @@
         <name>Add_Attachment_to_list</name>
         <label>Add Attachment to list</label>
         <locationX>556</locationX>
-        <locationY>2256</locationY>
+        <locationY>2556</locationY>
         <assignmentItems>
             <assignToReference>contentDocList</assignToReference>
             <operator>Add</operator>
@@ -20,8 +20,8 @@
     <assignments>
         <name>Add_to_Acc_list</name>
         <label>Add to Acc list</label>
-        <locationX>600</locationX>
-        <locationY>1608</locationY>
+        <locationX>468</locationX>
+        <locationY>1716</locationY>
         <assignmentItems>
             <assignToReference>AccountList</assignToReference>
             <operator>Add</operator>
@@ -60,7 +60,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Add_to_Acc_list</targetReference>
+            <targetReference>Decision_5</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -142,14 +142,14 @@
             <assignToReference>PrmaryAccount.Facebook__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>$Record.sf4twitter__Fcbk_User_Id__c</elementReference>
+                <elementReference>$Record.sf4twitter__Fcbk_Username__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>PrmaryAccount.Twitter__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>$Record.sf4twitter__Fcbk_User_Id__c</elementReference>
+                <elementReference>$Record.sf4twitter__Twitter_Username__c</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -244,7 +244,7 @@
         <name>Clear_Attachment_Variable</name>
         <label>Clear Attachment Variable</label>
         <locationX>556</locationX>
-        <locationY>2364</locationY>
+        <locationY>2664</locationY>
         <assignmentItems>
             <assignToReference>contentDocumentLink</assignToReference>
             <operator>Assign</operator>
@@ -260,7 +260,7 @@
         <name>new_Attachment</name>
         <label>new Attachment</label>
         <locationX>556</locationX>
-        <locationY>2148</locationY>
+        <locationY>2448</locationY>
         <assignmentItems>
             <assignToReference>contentDocumentLink.LinkedEntityId</assignToReference>
             <operator>Assign</operator>
@@ -279,11 +279,27 @@
             <targetReference>Add_Attachment_to_list</targetReference>
         </connector>
     </assignments>
+    <assignments>
+        <name>Only_set_Primary</name>
+        <label>Only set Primary</label>
+        <locationX>732</locationX>
+        <locationY>1716</locationY>
+        <assignmentItems>
+            <assignToReference>AccountList</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>PrmaryAccount</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>update_accounts</targetReference>
+        </connector>
+    </assignments>
     <decisions>
         <name>check_Attachments_Exist</name>
         <label>check Attachments Exist</label>
         <locationX>600</locationX>
-        <locationY>1932</locationY>
+        <locationY>2232</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Exist</name>
@@ -305,7 +321,7 @@
         <name>check_if_primary_already_there</name>
         <label>check if primary already there</label>
         <locationX>446</locationX>
-        <locationY>816</locationY>
+        <locationY>708</locationY>
         <defaultConnector>
             <targetReference>Check_Primary_Account</targetReference>
         </defaultConnector>
@@ -321,7 +337,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Create_Primary_Contact</targetReference>
+                <targetReference>Create_Primary_Individual_account</targetReference>
             </connector>
             <label>not existed</label>
         </rules>
@@ -346,7 +362,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Create_Primary_Individual_account</targetReference>
+                <targetReference>get_Primary_Contact_if_already_existed</targetReference>
             </connector>
             <label>Primary exist</label>
         </rules>
@@ -376,7 +392,37 @@
             <label>Check Primary</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Decision_5</name>
+        <label>Decision 5</label>
+        <locationX>600</locationX>
+        <locationY>1608</locationY>
+        <defaultConnector>
+            <targetReference>Only_set_Primary</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Both_are_not_Same</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>PrmaryAccount.Id</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>ParentAccount.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_to_Acc_list</targetReference>
+            </connector>
+            <label>Both are not Same</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
+    <formulas>
+        <name>AgreementName</name>
+        <dataType>String</dataType>
+        <expression>{!Get_Converted_Contact.npsp__Primary_Affiliation__r.Name}&amp;&quot;_Membership Agreement&quot;</expression>
+    </formulas>
     <formulas>
         <name>EndDate</name>
         <dataType>Date</dataType>
@@ -393,7 +439,7 @@
         <name>Attachments</name>
         <label>Attachments</label>
         <locationX>468</locationX>
-        <locationY>2040</locationY>
+        <locationY>2340</locationY>
         <collectionReference>get_Attachments</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -426,7 +472,7 @@
         <name>Create_Attachments</name>
         <label>Create Attachments</label>
         <locationX>468</locationX>
-        <locationY>2556</locationY>
+        <locationY>2856</locationY>
         <inputReference>contentDocList</inputReference>
     </recordCreates>
     <recordCreates>
@@ -497,10 +543,10 @@
     <recordCreates>
         <name>Create_Primary_Individual_account</name>
         <label>Create Primary Individual account</label>
-        <locationX>446</locationX>
-        <locationY>600</locationY>
+        <locationX>314</locationX>
+        <locationY>816</locationY>
         <connector>
-            <targetReference>get_Primary_Contact_if_already_existed</targetReference>
+            <targetReference>Create_Primary_Contact</targetReference>
         </connector>
         <inputAssignments>
             <field>Name</field>
@@ -545,6 +591,89 @@
             </value>
         </inputAssignments>
         <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>create_signature</name>
+        <label>create signature</label>
+        <locationX>600</locationX>
+        <locationY>2124</locationY>
+        <connector>
+            <targetReference>check_Attachments_Exist</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>signature__AttachPDF__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>signature__AttachPDFtoParent__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>signature__EmailPDF__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>signature__EmailTemplateCompletion__c</field>
+            <value>
+                <stringValue>TBSignedWaiver</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>signature__EmailTemplateRequest__c</field>
+            <value>
+                <stringValue>EmailSignature</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>signature__Email__c</field>
+            <value>
+                <elementReference>Get_Converted_Contact.Email</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>signature__Name_2__c</field>
+            <value>
+                <elementReference>Get_Converted_Contact.LastName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>signature__Name__c</field>
+            <value>
+                <elementReference>Get_Converted_Contact.FirstName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>signature__PDFTemplate__c</field>
+            <value>
+                <stringValue>c__AgreementPDFPage</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>signature__RequestedForm__c</field>
+            <value>
+                <stringValue>ToolBank</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>signature__RequestedPDFName__c</field>
+            <value>
+                <elementReference>Get_Converted_Contact.npsp__Primary_Affiliation__r.Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>signature__Status__c</field>
+            <value>
+                <stringValue>Requested</stringValue>
+            </value>
+        </inputAssignments>
+        <object>signature__Signature__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordLookups>
@@ -611,7 +740,7 @@
         <name>get_Primary_Contact_if_already_existed</name>
         <label>get Primary Contact if already existed</label>
         <locationX>446</locationX>
-        <locationY>708</locationY>
+        <locationY>600</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>check_if_primary_already_there</targetReference>
@@ -632,7 +761,7 @@
         <name>update_accounts</name>
         <label>update accounts</label>
         <locationX>600</locationX>
-        <locationY>1716</locationY>
+        <locationY>1908</locationY>
         <connector>
             <targetReference>update_contact</targetReference>
         </connector>
@@ -642,9 +771,9 @@
         <name>update_contact</name>
         <label>update contact</label>
         <locationX>600</locationX>
-        <locationY>1824</locationY>
+        <locationY>2016</locationY>
         <connector>
-            <targetReference>check_Attachments_Exist</targetReference>
+            <targetReference>create_signature</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>

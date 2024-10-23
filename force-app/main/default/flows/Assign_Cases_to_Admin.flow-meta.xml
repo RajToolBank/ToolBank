@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>New_Case_Email</name>
+        <label>New Case Email</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <actionName>Case.New_Case_Created</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
     <apiVersion>57.0</apiVersion>
     <environments>Default</environments>
     <interviewLabel>Assign Cases to Admin {!$Flow.CurrentDateTime}</interviewLabel>
@@ -27,7 +42,10 @@
         <name>Tracy_as_Case_Owner</name>
         <label>Tracy as Case Owner</label>
         <locationX>176</locationX>
-        <locationY>335</locationY>
+        <locationY>323</locationY>
+        <connector>
+            <targetReference>New_Case_Email</targetReference>
+        </connector>
         <inputAssignments>
             <field>OwnerId</field>
             <value>

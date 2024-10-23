@@ -699,13 +699,21 @@
         <label>Set Date for next Overdue Follow-Up</label>
         <locationX>1106</locationX>
         <locationY>1247</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
         <inputAssignments>
             <field>Overdue_Send_Email_Date__c</field>
             <value>
                 <elementReference>OverdueDateSet</elementReference>
             </value>
         </inputAssignments>
-        <inputReference>$Record</inputReference>
+        <object>Order</object>
     </recordUpdates>
     <start>
         <locationX>650</locationX>

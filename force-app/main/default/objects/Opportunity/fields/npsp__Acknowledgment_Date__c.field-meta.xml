@@ -7,7 +7,6 @@
     <inlineHelpText>The date that you acknowledged this Opportunity.</inlineHelpText>
     <label>Acknowledgment Date</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>

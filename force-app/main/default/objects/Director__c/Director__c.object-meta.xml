@@ -145,7 +145,7 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>true</enableActivities>
     <enableBulkApi>true</enableBulkApi>
-    <enableFeeds>true</enableFeeds>
+    <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
     <enableReports>true</enableReports>
@@ -156,7 +156,6 @@
     <label>Director</label>
     <nameField>
         <label>Director Name</label>
-        <trackFeedHistory>true</trackFeedHistory>
         <type>Text</type>
     </nameField>
     <pluralLabel>Directors</pluralLabel>

@@ -1,0 +1,23 @@
+<apex:page standardController="Contact"  showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false">
+    <!--apex:includeScript value="/lightning/lightning.out.js" /-->
+    <script src="https://toolbank.my.salesforce-sites.com/sign/lightning/lightning.out.js"></script>
+    <apex:stylesheet value="/resource/slds0120/assets/styles/salesforce-lightning-design-system-vf.css"/>
+    <apex:includeLightning />
+    <div class="slds" style="margin-top:10px;margin-left:10px;"> 
+        <div id="lightning" />
+    </div>
+
+    <script>
+        var contactId = "{!$CurrentPage.parameters.id}";
+        console.log(contactId);
+        $Lightning.use("c:sign_member_agreement_app", function() {
+          $Lightning.createComponent("c:sign_member_agreement",
+                { "recordId" : contactId },
+                  "lightning",
+                  function(cmp) {
+                      alert("{!$CurrentPage.parameters.id}");
+                    // do some stuff
+               });
+        });
+    </script>
+</apex:page>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_User_Change_Status_PriorValue</fullName>
+    <active>false</active>
+    <description>Restrict user to change status to any prior value.</description>
+    <errorConditionFormula>OR( IF( ISPICKVAL( Status ,&quot;Unconfirmed&quot;) ,  OR( ISPICKVAL( PRIORVALUE(Status),&quot;Partially Confirmed&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Confirmed&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Fulfilled&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Partially Returned&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Unpaid&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Overdue&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Closed&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled_original&quot;)) , False),
+
+IF( ISPICKVAL( Status ,&quot;Partially Confirmed&quot;) ,  OR(ISPICKVAL( PRIORVALUE(Status),&quot;Confirmed&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Fulfilled&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Partially Returned&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Unpaid&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Overdue&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Closed&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled_original&quot;)), False),
+
+IF( ISPICKVAL( Status ,&quot;Confirmed&quot;) , OR(ISPICKVAL( PRIORVALUE(Status),&quot;Fulfilled&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Partially Returned&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Unpaid&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Overdue&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Closed&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled_original&quot;)), False),
+
+IF( ISPICKVAL( Status ,&quot;Fulfilled&quot;) ,  OR(ISPICKVAL( PRIORVALUE(Status),&quot;Partially Returned&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Unpaid&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Closed&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled_original&quot;)) , False),
+
+IF( ISPICKVAL( Status ,&quot;Partially Returned&quot;) ,  OR(ISPICKVAL( PRIORVALUE(Status),&quot;Unpaid&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Overdue&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Closed&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled_original&quot;)), False),
+
+IF( ISPICKVAL( Status ,&quot;Unpaid&quot;) , OR(ISPICKVAL( PRIORVALUE(Status),&quot;Closed&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled_original&quot;)), False),
+
+IF( ISPICKVAL( Status ,&quot;Overdue&quot;) , OR(ISPICKVAL( PRIORVALUE(Status),&quot;Closed&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled_original&quot;)), False),
+
+IF( ISPICKVAL( Status ,&quot;Closed&quot;) , OR(ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled&quot;),ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled_original&quot;)), False),
+
+IF( ISPICKVAL( Status ,&quot;Cancelled&quot;) , OR(ISPICKVAL( PRIORVALUE(Status),&quot;Cancelled_original&quot;)), False)
+)</errorConditionFormula>
+    <errorMessage>You can&apos;t set any prior status.</errorMessage>
+</ValidationRule>

@@ -7,7 +7,6 @@
     <inlineHelpText>The date of the Grant&apos;s inception, according to the document or contract sent by the grantmaking organization.</inlineHelpText>
     <label>Grant Contract Date</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>

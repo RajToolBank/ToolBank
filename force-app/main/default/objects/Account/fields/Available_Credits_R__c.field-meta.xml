@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Available_Credits_R__c</fullName>
+    <externalId>false</externalId>
+    <label>Available Credits</label>
+    <summarizedField>Credit__c.Amount_Remaining__c</summarizedField>
+    <summaryForeignKey>Credit__c.Organization__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

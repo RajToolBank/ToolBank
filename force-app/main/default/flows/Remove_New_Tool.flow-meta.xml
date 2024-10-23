@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <decisions>
+        <name>Determine_contains_New_Tool</name>
+        <label>Determine contains New Tool</label>
+        <locationX>176</locationX>
+        <locationY>360</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>New_Tool_Only</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Old_New_Tools.Highlights__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Tool</stringValue>
+                </rightValue>
+            </conditions>
+            <label>New Tool Only</label>
+        </rules>
+        <rules>
+            <name>New_and_Common_Tool</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Old_New_Tools.Highlights__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Common Tool</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Old_New_Tools.Highlights__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>New Tool</stringValue>
+                </rightValue>
+            </conditions>
+            <label>New and Common Tool</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>todayless180</name>
+        <dataType>Date</dataType>
+        <expression>{!Get_Old_New_Tools.CreatedDate} - 180</expression>
+    </formulas>
+    <interviewLabel>Remove New Tool {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Remove New Tool</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Old_New_Tools</name>
+        <label>Get Old New Tools</label>
+        <locationX>176</locationX>
+        <locationY>252</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Determine_contains_New_Tool</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Highlights__c</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>New Tool</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>CreatedDate</field>
+            <operator>LessThanOrEqualTo</operator>
+            <value>
+                <elementReference>todayless180</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Product2</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Old_New_Tools</targetReference>
+        </connector>
+        <schedule>
+            <frequency>Once</frequency>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>InvalidDraft</status>
+</Flow>

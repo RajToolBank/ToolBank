@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <label>Grant Period End Date</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>

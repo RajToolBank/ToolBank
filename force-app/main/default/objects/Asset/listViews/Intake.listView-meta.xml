@@ -6,6 +6,8 @@
     <columns>Retail_Price__c</columns>
     <columns>Weekly_Handling_Fee__c</columns>
     <columns>ACCOUNT.NAME</columns>
+    <columns>On_Shelf_Quantity_F__c</columns>
+    <columns>Total_Stock_Historical__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>ACCOUNT.NAME</field>

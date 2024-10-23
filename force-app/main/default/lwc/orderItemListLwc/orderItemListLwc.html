@@ -1,0 +1,194 @@
+<template>
+    <template if:true={ordertools}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-11" class="slds-modal slds-fade-in-open" style="width: 90%;margin-left: 5%;height:60%;margin-top:10%;background-color: #ededed">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-11" class="slds-modal__title slds-hyphenate">Review Date changes</h1>
+                </div>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-11">
+                    <div class="demo-only demo-only--sizing  slds-grid slds-wrap slds-scrollable">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable" >
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th  scope="col" class="slds-is-resizable" style="width: 3%;text-align: left;">
+                                
+                                    </th>
+                                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
+                                        <div class="slds-truncate" style="white-space: pre-wrap;" title="TOOL NAME">TOOL NAME
+                                            <lightning-helptext content="Hover over the tool name for Tool Note"></lightning-helptext>
+                                        </div>
+                                    </th>
+                                    <th  scope="col" class="slds-is-resizable" style="width: 15%;text-align: center;">
+                                        <div class="slds-truncate slds-align_absolute-center" style="white-space: pre-wrap;" title="ON SHELF AMOUNT">ON SHELF AMOUNT</div>
+                                    </th>
+                                    <th  scope="col" class="slds-is-resizable" style="width: 15%;text-align: center;">
+                                        <div class="slds-truncate slds-align_absolute-center" style="white-space: pre-wrap;" title="SCHEDULED AVAILABLE">SCHEDULED AVAILABLE</div>
+                                    </th>
+                                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                                        <div class="slds-truncate" style="white-space: pre-wrap;" title="REQUESTED QUANTITY">REQUESTED QUANTITY</div>
+                                    </th>
+                                    <th  scope="col" class="slds-is-resizable" style="width: 11%;text-align: center;">
+                                        <div class="slds-truncate" style="white-space: pre-wrap;" title="CONFIRMED QUANTITY">CONFIRMED QUANTITY</div>
+                                    </th>
+                                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                                        <div class="slds-truncate" style="white-space: pre-wrap;" title="SCHEDULED RETURN DATE">SCHEDULED RETURN DATE</div>
+                                    </th>
+                                    <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                                        <div class="slds-truncate" style="white-space: pre-wrap;" title="STATUS">STATUS</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template if:true={orderItems} for:each={orderItems} for:item="record" for:index="index">
+                                    <tr class="slds-hint-parent" key={record.Id} data-status={record.Status__c} data-rowid={record.Id} data-id="dataid" data-label="lable" title="title" >
+                                        <td class="slds-cell-wrap"  scope="row" style="width: 3%;text-align: left;">
+                                            <div class="slds-truncate"   >
+                                                <lightning-helptext onclick={openConflictModal} data-itemid={record.Id} data-prodid={record.Product2Id} ></lightning-helptext>
+                                            </div>
+                                        </td>
+                                        <td class="slds-cell-wrap" data-label="TOOL NAME" scope="row" style="width: 9%;text-align: left;">
+                                            <div class="slds-truncate"  title={record.Product2.Tool_Note__c}  >{record.Product2.Name}
+                                            </div>
+                                        </td>
+                                        <td class="slds-cell-wrap" data-label="ON SHELF AMOUNT" style="width: 15%;text-align: center;">
+                                            <div class="slds-truncate" title="ON SHELF AMOUNT"><span >{record.Inventory_Tool__r.On_Shelf_Quantity_F__c}</span></div>
+                                        </td>
+                                        <td class="slds-cell-wrap slds-table_col-bordered" data-label="SCHEDULED AVAILABLE" style="width: 15%;text-align: center;color: red;">
+                                            <div class="slds-truncate" title="SCHEDULED AVAILABLE" ><span data-lowest={record.Id} >{record.Lowest_Available_Quantity_For_this_Item__c}</span></div>
+                                        </td>
+                                        <td class="slds-cell-wrap" data-label="REQUESTED QUANTITY" style="width: 9%;text-align: center;">
+                                            <div class="slds-truncate" title="REQUESTED QUANTITY">
+                                                <span data-req={record.Id}>{record.Quantity}</span>
+                                            </div>
+                                        </td>
+                                        <td class="slds-cell-wrap slds-table_col-bordered" data-label="CONFIRMED QUANTITY" style="text-align: center;color: red;">
+                                            <div class="slds-truncate" title="CONFIRMED QUANTITY" >{record.Reserved_Quantity__c}</div>
+                                        </td>
+                                        <td class="slds-cell-wrap" data-label="SCHEDULED RETURN DATE" style="width: 15%;text-align: center;">
+                                            <div class="slds-truncate" title="SCHEDULED RETURN DATE">
+                                                <lightning-input    data-id={record.Id} 
+                                                                    readonly type="date" 
+                                                                    data-return={record.Id} 
+                                                                    value={record.Schedule_Return_Date__c}
+                                                                    data-product2id={record.Product2Id} >
+                                                </lightning-input>
+                                            </div>
+                                        </td>
+                                        <td class="slds-cell-wrap" data-label="STATUS" style="width: 9%;text-align: center;">
+                                            <div class="slds-truncate" title="STATUS" data-state={record.Id}>{record.Status__c}</div>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>     
+                    </div>
+                </div>
+                <div class="slds-modal__footer">
+                    <button  class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={handleCancel}>Cancel</button>
+                    <button disabled={readonlyFlag} class="slds-button slds-button_brand" onclick={handleNext}>Next</button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div> 
+        
+        <!--=================================conflict item popup===========================================================-->
+        <template if:true={showConflict}>
+                <template if:true={conflictedOrderItems}>
+                    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-02" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={closeConflictModal}>
+                                <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                                <use xlink:href="/assetsz=/icons/utility-sprite/svg/symbols.svg#close"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Cancel and close</span>
+                            </button>
+                            <div class="slds-modal__header">
+                                <h1 id="modal-heading-02" class="slds-modal__title slds-hyphenate" tabindex="-1">Item with Other Orders</h1>
+                            </div>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-scrollable" >
+                                    <thead>
+                                        <tr class="slds-line-height_reset">
+                                            
+                                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
+                                                <div class="slds-truncate" style="white-space: pre-wrap;" title="TOOL NAME">ORDER NAME</div>
+                                            </th>
+
+                                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: left;">
+                                                <div class="slds-truncate" style="white-space: pre-wrap;" title="Agency">AGENCY</div>
+                                            </th>
+                                            
+                                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                                                <div class="slds-truncate" style="white-space: pre-wrap;" title="REQUESTED QUANTITY">REQUESTED QUANTITY</div>
+                                            </th>
+                                            <th  scope="col" class="slds-is-resizable" style="width: 11%;text-align: center;">
+                                                <div class="slds-truncate" style="white-space: pre-wrap;" title="CONFIRMED QUANTITY">CONFIRMED QUANTITY</div>
+                                            </th>
+                                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                                                <div class="slds-truncate" style="white-space: pre-wrap;" title="SCHEDULED RETURN DATE">SCHEDULED PICKUP DATE</div>
+                                            </th>
+                                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                                                <div class="slds-truncate" style="white-space: pre-wrap;" title="SCHEDULED RETURN DATE">SCHEDULED RETURN DATE</div>
+                                            </th>
+                                            <th  scope="col" class="slds-is-resizable" style="width: 9%;text-align: center;">
+                                                <div class="slds-truncate" style="white-space: pre-wrap;" title="STATUS">STATUS</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template if:true={conflictedOrderItems} for:each={conflictedOrderItems} for:item="record" for:index="index">
+                                            <tr class="slds-hint-parent" key={record.Id} data-status={record.Status__c}  data-label="lable" title="title" >
+                                    
+                                                <td class="slds-cell-wrap" data-label="TOOL NAME" scope="row" style="width: 9%;text-align: left;">
+                                                    <div class="slds-truncate"><a href={record.Order__c} target="_blank" >{record.Order.OrderNumber}</a></div>
+                                                </td>
+                                                <td class="slds-cell-wrap" data-label="AGENCY" scope="row" style="width: 9%;text-align: left;">
+                                                    <div class="slds-truncate">{record.Order.Account.Name}</div>
+                                                </td>
+                                                <td class="slds-cell-wrap" data-label="REQUESTED QUANTITY" style="width: 9%;text-align: center;">
+                                                    <div class="slds-truncate">
+                                                        <span >{record.Quantity}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="slds-cell-wrap" data-label="CONFIRMED QUANTITY" style="text-align: center;">
+                                                    <div class="slds-truncate" >
+                                                        <span >{record.Reserved_Quantity__c}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="slds-cell-wrap" data-label="SCHEDULED PICKUP DATE" style="width: 15%;text-align: center;">
+                                                    <div class="slds-truncate" >
+                                                        <lightning-formatted-date-time time-zone="UTC" data-sch="schdate" value={record.Schedule_Pick_Date__c}  year="numeric" month="numeric" day="numeric"></lightning-formatted-date-time>
+                                                    </div>
+                                                </td>
+                                                <td class="slds-cell-wrap" data-label="SCHEDULED RETURN DATE" style="width: 15%;text-align: center;">
+                                                    <div class="slds-truncate" >
+                                                        <lightning-formatted-date-time time-zone="UTC" data-sch="schdate" value={record.Schedule_Return_Date__c}  year="numeric" month="numeric" day="numeric"></lightning-formatted-date-time>
+                                                    </div>
+                                                </td>
+                                                <td class="slds-cell-wrap" data-label="STATUS" style="width: 9%;text-align: center;">
+                                                    <div class="slds-truncate">
+                                                        {record.Order.Status}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        <template if:false={conflictedOrderItems}>
+                                            <tr class="slds-hint-parent"  data-status={record.Status__c}  data-label="lable" title="title" >
+                                                <td colspan="6" class="slds-cell-wrap" data-label="STATUS" style="width: 9%;text-align: center;">
+                                                No records available.
+                                                </td>
+                                            </tr>
+                                            </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="slds-modal__footer">
+                                <button class="slds-button slds-button_neutral" onclick={closeConflictModal} aria-label="Cancel and close">Cancel</button>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+                </template>
+            </template>
+    </template>
+</template>

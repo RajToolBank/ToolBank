@@ -37,5 +37,10 @@
         <operation>notEqual</operation>
         <value>Duplicate</value>
     </filters>
+    <filters>
+        <field>PARENT.CASE_NUMBER</field>
+        <operation>notEqual</operation>
+        <value>00001679</value>
+    </filters>
     <label>In Progress Cases</label>
 </ListView>

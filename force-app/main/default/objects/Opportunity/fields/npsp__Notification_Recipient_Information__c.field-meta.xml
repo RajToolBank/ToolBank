@@ -7,7 +7,6 @@
     <inlineHelpText>Enter any contact information such as address, phone, or email that the donor provided for the notification recipient.</inlineHelpText>
     <label>Notification Recipient Information</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>TextArea</type>
 </CustomField>

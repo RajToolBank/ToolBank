@@ -18,6 +18,10 @@
             <fullName>Other</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Town Hall Idea</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Origin</picklist>

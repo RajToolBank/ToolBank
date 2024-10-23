@@ -2,7 +2,6 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Hours_Average_Volunteer_is_on_Site__c</fullName>
     <externalId>false</externalId>
-    <inlineHelpText>Number of hours average volunteer is on site.</inlineHelpText>
     <label># Hours Average Volunteer is on Site</label>
     <precision>18</precision>
     <required>false</required>

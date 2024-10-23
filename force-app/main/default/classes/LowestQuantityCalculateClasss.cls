@@ -142,7 +142,7 @@ public static void lowestQuantityOrder2(List<Order> orderList){
         
             for(Date dt=orderItem.Schedule_Pick_Date__c;dt<=orderItem.Schedule_Return_Date__c;dt = dt.addDays(1)){
                 Decimal reservedQuantity =0;
-                Decimal currentInventory = orderItem.Inventory_Tool__r.Current_Inventory_F__c;
+                Decimal currentInventory = orderItem.Inventory_Tool__r.Current_Inventory_F__c!= null?orderItem.Inventory_Tool__r.Current_Inventory_F__c:0;
                 if(existingOrderItems != Null){
                     for(OrderItem item: existingOrderItems){
 

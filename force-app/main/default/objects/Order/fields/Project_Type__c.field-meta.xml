@@ -36,6 +36,11 @@
                 <label>Landscaping/Beautification</label>
             </value>
             <value>
+                <fullName>New Construction/Development</fullName>
+                <default>false</default>
+                <label>New Construction/Development</label>
+            </value>
+            <value>
                 <fullName>Planting/Groundskeeping</fullName>
                 <default>false</default>
                 <label>Planting/Groundskeeping</label>
@@ -49,6 +54,11 @@
                 <fullName>Special Events/Fundraisers</fullName>
                 <default>false</default>
                 <label>Special Events/Fundraisers</label>
+            </value>
+            <value>
+                <fullName>Urban Agriculture</fullName>
+                <default>false</default>
+                <label>Urban Agriculture</label>
             </value>
         </valueSetDefinition>
     </valueSet>

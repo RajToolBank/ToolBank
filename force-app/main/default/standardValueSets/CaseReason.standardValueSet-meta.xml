@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Bug</fullName>
+        <default>false</default>
+        <label>Bug</label>
+        <cssExposed>false</cssExposed>
+    </standardValue>
+    <standardValue>
+        <fullName>Change Request</fullName>
+        <default>false</default>
+        <label>Change Request</label>
+        <cssExposed>false</cssExposed>
+    </standardValue>
+    <standardValue>
+        <fullName>Data</fullName>
+        <default>false</default>
+        <label>Data</label>
+        <cssExposed>false</cssExposed>
+    </standardValue>
+    <standardValue>
+        <fullName>Data - Change Request</fullName>
+        <default>false</default>
+        <label>Data - Change Request</label>
+        <cssExposed>false</cssExposed>
+    </standardValue>
+    <standardValue>
+        <fullName>Delete Request</fullName>
+        <default>false</default>
+        <label>Delete Request</label>
+        <cssExposed>false</cssExposed>
+    </standardValue>
+    <standardValue>
+        <fullName>Duplicate</fullName>
+        <default>false</default>
+        <label>Duplicate</label>
+        <cssExposed>false</cssExposed>
+    </standardValue>
+    <standardValue>
+        <fullName>Information Request</fullName>
+        <default>false</default>
+        <label>Information Request</label>
+        <cssExposed>false</cssExposed>
+    </standardValue>
+    <standardValue>
+        <fullName>Report Request</fullName>
+        <default>false</default>
+        <label>Report Request</label>
+        <cssExposed>false</cssExposed>
+    </standardValue>
+    <standardValue>
+        <fullName>Training</fullName>
+        <default>false</default>
+        <label>Training</label>
+        <cssExposed>false</cssExposed>
+    </standardValue>
+    <standardValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+        <cssExposed>false</cssExposed>
+    </standardValue>
+</StandardValueSet>

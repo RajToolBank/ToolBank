@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Pass Thru Funding</fullName>
+        <default>false</default>
+        <label>Pass Thru Funding</label>
+    </standardValue>
+    <standardValue>
+        <fullName>TB USA Coordinated Funding</fullName>
+        <default>false</default>
+        <label>TB USA Coordinated Funding</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Existing Funding</fullName>
+        <default>false</default>
+        <label>Existing Funding</label>
+    </standardValue>
+    <standardValue>
+        <fullName>New Funding</fullName>
+        <default>false</default>
+        <label>New Funding</label>
+    </standardValue>
+</StandardValueSet>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>All</fullName>
+        <default>false</default>
+        <label>All</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Cleaning</fullName>
+        <default>false</default>
+        <label>Cleaning</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Construction</fullName>
+        <default>false</default>
+        <label>Construction</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Delivery</fullName>
+        <default>false</default>
+        <label>Delivery</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Deposit</fullName>
+        <default>false</default>
+        <label>Deposit</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Electrical</fullName>
+        <default>false</default>
+        <label>Electrical</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Ladders</fullName>
+        <default>false</default>
+        <label>Ladders</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Membership</fullName>
+        <default>false</default>
+        <label>Membership</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Moving</fullName>
+        <default>false</default>
+        <label>Moving</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Safety</fullName>
+        <default>false</default>
+        <label>Safety</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Special Events</fullName>
+        <default>false</default>
+        <label>Special Events</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Yardwork</fullName>
+        <default>false</default>
+        <label>Yardwork</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Youth Sized</fullName>
+        <default>false</default>
+        <label>Youth Sized</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </standardValue>
+</StandardValueSet>

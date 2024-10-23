@@ -11,6 +11,21 @@
         <label>Dixie Fire - Plumas County MU11</label>
     </customValue>
     <customValue>
+        <fullName>Hurricane Beryl</fullName>
+        <default>false</default>
+        <label>Hurricane Beryl</label>
+    </customValue>
+    <customValue>
+        <fullName>Hurricane Debby</fullName>
+        <default>false</default>
+        <label>Hurricane Debby</label>
+    </customValue>
+    <customValue>
+        <fullName>Hurricane Harvey</fullName>
+        <default>false</default>
+        <label>Hurricane Harvey</label>
+    </customValue>
+    <customValue>
         <fullName>Hurricane Ian</fullName>
         <default>false</default>
         <label>Hurricane Ian</label>
@@ -36,6 +51,16 @@
         <label>Hurricane Michael</label>
     </customValue>
     <customValue>
+        <fullName>Hurricane Tropical Storm Helene</fullName>
+        <default>false</default>
+        <label>Hurricane/Tropical Storm Helene</label>
+    </customValue>
+    <customValue>
+        <fullName>May 2024 Texas Severe Weather</fullName>
+        <default>false</default>
+        <label>May 2024 Texas Severe Weather</label>
+    </customValue>
+    <customValue>
         <fullName>Oak Fire - Mariposa County MU5</fullName>
         <default>false</default>
         <label>Oak Fire - Mariposa County MU5</label>
@@ -44,6 +69,26 @@
         <fullName>Other</fullName>
         <default>false</default>
         <label>Other</label>
+    </customValue>
+    <customValue>
+        <fullName>COVID-19</fullName>
+        <default>false</default>
+        <label>COVID-19</label>
+    </customValue>
+    <customValue>
+        <fullName>Hurricane Laura</fullName>
+        <default>false</default>
+        <label>Hurricane Laura</label>
+    </customValue>
+    <customValue>
+        <fullName>Winter Storm Uri</fullName>
+        <default>false</default>
+        <label>Winter Storm Uri</label>
+    </customValue>
+    <customValue>
+        <fullName>TS Imelda</fullName>
+        <default>false</default>
+        <label>TS Imelda</label>
     </customValue>
     <masterLabel>Disaster Name</masterLabel>
     <sorted>false</sorted>

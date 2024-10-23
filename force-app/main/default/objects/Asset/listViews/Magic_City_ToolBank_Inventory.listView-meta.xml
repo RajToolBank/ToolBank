@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Magic_City_ToolBank_Inventory</fullName>
+    <booleanFilter>1 AND 2</booleanFilter>
+    <columns>ASSET.NAME</columns>
+    <columns>ASSET.QUANTITY</columns>
+    <columns>PRODUCT2.NAME</columns>
+    <columns>Sub_Category__c</columns>
+    <columns>PRODUCT2.FAMILY_ENUM</columns>
+    <columns>On_Shelf_Quantity_F__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Category__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT.NAME</field>
+        <operation>equals</operation>
+        <value>Magic City ToolBank</value>
+    </filters>
+    <filters>
+        <field>ASSET.QUANTITY</field>
+        <operation>greaterThan</operation>
+        <value>0</value>
+    </filters>
+    <label>Magic City ToolBank - Inventory</label>
+    <sharedTo>
+        <group>Admin_Add_On</group>
+        <group>Admins</group>
+        <group>Magic_City</group>
+    </sharedTo>
+</ListView>

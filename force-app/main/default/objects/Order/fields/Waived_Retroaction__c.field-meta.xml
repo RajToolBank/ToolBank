@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Waived_Retroaction__c</fullName>
     <externalId>false</externalId>
-    <label>Waived Retroaction</label>
+    <label>Waived Retroaction_LFNt</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

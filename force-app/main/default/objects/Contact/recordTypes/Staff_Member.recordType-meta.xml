@@ -6,85 +6,6 @@
     <description>A Toolbank or ToolBank Affiliate Staff Member</description>
     <label>Staff Member</label>
     <picklistValues>
-        <picklist>Affiliate__c</picklist>
-        <values>
-            <fullName>ATL</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>BLT</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>CHI</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>CIN</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>CLT</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>DEN</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>DET</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>HFD</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>HOU</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>MSP</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>NWK</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>PDX</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>PHX</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>RVA</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>SAT</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>SAV</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>USA</fullName>
-            <default>true</default>
-        </values>
-        <values>
-            <fullName>WDC</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>WNS</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Board_Committee__c</picklist>
         <values>
             <fullName>Disaster Services %28TDS%29 Advisory Council</fullName>
@@ -883,6 +804,10 @@
         <picklist>Personal_Gender_Pronouns__c</picklist>
         <values>
             <fullName>He%2FHim%2FHis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Prefer not to say</fullName>
             <default>false</default>
         </values>
         <values>

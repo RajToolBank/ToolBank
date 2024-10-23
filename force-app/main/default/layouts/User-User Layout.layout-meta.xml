@@ -18,6 +18,10 @@
                 <behavior>Readonly</behavior>
                 <field>Affiliate_Phone__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Signature__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns/>
         <style>TwoColumnsLeftToRight</style>

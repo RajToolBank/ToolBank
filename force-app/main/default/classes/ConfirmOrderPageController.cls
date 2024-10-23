@@ -17,7 +17,11 @@ public without Sharing class ConfirmOrderPageController {
 
         List<Order> order = [SELECT Id,Account.name,Affiliate__c,Tools_Picked_Up_By__c,Status,Actual_Pickup_Date_Time__c, Requested_Borrowing_Period__c,createdDate,name,Schedule_Return_Date__c,EndDate, OrderNumber,Desired_Pickup_Date__c,Desired_Pickup_Time__c,EffectiveDate,Scheduled_Pickup_Time__c FROM Order WHERE Id =: recordId];
         OrderDetails OrderDetails = new OrderDetails();
+        
         OrderDetails.order = order[0];
+        if(!'Unconfirmed'.equalsIgnoreCase(OrderDetails.order.Status) && !'Partially Confirmed'.equalsIgnoreCase(OrderDetails.order.Status) && !'Confirmed'.equalsIgnoreCase(OrderDetails.order.Status)){
+            OrderDetails.readOnlyDelete = true;
+        }
         Long milliseconds = system.now().getTime() - (order[0].Actual_Pickup_Date_Time__c != Null ?order[0].Actual_Pickup_Date_Time__c.getTime():system.now().getTime());
         Long seconds = milliseconds / 1000;
         Long minutes = seconds / 60;
@@ -66,10 +70,11 @@ public without Sharing class ConfirmOrderPageController {
                         price 
                         FROM Asset 
                         WHERE AccountId =: accid
-                        AND Unlisted_Item__c = false
+                        //AND Unlisted_Item__c = false
                         AND Product2Id  NOT IN: toolIds
                         AND Product2.Type__c = 'Tool'
-                        AND Quantity > 0];
+                        AND Quantity > 0
+                        ];
         }else{
             if(String.isNotBlank(searchString))
                 searchString = '%'+searchString+'%';
@@ -80,13 +85,14 @@ public without Sharing class ConfirmOrderPageController {
                             price 
                             FROM Asset 
                             WHERE AccountId =: accid
-                            AND Unlisted_Item__c = false
+                            //AND Unlisted_Item__c = false
                             AND (Product2.name like: searchString
                             OR Product2.productCode like:searchString
                             OR Product2.Tool_Note__c like:searchString)
                             AND Product2Id  NOT IN: toolIds
                             AND Product2.Type__c = 'Tool'
-                            AND Quantity > 0];
+                            AND Quantity > 0
+                            ];
             }
             else if(String.isNotBlank(category) && String.isBlank(searchString)){
                 if(category == 'All'){
@@ -96,10 +102,11 @@ public without Sharing class ConfirmOrderPageController {
                     price 
                     FROM Asset 
                     WHERE AccountId =: accid
-                    AND Unlisted_Item__c = false
+                    //AND Unlisted_Item__c = false
                     AND Product2Id  NOT IN: toolIds
                     AND Product2.Type__c = 'Tool'
-                    AND Quantity > 0];
+                    AND Quantity > 0
+                    ];
                 }else{
                     assetList = [SELECT Id,Affiliate_Handling_Fee__c,
                             Product2Id,
@@ -108,10 +115,11 @@ public without Sharing class ConfirmOrderPageController {
                             FROM Asset 
                             WHERE AccountId =: accid
                             AND Product2.Family =: category
-                            AND Unlisted_Item__c = false
+                            //AND Unlisted_Item__c = false
                             AND Product2Id  NOT IN: toolIds
                             AND Product2.Type__c = 'Tool'
-                            AND Quantity > 0];
+                            AND Quantity > 0
+                            ];
                 }
                 
             }
@@ -124,13 +132,14 @@ public without Sharing class ConfirmOrderPageController {
                     price 
                     FROM Asset 
                     WHERE AccountId =: accid
-                    AND Unlisted_Item__c = false
+                    //AND Unlisted_Item__c = false
                     AND (Product2.name like: searchString
                     OR Product2.productCode like:searchString
                     OR Product2.Tool_Note__c like:searchString)
                     AND Product2Id  NOT IN: toolIds
                     AND Product2.Type__c = 'Tool'
-                    AND Quantity > 0];
+                    AND Quantity > 0
+                    ];
                 }else{
                 assetList = [SELECT Id,Affiliate_Handling_Fee__c,
                             Product2Id,
@@ -138,14 +147,15 @@ public without Sharing class ConfirmOrderPageController {
                             price 
                             FROM Asset 
                             WHERE AccountId =: accid
-                            AND Unlisted_Item__c = false
+                            //AND Unlisted_Item__c = false
                             AND (Product2.name like: searchString
                             OR Product2.productCode like:searchString
                             OR Product2.Tool_Note__c like:searchString)
                             AND product2.Family =: category
                             AND Product2Id  NOT IN: toolIds
                             AND Product2.Type__c = 'Tool'
-                            AND Quantity > 0];
+                            AND Quantity > 0
+                            ];
                 }
             }
         }
@@ -168,7 +178,8 @@ public without Sharing class ConfirmOrderPageController {
                                         FROM PriceBookEntry 
                                         WHERE Product2Id IN: productidSet
                                         AND Pricebook2Id =: label.pricebookid
-                                        AND Product2.isactive = true]){
+                                        AND Product2.isactive = true
+                                        ORDER BY Product2.Name]){
             AvailableProducts availableProduct = new AvailableProducts();
             availableProduct.Id = pbe.id;
             availableProduct.Product2Id =pbe.Product2Id;
@@ -378,6 +389,9 @@ public without Sharing class ConfirmOrderPageController {
                             toolsToDelete.add(new OrderItem(Id=id));
                         }
                     }
+                    if(((List<Object>)orderAndItemDetails.get('orderItems')).size() >0){
+                        OrderItemHelperClass.recursion = true;
+                    }
                     if(!toolsToDelete.isEmpty())
                         delete toolsToDelete;
                 }
@@ -418,17 +432,20 @@ public without Sharing class ConfirmOrderPageController {
                     updateOrder.Actual_Pickup_Date_Time__c = system.now();
                 
                 list<Date> orderItemReturnDateList = new List<Date>();
-                list<OrderItem> orderitems = new List<OrderItem>();
+                list<OrderItem> orderitemsUpdateList = new List<OrderItem>();
+                list<OrderItem> orderitemsInsertList = new List<OrderItem>();
                 for(object obj: (List<Object>)orderAndItemDetails.get('orderItems')){
                     Map<String, object> item = (Map<String, object>)obj;
                     OrderItem orderitem = new OrderItem();
                     if(((String) item.get('Id')).startsWith('802')){
                         orderItem.id = (String) item.get('Id');
+                        orderitemsUpdateList.add(orderitem);
                     }else{
                         orderItem.orderid= (String)order.get('Id');
                         orderItem.PricebookEntryId = (String)item.get('pbeId');
                         orderitem.UnitPrice = Decimal.valueOf((String)item.get('unitprice'));
                         orderItem.Inventory_Tool__c = (String)item.get('assetid');
+                        orderitemsInsertList.add(orderitem);
                     }
                     orderItem.quantity =Decimal.valueOf((String) item.get('quantity'));
                     orderItem.Affiliate_Handling_Fee__c =Decimal.valueOf((String) item.get('affiliateFee'));
@@ -445,7 +462,7 @@ public without Sharing class ConfirmOrderPageController {
                     if((String) item.get('status') == 'Fulfilled')
                         orderItem.Check_Out_Quantity__c=Decimal.valueOf((String) item.get('reserv'));
 
-                    orderitems.add(orderitem);
+                    //orderitems.add(orderitem);
                 }
 
                 if(orderItemReturnDateList.size()>0){
@@ -456,8 +473,14 @@ public without Sharing class ConfirmOrderPageController {
                 update updateOrder;
 
                 ByPassValidations.ordItemPriceAndQtyValidation = true;
+                if(orderitemsUpdateList.size()>0){
+                    OrderItemHelperClass.recursion = true;
+                }
+                if(orderitemsInsertList.size() >0)
+                    insert orderitemsInsertList;
+                
                 OrderItemHelperClass.recursion = false;
-                upsert orderitems;
+                update orderitemsUpdateList;
             }catch(Exception e){
                 throw new AuraHandledException(e.getMessage());
         }
@@ -470,6 +493,8 @@ public without Sharing class ConfirmOrderPageController {
         public Order order;
         @AuraEnabled
         public Boolean readOnly;
+        @AuraEnabled
+        public Boolean readOnlyDelete;
         @AuraEnabled
         public List<OrderItem> orderItemList;
     }

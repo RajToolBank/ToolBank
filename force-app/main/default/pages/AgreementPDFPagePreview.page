@@ -1,0 +1,59 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" renderAs="pdf" applyHtmlTag="false" applyBodyTag="false">
+    <div style="font-family: monospace; font-size:11px;">
+        <table width="65em">
+            <tr>
+                <td style="text-align:left;font-size:22px" >
+                    <b>Waiver of Liability<br/> Membership Agreement </b>
+                </td>
+                <td style="text-align:right"><apex:image styleClass="margin-left:100%;" url="{!$Resource.Toolbank_USA}" width="250" height="50"/> </td>
+            </tr>
+        </table>
+        <br/><br/>
+        <b>
+            In consideration of the loan by the ToolBank USA, Inc., and the Affiliate (Lender), to the Applying Agency (Borrower), ofthe
+            tools and equipment (the “Equipment”) and/or the donation of supplies and materials (the “Materials”) listed on the
+            attached, Borrower agrees to borrow the Equipment and use the Materials in accordance with the following terms and
+            conditions:<br/><br/>
+            (1) Borrower accepts the Equipment and Materials in “as is” condition. Borrower agrees to notify Lender immediately if a
+            tool becomes inoperable. Borrower agrees to not attempt to repair any ToolBank tool.<br/><br/>
+            (2) Borrower agrees to return the Equipment to Lender’s warehouse before or on the due date. Borrower agrees to comply
+            with the ToolBank’s appointment-only schedule (two days in advance for pickups and one day in advance for returns).<br/><br/>
+            (3) Borrower agrees to pay 3% of the tool’s retail value for each week of borrowing at the time of pickup by money
+            order, check, or credit/debit card.<br/><br/>
+            (4) Borrower agrees to pay the replacement fee, or provide the equivalent, for any tool the Lender deems as lost or
+            damaged outside the scope of normal wear and tear. This is at the Lender’s sole discretion.<br/><br/>
+            (5) Tool lending is at the discretion of the Lender. Lender may refuse tool lending for a specific project and/or a specific
+            member agency at will.<br/><br/>
+            (6) Borrower agrees to comply with all terms of this Membership Agreement and the ToolBank Service Policy, as each
+            of them may be amended from time to time, including but not limited to the provisions regarding release and
+            indemnification set forth in the membership agreement. Lender will notify Borrower of any changes to said policies.<br/><br/>  
+            (7) Release and indemnification. To the fullest extent permitted by law, borrower agrees to indemnify, release, hold
+            ToolBank, its directors, officers, employees, and volunteers, and ToolBank USA, its directors, officers, employees, agents,
+            and volunteers (collectively, the “indemnified parties”) harmless and at ToolBank’s request, defend the indemnified parties
+            from and against all liabilities, claims, losses, damages, and expenses (including Attorney’s fees and expenses) however
+            arising or incurred, related to any incident, damage to property, injury to, or death of, any person or contamination or
+            alleged contamination, or violation of law or regulation caused by or connected with (i) the use, possession or control of the
+            equipment or materials during the borrowing period and (ii) breach of this contract, whether or not caused in part by the
+            active or passive negligence or other fault of any party indemnified herein and any of the foregoing arising or imposed in
+            accordance with the doctrine of strict or absolute liability. Borrower agrees to waive its workers’ compensation immunity, to
+            the extent applicable. Borrower’s indemnity obligations shall survive the expiration or termination of this contract. All of
+            borrower’s indemnification obligations shall be joint and several. If any part of this section is determined invalid by a court of
+            the competent jurisdiction, borrower agrees that this clause shall be enforceable to the fullest extent permitted by law.<br/><br/>
+            (8) Borrower hereby acknowledges that its use of the Materials and Equipment are (i) without instruction or
+            supervision, (ii) at Borrower’s own risk or the risk of Borrower’s officers and directors, employees, agents and
+            volunteers, and (iii) that Lender expressly disclaims any warranty regarding the condition or fitness for particular use of
+            any of the Equipment or Materials provided hereunder.<br/><br/>
+            (9) Borrower attests that its use of the Materials and Equipment are strictly for charitable purposes, that no services or
+            materials are being provided to any recipient for any charge of cost outside of the scope of the Borrowers mission, and
+            that no services or materials are being re-sold or returned to any retailer, vendor or manufacturer for refund, or being
+            used in any manner inconsistent with this Member Agreement or Lender’s status as a 501(c)(3) tax deductible charitable
+            organization.<br/><br/>
+            (10) Borrower acknowledges receipt of the Equipment and Materials listed above, and is in agreement with, both the
+            Membership Agreement the ToolBank Service Policy.<br/><br/>
+            (11) Borrower acknowledges that it has read and understood the foregoing terms and conditions of this Waiver of Liability,
+            and the undersigned affirms he/she has all requisite power and authority to enter into this Agreement on behalf of
+            Borrower.<br/><br/>
+           
+        </b>
+    </div>
+</apex:page>

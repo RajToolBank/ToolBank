@@ -3,7 +3,7 @@
     <fullName>Rebranding_R__c</fullName>
     <externalId>false</externalId>
     <inlineHelpText>This field denotes the number of tools that are in rebranding condition</inlineHelpText>
-    <label>Rebranding</label>
+    <label>Rebranding (All Time)</label>
     <summarizedField>Transaction__c.Quantity__c</summarizedField>
     <summaryFilterItems>
         <field>Transaction__c.Sub_Type__c</field>

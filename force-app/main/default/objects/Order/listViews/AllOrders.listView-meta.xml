@@ -4,6 +4,7 @@
     <columns>ORDER.NAME</columns>
     <columns>SALES.ACCOUNT.NAME</columns>
     <columns>ORDERS.EFFECTIVE_DATE</columns>
+    <columns>ORDERS.LAST_UPDATE</columns>
     <columns>ORDERS.END_DATE</columns>
     <columns>ORDERS.STATUS</columns>
     <columns>ORDERS.CREATED_DATE</columns>

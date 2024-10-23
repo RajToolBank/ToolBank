@@ -6,7 +6,6 @@
     <externalId>false</externalId>
     <inlineHelpText>Check this box if the gift is a donation of goods or services.</inlineHelpText>
     <label>In-kind</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

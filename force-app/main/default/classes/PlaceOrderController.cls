@@ -9,6 +9,13 @@ public without Sharing class PlaceOrderController {
         else if(con != null) flagged = con.Account.Flagged__c;
         return flagged;
     }
+
+    @AuraEnabled(cacheable = true)
+    public static contact getSignedDate(){
+        Contact con = [SELECT Id, AccountId,Contact.Primary_Contact__c,Contact.Executive_Contact__c,Contact.Account.parentId,contact.npsp__Primary_Affiliation__c,contact.npsp__Primary_Affiliation__r.Agreement_Signed_Date__c, Contact.Account.Agreement_Signed_Date__c FROM User WHERE Id =: UserInfo.getUserId()].Contact;
+       
+        return con;
+    }
     
     @AuraEnabled(cacheable = true)
     public static string accid(){
@@ -185,7 +192,7 @@ public without Sharing class PlaceOrderController {
                                      FROM PriceBookEntry 
                                      WHERE Product2Id IN: productIdAssetMap.keyset() 
                                      AND Product2.type__c = 'Tool'
-                                     ORDER BY product2.Sort_Category__c,product2.Family, product2.sub_category__c]){
+                                     ORDER BY product2.Family, product2.sub_category__c,Product2.name]){
                                          Tool tool = new Tool();
                                          tool.asset = productIdAssetMap.get(pbe.product2Id);
                                          tool.pbe = pbe;
@@ -310,9 +317,9 @@ public without Sharing class PlaceOrderController {
             String projectNumber= (String)orderObj.get('numberProject');
             String avgHr= (String)orderObj.get('onsitehours');
             String voluNumber= (String)orderObj.get('volunteersnumber');
-            String staff= (String)orderObj.get('staff');
-            String totalVol= (String)orderObj.get('projectVolunteerHr');
-            String peopleimpact= (String)orderObj.get('peopleImImpacted');
+            //String staff= (String)orderObj.get('staff');
+            //String totalVol= (String)orderObj.get('projectVolunteerHr');
+            //String peopleimpact= (String)orderObj.get('peopleImImpacted');
             String orderType= (String)orderObj.get('orderType');
             String pickupLocation= (String)orderObj.get('pickupLocation');
             String deliveryLocation= (String)orderObj.get('deliveryLocation');
@@ -323,9 +330,9 @@ public without Sharing class PlaceOrderController {
             ord.Number_Of_Projects__c = String.isBlank(projectNumber)?null: Decimal.valueOf(projectNumber);
             ord.Hours_Average_Volunteer_is_on_Site__c = String.isBlank(avgHr)?null: Decimal.valueOf(avgHr);
             ord.Number_of_Volunteers__c = String.isBlank(voluNumber)?null: Decimal.valueOf(voluNumber);
-            ord.People_Indirectly_Impacted__c = String.isBlank(peopleimpact)?null: Decimal.valueOf(peopleimpact);
-            ord.Staff_on_this_Project__c = String.isBlank(staff)?null: Decimal.valueOf(staff);
-            ord.Total_Project_Volunteer_Hours__c = String.isBlank(totalVol)?null: Decimal.valueOf(totalVol);
+            //ord.People_Indirectly_Impacted__c = String.isBlank(peopleimpact)?null: Decimal.valueOf(peopleimpact);
+            //ord.Staff_on_this_Project__c = String.isBlank(staff)?null: Decimal.valueOf(staff);
+            //ord.Total_Project_Volunteer_Hours__c = String.isBlank(totalVol)?null: Decimal.valueOf(totalVol);
 
             ord.Type = orderType;
             ord.Pickup_Delivery_Location__c = String.isNotBlank(pickupLocation)?pickupLocation:deliveryLocation;

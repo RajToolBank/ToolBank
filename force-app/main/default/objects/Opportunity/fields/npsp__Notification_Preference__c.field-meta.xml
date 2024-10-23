@@ -7,7 +7,6 @@
     <inlineHelpText>Indicates how the notification recipient should be notified, for example, by email or phone.</inlineHelpText>
     <label>Notification Preference</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

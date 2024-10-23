@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Admin_Add_On</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Allows those in the Admin Add On Public Group to read and edit all cases.</description>
+        <label>Admin Add On</label>
+        <sharedTo>
+            <group>Admin_Add_On</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Standard</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

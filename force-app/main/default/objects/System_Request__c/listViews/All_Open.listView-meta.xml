@@ -16,7 +16,7 @@
     <filters>
         <field>Status__c</field>
         <operation>notEqual</operation>
-        <value>Design,Closed,Closed - Not Possible,Estimate Complete</value>
+        <value>Design,Estimate Complete,Closed,Platform Limitation - Not Possible</value>
     </filters>
     <label>All Open</label>
 </ListView>

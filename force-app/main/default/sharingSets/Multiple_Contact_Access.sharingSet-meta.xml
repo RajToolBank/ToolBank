@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>Account</object>
+        <objectField>Parent</objectField>
+        <userField>Contact.Account</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Read</accessLevel>
+        <object>Case</object>
+        <objectField>Affiliate_TDS__c</objectField>
+        <userField>Account</userField>
+    </accessMappings>
+    <name>Multiple Contact Access</name>
+    <profiles>partner community user</profiles>
+    <profiles>tb affiliate volunteer</profiles>
+    <profiles>tb exec director affiliate</profiles>
+    <profiles>tb warehouse manager</profiles>
+</SharingSet>

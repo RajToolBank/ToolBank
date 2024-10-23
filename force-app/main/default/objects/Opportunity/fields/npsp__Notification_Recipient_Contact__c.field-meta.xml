@@ -11,7 +11,6 @@
     <relationshipLabel>Opportunities (Notification Recipient)</relationshipLabel>
     <relationshipName>Notification_Opportunities</relationshipName>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

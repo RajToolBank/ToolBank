@@ -14,7 +14,5 @@
         <value>MU10</value>
     </filters>
     <label>MU10 Inventory</label>
-    <sharedTo>
-        <group>Hub_Southeast</group>
-    </sharedTo>
+    <sharedTo></sharedTo>
 </ListView>

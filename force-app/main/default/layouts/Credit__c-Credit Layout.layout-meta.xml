@@ -24,7 +24,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Amount_Used__c</field>
+                <field>Amount_Used_R__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -35,8 +35,8 @@
                 <field>Expiration_Date__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IsActive__c</field>
+                <behavior>Readonly</behavior>
+                <field>Is_Expired__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns/>
@@ -75,6 +75,7 @@
         <fields>NAME</fields>
         <fields>Payments_TB__c.Order__c</fields>
         <fields>CREATED_DATE</fields>
+        <fields>Amount__c</fields>
         <fields>Payments_TB__c.Amount__c</fields>
         <fields>Payments_TB__c.Comment__c</fields>
         <relatedList>Credit_Payment_Intersect__c.Credit__c</relatedList>

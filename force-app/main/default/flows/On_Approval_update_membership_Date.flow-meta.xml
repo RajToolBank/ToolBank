@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>55.0</apiVersion>
-    <description>Correcting Join Date to the correct fields in formula</description>
     <environments>Default</environments>
     <formulas>
         <name>EndDate</name>
@@ -11,7 +10,7 @@
     <formulas>
         <name>joindate</name>
         <dataType>Date</dataType>
-        <expression>IF(!ISNULL({!$Record.Membership_Join_Date__c}),{!$Record.Membership_Join_Date__c},{!$Flow.CurrentDate})</expression>
+        <expression>IF(!ISNULL({!$Record.Membership_Join_Date__c}),{!$Record__Prior.Membership_Join_Date__c},{!$Flow.CurrentDate})</expression>
     </formulas>
     <interviewLabel>On Approval update membership Date {!$Flow.CurrentDateTime}</interviewLabel>
     <label>On Approval update membership Date</label>

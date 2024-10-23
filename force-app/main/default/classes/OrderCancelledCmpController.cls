@@ -11,9 +11,19 @@ public without Sharing class OrderCancelledCmpController {
                 Boolean unconfirmed = 'Unconfirmed'.equalsIgnoreCase(Order.status);
                 Boolean partialConfirmed = 'Partially Confirmed'.equalsIgnoreCase(Order.status);
                 if( confirmed || unconfirmed || partialConfirmed){
-                    order.status = 'Cancelled';
-                    ByPassValidations.ordStatusValidation=true;
-                    update order;
+                    List<OrderItem> orderItemList = [SELECT ID FROM OrderItem WHERE OrderId =: recordId];
+                    for(OrderItem item: orderItemList){
+                        item.status__c = 'Cancelled';
+                        item.Reserved_Quantity__c = 0;
+                    }
+                    if(!orderItemList.isEmpty())
+                        update orderItemList;
+                    order = [SELECT Id,Status FROM Order WHERE Id=:recordId];
+                    if(!'Cancelled'.equalsIgnoreCase(order.status)){
+                        order.status = 'Cancelled';
+                        ByPassValidations.ordStatusValidation=true;
+                        update order;
+                    }
                     return 'Order cancelled successfully.';
                 }else {
                     return 'Only confirmed or unconfirmed orders are allowed to cancel.';

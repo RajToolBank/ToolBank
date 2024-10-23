@@ -13,7 +13,7 @@ public class ReturnOrderController {
             orderDetail.orderItems = new List<OrderItemDetails>();
             orderDetail.returnOrderItems = new List<OrderItemDetails>();
             for(Order ord: [SELECT Id, name,Account.Name,Desired_Pickup_Date__c,
-                    Desired_Pickup_Time__c,OrderNumber,CreatedDate,EffectiveDate,
+                    Desired_Pickup_Time__c,OrderNumber,CreatedDate,EffectiveDate,Affiliate__c,
                     Scheduled_Pickup_Time__c,Schedule_Return_Date__c,EndDate,Status,
                     (SELECT Id,
                     Product2.Name,

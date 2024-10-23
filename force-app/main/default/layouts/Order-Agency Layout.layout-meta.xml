@@ -2,6 +2,7 @@
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <excludeButtons>Activate</excludeButtons>
     <excludeButtons>ActivateOrder</excludeButtons>
+    <excludeButtons>BrowseCatalog</excludeButtons>
     <excludeButtons>ChangeOwnerOne</excludeButtons>
     <excludeButtons>ChangeRecordType</excludeButtons>
     <excludeButtons>Clone</excludeButtons>
@@ -228,6 +229,14 @@
                 <behavior>Edit</behavior>
                 <field>Total_Project_Volunteer_Hours__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Pickup_Delivery_Location__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Delivery_Address__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
@@ -333,11 +342,6 @@
     </layoutSections>
     <platformActionList>
         <actionListContext>Record</actionListContext>
-        <platformActionListItems>
-            <actionName>ChangeOwnerOne</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>0</sortOrder>
-        </platformActionListItems>
     </platformActionList>
     <quickActionList/>
     <relatedLists>
@@ -347,15 +351,15 @@
         <excludeButtons>MultiAdd</excludeButtons>
         <excludeButtons>MultiEdit</excludeButtons>
         <fields>Product2</fields>
-        <fields>Quantity</fields>
         <fields>Reserved_Quantity__c</fields>
         <fields>Schedule_Return_Date__c</fields>
         <fields>Actual_Return_Date__c</fields>
         <fields>Status__c</fields>
-        <fields>UnitPrice</fields>
         <fields>Tool_Handling_Fee_Per_Item__c</fields>
-        <fields>Total_Handling_Fee__c</fields>
-        <fields>Schedule_Pick_Date__c</fields>
+        <fields>Lost__c</fields>
+        <fields>Damaged__c</fields>
+        <fields>Create_Date_Order_Item__c</fields>
+        <fields>OrderItem.LastModifiedDate</fields>
         <relatedList>RelatedOrderItemList</relatedList>
         <sortField>Product2</sortField>
         <sortOrder>Asc</sortOrder>
@@ -366,17 +370,12 @@
         <fields>NAME</fields>
         <fields>Amount__c</fields>
         <fields>Payment_Method__c</fields>
+        <fields>CREATED_DATE</fields>
+        <fields>Comment__c</fields>
         <relatedList>Payments_TB__c.Order__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <relatedList>RelatedEntityHistoryList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>CASES.CASE_NUMBER</fields>
-        <fields>CASES.SUBJECT</fields>
-        <fields>CASES.CREATED_DATE</fields>
-        <fields>CASES.PRIORITY</fields>
-        <relatedList>Case.Order__c</relatedList>
+        <relatedList>RelatedFileList</relatedList>
     </relatedLists>
     <relatedObjects>AccountId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

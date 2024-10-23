@@ -25,7 +25,7 @@ public with sharing class PaymentMemberTriggerHelper {
 
         Map<Id, List<Id>> orderIdToCreditIdListMap = new Map<Id, List<Id>>();
         Map<Id, Credit__c> creditIdToCreditMap = new Map<Id, Credit__c>();
-        for(Credit__c credit: [SELECT Id,Organization__c, Amount__c,Amount_Used__c 
+        for(Credit__c credit: [SELECT Id,Organization__c, Amount__c,Amount_Used_R__c 
                          FROM Credit__c 
                          WHERE Organization__c IN:accIdToOrderIdListMap.keySet() 
                          AND Amount_Remaining__c != Null 
@@ -57,7 +57,7 @@ public with sharing class PaymentMemberTriggerHelper {
                         for(Id creditId: orderIdToCreditIdListMap.get(payment.order__c)){
                             Credit__c credit = creditIdToCreditMap.get(creditId);
                             Decimal amount = credit.Amount__c != Null?credit.Amount__c:0;
-                            Decimal amountUsed = credit.Amount_Used__c != Null?credit.Amount_Used__c:0;
+                            Decimal amountUsed = credit.Amount_Used_R__c != Null?credit.Amount_Used_R__c:0;
                             Decimal available = amount-amountUsed;
                             if(available > 0){
                             
@@ -66,7 +66,7 @@ public with sharing class PaymentMemberTriggerHelper {
                                 creditPayment.Payment_by_Member__c = payment.id;
                                 creditPayment.Credit__c = credit.id;
                                 creditPayment.Amount__c = remaining>=0?payAmount:available;
-                                credit.Amount_Used__c = amountUsed+(remaining>=0?payAmount:available);
+                                //credit.Amount_Used__c = amountUsed+(remaining>=0?payAmount:available);
                                 payAmount = payAmount - creditPayment.Amount__c;
                                 creditPaymentList.add(creditPayment);
                                 if(remaining>=0)
@@ -78,12 +78,13 @@ public with sharing class PaymentMemberTriggerHelper {
             }
         
         ByPassValidations.OrdStatusValidation = true;
-        if(!creditIdToCreditMap.values().isEmpty())
-            update creditIdToCreditMap.values();
+        //if(!creditIdToCreditMap.values().isEmpty())
+           // update creditIdToCreditMap.values();
         
         
-        if(!creditPaymentList.isEmpty())
+        if(!creditPaymentList.isEmpty()){
             insert creditPaymentList;
+        }
 
     }
 

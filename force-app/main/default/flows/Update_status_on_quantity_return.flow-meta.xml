@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>55.0</apiVersion>
+    <assignments>
+        <name>update_status_partially_return</name>
+        <label>update_status_partially_return</label>
+        <locationX>314</locationX>
+        <locationY>395</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Partially Returned</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>update_status_return</name>
+        <label>update_status_return</label>
+        <locationX>50</locationX>
+        <locationY>395</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Returned</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
     <decisions>
         <name>Check_the_return</name>
         <label>Check the return</label>
         <locationX>314</locationX>
-        <locationY>335</locationY>
+        <locationY>287</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>check_in_and_check_out_Same</name>
@@ -136,32 +162,6 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
-    <recordUpdates>
-        <name>update_status_partially_return</name>
-        <label>update status partially return</label>
-        <locationX>314</locationX>
-        <locationY>455</locationY>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <stringValue>Partially Returned</stringValue>
-            </value>
-        </inputAssignments>
-        <inputReference>$Record</inputReference>
-    </recordUpdates>
-    <recordUpdates>
-        <name>update_status_return</name>
-        <label>update status return</label>
-        <locationX>50</locationX>
-        <locationY>455</locationY>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <stringValue>Returned</stringValue>
-            </value>
-        </inputAssignments>
-        <inputReference>$Record</inputReference>
-    </recordUpdates>
     <start>
         <locationX>188</locationX>
         <locationY>0</locationY>
@@ -171,7 +171,7 @@
         <filterFormula>ISCHANGED({!$Record.Lost__c}) ||  ISCHANGED({!$Record.Damaged__c}) || ISCHANGED({!$Record.Check_In_Quantity__c})</filterFormula>
         <object>OrderItem</object>
         <recordTriggerType>Update</recordTriggerType>
-        <triggerType>RecordAfterSave</triggerType>
+        <triggerType>RecordBeforeSave</triggerType>
     </start>
     <status>Active</status>
 </Flow>

@@ -155,11 +155,6 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
-            <actionName>NewEvent</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>3</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>SendEmail</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>0</sortOrder>
@@ -173,6 +168,11 @@
             <actionName>LogACall</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>2</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>NewEvent</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>3</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>Delete</actionName>
@@ -262,7 +262,6 @@
         <fields>Contact.NAME</fields>
         <fields>Account.ACC_NAME</fields>
         <fields>npe5__Role__c</fields>
-        <fields>Contact.Affiliate__c</fields>
         <fields>Contact.CNTC_EMAIL</fields>
         <fields>Contact.CNTC_PHONE1</fields>
         <fields>npe5__Status__c</fields>
@@ -337,6 +336,10 @@
         <fields>CASES.CREATED_DATE</fields>
         <fields>CASES.PRIORITY</fields>
         <relatedList>Case.Affiliate_TDS__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Pickup_Delivery_Location__c.Affiliate__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

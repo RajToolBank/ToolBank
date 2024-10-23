@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Require_Deliver_Addr_when_delivery_selec</fullName>
+    <active>true</active>
+    <errorConditionFormula>TEXT( Pickup_Delivery_Location__r.Type__c ) = &quot;Delivery&quot; &amp;&amp;  ISBLANK( Delivery_Address__c )</errorConditionFormula>
+    <errorMessage>Please provide Delivery Address for this order.</errorMessage>
+</ValidationRule>

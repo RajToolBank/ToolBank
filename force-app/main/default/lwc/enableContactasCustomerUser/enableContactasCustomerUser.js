@@ -46,9 +46,13 @@ export default class EnableContactasCustomerUser extends LightningElement {
         }).catch(err =>{
             console.log(err);
             if(err){
+                let errorMessage =err.body.message;
+                if(err.body.message.indexOf('Duplicate Username') >=0){
+                    errorMessage = 'A user has already been activated with this Email Address/Username. You can update the email address or contact your Admin for additional assistance.';
+                }
                 const evt = new ShowToastEvent({
                     title: "Enable Contact as user",
-                    message: err.body.message,
+                    message: errorMessage,
                     variant: "error",
                 });
                 this.dispatchEvent(evt);

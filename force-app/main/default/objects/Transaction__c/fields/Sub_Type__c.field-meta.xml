@@ -102,6 +102,11 @@
                 <label>Lost from Inventory</label>
             </value>
             <value>
+                <fullName>Member Agency Replacement</fullName>
+                <default>false</default>
+                <label>Member Agency Replacement</label>
+            </value>
+            <value>
                 <fullName>Allocated</fullName>
                 <default>false</default>
                 <isActive>false</isActive>

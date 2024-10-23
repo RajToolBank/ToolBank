@@ -22,6 +22,11 @@
                 <label>24</label>
             </value>
             <value>
+                <fullName>48</fullName>
+                <default>false</default>
+                <label>48</label>
+            </value>
+            <value>
                 <fullName>53</fullName>
                 <default>false</default>
                 <label>53</label>
@@ -29,17 +34,18 @@
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>TDS - Trailer</controllingFieldValue>
-            <controllingFieldValue>TDS - Site</controllingFieldValue>
             <valueName>18</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>TDS - Trailer</controllingFieldValue>
-            <controllingFieldValue>TDS - Site</controllingFieldValue>
             <valueName>24</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>TDS - Trailer</controllingFieldValue>
-            <controllingFieldValue>TDS - Site</controllingFieldValue>
+            <valueName>48</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>TDS - Trailer</controllingFieldValue>
             <valueName>53</valueName>
         </valueSettings>
     </valueSet>

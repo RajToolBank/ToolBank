@@ -4,7 +4,6 @@
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
     <label>Set-Primary Campaign</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

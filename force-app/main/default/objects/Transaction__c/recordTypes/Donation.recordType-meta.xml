@@ -17,5 +17,9 @@
             <fullName>Member Agency Donation</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Member Agency Replacement</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
 </RecordType>

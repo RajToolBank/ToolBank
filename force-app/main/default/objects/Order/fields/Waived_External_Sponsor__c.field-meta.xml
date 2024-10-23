@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Waived_External_Sponsor__c</fullName>
     <externalId>false</externalId>
-    <label>Waived External Sponsor</label>
+    <label>Waived External Sponsor_LFNt</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

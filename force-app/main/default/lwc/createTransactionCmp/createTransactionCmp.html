@@ -48,8 +48,8 @@
                 parent-id={accountId}>
             </c-search-component>
         </template>
-        <lightning-input type="number" data-id="qty" label="Quantity" required></lightning-input>
-        <lightning-input type="text" data-id="note" label="Note" ></lightning-input>
+        <lightning-input type="number" min="1" data-id="qty" label="Quantity" required ></lightning-input>
+        <lightning-input type="text" data-id="note" label="Note" required ></lightning-input>
         </div>
         <div class="slds-modal__footer custom-footer">
             <button class="slds-button slds-button_brand" onclick={saveTransaction}>Save</button>

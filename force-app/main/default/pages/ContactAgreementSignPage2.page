@@ -1,0 +1,12 @@
+<apex:page standardController="signature__Signature__c" id="pg" extensions="signature.SignatureExt" language="{!language}" title="Simple Signature"  docType="html-5.0" standardStylesheets="true" showHeader="false" sidebar="false" action="{!updateStatus}" >
+    <head>
+    </head> 
+        <body>
+        <iframe src="{! '/apex/AgreementPDFPagePreview?isLight=yes'}" width="100%"  frameBorder="0" height="500px"/> 
+        <br /><br /><br />
+            
+     
+<signature:LightningSignature Size="100%" style="width:90%;margin:auto|width:50%;margin:auto"  experienceId="a0kUN000009njDJ" /> <!-- parentId="{!$CurrentPage.parameters.id}" ComponentName="signature:signatureFormLwc" -->
+            <!--div align="center" style="color:gray"><br/><br />Powered by <i><a href="http://www.simplesignatureapp.com/" target="_blank">Simple Signature</a></i> from To A Finish</div-->
+     </body>
+</apex:page>

@@ -8,7 +8,7 @@
     <filterScope>Everything</filterScope>
     <filters>
         <field>ACCOUNT.NAME</field>
-        <operation>contains</operation>
+        <operation>equals</operation>
         <value>Atlanta Community ToolBank</value>
     </filters>
     <filters>

@@ -5,7 +5,7 @@
         <name>Check_Status</name>
         <label>Check Status</label>
         <locationX>314</locationX>
-        <locationY>311</locationY>
+        <locationY>287</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Closed</name>
@@ -18,7 +18,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Update_Close_Date</targetReference>
+                <targetReference>update_order_close_date</targetReference>
             </connector>
             <label>Closed</label>
         </rules>
@@ -40,7 +40,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Blank_Close_Date</targetReference>
+                <targetReference>Blank_close_date</targetReference>
             </connector>
             <label>Open</label>
         </rules>
@@ -68,20 +68,20 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordUpdates>
-        <name>Blank_Close_Date</name>
-        <label>Blank Close Date</label>
+        <name>Blank_close_date</name>
+        <label>Blank close date</label>
         <locationX>314</locationX>
-        <locationY>431</locationY>
+        <locationY>395</locationY>
         <inputAssignments>
             <field>Order_Close_Date__c</field>
         </inputAssignments>
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <recordUpdates>
-        <name>Update_Close_Date</name>
-        <label>Update Close Date</label>
+        <name>update_order_close_date</name>
+        <label>update order close date</label>
         <locationX>50</locationX>
-        <locationY>431</locationY>
+        <locationY>395</locationY>
         <inputAssignments>
             <field>Order_Close_Date__c</field>
             <value>
@@ -108,5 +108,5 @@
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordBeforeSave</triggerType>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
 </Flow>

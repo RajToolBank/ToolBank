@@ -26,6 +26,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>MU_Location__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Affiliate_Handling_Fee__c</field>
             </layoutItems>
             <layoutItems>
@@ -39,6 +43,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Scheduler_Link_Email__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Agreement_Signed_Date__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -310,11 +318,6 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
-            <actionName>Account.Activate_Sponsor_Logo</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>3</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>Edit</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>0</sortOrder>
@@ -325,86 +328,101 @@
             <sortOrder>1</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>npsp__NewContact</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>4</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>FeedItem.ContentNote</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>5</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>DisablePartnerPortalAccount</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>2</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>LogACall</actionName>
+            <actionName>Account.Activate_Sponsor_Logo</actionName>
             <actionType>QuickAction</actionType>
-            <sortOrder>7</sortOrder>
+            <sortOrder>3</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>npsp__NewTask</actionName>
+            <actionName>Account.Create_Transaction</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>4</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>npsp__NewContact</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>5</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>FeedItem.ContentNote</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>6</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>SendEmail</actionName>
+            <actionName>npsp__NewTask</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>7</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>LogACall</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>8</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>SDOC__NewEvent</actionName>
+            <actionName>SendEmail</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>9</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>IncludeOffline</actionName>
-            <actionType>StandardButton</actionType>
+            <actionName>SDOC__NewEvent</actionName>
+            <actionType>QuickAction</actionType>
             <sortOrder>10</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>PrintableView</actionName>
+            <actionName>IncludeOffline</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>11</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>SmsHighlightAction</actionName>
-            <actionType>ProductivityAction</actionType>
-            <sortOrder>15</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>AccountHierarchy</actionName>
+            <actionName>PrintableView</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>12</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Delete</actionName>
+            <actionName>AccountHierarchy</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>13</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>CallHighlightAction</actionName>
-            <actionType>ProductivityAction</actionType>
+            <actionName>Delete</actionName>
+            <actionType>StandardButton</actionType>
             <sortOrder>14</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>EmailHighlightAction</actionName>
+            <actionName>CallHighlightAction</actionName>
+            <actionType>ProductivityAction</actionType>
+            <sortOrder>15</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>SmsHighlightAction</actionName>
             <actionType>ProductivityAction</actionType>
             <sortOrder>16</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>WebsiteHighlightAction</actionName>
+            <actionName>EmailHighlightAction</actionName>
             <actionType>ProductivityAction</actionType>
             <sortOrder>17</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Share</actionName>
-            <actionType>StandardButton</actionType>
+            <actionName>WebsiteHighlightAction</actionName>
+            <actionType>ProductivityAction</actionType>
             <sortOrder>18</sortOrder>
         </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Share</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>19</sortOrder>
+        </platformActionListItems>
     </platformActionList>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Contact_Record__c</fields>
+        <relatedList>npe5__Affiliation__c.npe5__Organization__c</relatedList>
+    </relatedLists>
     <relatedLists>
         <excludeButtons>NewContact</excludeButtons>
         <fields>FULL_NAME</fields>
@@ -419,6 +437,7 @@
         <fields>Alternative_Name__c</fields>
         <fields>Current_Inventory_F__c</fields>
         <fields>On_Shelf_Quantity_F__c</fields>
+        <fields>Out_F__c</fields>
         <relatedList>RelatedAssetList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -484,6 +503,10 @@
         <fields>npe03__Total__c</fields>
         <fields>npe03__Total_Paid_Installments__c</fields>
         <relatedList>npe03__Recurring_Donation__c.npe03__Organization__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Pickup_Delivery_Location__c.Affiliate__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

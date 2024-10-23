@@ -121,6 +121,14 @@
             <fullName>Planned</fullName>
             <default>true</default>
         </values>
+        <values>
+            <fullName>TDS Long Term Recovery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TDS Response</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Type</picklist>

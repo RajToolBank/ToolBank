@@ -10,12 +10,12 @@ trigger orderItemTrigger on OrderItem (before update, after insert, after update
     if(trigger.isAfter && trigger.isUpdate) {
         OrderItemHelperClass.createTransaction(trigger.new, trigger.oldMap);
     }
-    if(trigger.isAfter && (trigger.isUpdate || trigger.isInsert) && (!OrderItemHelperClass.recursion || !OrderItemHelperClass.recursionUpdate))
+    if(trigger.isAfter && (trigger.isUpdate || trigger.isInsert) && (!OrderItemHelperClass.recursion))// || !OrderItemHelperClass.recursionUpdate))
         OrderItemHelperClass.handleStatus(trigger.new,trigger.oldMap);
 
     
     if(trigger.isAfter && (trigger.isDelete)){
-        OrderCancelOrItemDeleteController.orderItemDelete(trigger.old);
+        //OrderCancelOrItemDeleteController.orderItemDelete(trigger.old);
         If(!OrderItemHelperClass.recursion)
             OrderItemHelperClass.handleStatus(trigger.old,trigger.oldMap);
     }

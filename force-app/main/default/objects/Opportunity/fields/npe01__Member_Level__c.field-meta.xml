@@ -7,7 +7,6 @@
     <inlineHelpText>Determines the value on the Contact or Account of the Last Membership Level field.</inlineHelpText>
     <label>Member Level</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

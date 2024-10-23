@@ -6,7 +6,6 @@
     <inlineHelpText>The Time Zone used when displaying Shift times on Sites pages. You only need to set this if you want to override the Time Zone set on the Site Guest User profile.</inlineHelpText>
     <label>Volunteer Website Time Zone</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Accounts_with_TBUSA_Staff</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>Edit</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>Edit</opportunityAccessLevel>
+        </accountSettings>
+        <label>Accounts with TBUSA Staff</label>
+        <sharedTo>
+            <group>USAStaff</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>Member Agency,Affiliate</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Share_Affiliates_and_Agencies</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>Edit</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>Edit</opportunityAccessLevel>
+        </accountSettings>
+        <label>Share Affiliates and Agencies</label>
+        <sharedTo>
+            <group>Admin_Add_On</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Member Agency,Affiliate</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingGuestRules>
+        <fullName>Sign_Site_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Sign Site Access</label>
+        <sharedTo>
+            <guestUser>sign</guestUser>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>NOTHING00000</value>
+        </criteriaItems>
+        <includeHVUOwnedRecords>true</includeHVUOwnedRecords>
+    </sharingGuestRules>
+</SharingRules>

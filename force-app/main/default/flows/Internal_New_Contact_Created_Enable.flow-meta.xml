@@ -76,11 +76,56 @@
         </inputParameters>
     </actionCalls>
     <actionCalls>
-        <name>HRM_HSC_New_Contact_Created</name>
-        <label>HRM-HSC New Contact Created</label>
+        <name>HRM_New_Contact_Created</name>
+        <label>HRM New Contact Created</label>
+        <locationX>4274</locationX>
+        <locationY>431</locationY>
+        <actionName>Contact.HRM_INT_New_Contact_Needs_Enablement</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>HSC_New_Contact_Created</name>
+        <label>HSC New Contact Created</label>
         <locationX>2954</locationX>
         <locationY>431</locationY>
-        <actionName>Contact.HSC_HRM_INT_New_Contact_Needs_Enablement</actionName>
+        <actionName>Contact.HSC_INT_New_Contact_Needs_Enablement</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Magic_City_New_Contact_Created</name>
+        <label>Magic City New Contact Created</label>
+        <locationX>4010</locationX>
+        <locationY>431</locationY>
+        <actionName>Contact.MJC_INT_New_Contact_Needs_Enablement</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>MU20_New_Contact_Created</name>
+        <label>MU20 New Contact Created</label>
+        <locationX>4538</locationX>
+        <locationY>431</locationY>
+        <actionName>Contact.MU20_INT_New_Contact_Needs_Enablement</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -229,7 +274,7 @@
     <decisions>
         <name>Check_ToolBank_Location</name>
         <label>Check ToolBank Location</label>
-        <locationX>2030</locationX>
+        <locationX>2426</locationX>
         <locationY>323</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -566,8 +611,8 @@
             <label>Site Atlanta-HMW</label>
         </rules>
         <rules>
-            <name>HRM_HSC</name>
-            <conditionLogic>1 AND 2 AND (3 OR 4)</conditionLogic>
+            <name>Hub_South_Central</name>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.RecordType.Id</leftValueReference>
                 <operator>EqualTo</operator>
@@ -586,24 +631,17 @@
                 <leftValueReference>$Record.npsp__Primary_Affiliation__r.Parent.Id</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>0014R00003UeXFyQAN</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>$Record.npsp__Primary_Affiliation__r.Parent.Id</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
                     <stringValue>0014R00003OCG26QAH</stringValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>HRM_HSC_New_Contact_Created</targetReference>
+                <targetReference>HSC_New_Contact_Created</targetReference>
             </connector>
-            <label>HRM-HSC</label>
+            <label>Hub South Central</label>
         </rules>
         <rules>
-            <name>TDS_PC_HSE_HNE_MU1</name>
-            <conditionLogic>1 AND 2 AND (3 OR 4 OR 5 OR 6)</conditionLogic>
+            <name>TDS_PC_HSE_HNE_MU17_MU18_MU19</name>
+            <conditionLogic>1 AND 2 AND (3 OR 4 OR 5 OR 6 OR 7 OR 8)</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
                 <operator>EqualTo</operator>
@@ -616,13 +654,6 @@
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>0124R000001ZC8iQAG</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>$Record.npsp__Primary_Affiliation__r.Parent.Id</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>0014R00003M9m0gQAB</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -646,14 +677,35 @@
                     <stringValue>0014R00003UeXMgQAN</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.npsp__Primary_Affiliation__r.Parent.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>001UN00000DXcNFYA1</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.npsp__Primary_Affiliation__r.Parent.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>001UN00000DXeAjYAL</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.npsp__Primary_Affiliation__r.Parent.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>001UN00000DXNi6YAH</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>TDS_New_Contact_Created</targetReference>
             </connector>
-            <label>TDS PC-HSE-HNE-MU1</label>
+            <label>TDS PC-HSE-HNE-MU17-MU18-MU19</label>
         </rules>
         <rules>
             <name>Sacramento</name>
-            <conditionLogic>1 AND 2 AND (3 OR 4)</conditionLogic>
+            <conditionLogic>1 AND 2 AND (3 OR 4 OR 5)</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
                 <operator>EqualTo</operator>
@@ -682,10 +734,17 @@
                     <stringValue>0014R00003M9m0lQAB</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.npsp__Primary_Affiliation__r.Parent.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0014R00003M9m0gQAB</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Sacramento_New_Contact_Created</targetReference>
             </connector>
-            <label>HW-MU8</label>
+            <label>HW-MU8-MU1</label>
         </rules>
         <rules>
             <name>ToolBank_Training</name>
@@ -716,8 +775,95 @@
             </connector>
             <label>ToolBank Training</label>
         </rules>
+        <rules>
+            <name>Magic_City</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.npsp__Primary_Affiliation__r.Parent.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>001UN000004RBWaYAO</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>TB Members Plus</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0124R000001ZC8iQAG</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Magic_City_New_Contact_Created</targetReference>
+            </connector>
+            <label>Magic City</label>
+        </rules>
+        <rules>
+            <name>Hub_Rocky_Mountain</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.npsp__Primary_Affiliation__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0014R00003UeXFyQAN</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0124R000001ZC8iQAG</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>TB Members Plus</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>HRM_New_Contact_Created</targetReference>
+            </connector>
+            <label>Hub Rocky Mountain</label>
+        </rules>
+        <rules>
+            <name>MU20</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.npsp__Primary_Affiliation__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>001UN00000IMehhYAD</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>TB Members Plus</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0124R000001ZC8iQAG</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MU20_New_Contact_Created</targetReference>
+            </connector>
+            <label>MU20</label>
+        </rules>
     </decisions>
-    <description>Divide out HSC, HRM.  Put HMW w/ ATL Site</description>
+    <description>Added MU20</description>
     <environments>Default</environments>
     <interviewLabel>Internal New Contact Created - Enable {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Internal New Contact Created - Enable</label>
@@ -741,7 +887,7 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>1904</locationX>
+        <locationX>2300</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Check_ToolBank_Location</targetReference>

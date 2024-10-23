@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>TDS_Hubs</fullName>
-    <booleanFilter>(1 AND 2) OR 3 OR 4 OR 5 OR 6</booleanFilter>
     <columns>ACCOUNT.NAME</columns>
     <columns>ACCOUNT.SITE</columns>
     <columns>ACCOUNT.ADDRESS1_STATE</columns>
@@ -11,34 +10,9 @@
     <columns>Affiliate_Handling_Fee__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>ACCOUNT.NAME</field>
-        <operation>startsWith</operation>
-        <value>TDS</value>
-    </filters>
-    <filters>
-        <field>ACCOUNT.NAME</field>
-        <operation>notEqual</operation>
-        <value>TDS Puerto Rico (member agency)</value>
-    </filters>
-    <filters>
-        <field>ACCOUNT.NAME</field>
-        <operation>contains</operation>
-        <value>Intake</value>
-    </filters>
-    <filters>
-        <field>ACCOUNT.NAME</field>
+        <field>ACCOUNT.TYPE</field>
         <operation>equals</operation>
-        <value>MU1</value>
-    </filters>
-    <filters>
-        <field>ACCOUNT.NAME</field>
-        <operation>equals</operation>
-        <value>MU3</value>
-    </filters>
-    <filters>
-        <field>ACCOUNT.NAME</field>
-        <operation>equals</operation>
-        <value>MU8</value>
+        <value>ToolBank Hub,TDS - Trailer,TDS - Site,Intake - Warehouse</value>
     </filters>
     <label>TDS Hubs, Sites, Trailers, and Intake</label>
     <sharedTo>
