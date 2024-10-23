@@ -63,6 +63,8 @@ export default class OrderInformation extends LightningElement {
     orderPickuplocation;
     orderDeliveryOptions;
     orderDeliveryOption;
+
+    returnDateError = false;
     
     
     /*
@@ -151,7 +153,7 @@ export default class OrderInformation extends LightningElement {
     @wire(getObjectInfo, { objectApiName: ORDER_OBJECT })
     getorderMetadata(result){
         if(result.data){
-            this.fieldsInfo = result.data.fields;
+            this.fieldsInfo = result.data.fields;;
             this.orderMetadata = result;
         }
     }
@@ -245,6 +247,14 @@ export default class OrderInformation extends LightningElement {
         }
     };
 
+    handleTotalProjectVolunteerHours(event){
+        let volunteerNum = this.template.querySelector(`[data-id="volunteersnumber"]`);
+        let avgHrs = this.template.querySelector(`[data-id="onsitehours"]`);
+        let projectVolunteerHr = this.template.querySelector(`[data-id="projectVolunteerHr"]`);
+        let totalhrs = (volunteerNum.value?volunteerNum.value:0) * (avgHrs.value?avgHrs.value:0);
+        projectVolunteerHr.value = totalhrs;
+
+    }
 
     onPickDateSelect(event){
         let selectedDate = event.detail.selectedDate;
@@ -303,12 +313,14 @@ export default class OrderInformation extends LightningElement {
         this.proType = data;
     }
 
+    
     handleWeekChange(event){ 
         let data = this.template.querySelector(`[data-id="Week"]`);
         let pickDateerror = this.template.querySelector(`[data-id="pickDateerror"]`);
         let returnerror = this.template.querySelector(`[data-id="returnerror"]`);
         let pickDate =this.template.querySelector(`[data-id="pickupDate"]`);
         let returnDate =this.template.querySelector(`[data-id="returnDate"]`);
+        this.returnDateError = false;
         console.log('desired pickup date-->',this.desiredpickupdate);
         if(this.desiredpickupdate){
             let pickupdate = new Date(this.desiredpickupdate.setHours(23,59,50,0));//+" 23:59:50");
@@ -318,6 +330,7 @@ export default class OrderInformation extends LightningElement {
                 pickDateerror.innerHTML ="Pickup Date can not be in the past";
                 //returnDate.value ="";
                 this.returneddate = "";
+                this.returnDateError = true;
                 return;
             }else{
                 pickDateerror.innerHTML ="";
@@ -351,6 +364,7 @@ export default class OrderInformation extends LightningElement {
                         this.returneddate = selectedValue;
                         const diff = (new Date(retvalue)- new Date(selectedValue))/(1000*60*60*24)
                         if((retvalue < selectedValue) || diff >= 7){
+                            this.returnDateError = true;
                             returnerror.innerHTML = "Return date is not aligned with Pickup date and borrowing week, please fix the dates";
                         }else{
                             returnerror.innerHTML = "";
@@ -384,7 +398,7 @@ export default class OrderInformation extends LightningElement {
     handleVolSrcChange(event){
         let data = event.detail.value;
         this.volSrc = data;
-        if(data == 'Corporate Volunteers')
+        if(data === 'Corporate Volunteers' || data === "Faith-based Volunteers" || data === "Youth/Student Volunteers")
             this.corp = true;
         else this.corp = false;
     }
@@ -611,7 +625,7 @@ export default class OrderInformation extends LightningElement {
             else ziperror.innerHTML ="";
         }
         
-        if(!staff.value){
+        /*if(!staff.value){
             stafferror.innerHTML =errormsg;
             staff.focus();
         }
@@ -621,7 +635,7 @@ export default class OrderInformation extends LightningElement {
             impacterror.innerHTML =errormsg;
             peopleImImpacted.focus();
         }
-        else impacterror.innerHTML ="";
+        else impacterror.innerHTML ="";*/
         
         if(!volunteersnumber.value){
             volerror.innerHTML =errormsg;
@@ -687,13 +701,29 @@ export default class OrderInformation extends LightningElement {
             ordName.focus();
         }
         else nameerror.innerHTML ="";
+
+        let orderNameLenght = false;
+        if(!ordName.value && ordName.value.length >80){
+            nameerror.innerHTML = 'Order Name can not have more than 80 characters';
+            orderNameLenght = true;
+            ordName.focus();
+        }else {
+            nameerror.innerHTML ="";
+            orderNameLenght = false;
+        }
         
         
         if(!this.returneddate){
             returnerror.innerHTML =errormsg;
-            //returnDate.focus();
         }
-        else returnerror.innerHTML ="";
+
+        console.log('this.returnDateError',this.returnDateError);
+        if( this.returnDateError){
+            returnerror.innerHTML ='Return date is not aligned with Pickup date and borrowing week, please fix the dates';
+        }
+        
+        if( this.returneddate && !this.returnDateError)
+         returnerror.innerHTML ="";
 
         if(!this.borrowing){
             weekerror.innerHTML =errormsg;
@@ -729,6 +759,8 @@ export default class OrderInformation extends LightningElement {
             && this.returneddate
             && this.borrowing
             && ordName.value
+            && !orderNameLenght
+            && !this.returnDateError
             && peopledirectlyserved.value
             && numberProject.value
             && this.volSrc
@@ -739,8 +771,8 @@ export default class OrderInformation extends LightningElement {
             && ((this.isPickup && this.orderPickuplocation) || (!this.isPickup && deliverLocatoin && deliverLocatoin.value && this.orderDeliveryOption) || !this.showOrderType)
             && onsitehours.value
             && volunteersnumber.value
-            && peopleImImpacted.value
-            && staff.value
+            //&& peopleImImpacted.value
+            //&& staff.value
             && !notvalidcode
             && projectVolunteerHr.value
             && this.proType.length >0
@@ -772,8 +804,8 @@ export default class OrderInformation extends LightningElement {
                         numberProject:numberProject.value,
                         onsitehours:onsitehours.value,
                         volunteersnumber:volunteersnumber.value,
-                        peopleImImpacted:peopleImImpacted.value,
-                        staff:staff.value,
+                        peopleImImpacted:0,
+                        staff:0,
                         projectVolunteerHr:projectVolunteerHr.value,
                         volunteersource:this.volSrc,
                         corpname:corporationName,

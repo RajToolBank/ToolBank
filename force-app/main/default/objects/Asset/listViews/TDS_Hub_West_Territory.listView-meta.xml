@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TDS_Hub_West_Territory</fullName>
+    <columns>ASSET.NAME</columns>
+    <columns>ASSET.SERIAL_NUMBER</columns>
+    <columns>ASSET.INSTALL_DATE</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CONTACT.NAME</columns>
+    <columns>PRODUCT2.NAME</columns>
+    <columns>On_Shelf_Quantity_F__c</columns>
+    <columns>Out_F__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT.NAME</field>
+        <operation>equals</operation>
+        <value>TDS Hub-West Territory</value>
+    </filters>
+    <label>TDS Hub-West Territory</label>
+    <sharedTo>
+        <group>Admins</group>
+        <group>TDS_except_PR_and_NO</group>
+    </sharedTo>
+</ListView>

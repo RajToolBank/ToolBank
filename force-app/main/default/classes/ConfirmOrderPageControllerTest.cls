@@ -54,7 +54,7 @@ public class ConfirmOrderPageControllerTest {
                             
         String ordItemJson2= JSON.serialize(new List<orderitemClass>{orderitem});
         ConfirmOrderPageController.massDateChangeLowest(ordItemJson2);
-
+        OrderItemListController.massDateChangeLowest(ordItemJson2);
         itemClass itemcls = new itemClass();
         
         itemcls.Id = ord.id;
@@ -72,6 +72,7 @@ public class ConfirmOrderPageControllerTest {
         orderNitemClass.order = ord;
         orderNitemClass.orderItems = new list<itemClass>{itemcls};
         ConfirmOrderPageController.getConflictedItems(ordItem.Id,affiliate.id,tool.id,Date.today().addDays(3),Date.today().addDays(10));
+        OrderItemListController.getConflictedItems(ordItem.Id,affiliate.id,tool.id,Date.today().addDays(3),Date.today().addDays(10));
         ConfirmOrderPageController.saveOrder(JSON.serialize(orderNitemClass),JSON.serialize(new List<String>{ordItem.id}));
     }
 

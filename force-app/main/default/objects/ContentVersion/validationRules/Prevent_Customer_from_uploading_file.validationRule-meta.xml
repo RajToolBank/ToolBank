@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Customer_from_uploading_file</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND($Profile.Name=&quot;TB Members Plus&quot;, ISNEW(), NOT(ISBLANK(Title)))</errorConditionFormula>
+    <errorMessage>We are sorry.  We currently do not allow you to upload files to the Order.</errorMessage>
+</ValidationRule>

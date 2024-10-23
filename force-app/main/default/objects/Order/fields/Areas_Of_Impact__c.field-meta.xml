@@ -21,6 +21,11 @@
                 <label>Arts, Culture, Humanities</label>
             </value>
             <value>
+                <fullName>BIPOC</fullName>
+                <default>false</default>
+                <label>BIPOC</label>
+            </value>
+            <value>
                 <fullName>Community Revitalization</fullName>
                 <default>false</default>
                 <label>Community Revitalization</label>
@@ -59,6 +64,11 @@
                 <fullName>Human Services</fullName>
                 <default>false</default>
                 <label>Human Services</label>
+            </value>
+            <value>
+                <fullName>LGBTQIA+</fullName>
+                <default>false</default>
+                <label>LGBTQIA+</label>
             </value>
             <value>
                 <fullName>Veteran Services</fullName>

@@ -3,7 +3,7 @@
     <fullName>Late_Fee__c</fullName>
     <defaultValue>0</defaultValue>
     <externalId>false</externalId>
-    <label>Late Fee</label>
+    <label>Late Fee_LFNt</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

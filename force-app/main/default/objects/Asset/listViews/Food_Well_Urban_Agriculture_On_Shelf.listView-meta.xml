@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Food_Well_Urban_Agriculture_On_Shelf</fullName>
+    <columns>ASSET.NAME</columns>
+    <columns>ASSET.QUANTITY</columns>
+    <columns>On_Shelf_Quantity_F__c</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT.NAME</field>
+        <operation>contains</operation>
+        <value>Food Well</value>
+    </filters>
+    <filters>
+        <field>ASSET.QUANTITY</field>
+        <operation>greaterThan</operation>
+        <value>0</value>
+    </filters>
+    <label>Food Well Urban Agriculture - On Shelf</label>
+    <sharedTo>
+        <group>Admins</group>
+        <group>Atlanta_Community_ToolBank</group>
+    </sharedTo>
+</ListView>

@@ -11,6 +11,7 @@ public class RK_BatchRollUpOrdersTest {
         update acc;
         Order ord = TestDataFactory.createOrder(acc.Id,con.id,affiliate.Id);
         ord.Status = 'Confirmed';
+        ByPassValidations.OrdStatusValidation = true;
         update ord;
         
         Test.startTest();

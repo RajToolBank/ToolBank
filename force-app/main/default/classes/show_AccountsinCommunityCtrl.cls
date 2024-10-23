@@ -57,7 +57,7 @@ public without Sharing class show_AccountsinCommunityCtrl {
         deleteContact = new List<Contact>();    
         getcont = new contact();
         getcontc = new contact();
-        contact con  = [Select contactId,contact.AccountId, contact.npsp__Primary_Affiliation__c,Contact.Primary_contact__c,Contact.Executive_Contact__c from user where id=:userinfo.getuserid()].Contact;
+        contact con  = [Select contactId,contact.Deactivate__c,contact.AccountId, contact.npsp__Primary_Affiliation__c,Contact.Primary_contact__c,Contact.Executive_Contact__c from user where id=:userinfo.getuserid()].Contact;
         
         conId = con.Id;
         primaryId = con.Primary_contact__c;
@@ -75,7 +75,7 @@ public without Sharing class show_AccountsinCommunityCtrl {
         Integer prmCount = 0;
         String prmId,exeId;
 
-        for(Contact cont: [SELECT Id,Executive_Contact__c,Primary_contact__c FROM Contact WHERE npsp__Primary_Affiliation__c =: accId]){
+        for(Contact cont: [SELECT Id,Deactivate__c,Executive_Contact__c,Primary_contact__c FROM Contact WHERE npsp__Primary_Affiliation__c =: accId]){
             
             if(cont.Executive_Contact__c){
                 exeCount++;
@@ -172,7 +172,7 @@ public without Sharing class show_AccountsinCommunityCtrl {
         if(!Test.isRunningTest()) {
             insert getcontc;
         }
-        list<Contact> conlistToUpdate = [select id,name,phone,email,AccountId,Primary_contact__c,Executive_Contact__c,Status__c,Executive_Home_Phone__c,
+        list<Contact> conlistToUpdate = [select id,name,phone,email,Deactivate__c,AccountId,Primary_contact__c,Executive_Contact__c,Status__c,Executive_Home_Phone__c,
                                         HasOptedOutOfEmail,(select id,username from users) from contact where (AccountId IN:ids OR npsp__Primary_Affiliation__c IN:ids ) ];
         for(contact con: conlistToUpdate){
             if(con.id == getcontc.id){
@@ -197,7 +197,7 @@ public without Sharing class show_AccountsinCommunityCtrl {
         getcontc = new contact();
         getcont = new contact();
         setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
-            [select id,name,phone,email,AccountId,Primary_contact__c,Executive_Contact__c,Status__c,HasOptedOutOfEmail,Executive_Home_Phone__c,
+            [select id,name,phone,email,Deactivate__c,AccountId,Primary_contact__c,Executive_Contact__c,Status__c,HasOptedOutOfEmail,Executive_Home_Phone__c,
              (select id,username from users) from contact where (AccountId IN:ids OR npsp__Primary_Affiliation__c IN:ids ) ]));
         setCon.setPageSize(size);  
         noOfRecords = setCon.getResultSize();
@@ -213,7 +213,7 @@ public without Sharing class show_AccountsinCommunityCtrl {
         System.debug('Hi'+getcontc);
         System.debug('ConId'+conEdit);
         System.debug('ids-->'+ids);
-        getcont = [select id,FirstName,lastname,phone,email,AccountId,Primary_contact__c,Executive_Contact__c,Status__c,HasOptedOutOfEmail,Executive_Home_Phone__c,
+        getcont = [select id,FirstName,lastname,phone,Deactivate__c,email,AccountId,Primary_contact__c,Executive_Contact__c,Status__c,HasOptedOutOfEmail,Executive_Home_Phone__c,
                    (select id,username from users) from contact where (AccountId IN:ids OR npsp__Primary_Affiliation__c IN:ids ) and id=:conEdit];
         System.debug('Contlist'+getcont.FirstName);
         return null;
@@ -228,7 +228,7 @@ public without Sharing class show_AccountsinCommunityCtrl {
             String prmId,exeId;
             onlyExecutive = null;
             onlyPrimary = null;
-            for(Contact cont: [SELECT Id,Executive_Contact__c,Primary_contact__c FROM Contact WHERE npsp__Primary_Affiliation__c =: accId]){
+            for(Contact cont: [SELECT Id,Deactivate__c,Executive_Contact__c,Primary_contact__c FROM Contact WHERE npsp__Primary_Affiliation__c =: accId]){
                 
                 if(cont.Executive_Contact__c){
                     exeCount++;
@@ -283,7 +283,7 @@ public without Sharing class show_AccountsinCommunityCtrl {
         panel2=false;
         panel3=true;
         setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
-            [select id,name,phone,email,AccountId,Primary_contact__c,Executive_Contact__c,Status__c,Executive_Home_Phone__c,
+            [select id,name,phone,email,AccountId,Deactivate__c,Primary_contact__c,Executive_Contact__c,Status__c,Executive_Home_Phone__c,
             HasOptedOutOfEmail,(select id,username from users) from contact where (AccountId IN:ids OR npsp__Primary_Affiliation__c IN:ids ) ]));
         getContacts();
         return null;
@@ -293,7 +293,7 @@ public without Sharing class show_AccountsinCommunityCtrl {
         panel2=false; 
         panel3=false;                
         setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
-            [select id,name,phone,email,AccountId,Primary_contact__c,Executive_Contact__c,Status__c,Executive_Home_Phone__c,
+            [select id,name,phone,email,AccountId,Deactivate__c,Primary_contact__c,Executive_Contact__c,Status__c,Executive_Home_Phone__c,
             HasOptedOutOfEmail,(select id,username from users) from contact where (AccountId IN:ids OR npsp__Primary_Affiliation__c IN:ids ) ]));
         setCon.setPageSize(size);  
         noOfRecords = setCon.getResultSize();
@@ -307,7 +307,7 @@ public without Sharing class show_AccountsinCommunityCtrl {
         get {
             if(setCon == null) {                
                 setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
-                    [select id,name,phone,email,AccountId,Primary_contact__c,Executive_Contact__c,status__c,Executive_Home_Phone__c, HasOptedOutOfEmail,
+                    [select id,name,phone,email,Deactivate__c,AccountId,Primary_contact__c,Executive_Contact__c,status__c,Executive_Home_Phone__c, HasOptedOutOfEmail,
                      (select id,username from users) from contact where (AccountId IN:ids OR npsp__Primary_Affiliation__c IN:ids )]));
                 setCon.setPageSize(size);  
                 noOfRecords = setCon.getResultSize();

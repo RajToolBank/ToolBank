@@ -62,6 +62,10 @@
                 <behavior>Readonly</behavior>
                 <field>Total_Estimate__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Estimated_Hours_10__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
     </layoutSections>

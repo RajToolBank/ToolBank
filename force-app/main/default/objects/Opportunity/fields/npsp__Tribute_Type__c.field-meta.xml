@@ -7,7 +7,6 @@
     <inlineHelpText>Indicates whether the Donation is in honor or in memory of an individual.</inlineHelpText>
     <label>Tribute Type</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

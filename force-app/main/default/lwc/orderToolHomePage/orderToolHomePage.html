@@ -2,8 +2,27 @@
     <div class="slds-m-top_small slds-m-bottom_medium">
         <lightning-card>
                 <div class="slds-align_absolute-center" >
-                    <button type="button" class="slds-button slds-button_brand" style="background: #1589ee;"  onclick={handleNavigate}>Create New Order</button> <br/><br/><br/>
-                    <!--button type="button" class="slds-button slds-button_brand" style="background: #1589ee;"  onclick={handleNavigate}>Request New Tool Type</button-->
+                    <template if:true={signed}>
+                        <button type="button" class="slds-button slds-button_brand" style="background: #1589ee;"  onclick={handleNavigate}>Create New Order</button> <br/><br/><br/>
+                    </template>
+                    <template if:true={showSign}>
+                        <p style="text-align: center;padding-left: 1em;padding-right: 1em; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'">
+                            <b>Why am I seeing the "Sign Agreement" button?</b><br>
+
+                            As part of the ToolBank membership process, your organization’s Executive Contact or Primary Contact must review and sign the Membership Agreement, including the Waiver of Liability.
+                            
+                            If you are the designated Executive or Primary Contact, please click the "Sign Agreement" button to complete this necessary step.
+                            
+                            If you are not the Executive or Primary Contact, you will not see the option to sign. Once the agreement is signed, the "Create Order" button will become available to all authorized users for placing tool orders.
+                            
+                            Thank you for your attention to this important requirement!<br><br>
+                            <template if:true={isPrimary}>
+                                <button type="button" class="slds-button slds-button_brand" style="background: #1589ee;"  onclick={signAgreement}>Sign Agreement</button>
+                                <br><br>
+                                <b>Please refresh the page if you have already signed the agreement.</b>
+                            </template>
+                        </p>
+                    </template>
                 </div>
         </lightning-card>
     </div>

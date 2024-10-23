@@ -15,6 +15,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>BIPOC</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Community Revitalization</fullName>
             <default>false</default>
         </values>
@@ -44,6 +48,10 @@
         </values>
         <values>
             <fullName>Human Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LGBTQIA%2B</fullName>
             <default>false</default>
         </values>
         <values>
@@ -157,6 +165,18 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Hurricane Beryl</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hurricane Debby</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hurricane Harvey</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Hurricane Ian</fullName>
             <default>false</default>
         </values>
@@ -174,6 +194,14 @@
         </values>
         <values>
             <fullName>Hurricane Michael</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hurricane Tropical Storm Helene</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>May 2024 Texas Severe Weather</fullName>
             <default>false</default>
         </values>
         <values>
@@ -230,6 +258,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>New Construction%2FDevelopment</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Planting%2FGroundskeeping</fullName>
             <default>false</default>
         </values>
@@ -239,6 +271,10 @@
         </values>
         <values>
             <fullName>Special Events%2FFundraisers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Urban Agriculture</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -1,0 +1,20 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickActionWithoutHeader">
+    <c:orderCloneComponent aura:id="orderClone" recordId="{!v.recordId}"/>
+    <aura:html tag="style">
+        .slds-modal__container{
+        <!-- height : auto; -->
+        max-width: 100% !important;
+        width: 60% !important;
+        }
+        <!--.slds-modal__content{
+            height: inherit !important;
+            max-height: inherit !important;
+        }-->
+
+        .modal-body{
+            <!-- height :650px !important;
+            max-height :650px !important; -->
+        }
+
+    </aura:html>
+</aura:component>

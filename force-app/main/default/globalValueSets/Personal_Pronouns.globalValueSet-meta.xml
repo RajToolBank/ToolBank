@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>He/Him/His</fullName>
+        <default>false</default>
+        <label>He/Him/His</label>
+    </customValue>
+    <customValue>
+        <fullName>She/Her/Hers</fullName>
+        <default>false</default>
+        <label>She/Her/Hers</label>
+    </customValue>
+    <customValue>
+        <fullName>They/Them/Theirs</fullName>
+        <default>false</default>
+        <label>They/Them/Theirs</label>
+    </customValue>
+    <customValue>
+        <fullName>Sie/Hir/Hirs</fullName>
+        <default>false</default>
+        <label>Sie/Hir/Hirs</label>
+    </customValue>
+    <customValue>
+        <fullName>Zie/Zir/Zirs</fullName>
+        <default>false</default>
+        <label>Zie/Zir/Zirs</label>
+    </customValue>
+    <customValue>
+        <fullName>Prefer not to say</fullName>
+        <default>false</default>
+        <label>Prefer not to say</label>
+    </customValue>
+    <masterLabel>Personal Pronouns</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

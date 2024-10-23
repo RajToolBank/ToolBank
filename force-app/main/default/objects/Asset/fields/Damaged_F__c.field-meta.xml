@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Damaged_F__c</fullName>
     <externalId>false</externalId>
-    <formula>IF( Damaged_Returned_R__c  =  Damaged_R__c , Damaged_R__c, IF(Damaged_Returned_R__c &lt; Damaged_R__c, Damaged_R__c - Damaged_Returned_R__c,Damaged_R__c))</formula>
+    <formula>Damaged_R__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>This field denotes the number of tools that are in damaged condition.</inlineHelpText>
     <label>Damaged</label>

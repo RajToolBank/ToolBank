@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Orders_Rocky_Mountain_Territory</fullName>
+    <columns>ORDER.NAME</columns>
+    <columns>SALES.ACCOUNT.NAME</columns>
+    <columns>ORDERS.EFFECTIVE_DATE</columns>
+    <columns>ORDERS.LAST_UPDATE</columns>
+    <columns>ORDERS.END_DATE</columns>
+    <columns>ORDERS.STATUS</columns>
+    <columns>ORDERS.CREATED_DATE</columns>
+    <columns>ORDERS.ORDER_NUMBER</columns>
+    <columns>Affiliate__c</columns>
+    <columns>External_ID__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Affiliate__c</field>
+        <operation>equals</operation>
+        <value>TDS Hub-Rocky Mountain Territory</value>
+    </filters>
+    <label>All Orders-Rocky Mountain Territory</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

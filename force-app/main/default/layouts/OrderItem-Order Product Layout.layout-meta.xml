@@ -42,14 +42,6 @@
                 <behavior>Readonly</behavior>
                 <field>Total_Fees__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Late_weeks_as_of_today__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Late_Fee_as_of_Today__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -86,6 +78,10 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Actual_Return_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Actual_Pickup_Date_Time__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>

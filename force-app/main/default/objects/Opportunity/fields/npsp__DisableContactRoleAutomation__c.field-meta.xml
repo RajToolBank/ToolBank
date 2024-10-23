@@ -7,7 +7,6 @@
     <externalId>false</externalId>
     <inlineHelpText>When selected, this field disables several aspects of NPSP Opportunity Contact Role automation, potentially resulting in incorrect or duplicate data. Refer to the product documentation for more details.</inlineHelpText>
     <label>Disable Contact Role Automation</label>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

@@ -2,6 +2,6 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Only_Admin_can_update_Inventory_name</fullName>
     <active>true</active>
-    <errorConditionFormula>ISCHANGED(Name) &amp;&amp;  $Profile.Id &lt;&gt; &quot;00eA0000000W1t2&quot;</errorConditionFormula>
+    <errorConditionFormula>ISCHANGED(Name) &amp;&amp;  ($Profile.Id &lt;&gt; &quot;00eA0000000W1t2&quot; &amp;&amp; NOT($Permission.Update_Inventory))</errorConditionFormula>
     <errorMessage>You do not have permission to edit this field.</errorMessage>
 </ValidationRule>

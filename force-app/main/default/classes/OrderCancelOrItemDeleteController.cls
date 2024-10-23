@@ -34,6 +34,7 @@ public class OrderCancelOrItemDeleteController {
             }
 
             dateList.sort();
+            lastModifieddateList.sort();
             Date minPickDate = dateList[0];
             Date maxReturnDate = dateList[dateList.size()-1];
             system.debug('lastModifieddateList :: '+ lastModifieddateList);
@@ -83,7 +84,7 @@ public class OrderCancelOrItemDeleteController {
                         ListToUpdate.addAll(itemList);
                 }
                 item.status__c = 'Cancelled';
-
+                item.Reserved_Quantity__c = 0;
                 ListToUpdate.add(item);
             
             }

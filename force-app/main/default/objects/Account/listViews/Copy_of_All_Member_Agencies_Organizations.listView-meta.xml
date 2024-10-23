@@ -18,15 +18,5 @@
         <operation>equals</operation>
         <value>Account.Member_Agency</value>
     </filters>
-    <filters>
-        <field>Membership_Status__c</field>
-        <operation>equals</operation>
-        <value>Active</value>
-    </filters>
-    <filters>
-        <field>PARENT_NAME</field>
-        <operation>contains</operation>
-        <value>Houston</value>
-    </filters>
     <label>Active Member Agencies</label>
 </ListView>

@@ -3,7 +3,7 @@
     <fullName>Maintenance_R__c</fullName>
     <externalId>false</externalId>
     <inlineHelpText>This field denotes the number of tools that are in maintenance condition</inlineHelpText>
-    <label>Maintenance</label>
+    <label>Maintenance (All Time)</label>
     <summarizedField>Transaction__c.Quantity__c</summarizedField>
     <summaryFilterItems>
         <field>Transaction__c.Sub_Type__c</field>

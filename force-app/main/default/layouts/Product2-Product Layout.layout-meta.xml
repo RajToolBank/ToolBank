@@ -76,7 +76,7 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>IsActive</field>
             </layoutItems>
             <layoutItems>
@@ -149,6 +149,7 @@
     <relatedLists>
         <fields>ASSET.NAME</fields>
         <fields>ACCOUNT.NAME</fields>
+        <fields>Retail_Price__c</fields>
         <fields>ASSET.QUANTITY</fields>
         <fields>Current_Inventory_F__c</fields>
         <relatedList>RelatedAssetList</relatedList>

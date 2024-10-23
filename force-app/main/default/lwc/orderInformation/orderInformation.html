@@ -332,27 +332,8 @@
                             <span>Order Name:<lightning-helptext class="customIcon" content="Please give your order a short name (not your personal or organization name)."></lightning-helptext></span>
                         </div>
                         <div class="slds-col slds-size_1-of-2">
-                             <Span><input class="slds-input" data-id="orderName"  type="text" ></input></Span>
+                             <Span><input class="slds-input" maxlength="80" data-id="orderName"  type="text" ></input></Span>
                              <span style="color: red;font-style: italic;" data-id="nameerror"></span>
-                        </div><br/><br/>
-                    </div>
-                    <div class="slds-grid slds-wrap">
-                        <div  class="slds-col slds-size_1-of-2">
-                            <span>People Directly Served:<lightning-helptext class="customIcon" content={fieldsInfo.People_Directly_Served__c.inlineHelpText}></lightning-helptext></span>
-                            
-                        </div>
-                        <div class="slds-col slds-size_1-of-2">
-                             <Span><input class="slds-input" data-id="peopledirectlyserved"  type="number" min="0" ></input></Span>
-                             <span style="color: red;font-style: italic;" data-id="servederror"></span>
-                        </div><br/><br/>
-                    </div>
-                    <div class="slds-grid slds-wrap">
-                        <div  class="slds-col slds-size_1-of-2">
-                            <span>Number of Projects:<lightning-helptext class="customIcon" content={fieldsInfo.Number_Of_Projects__c.inlineHelpText}></lightning-helptext></span>
-                        </div>
-                        <div class="slds-col slds-size_1-of-2">
-                             <Span><input class="slds-input" data-id="numberProject"  type="number" min="0" ></input></Span>
-                             <span style="color: red;font-style: italic;" data-id="projecterror"></span>
                         </div><br/><br/>
                     </div>
                     <div class="slds-grid slds-wrap">
@@ -370,38 +351,69 @@
                         </div><br/><br/>
                     </div>
                     <template if:true={corp}>
+                        <div class="slds-grid slds-wrap">
+                            <div  class="slds-col slds-size_1-of-2">
+                                <span>Name of Volunteer Source:<lightning-helptext class="customIcon" content={fieldsInfo.Corporation_Name__c.inlineHelpText}></lightning-helptext></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <Span><input class="slds-input"  data-id="corpname" type="text" ></input></Span>
+                                <span style="color: red;font-style: italic;" data-id="corperror"></span>
+                            </div><br/><br/>
+                        </div>
+                    </template>
                     <div class="slds-grid slds-wrap">
                         <div  class="slds-col slds-size_1-of-2">
-                            <span>Corporation Name:<lightning-helptext class="customIcon" content={fieldsInfo.Corporation_Name__c.inlineHelpText}></lightning-helptext></span>
+                            <span>Zip Code(s) (Project's Location):
+                                <lightning-helptext class="customIcon" content="Please list all ZIP codes where projects will occur, separated by commas."></lightning-helptext>
+                            </span>
                         </div>
                         <div class="slds-col slds-size_1-of-2">
-                             <Span><input class="slds-input"  data-id="corpname" type="text" ></input></Span>
-                             <span style="color: red;font-style: italic;" data-id="corperror"></span>
+                             <Span><input class="slds-input" data-id="zipcode"  type="text" ></input></Span>
+                             <span style="color: red;font-style: italic;" data-id="ziperror"></span>
                         </div><br/><br/>
-                    </div></template>
-                    <div class="slds-grid slds-wrap">
-                        <div  class="slds-col slds-size_1-of-2">
-                            <span>Number of hours average volunteer is on site:<lightning-helptext class="customIcon" content={fieldsInfo.Hours_Average_Volunteer_is_on_Site__c.inlineHelpText}></lightning-helptext></span>
-                        </div>
-                        <div class="slds-col slds-size_1-of-2">
-                             <Span><input class="slds-input"  data-id="onsitehours" type="number" min="0"></input></Span>
-                             <span style="color: red;font-style: italic;" data-id="onSiteerror"></span>
-                        </div>
                     </div>
                   </div>
                 </div>
                 <div class="slds-size_1-of-2">
-                    <div class="slds-box slds-box_x-small slds-text-align_left slds-m-around_x-small">
+                    <div class="slds-box slds-box_x-small slds-text-align_left slds-m-around_x-small">  
                         <div class="slds-grid slds-wrap">
                             <div  class="slds-col slds-size_1-of-2">
-                                <span>Number of Volunteers:<lightning-helptext class="customIcon" content={fieldsInfo.Number_of_Volunteers__c.inlineHelpText}></lightning-helptext></span>
+                                <span>Number of Projects:<lightning-helptext class="customIcon" content={fieldsInfo.Number_Of_Projects__c.inlineHelpText}></lightning-helptext></span>
                             </div>
                             <div class="slds-col slds-size_1-of-2">
-                                 <Span><input class="slds-input" data-id="volunteersnumber"  type="number" min="0" ></input></Span>
+                                 <Span><input class="slds-input" data-id="numberProject"  type="number" min="0" ></input></Span>
+                                 <span style="color: red;font-style: italic;" data-id="projecterror"></span>
+                            </div><br/><br/>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div  class="slds-col slds-size_1-of-2">
+                                <span>People Directly Served:<lightning-helptext class="customIcon" content={fieldsInfo.People_Directly_Served__c.inlineHelpText}></lightning-helptext></span>
+                                
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                 <Span><input class="slds-input" data-id="peopledirectlyserved"  type="number" min="0" ></input></Span>
+                                 <span style="color: red;font-style: italic;" data-id="servederror"></span>
+                            </div><br/><br/>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <div  class="slds-col slds-size_1-of-2">
+                                <span>Number of people using these ToolBank tools:<lightning-helptext class="customIcon" content={fieldsInfo.Number_of_Volunteers__c.inlineHelpText}></lightning-helptext></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                 <Span><input class="slds-input" data-id="volunteersnumber"  type="number" min="0" onchange={handleTotalProjectVolunteerHours} ></input></Span>
                                  <span style="color: red;font-style: italic;" data-id="volerror"></span>
                             </div><br/><br/>
                         </div>
                         <div class="slds-grid slds-wrap">
+                            <div  class="slds-col slds-size_1-of-2">
+                                <span>Number of hours average volunteer is on site:<!--lightning-helptext class="customIcon" content={fieldsInfo.Hours_Average_Volunteer_is_on_Site__c.inlineHelpText}></lightning-helptext!--></span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                 <Span><input class="slds-input"  data-id="onsitehours" type="number" min="0" onchange={handleTotalProjectVolunteerHours}></input></Span>
+                                 <span style="color: red;font-style: italic;" data-id="onSiteerror"></span>
+                            </div>
+                        </div>
+                        <!--div class="slds-grid slds-wrap">
                             <div  class="slds-col slds-size_1-of-2">
                                 <span>People Indirectly Impacted:<lightning-helptext class="customIcon" content={fieldsInfo.People_Indirectly_Impacted__c.inlineHelpText}></lightning-helptext></span>
                             </div>
@@ -418,24 +430,13 @@
                                  <Span><input class="slds-input" data-id="staff"  type="number" min="0" ></input></Span>
                                  <span style="color: red;font-style: italic;" data-id="stafferror"></span>
                             </div><br/><br/>
-                        </div>
+                        </div-->
                         <div class="slds-grid slds-wrap">
                             <div  class="slds-col slds-size_1-of-2">
-                                <span>Zip Code(s) (Project's Location):
-                                    <lightning-helptext class="customIcon" content="Please list all ZIP codes where projects will occur, separated by commas."></lightning-helptext>
-                                </span>
+                                <span>Total Project Volunteer Hours:<!--lightning-helptext class="customIcon" content={fieldsInfo.Total_Project_Volunteer_Hours_F__c.inlineHelpText}></lightning-helptext--></span>
                             </div>
                             <div class="slds-col slds-size_1-of-2">
-                                 <Span><input class="slds-input" data-id="zipcode"  type="text" ></input></Span>
-                                 <span style="color: red;font-style: italic;" data-id="ziperror"></span>
-                            </div><br/><br/>
-                        </div>
-                        <div class="slds-grid slds-wrap">
-                            <div  class="slds-col slds-size_1-of-2">
-                                <span>Total Project Volunteer Hours:<lightning-helptext class="customIcon" content={fieldsInfo.Total_Project_Volunteer_Hours__c.inlineHelpText}></lightning-helptext></span>
-                            </div>
-                            <div class="slds-col slds-size_1-of-2">
-                                 <Span><input class="slds-input"  data-id="projectVolunteerHr" type="number" min="0" ></input></Span>
+                                 <Span><input class="slds-input slds-combobox__input slds-border_left slds-border_right slds-border_top slds-border_bottom" readonly data-id="projectVolunteerHr" type="number" min="0" ></input></Span>
                                  <span style="color: red;font-style: italic;" data-id="hourerror"></span>
                             </div><br/><br/>
                         </div>

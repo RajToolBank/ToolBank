@@ -1,5 +1,7 @@
 import { LightningElement,api,wire, track } from 'lwc';
-import { CloseActionScreenEvent } from 'lightning/actions';
+import { loadScript } from 'lightning/platformResourceLoader';
+import momentJs from '@salesforce/resourceUrl/momentJs';
+import momentTimezoneJs from '@salesforce/resourceUrl/momentTimezoneJs';
 import NUMBER_FIELD from '@salesforce/schema/Order.OrderNumber';
 import NAME from '@salesforce/schema/Order.Name';
 import ACCOUNT_FIELD from '@salesforce/schema/Order.AccountId';
@@ -39,6 +41,7 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
     schPickTime;
     loaded = true;
     readonlyFlag = false;
+    readonlyFlagDelete = false;
     showConflict = false;
     lable;
     order;
@@ -63,33 +66,57 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
     ];
 
     fulfillMessage = false;
+    ordertools;
+    orderItemCmp=false;
 
-    // @wire(getTimeZone)
-    // getTimeZone({data,error}){
-    //     if(data){
-    //         console.log(data);
-    //         this.timeZone = data;
-    //     }
-    // }
+    itemReturnDateDict;
+    orderPickupDate;
+    orderPickupTime;
+   
+
+    connectedCallback(){
+        loadScript(this, momentJs)
+        .then(() =>{
+                
+                window.console.log('moment loaded.');
+            
+        return loadScript(this, momentTimezoneJs); 
+        }).then(() =>{
+        
+                console.log('moment time zone loaded.');
+            
+        }).catch(error=>{
+            console.log(error);
+        });
+    }
+
     @wire(orderDetails,{recordId: "$recordId"}) orderDetail({data,error}){
         if(data){
             this.loaded = false;
             this.order = data.order;
             this.readonlyFlag = data.readOnly;
+            this.readonlyFlagDelete = data.readOnlyDelete;
             this.orderItems = data.orderItemList;
             this.allOrderItems = data.orderItemList;
             let totalTimeInSeconds = (data.order.Scheduled_Pickup_Time__c/1000);
             let result = new Date(null, null, null, null, null, totalTimeInSeconds);
             let tempTime = result.toTimeString().split(' ')[0].substring(0,5)
             tempTime = tempTime.split(':');
+            this.orderPickupDate = this.order.EffectiveDate;
             if(data.order.Scheduled_Pickup_Time__c && tempTime){
                 const hour = parseInt(tempTime[0]) >12 && parseInt(tempTime[0]) !== 0 && parseInt(tempTime[0]) !== 12 ?(parseInt(tempTime)-12):(parseInt(tempTime[0]) === 0?12:tempTime[0]);
                 const hour12 =  parseInt(tempTime[0]) >=12?"PM":"AM";
                 this.schPickTime = hour+':'+tempTime[1]+' '+hour12;
+                this.orderPickupTime = this.schPickTime;
             }
-            for(let i in this.orderItems ){
-                this.productIds.push(this.orderItems[i].Product2Id);
-            }
+                let tempDict = {};
+                for(let i in this.orderItems ){
+                    this.productIds.push(this.orderItems[i].Product2Id);
+                    let oItemId = this.orderItems[i].Id;
+                    let retDate = this.orderItems[i].Schedule_Return_Date__c;
+                    tempDict[oItemId]=retDate;
+                }
+                this.itemReturnDateDict = tempDict;
 
             if((data.order.Status === "Confirmed" || data.order.Status === "Fulfilled" || data.order.Status === "Partially Confirmed")&& !data.readOnly){
                 this.enablefulfill = false;
@@ -101,7 +128,7 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
             //alert(error);
             const evt = new ShowToastEvent({
                 title: "Error",
-                message: error,
+                message: JSON.stringify(error),
                 variant: "error",
             });
             this.dispatchEvent(evt);
@@ -202,13 +229,19 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         let difference = date_2.getTime() - date_1.getTime();
         let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
         let week = Math.ceil(TotalDays/7);
+        date_1 = window.moment(schpickDate.value);
+        date_2 = window.moment(schreturnDate.value);
+
+        var diff = window.moment.duration(date_2.diff(date_1));
+        week = Math.floor(diff.asWeeks())+ (diff.days()%7 >0?1:0);
+
         if(week > 16){
             beyondWeek = true;
         }
 
         if(!beyondWeek){
-            this.loaded = true;
-            this.setReturnDate = false;
+           // this.loaded = true;
+            //this.setReturnDate = false;
             allselectrows.forEach(function(ele){
 
                 if(ele.checked){
@@ -230,32 +263,33 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                     feeperTool.value = handleFeePerTool;
                     let totalFee = template.template.querySelector(`[data-totalfee="`+recid+`"]`);
                     let confirmqty = template.template.querySelector(`[data-confirm="`+recid+`"]`);
-                    const qty = parseInt(confirmqty.value);
-                    totalFee.value =(handleFeePerTool*qty).toFixed(2);
+                    let reqqty = template.template.querySelector(`[data-req="`+recid+`"]`);
+                    let status =  template.template.querySelector(`[data-state="`+recid+`"]`);
+                    
+                    console.log("confirmqty ",confirmqty);
+                    const cqty = parseInt(confirmqty.value);
+                    const rqty = parseInt(reqqty.innerHTML);
+                    console.log("qty ",cqty);
+                    totalFee.value =(handleFeePerTool*cqty).toFixed(2);
                     let item = {
                         id:recid,
                         retDate:retDate.value,
                         pickupDate:schpickDate.value,
                         product2Id:ele.dataset.prod2id,
-                        accId:template.order.Affiliate__c
+                        accId:template.order.Affiliate__c,
+                        confirmqty:cqty,
+                        reqQty:rqty,
+                        status:status.innerHTML
                     }
                     itemIds.push(item);
                 }
             });
 
-            massDateChangeLowest({orderItems:JSON.stringify(itemIds)}).then(res=>{
-                console.log(res);
-                for(let i in itemIds){
-                    console.log(itemIds[i]);
-                    let row = template.template.querySelector(`[data-lowest="`+itemIds[i].id+`"]`);
-                    const lowest = res[itemIds[i].id];
-                    console.log(lowest);
-                    row.innerHTML = lowest;
-                    this.loaded = false;
-                }
-            }).catch(error =>{
-                console.log(error);
-            });
+            if(itemIds){
+                this.ordertools = itemIds
+                this.orderItemCmp = true;
+                console.log("orderitems ",this.ordertools);
+            }
         }else{
             const evt = new ShowToastEvent({
                 title: "Confirm/Fulfill",
@@ -266,6 +300,239 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         }
 
     }
+
+    orderItemListCmp(event){
+        let evt = event.detail;
+        let template = this;
+        let itemIds = [];
+        if(evt.status === "confirm"){
+            let schreturnDate = this.template.querySelector(`[data-id="scheduleReturnDate"]`);
+            this.orderItemCmp = false;
+            if(schreturnDate){
+                
+                let tempOrder = JSON.parse(JSON.stringify(this.order));
+                
+                let schreturnTime = this.template.querySelector(`[data-id="scheduleReturnTime"]`);
+                let schpickDate = this.template.querySelector(`[data-sch="schdate"]`);
+                console.log(schreturnDate.value);
+                
+                let allselectrows = template.template.querySelectorAll(`[data-check="checkbox"]`);
+
+                let beyondWeek  = false;
+                let date_1 = new Date(schpickDate.value);
+                let date_2 = new Date(schreturnDate.value);
+                let difference = date_2.getTime() - date_1.getTime();
+                let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+                let week = Math.ceil(TotalDays/7);
+
+                date_1 = window.moment(schpickDate.value);
+                date_2 = window.moment(schreturnDate.value);
+        
+                var diff = window.moment.duration(date_2.diff(date_1));
+                week = Math.floor(diff.asWeeks())+ (diff.days()%7 >0?1:0);
+                
+                if(week > 16){
+                    beyondWeek = true;
+                }
+
+                if(!beyondWeek){
+                    this.loaded = true;
+                    this.setReturnDate = false;
+                    allselectrows.forEach(function(ele){
+
+                        if(ele.checked){
+                            const recid = ele.dataset.recid;
+                            
+                            //let retDate = template.template.querySelector(`[data-id="`+recid+`"]`);
+                            let retDate = template.template.querySelector(`[data-return="`+recid+`"]`);
+
+                            
+                            retDate.value = schreturnDate.value;
+                            
+                            let weeks = template.template.querySelector(`[data-weeks="`+recid+`"]`);
+                            let affiliateFee = parseInt(retDate.dataset.affiliatefee);
+                            let unitprice = parseFloat(retDate.dataset.unitprice);
+                            weeks.innerHTML = week+" "+(week===1?"week":"weeks");
+                            retDate.dataset.week = week+" "+(week===1?"week":"weeks");
+                            const handleFeePerTool = (((parseInt(affiliateFee)*unitprice)/100)*week).toFixed(2);
+                            let feeperTool = template.template.querySelector(`[data-toolfee="`+recid+`"]`);
+                            feeperTool.value = handleFeePerTool;
+                            let totalFee = template.template.querySelector(`[data-totalfee="`+recid+`"]`);
+                            let confirmqty = template.template.querySelector(`[data-confirm="`+recid+`"]`);
+                            let reqqty = template.template.querySelector(`[data-req="`+recid+`"]`);
+                            let status =  template.template.querySelector(`[data-state="`+recid+`"]`);
+                            const qty = parseInt(confirmqty.value);
+                            const rqty = parseInt(reqqty.innerHTML);
+                            totalFee.value =(handleFeePerTool*qty).toFixed(2);
+                            let item = {
+                                id:recid,
+                                retDate:retDate.value,
+                                pickupDate:schpickDate.value,
+                                product2Id:ele.dataset.prod2id,
+                                accId:template.order.Affiliate__c,
+                                confirmqty:qty,
+                                reqQty:rqty,
+                                status:status.innerHTML
+                            }
+                            itemIds.push(item);
+                        }
+                    });
+
+                    if(itemIds){
+                        this.ordertools = itemIds
+                        this.orderItemCmp = true;
+                        console.log("orderitems ",this.ordertools);
+                    }
+                    massDateChangeLowest({orderItems:JSON.stringify(itemIds)}).then(res=>{
+                        console.log(res);
+                        for(let i in itemIds){
+                            console.log(itemIds[i]);
+                            let row = template.template.querySelector(`[data-lowest="`+itemIds[i].id+`"]`);
+                            let confirm = template.template.querySelector(`[data-confirm="`+itemIds[i].id+`"]`);
+                            const lowest = res[itemIds[i].id];
+                            console.log(lowest);
+                            row.innerHTML = lowest;
+                            if(lowest < confirm.value)
+                                confirm.style.borderColor = "red";
+                        }
+                        this.loaded = false;
+                        this.orderItemCmp = false;
+                        const evt = new ShowToastEvent({
+                            title: "Confirm/Fulfill",
+                            message: "Date update success",
+                            variant: "success", 
+                        });
+                        this.dispatchEvent(evt);
+                    }).catch(error =>{
+                        console.log(error);
+                        const evt = new ShowToastEvent({
+                            title: "Confirm/Fulfill",
+                            message: error,
+                            variant: "error",
+                        });
+                        this.dispatchEvent(evt);
+                    });
+                }else{
+                    const evt = new ShowToastEvent({
+                        title: "Confirm/Fulfill",
+                        message: "Please select a Return Date within 16 weeks of the Actual Pick Up Date.",
+                        variant: "error",
+                    });
+                    this.dispatchEvent(evt);
+                }
+            }else{
+                //this.handlePickUpModalOk();
+                let tempOrder = JSON.parse(JSON.stringify(this.order));
+                let schpickDate = tempOrder.EffectiveDate
+                let allselectrows = this.template.querySelectorAll(`[data-check="checkbox"]`);
+                allselectrows.forEach(function(ele){
+
+                    const recid = ele.dataset.recid;
+                    
+                    let retDate = template.template.querySelector(`[data-return="`+recid+`"]`);
+
+                    let schDate = new Date(retDate.value);
+                  
+                    let borrowing = retDate.dataset.week;
+                    if(borrowing){
+                        borrowing = borrowing.replace("weeks", "");
+                        borrowing = borrowing.replace("week", "");
+                    }
+                        
+                    let week = parseInt(borrowing);
+                    const days = week*7;
+                    schDate = new Date(schpickDate);
+                    schDate = new Date(schDate.setHours(23,59,59,59))
+                    console.log('Date before week : '+schDate);
+
+                    //schDate.setDate(schDate.getDate() + (days+1));
+                    schDate = window.moment(schpickDate, "YYYY-MM-DD").add(days,'days')
+                    console.log('Date fter week : '+schDate);
+                    console.log('Time Zone  : '+  template.timeZone);
+                    //schDate= schDate.toLocaleString("en-US", {timeZone: template.timeZone});
+                    //schDate = new Date(schDate);
+                    console.log('Date Instance with Salesforce Locale timezone : '+schDate);
+                // }
+                    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(schDate);
+                    let mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(schDate);
+                    let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(schDate);
+                    retDate.value = `${ye}-${mo}-${da}`;
+                    let affiliateFee = parseInt(retDate.dataset.affiliatefee);
+                    let unitprice = parseFloat(retDate.dataset.unitprice);
+                    const handleFeePerTool = (((parseInt(affiliateFee)*unitprice)/100)*week).toFixed(2);
+                    let feeperTool = template.template.querySelector(`[data-toolfee="`+recid+`"]`);
+                    feeperTool.value = handleFeePerTool;
+                    let totalFee = template.template.querySelector(`[data-totalfee="`+recid+`"]`);
+                    let confirmqty = template.template.querySelector(`[data-confirm="`+recid+`"]`);
+                    let reqqty = template.template.querySelector(`[data-req="`+recid+`"]`);
+                    let status =  template.template.querySelector(`[data-state="`+recid+`"]`);
+                    const cqty = parseInt(confirmqty.value);
+                    const rqty = parseInt(reqqty.innerHTML);
+                    totalFee.value =(handleFeePerTool*cqty).toFixed(2);
+                    let item = {
+                        id:recid,
+                        retDate:retDate.value,
+                        pickupDate:schpickDate,
+                        product2Id:ele.dataset.prod2id,
+                        accId:template.order.Affiliate__c,
+                        confirmqty:cqty,
+                        reqQty:rqty,
+                        status:status.innerHTML
+                    }
+                    itemIds.push(item);
+                //}
+            });
+            console.log(itemIds);
+            if(itemIds){
+                this.ordertools = itemIds
+                this.orderItemCmp = true;
+                this.loaded = false;
+                console.log("orderitems ",this.ordertools);
+            }
+
+                massDateChangeLowest({orderItems:JSON.stringify(itemIds)}).then(res=>{
+                console.log(res);
+                for(let i in itemIds){
+                    console.log(itemIds[i]);
+                    let row = template.template.querySelector(`[data-lowest="`+itemIds[i].id+`"]`);
+                    let confirm = template.template.querySelector(`[data-confirm="`+itemIds[i].id+`"]`);
+                    const lowest = res[itemIds[i].id];
+                    console.log(lowest);
+                    row.innerHTML = lowest;
+                    this.loaded = false;
+                    this.orderItemCmp = false;
+                    if(lowest < confirm.value)
+                        confirm.style.borderColor = "red";
+                }
+            }).catch(error =>{
+                console.log(error);
+            });
+            }
+        }else{
+            this.orderItemCmp = false;
+            let schdate = this.template.querySelector(`[data-sch="schdate"]`);
+            let schTime = this.template.querySelector(`[data-sch="schtime"]`);
+            console.log('this.order :: ', this.order);
+            console.log('this.order.EffectiveDate :: ', this.order.EffectiveDate);
+            schdate.value = this.orderPickupDate;
+            let tempOrder = JSON.parse(JSON.stringify(this.order));
+            tempOrder.EffectiveDate = this.orderPickupDate;
+            this.order = tempOrder;
+            this.schPickTime = this.orderPickupTime;
+            schTime.value = this.orderPickupTime;
+
+            let state = this.template;
+            let getAllTools = state.querySelectorAll(`.filtered`);
+
+            getAllTools.forEach(function(ele){
+                    let recId = ele.dataset.recid;
+                    let returnDateCmp = state.querySelector(`[data-return="`+recId+`"]`);
+                    returnDateCmp.value = template.itemReturnDateDict[recId];
+            });
+
+        }
+    }
+
     handlePickupDatePopUp(event){
         let pickDateModal = this.template.querySelector(`[data-id="PickDateConfirmModal"]`);
         if(pickDateModal.style.display === "none"){
@@ -284,7 +551,7 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         let schepickTime = this.template.querySelector(`[data-id="scheduleTime"]`);
         let pickDateModal = this.template.querySelector(`[data-id="PickDateConfirmModal"]`);
         pickDateModal.style.display = "none";
-
+        console.log("schpickDate ",this.isEditModalOpen);
         if(schpickDate.value && schepickTime.value){
             this.isEditModalOpen = false;
             let myArray;
@@ -322,18 +589,21 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                         borrowing = borrowing.replace("weeks", "");
                         borrowing = borrowing.replace("week", "");
                     }
-                        
+                    console.log('Time Zone  : '+  template.timeZone);
                     let week = parseInt(borrowing);
                     const days = week*7;
                     schDate = new Date(schpickDate.value);
-                    schDate = new Date(schDate.setHours(23,59,59,59))
-                    console.log('Date before week : '+schDate);
+                    console.log('schDate  : '+  schDate);
+                    //schDate = window.moment().tz(schDate, "America/New_York");
+                    //schDate = new Date(schDate.setHours(23,59,59,59))
+                    console.log('Date before week : '+schpickDate.value);
 
-                    schDate.setDate(schDate.getDate() + (days+1));
-                    console.log('Date fter week : '+schDate);
-                    console.log('Time Zone  : '+  template.timeZone);
-                    schDate= schDate.toLocaleString("en-US", {timeZone: template.timeZone});
-                    schDate = new Date(schDate);
+                    //schDate.setDate(schDate.getDate() + (days+1));
+                    schDate = window.moment(schpickDate.value, "YYYY-MM-DD").add(days,'days');
+                    console.log('Date after week : '+schDate);
+                   
+                    //schDate= schDate.toLocaleString("en-US", {timeZone: template.timeZone});
+                    //schDate = new Date(schDate);
                     console.log('Date Instance with Salesforce Locale timezone : '+schDate);
                 // }
                     let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(schDate);
@@ -347,32 +617,32 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                     feeperTool.value = handleFeePerTool;
                     let totalFee = template.template.querySelector(`[data-totalfee="`+recid+`"]`);
                     let confirmqty = template.template.querySelector(`[data-confirm="`+recid+`"]`);
-                    const qty = parseInt(confirmqty.value);
-                    totalFee.value =(handleFeePerTool*qty).toFixed(2);
+                    let reqqty = template.template.querySelector(`[data-req="`+recid+`"]`);
+                    let status =  template.template.querySelector(`[data-state="`+recid+`"]`);
+                    const cqty = parseInt(confirmqty.value);
+                    const rqty = parseInt(reqqty.innerHTML);
+                    totalFee.value =(handleFeePerTool*cqty).toFixed(2);
                     let item = {
                         id:recid,
                         retDate:retDate.value,
                         pickupDate:schpickDate.value,
                         product2Id:ele.dataset.prod2id,
-                        accId:template.order.Affiliate__c
+                        accId:template.order.Affiliate__c,
+                        confirmqty:cqty,
+                        reqQty:rqty,
+                        status:status.innerHTML
                     }
                     itemIds.push(item);
                 //}
             });
             console.log(itemIds);
-            massDateChangeLowest({orderItems:JSON.stringify(itemIds)}).then(res=>{
-                console.log(res);
-                for(let i in itemIds){
-                    console.log(itemIds[i]);
-                    let row = template.template.querySelector(`[data-lowest="`+itemIds[i].id+`"]`);
-                    const lowest = res[itemIds[i].id];
-                    console.log(lowest);
-                    row.innerHTML = lowest;
-                    this.loaded = false;
-                }
-            }).catch(error =>{
-                console.log(error);
-            });
+            if(itemIds){
+                this.ordertools = itemIds
+                this.orderItemCmp = true;
+                this.loaded = false;
+                console.log("orderitems ",this.ordertools);
+            }
+           
         }else {
             this.loaded = false;
             const evt = new ShowToastEvent({
@@ -585,6 +855,12 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         let difference = date_2.getTime() - date_1.getTime();
         let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
         let week = Math.ceil(TotalDays/7);
+        date_1 = window.moment(pickupDate);
+        date_2 = window.moment(returnDate);
+
+        var diff = window.moment.duration(date_2.diff(date_1));
+        week = Math.floor(diff.asWeeks())+ (diff.days()%7 >0?1:0);
+
         if(week <= 16){
             let weeks = this.template.querySelector(`[data-weeks="`+itemId+`"]`);
             weeks.innerHTML = week+" "+(week===1?"week":"weeks");
@@ -618,7 +894,8 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
             let week = parseInt(borrowing);
             const days = week*7;
             console.log("date_1 :: "+date_1);
-            date_1.setDate(date_1.getDate() + (days)); 
+            //date_1.setDate(date_1.getDate() + (days)); 
+            date_1 = window.moment(pickupDate, "YYYY-MM-DD").add(days,'days');
             console.log("date_1 :: "+date_1);
             let retDate = this.template.querySelector(`[data-return="`+itemId+`"]`);
             let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date_1);
@@ -640,12 +917,11 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         let addTools=[];
         let addAllTools=[];
         let itemIds = [];
-        let returnDate = new Date(this.order.EffectiveDate.replace(/-/g, "/"));
-        let week = this.order.Requested_Borrowing_Period__c;
+        /*let week = this.order.Requested_Borrowing_Period__c;
         if(week){
             week = week.replace("weeks","");
             week = week.replace("week","");
-        }
+        }*/
         
         
 
@@ -653,15 +929,13 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         console.log(fulfillButton);
         fulfillButton.disabled = true;
         this.enablefulfill = true;
-        week = week?(parseInt(week)*7):1;
-        console.log(returnDate);
-        returnDate.setDate(returnDate.getDate() + week+1);
         let count =0;
+        let tempdict = JSON.parse(JSON.stringify(this.itemReturnDateDict));
         for(let i in event.detail.tools){
             const temp = event.detail.tools[i];
             addTools.push(temp);
             addAllTools.push(temp);
-            
+            tempdict[temp.Id] = temp.Schedule_Return_Date__c;
             let item = {
                 id:temp.Id,
                 retDate:temp.Schedule_Return_Date__c,
@@ -669,6 +943,7 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                 product2Id:temp.Product2Id,
                 accId:this.order.Affiliate__c
             }
+            this.itemReturnDateDict = tempdict;
             itemIds.push(item);
             count++;
         }
@@ -692,10 +967,12 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                     const lowest =  res[itemIds[i].id];
                     row.innerHTML = lowest;
                     let returnDateEle = this.template.querySelector(`[data-return="`+itemIds[i].id+`"]`);
-                    console.log(itemIds[i].retDate);
-                    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(new Date(itemIds[i].retDate.replace(/-/g, "/")));
-                    let mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(new Date(itemIds[i].retDate.replace(/-/g, "/")));
-                    let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(new Date(itemIds[i].retDate.replace(/-/g, "/")));
+                    console.log('apex :: ',itemIds[i].retDate);
+                    let redDate = window.moment(itemIds[i].retDate,'YYYY-MM-DD');
+                    console.log(redDate);
+                    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(redDate);
+                    let mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(redDate);
+                    let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(redDate);
                     returnDateEle.value = `${ye}/${mo}/${da}`;
                     console.log(returnDateEle.value);
                 }
@@ -905,11 +1182,17 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                 this.loaded = false;
                     this.order = data.order;
                     this.readonlyFlag = data.readOnly;
+                    this.readonlyFlagDelete = data.readOnlyDelete;
                     this.orderItems = data.orderItemList;
                     this.allOrderItems = data.orderItemList;
+                    this.orderPickupDate = this.order.EffectiveDate;
+                    this.orderPickupTime = schedulePickTime;
+                    let tempDict = {};
                     for(let i in this.orderItems ){
                         this.productIds.push(this.orderItems[i].Product2Id);
+                        tempDict[this.orderItems[i].Id]=this.orderItems[i].Schedule_Return_Date__c;
                     }
+                    this.itemReturnDateDict = tempDict;
 
                     if((data.order.Status === "Confirmed" || data.order.Status === "Fulfilled" || data.order.Status === "Partially Confirmed")&& !data.readOnly){
                         this.enablefulfill = false;
@@ -955,15 +1238,20 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
                 let result = new Date(null, null, null, null, null, totalTimeInSeconds);
                 let tempTime = result.toTimeString().split(' ')[0].substring(0,5)
                 tempTime = tempTime.split(':');
+                this.orderPickupDate = this.order.EffectiveDate;
                 if(res.order.Scheduled_Pickup_Time__c && tempTime){
                     const hour = parseInt(tempTime[0]) >12 && parseInt(tempTime[0]) !== 0 && parseInt(tempTime[0]) !== 12 ?(parseInt(tempTime)-12):(parseInt(tempTime[0]) === 0?12:tempTime[0]);
                     const hour12 =  parseInt(tempTime[0]) >=12?"PM":"AM";
                     state.schPickTime = hour+':'+tempTime[1]+' '+hour12;
                 }
                 state.productIds =[];
+
+                let tempDict = {};
                 for(let i in state.orderItems ){
                     state.productIds.push(state.orderItems[i].Product2Id);
+                    tempDict[this.orderItems[i].Id] =this.orderItems[i].Schedule_Return_Date__c;
                 }
+                this.itemReturnDateDict = tempDict;
                 state.loaded = false;
 
             }).catch(error =>{
@@ -1006,7 +1294,14 @@ export default class ConfirmOrderPage extends NavigationMixin(LightningElement) 
         let retDate = this.template.querySelector(`[data-return="`+recid+`"]`);
         const lowqty = parseInt(req.innerHTML);
         const confirmQty = parseInt(event.target.value);
-
+        let templist = JSON.parse(JSON.stringify(this.orderItems));
+        for(var i in templist){
+            if(templist[i].Id === recid){
+                templist[i].Reserved_Quantity__c = confirmQty;
+                break;
+            }
+        }
+        this.orderItems = templist;
         if(confirmQty > lowqty){
             event.target.style.borderColor = "red";
         }else{ 

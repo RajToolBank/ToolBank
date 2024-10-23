@@ -128,8 +128,8 @@ public class OrderItemHelperClass {
     public static void handleStatus(List<OrderItem> itemList,Map<Id, OrderItem> oldMap){
         methodName = 'handleStatus';
         recursion = true;
-        if(System.trigger.isUpdate)
-            recursionUpdate = true;
+        // if(System.trigger.isUpdate)
+        //     recursionUpdate = true;
         
         set<Id> orderIdSet = new set<Id>();
         for(orderitem item: itemList){
@@ -138,7 +138,7 @@ public class OrderItemHelperClass {
         }
 
         List<Order> orderListToUpdate = new List<Order>();
-        for(Order order:    [SELECT Id,Amount_Owed__c,Amount_Paid__c,Status,
+        for(Order order:    [SELECT Id,Amount_Owed__c,Amount_Paid__c,Status,Actual_Pickup_Date_Time__c,
                             (SELECT Id,Total_Fees__c,isDeleted,TotalPrice,Status__c,Product2.Type__c FROM OrderItems WHERE isDeleted = false AND Status__c != 'Unavailable' ),
                             (SELECT Id,Amount__c FROM Payments_by_Members__r)
                             FROM Order WHERE Id IN: orderIdSet AND dataloader__c = false]) //WHERE Product2.Type__c = 'Tool'
@@ -150,6 +150,7 @@ public class OrderItemHelperClass {
             for(OrderItem item: order.OrderItems){
                 if(item.Product2.Type__c == 'Tool'){
                         totalAmount += item.Total_Fees__c;
+                        System.debug('item.Status__c :: '+item.Status__c);
                     if('Unconfirmed'.equalsIgnoreCase(item.Status__c) || ('Unavailable'.equalsIgnoreCase(item.Status__c) && ('Unconfirmed'.equalsIgnoreCase(orderStatus) || 'confirmed'.equalsIgnoreCase(orderStatus) || 'Partially Confirmed'.equalsIgnoreCase(orderStatus)) ))
                         unconfirmed = true;
                     else if('Unavailable'.equalsIgnoreCase(item.Status__c) && 'fulfilled'.equalsIgnoreCase(orderStatus)){
@@ -183,6 +184,16 @@ public class OrderItemHelperClass {
             }
 
             Decimal owedAmount = totalAmount - amountPaid;
+            System.debug('unconfirmed :: '+unconfirmed);
+            System.debug('uunavailable :: '+unavailable);
+            System.debug('confirmed :: '+confirmed);
+            System.debug('partiallyReturned :: '+partiallyReturned);
+            System.debug('fulfilled :: '+fulfilled);
+            System.debug('cancelled :: '+cancelled);
+            System.debug('overdue :: '+overdue);
+            System.debug('returned :: '+returned);
+            System.debug('closed :: '+closed);
+            System.debug('unpaid :: '+unpaid);
 
             if(unconfirmed && !confirmed && !fulfilled && !unavailable){
                 orderObje.status = 'Unconfirmed';
@@ -199,7 +210,8 @@ public class OrderItemHelperClass {
             }else if(!unconfirmed && !confirmed && fulfilled && !cancelled && !overdue && !returned && !partiallyReturned ){
                 if( orderStatus != 'Fulfilled'){
                     orderObje.status = 'Fulfilled';
-                    orderObje.Actual_Pickup_Date_Time__c = system.now();
+                    if(order.Actual_Pickup_Date_Time__c == Null)
+                        orderObje.Actual_Pickup_Date_Time__c = system.now();
                     isUpdate = true;
                 }
             }else if(!unconfirmed && !confirmed && !fulfilled && cancelled && !overdue && !returned && !partiallyReturned ){
@@ -229,8 +241,13 @@ public class OrderItemHelperClass {
                 }
                 
             }
-            if(isUpdate)
+
+            System.debug('orderObje :: '+orderObje);
+
+            if(isUpdate){
+                orderObje.Error_Log_field__c = 'handleStatus'+Datetime.now();
                 orderListToUpdate.add(orderObje);
+            }
         }
 
         if(!orderListToUpdate.isEmpty()){

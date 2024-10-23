@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Payment_can_not_be_more_than_owed2</fullName>
-    <active>true</active>
+    <active>false</active>
     <description>This will allow you to edit the payment to a lesser value.  In the event a payment or waiver was not added up front.</description>
     <errorConditionFormula>Amount__c &gt;  PRIORVALUE(Amount__c)</errorConditionFormula>
     <errorMessage>Payment amount can not be greater than owed amount.</errorMessage>

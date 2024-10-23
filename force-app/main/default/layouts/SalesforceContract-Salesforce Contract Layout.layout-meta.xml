@@ -106,6 +106,21 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
+    <relatedLists>
+        <fields>InvoiceNumber</fields>
+        <fields>SalesforceInvoiceStatus</fields>
+        <fields>Balance</fields>
+        <fields>TotalAmount</fields>
+        <fields>InvoiceDate</fields>
+        <fields>DueDate</fields>
+        <relatedList>SalesforceInvoices</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>QuoteNumber</fields>
+        <fields>SalesforceQuoteStatus</fields>
+        <fields>CreatedDate</fields>
+        <relatedList>SalesforceQuotes</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>

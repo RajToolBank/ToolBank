@@ -27,6 +27,11 @@
                 <default>false</default>
                 <label>Other</label>
             </value>
+            <value>
+                <fullName>Town Hall Idea</fullName>
+                <default>false</default>
+                <label>Town Hall Idea</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

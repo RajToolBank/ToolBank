@@ -12,6 +12,11 @@
         <operation>equals</operation>
         <value>TDS-Panama City Site</value>
     </filters>
+    <filters>
+        <field>PRODUCT2.NAME</field>
+        <operation>contains</operation>
+        <value>pressure</value>
+    </filters>
     <label>Panama City - Inventory</label>
     <sharedTo>
         <group>Admins</group>

@@ -30,6 +30,10 @@
                 <behavior>Edit</behavior>
                 <field>ToolBank_Affiliate_of_Agency__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Signature__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

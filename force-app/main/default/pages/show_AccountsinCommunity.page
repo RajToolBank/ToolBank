@@ -250,6 +250,7 @@ float: left;*/
               
               
               <apex:inputField value="{!getcont.HasOptedOutOfEmail}" />
+              <apex:inputField value="{!getcont.Deactivate__c}" />
               
             </apex:pageBlockSection>
             <apex:actionRegion >

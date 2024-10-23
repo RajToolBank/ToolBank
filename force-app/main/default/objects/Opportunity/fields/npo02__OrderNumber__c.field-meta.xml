@@ -6,7 +6,6 @@
     <label>Order Number - DEPRECATED</label>
     <length>8</length>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

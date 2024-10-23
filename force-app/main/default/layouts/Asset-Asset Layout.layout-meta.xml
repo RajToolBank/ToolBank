@@ -85,30 +85,6 @@
                 <behavior>Readonly</behavior>
                 <field>Out_F__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Out_R__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Returned_R__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Lost_Return__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Maintenance_Returned_R__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Rebranding_Returned_R__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Damaged_Returned_R__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -169,6 +145,41 @@
             </layoutItems>
         </layoutColumns>
         <layoutColumns/>
+        <style>TwoColumnsLeftToRight</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>true</detailHeading>
+        <editHeading>true</editHeading>
+        <label>Fields</label>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Out_R__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Returned_R__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Lost_Return__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Maintenance_Returned_R__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Rebranding_Returned_R__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Damaged_Returned_R__c</field>
+            </layoutItems>
+        </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
@@ -242,12 +253,12 @@
         <fields>Product2</fields>
         <fields>Order_Agency__c</fields>
         <fields>Status__c</fields>
-        <fields>Schedule_Return_Date__c</fields>
-        <fields>Actual_Return_Date__c</fields>
         <fields>Schedule_Pick_Date__c</fields>
+        <fields>Actual_Return_Date__c</fields>
         <fields>Check_Out_Quantity__c</fields>
+        <fields>Quantity</fields>
         <fields>Reserved_Quantity__c</fields>
-        <fields>AvailableQuantity</fields>
+        <fields>OrderItem.LastModifiedDate</fields>
         <relatedList>OrderItem.Inventory_Tool__c</relatedList>
     </relatedLists>
     <relatedLists>

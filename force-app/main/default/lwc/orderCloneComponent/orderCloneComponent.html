@@ -1,0 +1,88 @@
+<template>
+    <lightning-card icon-name="standard:order">
+        <div class="slds-p-around_medium">
+            <h2 class="slds-card__header-title">
+                <span>Clone Order</span>
+            </h2>
+            <article class="slds-card slds-size_1-of-2" style="margin-left: 4%;margin-top: 1%;">
+                <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>Project Duration</span>
+                    </h2><b>How long would you like to borrow our tools ?</b>
+                    </div>
+                </header>(All the fields are required)
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    
+                    <div class="slds-grid slds-wrap">
+                        <div  class="slds-col slds-size_1-of-2">
+                            <span>Desired Pickup Date:</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                             <Span style="width:100%">
+                                <!--lightning-input onchange={handleWeekChange} timezone={timeZone}  data-id="pickupDate" style="margin-top: -5%;" type="date" class={disabledWeekendsClass} ></lightning-input >
+                                <input type="date" onchange={handleWeekChange} id="pickupDate" data-id="pickupDate" style="margin-top: -5%;" class="datepicker"/-->
+                                <template if:true={businessHours}>
+                                    <c-datepicker business-hours={businessHours} ondateselect={onPickDateSelect} ></c-datepicker>
+                                </template>
+                            </Span>
+                             <span  style="color: red;font-style: italic;" data-id="pickDateerror"></span>
+                        </div><br/><br/>
+                    </div>
+                    
+                    <div class="slds-grid slds-wrap">
+                        <div  class="slds-col slds-size_1-of-2">
+                            <span>Desired Pickup Time:</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <Span><lightning-combobox data-id="pickupTime"
+                                    style="margin-top: -5%;"
+                                    value={PickupTime}
+                                    options={desiredPickupTime}
+                                    onchange={handlePickUpTimeChange}
+                                ></lightning-combobox >
+                            </Span>
+                            <span style="color: red;font-style: italic;" data-id="pickTimeerror"></span>
+                        </div><br/><br/>
+                    </div>
+                    <div class="slds-grid slds-wrap">
+                        <div  class="slds-col slds-size_1-of-2">
+                            <span>Requested Borrowing Period:</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                             <Span> <lightning-combobox 
+                                data-id="Week"
+                                style="margin-top: -5%;"
+                                value={borrowing}
+                                options={borrowingPeriod}
+                                onchange={handleBorrowingPeriodChange}
+                                ></lightning-combobox ></Span><span style="color: red;font-style: italic;" data-id="weekerror"></span>
+                        </div><br/><br/>
+                    </div>
+                    <!--div class="slds-grid slds-wrap">
+                        <div  class="slds-col slds-size_1-of-2">
+                            <span>Desired Return Date:</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                             <Span style="width:100%"> 
+                                <template if:true={businessHours}>
+                                    <c-datepicker data-id="returnDate" business-hours={businessHours} ondateselect={handleWeekChange}></c-datepicker>
+                                </template>
+                            </Span>
+                             <span style="color: red;font-style: italic;" data-id="returnerror"></span>
+                        </div><br/><br/>
+                    </div -->
+                    
+                </div>
+            </article>
+            <lightning-button label="Next" onclick={cloneHandler} variant="brand" disabled={loading}></lightning-button>
+            <div if:true={error} class="slds-notify slds-notify_alert slds-alert_error" role="alert">{error}</div>
+            <template if:true={loading}>
+                <!-- Show spinner -->
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+        </div>
+    </lightning-card>
+</template>

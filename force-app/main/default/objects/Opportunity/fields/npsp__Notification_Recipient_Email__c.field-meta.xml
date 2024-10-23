@@ -7,7 +7,6 @@
     <inlineHelpText>The email address for the person receiving the honor/memorial notification.</inlineHelpText>
     <label>Notification Recipient Email</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Email</type>
     <unique>false</unique>

@@ -24,7 +24,7 @@ public without sharing class CreateTransaction {
     @AuraEnabled
     public static String createTransaction(String inventoryId, String recordTypeId, String subType, Integer qty, String note, String affiliateId){
         String recordTypeName = [Select Id, Name, DeveloperName FROM RecordType WHERE Id = :recordTypeId LIMIT 1].DeveloperName;
-        Asset inv1 = [SELECT id, On_Shelf_Quantity_F__c,product2Id FROM Asset WHERE Id =: inventoryId];
+        Asset inv1 = [SELECT id, accountId,On_Shelf_Quantity_F__c,product2Id FROM Asset WHERE Id =: inventoryId];
         if(qty > 0) {
             if(recordTypeName == 'Out_Of_Service' || recordTypeName == 'Transfer' || subType == 'Decrease' || subType == 'Lost from Inventory' || recordTypeName == 'Retired') {
                 if(qty <= inv1.On_Shelf_Quantity_F__c) {
@@ -33,12 +33,16 @@ public without sharing class CreateTransaction {
                         Transaction__c trans = new Transaction__c();
                         trans.sub_type__c = 'Decrease';
                         trans.inventory__c = inventoryId;
+                        trans.Transfer_From__c = inv1.accountId;
+                        trans.Transfer_To__c = affiliateId;
                         trans.recordTypeId = recordTypeId;
                         trans.quantity__c = qty;
                         trans.note__c = note;
                         Transaction__c trans2 = new Transaction__c();
                         trans2.sub_type__c = 'Increase';
                         trans2.inventory__c = inv.Id;
+                        trans2.Transfer_From__c = inv1.accountId;
+                        trans2.Transfer_To__c = affiliateId;
                         trans2.recordTypeId = recordTypeId;
                         trans2.quantity__c = qty;
                         trans2.note__c = note;

@@ -3,6 +3,7 @@
     <excludeButtons>Activate</excludeButtons>
     <excludeButtons>ActivateOrder</excludeButtons>
     <excludeButtons>Clone</excludeButtons>
+    <excludeButtons>CreateContractFromOrder</excludeButtons>
     <excludeButtons>Deactivate</excludeButtons>
     <excludeButtons>Share</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
@@ -143,7 +144,12 @@
         <detailHeading>false</detailHeading>
         <editHeading>false</editHeading>
         <label>System Information</label>
-        <layoutColumns/>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Order_Clone_From__c</field>
+            </layoutItems>
+        </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -187,11 +193,6 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
-            <actionName>FeedItem.ContentPost</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>3</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>FeedItem.PollPost</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>0</sortOrder>
@@ -205,6 +206,11 @@
             <actionName>FeedItem.TextPost</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>2</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>FeedItem.ContentPost</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>3</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>FeedItem.ContentNote</actionName>
@@ -267,14 +273,14 @@
             <sortOrder>15</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Clone</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>17</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>Share</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>16</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Clone</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>17</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>
@@ -307,15 +313,15 @@
         <excludeButtons>MultiAdd</excludeButtons>
         <excludeButtons>MultiEdit</excludeButtons>
         <fields>Product2</fields>
-        <fields>Quantity</fields>
         <fields>Reserved_Quantity__c</fields>
         <fields>Schedule_Return_Date__c</fields>
         <fields>Actual_Return_Date__c</fields>
         <fields>Status__c</fields>
-        <fields>UnitPrice</fields>
         <fields>Tool_Handling_Fee_Per_Item__c</fields>
-        <fields>Total_Handling_Fee__c</fields>
-        <fields>Schedule_Pick_Date__c</fields>
+        <fields>Lost__c</fields>
+        <fields>Damaged__c</fields>
+        <fields>Create_Date_Order_Item__c</fields>
+        <fields>OrderItem.LastModifiedDate</fields>
         <relatedList>RelatedOrderItemList</relatedList>
         <sortField>Product2</sortField>
         <sortOrder>Asc</sortOrder>
@@ -326,6 +332,8 @@
         <fields>NAME</fields>
         <fields>Amount__c</fields>
         <fields>Payment_Method__c</fields>
+        <fields>CREATED_DATE</fields>
+        <fields>Comment__c</fields>
         <relatedList>Payments_TB__c.Order__c</relatedList>
     </relatedLists>
     <relatedObjects>AccountId</relatedObjects>

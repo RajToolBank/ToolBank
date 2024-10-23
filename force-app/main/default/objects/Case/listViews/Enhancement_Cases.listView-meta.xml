@@ -12,6 +12,7 @@
     <columns>CORE.USERS.ALIAS</columns>
     <columns>Resolution__c</columns>
     <columns>Estimate_Roll_Up__c</columns>
+    <columns>Affiliate_TDS__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>Case_Type__c</field>

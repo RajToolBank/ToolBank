@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <accessMappings>
+        <accessLevel>Edit</accessLevel>
+        <object>Account</object>
+        <objectField>Id</objectField>
+        <userField>Contact.npsp__Primary_Affiliation__c</userField>
+    </accessMappings>
+    <name>Share agency with household contact</name>
+    <profiles>tb members</profiles>
+    <profiles>tb members plus</profiles>
+</SharingSet>

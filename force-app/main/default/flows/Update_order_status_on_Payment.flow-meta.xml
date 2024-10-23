@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>55.0</apiVersion>
+    <assignments>
+        <name>update_order_status_to_Close</name>
+        <label>update order status to close</label>
+        <locationX>50</locationX>
+        <locationY>395</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Error_Log_field__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Update order status on Payment</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>update_order_status_to_unpaid</name>
+        <label>update order status to unpaid</label>
+        <locationX>314</locationX>
+        <locationY>395</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Unpaid</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Error_Log_field__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Update order status on Payment</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
     <decisions>
         <name>check_if_All_paid</name>
         <label>check if All paid</label>
         <locationX>314</locationX>
-        <locationY>311</locationY>
+        <locationY>287</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>All_paid</name>
@@ -18,7 +58,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>update_order_status</targetReference>
+                <targetReference>update_order_status_to_Close</targetReference>
             </connector>
             <label>All paid</label>
         </rules>
@@ -40,7 +80,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>update_order_status_to_Unpaid</targetReference>
+                <targetReference>update_order_status_to_unpaid</targetReference>
             </connector>
             <label>payment refund</label>
         </rules>
@@ -73,32 +113,6 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
-    <recordUpdates>
-        <name>update_order_status</name>
-        <label>update order status</label>
-        <locationX>50</locationX>
-        <locationY>431</locationY>
-        <inputAssignments>
-            <field>Status</field>
-            <value>
-                <stringValue>Closed</stringValue>
-            </value>
-        </inputAssignments>
-        <inputReference>$Record</inputReference>
-    </recordUpdates>
-    <recordUpdates>
-        <name>update_order_status_to_Unpaid</name>
-        <label>update order status to Unpaid</label>
-        <locationX>314</locationX>
-        <locationY>431</locationY>
-        <inputAssignments>
-            <field>Status</field>
-            <value>
-                <stringValue>Unpaid</stringValue>
-            </value>
-        </inputAssignments>
-        <inputReference>$Record</inputReference>
-    </recordUpdates>
     <start>
         <locationX>188</locationX>
         <locationY>0</locationY>

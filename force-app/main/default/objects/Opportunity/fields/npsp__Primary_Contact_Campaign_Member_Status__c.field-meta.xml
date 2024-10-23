@@ -8,7 +8,6 @@
     <label>Primary Contact Campaign Member Status</label>
     <length>40</length>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

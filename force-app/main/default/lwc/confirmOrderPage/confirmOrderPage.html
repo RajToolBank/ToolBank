@@ -96,7 +96,7 @@
                         </lightning-button>&nbsp;
                         <lightning-button variant="brand" disabled={readonlyFlag} type="submit" label="Undo" onclick={handleUndo}>
                         </lightning-button>&nbsp;
-                        <lightning-button variant="brand" disabled={readonlyFlag} data-title="deleterow" onclick={handleDelete} type="submit"  label="Delete">
+                        <lightning-button variant="brand" disabled={readonlyFlagDelete} data-title="deleterow" onclick={handleDelete} type="submit"  label="Delete">
                         </lightning-button>&nbsp;
                     </div>
                 </div>
@@ -277,34 +277,34 @@
                 </section>
                 <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
             </template>
-
+            <!--========================================return date popup================================================-->
             <template if:true={setReturnDate}>
                 <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open" style="width: 65%;margin-left: 18%;">
                     <div class="slds-modal__container">
-                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={OpenModal}>
-                        <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
-                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
-                        </svg>
-                        <span class="slds-assistive-text">Cancel and close</span>
-                    </button>
-                    <div class="slds-modal__header">
-                        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Mass Update Scheduled Return Date</h1>
-                        
-                    </div>
-                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                        
-                        <lightning-input type="date" data-id="scheduleReturnDate" label="Scheduled Return Date" value={order.EndDate}></lightning-input>
-                        
-                    </div>
-                    <div class="slds-modal__footer">
-                        <button  class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={OpenModal}>Cancel</button>
-                        <button disabled={readonlyFlag} class="slds-button slds-button_brand" onclick={handleModalOk}>Ok</button>
-                    </div>
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={OpenModal}>
+                            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Cancel and close</span>
+                        </button>
+                        <div class="slds-modal__header">
+                            <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Mass Update Scheduled Return Date</h1>
+                            
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            
+                            <lightning-input type="date" data-id="scheduleReturnDate" label="Scheduled Return Date" value={order.EndDate}></lightning-input>
+                            
+                        </div>
+                        <div class="slds-modal__footer">
+                            <button  class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={OpenModal}>Cancel</button>
+                            <button disabled={readonlyFlag} class="slds-button slds-button_brand" onclick={handleModalOk}>Ok</button>
+                        </div>
                     </div>
                 </section>
                 <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
             </template>
-
+            <!--=================================conflict item popup===========================================================-->
             <template if:true={showConflict}>
                 <template if:true={conflictedOrderItems}>
                     <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-02" class="slds-modal slds-fade-in-open">
@@ -458,6 +458,12 @@
                 </section>
                 <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
             </div>
+            <!--==================================conflict item cmp=============================-->
+            <template if:true={orderItemCmp}>
+                
+                                <c-order-item-list-lwc ondatechangeconfirm={orderItemListCmp} ordertools={ordertools}></c-order-item-list-lwc>     
+                            
+            </template>
         </div>
     </template>
 </template>

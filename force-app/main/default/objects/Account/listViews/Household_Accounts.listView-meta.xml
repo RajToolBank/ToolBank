@@ -12,7 +12,12 @@
     <filters>
         <field>ACCOUNT.RECORDTYPE</field>
         <operation>equals</operation>
-        <value>Account.HH_Account</value>
+        <value>Account.Individual</value>
+    </filters>
+    <filters>
+        <field>ACCOUNT.NAME</field>
+        <operation>startsWith</operation>
+        <value>Anon</value>
     </filters>
     <label>Household Accounts</label>
     <sharedTo>

@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>People_Directly_Served__c</fullName>
     <externalId>false</externalId>
-    <inlineHelpText>Number of people directly served by project.</inlineHelpText>
+    <inlineHelpText>Number of individuals that will be directly impacted by work completed on this project.</inlineHelpText>
     <label>People Directly Served</label>
     <precision>18</precision>
     <required>false</required>

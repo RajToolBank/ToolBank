@@ -7,7 +7,6 @@
     <inlineHelpText>The type of In-Kind Gift, for example, Goods or Services.</inlineHelpText>
     <label>In-Kind Type</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

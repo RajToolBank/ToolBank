@@ -31,6 +31,12 @@
                          <td  style="font-size:15px;" colspan="2"><b>Order Contact Phone : </b><apex:outputText value="{!Order.BillToContact.phone}"/></td>
                         
                      </tr>  
+                     <tr>
+                         
+                      <td  style="font-size:15px;" colspan="2"><b>Total Handling Fee : </b>$<apex:outputText value="{!Order.Total_Amount__c}"/></td>
+                          <td  style="font-size:15px;" colspan="2"><b>Print Date : </b><apex:outputText value="{0,date,MM'/'dd'/'yyyy}" > <apex:param value="{!TODAY()}" /></apex:outputText></td>
+                         
+                      </tr> 
                      
                  </table>
       

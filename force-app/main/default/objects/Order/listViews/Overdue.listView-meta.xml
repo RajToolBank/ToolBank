@@ -7,7 +7,6 @@
     <columns>ORDERS.STATUS</columns>
     <columns>ORDERS.ORDER_NUMBER</columns>
     <columns>Amount_Owed__c</columns>
-    <columns>Days_till_Overdue_Email__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>ORDERS.STATUS</field>

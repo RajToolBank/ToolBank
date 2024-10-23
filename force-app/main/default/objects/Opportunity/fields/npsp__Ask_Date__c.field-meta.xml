@@ -7,7 +7,6 @@
     <inlineHelpText>The date the donor was asked for this Donation. This may be different from the date you received it.</inlineHelpText>
     <label>Ask Date</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>

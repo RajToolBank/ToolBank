@@ -97,19 +97,14 @@ export default class ToolListToSelectCmp extends LightningElement {
             borrow = borrowing.replace("weeks", "");
             borrow = borrowing.replace("week", "");
         }
-        let todayDate = new Date(new Date().setHours(0, 0, 0, 0));
-        const offset =  new Date().getTimezoneOffset()
-        pickdate = new Date(pickdate);
-        pickdate = new Date(pickdate.getTime()+offset*60000);
-        pickdate = new Date(pickdate.setHours(0, 0, 0, 0));
+        
+        pickdate = window.moment(pickdate);
         console.log(pickdate);
         let week = borrow?parseInt(borrow):1;
-        let retDate = new Date(pickdate);
         const days = week*7;
-        console.log(retDate);
         console.log(days);
-        retDate.setDate(retDate.getDate() + days);
-        
+        let retDate = pickdate.add(days,'days');
+        console.log(retDate);
         let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(retDate);
         let mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(retDate);
         let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(retDate);
@@ -120,6 +115,22 @@ export default class ToolListToSelectCmp extends LightningElement {
         let products = JSON.parse(JSON.stringify(this.productRecords));
         let count =products.length;
         if(selectedToolsCmp.length > 0){
+            selectedToolsCmp.forEach(function(ele){
+                if(!ele.value){
+                    ele.style.borderColor="red";
+                    qtyError = true;
+                }
+            });
+
+            if(qtyError){
+                const evt = new ShowToastEvent({
+                    title: "Tools",
+                    message: "Quantity is Missing for some tools please review.",
+                    variant: "error",
+                });
+                this.dispatchEvent(evt);
+                return;
+            }
 
             selectedToolsCmp.forEach(function(ele){
                 console.log(ele);

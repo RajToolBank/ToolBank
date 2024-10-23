@@ -6,7 +6,6 @@
 (ie. URL for a particular record or report within Salesforce, or to an App you are interested in.)</inlineHelpText>
     <label>URL</label>
     <required>false</required>
-    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Url</type>

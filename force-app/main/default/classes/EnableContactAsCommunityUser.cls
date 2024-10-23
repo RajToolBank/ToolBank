@@ -55,7 +55,7 @@ public without Sharing class EnableContactAsCommunityUser{
 
         system.resetPassword(userId,true);
         User usr = [SELECT Id,username, ContactId FROM USER WHERE Id=:userId];
-        contact con = new contact(id=usr.ContactId,username__c =usr.username);
+        contact con = new contact(id=usr.ContactId,username__c =usr.username,user__c = usr.Id);
 
         update con;
     }

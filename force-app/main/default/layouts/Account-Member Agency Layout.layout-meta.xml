@@ -2,6 +2,7 @@
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <customButtons>Create_Order</customButtons>
     <excludeButtons>DisablePartnerPortalAccount</excludeButtons>
+    <excludeButtons>OpenSlackRecordChannel</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>true</customLabel>
@@ -38,10 +39,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>RecordTypeId</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>OwnerId</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -137,6 +134,10 @@
                 <behavior>Edit</behavior>
                 <field>Policies_Agreement_Date__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Agreement_Signed_Date__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -186,7 +187,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Available_Credits__c</field>
+                <field>Available_Credits_R__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -306,15 +307,16 @@
         <label>System Information</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>CreatedById</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>LastModifiedById</field>
+                <behavior>Edit</behavior>
+                <field>OwnerId</field>
             </layoutItems>
         </layoutColumns>
-        <layoutColumns/>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Permanently_Close_Agency__c</field>
+            </layoutItems>
+        </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <platformActionList>
@@ -432,13 +434,12 @@
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>NAME</fields>
-        <fields>Contact.CNTC_FIRST_NAME</fields>
-        <fields>Contact.NAME</fields>
+        <fields>Contact_Record__c</fields>
         <fields>Contact.CNTC_EMAIL</fields>
         <fields>npe5__Status__c</fields>
         <fields>Contact.npsp__Primary_Affiliation__c</fields>
-        <fields>Contact.Primary_Contact__c</fields>
         <fields>Contact.Executive_Contact__c</fields>
+        <fields>Contact.Primary_Contact__c</fields>
         <relatedList>npe5__Affiliation__c.npe5__Organization__c</relatedList>
         <sortField>npe5__Status__c</sortField>
         <sortOrder>Asc</sortOrder>
@@ -459,7 +460,7 @@
         <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>NAME</fields>
         <fields>Amount__c</fields>
-        <fields>Amount_Used__c</fields>
+        <fields>Amount_Used_R__c</fields>
         <fields>Amount_Remaining__c</fields>
         <fields>Expiration_Date__c</fields>
         <relatedList>Credit__c.Organization__c</relatedList>
@@ -500,6 +501,10 @@
         <fields>CASES.CREATED_DATE</fields>
         <fields>CASES.PRIORITY</fields>
         <relatedList>Case.Member_Agency__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Pickup_Delivery_Location__c.Affiliate__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

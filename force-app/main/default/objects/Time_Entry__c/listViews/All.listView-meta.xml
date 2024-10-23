@@ -3,10 +3,16 @@
     <fullName>All</fullName>
     <columns>NAME</columns>
     <columns>Date_Incurred__c</columns>
+    <columns>Case_Type__c</columns>
     <columns>Incurred_By__c</columns>
     <columns>Duration__c</columns>
     <columns>Description__c</columns>
     <columns>System_Request__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>Date_Incurred__c</field>
+        <operation>lessOrEqual</operation>
+        <value>12/31/2023</value>
+    </filters>
     <label>All</label>
 </ListView>

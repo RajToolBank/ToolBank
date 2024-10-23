@@ -18,7 +18,7 @@
     <filters>
         <field>ACCOUNT.NAME</field>
         <operation>equals</operation>
-        <value>TDS-Puerto Rico</value>
+        <value>TDS-Puerto Rico Site</value>
     </filters>
     <label>Puerto Rico - Inventory</label>
     <sharedTo>

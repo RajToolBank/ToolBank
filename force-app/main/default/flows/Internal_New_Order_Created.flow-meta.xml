@@ -76,17 +76,62 @@
         </inputParameters>
     </actionCalls>
     <actionCalls>
-        <name>HSC_HRM</name>
-        <label>HSC-HRM</label>
-        <locationX>3218</locationX>
+        <name>HRM_New_Order</name>
+        <label>HRM New Order</label>
+        <locationX>4274</locationX>
         <locationY>431</locationY>
-        <actionName>Order.HSC_HRM_INT_Order_Submit</actionName>
+        <actionName>Order.HRM_INT_Order_Submit</actionName>
         <actionType>emailAlert</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>SObjectRowId</name>
             <value>
                 <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Hub_South_Central_New_Order</name>
+        <label>Hub South Central New Order</label>
+        <locationX>3218</locationX>
+        <locationY>431</locationY>
+        <actionName>Order.HSC_INT_Order_Submit</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>MJC_New_Order</name>
+        <label>MJC New Order</label>
+        <locationX>4010</locationX>
+        <locationY>431</locationY>
+        <actionName>Order.MJC_INT_Order_Submit</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>MU20_New_Order</name>
+        <label>MU20 New Order</label>
+        <locationX>4538</locationX>
+        <locationY>431</locationY>
+        <actionName>Order.MU20_INT_Order_Submit</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.OriginalOrderId</elementReference>
             </value>
         </inputParameters>
     </actionCalls>
@@ -229,7 +274,7 @@
     <decisions>
         <name>Check_ToolBank_Location</name>
         <label>Check ToolBank Location</label>
-        <locationX>2030</locationX>
+        <locationX>2426</locationX>
         <locationY>323</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -489,15 +534,8 @@
             <label>Site ATL-HMW</label>
         </rules>
         <rules>
-            <name>TDS_PC_HSE_HNE_MU1</name>
-            <conditionLogic>(1 OR 2 OR 3 OR 4) AND 5</conditionLogic>
-            <conditions>
-                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>0014R00003M9m0gQAB</stringValue>
-                </rightValue>
-            </conditions>
+            <name>TDS_PC_HSE_HNE_MU17_MU18_MU19</name>
+            <conditionLogic>(1 OR 2 OR 3 OR 5 OR 6 OR 7) AND 4</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
                 <operator>EqualTo</operator>
@@ -526,14 +564,35 @@
                     <stringValue>TB Members Plus</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>001UN00000DXcNFYA1</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>001UN00000DXeAjYAL</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>001UN00000DXNi6YAH</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>TDS_New_Order</targetReference>
             </connector>
-            <label>TDS PC-HSE-HNE-MU1</label>
+            <label>TDS PC-HSE-HNE-MU17-MU18-MU19</label>
         </rules>
         <rules>
-            <name>HRM_HSC</name>
-            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+            <name>HSC</name>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
                 <operator>EqualTo</operator>
@@ -545,24 +604,17 @@
                 <leftValueReference>$Record.Affiliate__r.Parent.Id</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>0014R00003UeXFyQAN</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>$Record.Affiliate__r.Parent.Id</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
                     <stringValue>0014R00003OCG26QAH</stringValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>HSC_HRM</targetReference>
+                <targetReference>Hub_South_Central_New_Order</targetReference>
             </connector>
-            <label>HRM-HSC</label>
+            <label>Hub South Central</label>
         </rules>
         <rules>
-            <name>Sacramento</name>
-            <conditionLogic>and</conditionLogic>
+            <name>HW_MU8_MU1</name>
+            <conditionLogic>1 AND (2 OR 3 OR 4)</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
                 <operator>EqualTo</operator>
@@ -584,10 +636,17 @@
                     <stringValue>0014R00003M9m0lQAB</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0014R00003M9m0gQAB</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>SMF_New_Order</targetReference>
             </connector>
-            <label>HW-MU8</label>
+            <label>HW-MU8-MU1</label>
         </rules>
         <rules>
             <name>ToolBank_Training</name>
@@ -611,8 +670,74 @@
             </connector>
             <label>ToolBank Training</label>
         </rules>
+        <rules>
+            <name>Magic_City</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>001UN000004RBWaYAO</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>TB Members Plus</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MJC_New_Order</targetReference>
+            </connector>
+            <label>Magic City</label>
+        </rules>
+        <rules>
+            <name>Hub_Rocky_Mountain</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>0014R00003UeXFyQAN</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>TB Member Plus</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>HRM_New_Order</targetReference>
+            </connector>
+            <label>Hub Rocky Mountain</label>
+        </rules>
+        <rules>
+            <name>MU20</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Affiliate__r.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>001UN00000IMehhYAD</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.CreatedBy.Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>TB Members Plus</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MU20_New_Order</targetReference>
+            </connector>
+            <label>MU20</label>
+        </rules>
     </decisions>
-    <description>Reorganized for communications updates.</description>
+    <description>Added MU20</description>
     <environments>Default</environments>
     <interviewLabel>Internal New Order Created {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Internal New Order Created</label>
@@ -636,7 +761,7 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>1904</locationX>
+        <locationX>2300</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Check_ToolBank_Location</targetReference>

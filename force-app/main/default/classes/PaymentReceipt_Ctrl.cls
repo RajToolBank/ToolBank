@@ -88,28 +88,51 @@ public without sharing class PaymentReceipt_Ctrl {
 
 	}
     public void updateOrder(){
-       
+            
+            List<ContentDocumentLink> linkList = [SELECT ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId =: orderId];
+            
+            List<Id> docIdList = new List<Id>();
+            for(ContentDocumentLink link: linkList){
+                docIdList.add(link.ContentDocumentId);
+            }
+
+            ContentVersion docToupdate;
+            for(ContentVersion doc: [SELECT id,IsMajorVersion,Title,ContentDocumentId FROM ContentVersion WHERE ContentDocumentId IN:docIdList AND Title like 'Payment_Receipt%.pdf' AND IsMajorVersion = false ORDER BY CreatedDate DESC]){
+                docToupdate = doc;
+                break;
+            }
+            
+
             PageReference PDf =  Page.PaymentReceipt;//Replace attachmentPDf with the page you have rendered as PDF
             PDf.getParameters().put('Id',orderId);
             PDf.setRedirect(true);
 
-            ContentVersion conVer = new ContentVersion();
-            conVer.ContentLocation = 'S';
-            conVer.PathOnClient = 'Payment_Receipt_'+Date.today().format()+'.pdf';
-            conVer.Title = 'Payment_Receipt_'+Date.today().format()+'.pdf';
-            if(!Test.isRunningTest())
-                conVer.VersionData = pdf.getContentAsPDF();
-            else conVer.VersionData = EncodingUtil.base64Decode('blob');
-            insert conVer; 
+            if(docToupdate != null ){
+                docToupdate.Title = 'Payment_Receipt-'+Date.today().format()+'.pdf';
+                if(!Test.isRunningTest())
+                    docToupdate.VersionData = pdf.getContentAsPDF();
+                else docToupdate.VersionData = EncodingUtil.base64Decode('blob');
+                update docToupdate;
+            }else{
+                ContentVersion conVer = new ContentVersion();
+                conVer.ContentLocation = 'S';
+                conVer.IsMajorVersion  = false;
+                conVer.PathOnClient = 'Payment_Receipt_'+Date.today().format()+'.pdf';
+                conVer.Title = 'Payment_Receipt_'+Date.today().format()+'.pdf';
+                if(!Test.isRunningTest())
+                    conVer.VersionData = pdf.getContentAsPDF();
+                else conVer.VersionData = EncodingUtil.base64Decode('blob');
+                insert conVer; 
 
 
-            Id conDoc = [SELECT ContentDocumentId FROM ContentVersion WHERE Id =:conVer.Id].ContentDocumentId;
-      
-            ContentDocumentLink conDocLink = New ContentDocumentLink();
-            conDocLink.LinkedEntityId = orderId;
-            conDocLink.ContentDocumentId = conDoc;  //ContentDocumentId Id from ContentVersion
-            conDocLink.shareType = 'V';
-            insert conDocLink;
+                Id conDoc = [SELECT ContentDocumentId FROM ContentVersion WHERE Id =:conVer.Id].ContentDocumentId;
+        
+                ContentDocumentLink conDocLink = New ContentDocumentLink();
+                conDocLink.LinkedEntityId = orderId;
+                conDocLink.ContentDocumentId = conDoc;  //ContentDocumentId Id from ContentVersion
+                conDocLink.shareType = 'V';
+                insert conDocLink;
+            }
         
     }
     public List<String> getImageList() {
